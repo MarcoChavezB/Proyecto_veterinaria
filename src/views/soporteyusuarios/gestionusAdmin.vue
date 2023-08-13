@@ -24,7 +24,7 @@
           v-for="user in users"
           :Id="user.id"
           :Nombre="user.nombre"
-          :Apellidos="user.apellidos"
+          :Apellido="user.apellido"
           :Correo="user.correo"
           :Foto="user.fotourl"
         />
@@ -76,7 +76,6 @@ watch(filter, (newValue) => {
    } else {
     users.value = [response.data.data];
    }
-
   } catch (error) {
     console.error('Hubo un error al obtener el usuario:', error);
   }
@@ -98,18 +97,17 @@ const UsersCorreo = async () => {
    } else {
     users.value = [response.data.data];
    }  
-   console.log(response.data.data)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
 };
 
-  // traer todos los usuarios, se traen todos por default
   const fetchUsers = async () => {
     users.value = [];
   try {
     const response = await axios.get('http://web.Backend.com/clientes/All');
-    users.value = response.data.data; // Coloca la respuesta en el arreglo 'users'
+    users.value = response.data.data;
+    console.log(users.value)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -162,7 +160,7 @@ onMounted(fetchUsers);
 
 .content {
   display: flex;
-  align-items: flex-start; /* Cambiado de center a flex-start */
+  align-items: flex-start; 
   justify-content: flex-start;
   width: 100%;
   height: 80%;
@@ -173,10 +171,29 @@ onMounted(fetchUsers);
 
 .user-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1rem;
-  width: 100%; /* Asegúrate de que la grilla toma todo el ancho posible */
+  width: 100%;
 }
+
+@media screen and (max-width: 1100px) {
+  .user-grid{
+    grid-template-columns: 1fr 1fr 1fr ;
+  }
+}
+@media screen and (max-width: 800px) {
+  .user-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .content{
+   align-items: center;
+  }
+}
+
+@media screen and (min-width: 1301px) {
+
+}
+
 
   
   .message {

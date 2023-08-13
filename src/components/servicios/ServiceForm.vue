@@ -216,7 +216,7 @@ border-radius: 10px;
     justify-content: center;
   }
 .display2{
-  background-color: rgba(95, 95, 95, 0.4); /* fondo negro semi-transparente */
+  background-color: rgba(95, 95, 95, 0.4);
   height: 100%;
   width: 100%;
   z-index: 103;
