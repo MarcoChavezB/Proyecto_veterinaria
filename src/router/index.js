@@ -32,10 +32,21 @@ const routes = [
                         component: ubicacion,
                   },
                   {
-                        path: '/servicios',
-                        name: 'servicios',
-                        component: servicios
-                  }
+                        path: '/serviciosSin',
+                        name: 'serviciosSin',
+                        component: servicios,
+
+                  },
+                {
+                    path: '/catalogo',
+                    name: 'catalogo',
+                    component: catalogo
+                },
+                {
+                    path: '/ubicacion',
+                    name: 'ubicacion',
+                    component: ubicacion,
+                }
             ],
       },
       {
@@ -55,11 +66,6 @@ const routes = [
                         path: '/cita',
                         name: 'cita',
                         component: citas,
-                  },
-                  {
-                        path: '/ubicacion',
-                        name: 'ubicacion',
-                        component: ubicacion,
                   },
                   {
                         path: '/catalogo',
@@ -153,13 +159,15 @@ const routes = [
     
   },
 
-  {
-
+  { 
     path: '/panelAdmin',
-    name: 'panelAdmin',
-    component: panelAdmin,
-            // 
+  name: 'panelAdmin',
+  component: panelAdmin,
+  meta: {
+    requiresAuth: true,
+    requiredRole: 'Administrador'
 
+  },
     children: [
       {
         path: '/control',
@@ -403,7 +411,7 @@ router.beforeEach((to, from, next) => {
   // If the user is already authenticated and tries to access the login page,
   // redirect them to another page (e.g., dashboard)
   if (to.name === 'login' && authToken) {
-    next('/Home');
+    next('/cuerpo');
   } else {
     next();
   }
@@ -411,20 +419,30 @@ router.beforeEach((to, from, next) => {
 
 // Add navigation guard to check for authentication token
 router.beforeEach((to, from, next) => {
-  // Check if the route requires authentication
-  if (to.matched.some((route) => route.meta.requiresAuth)) {
-    // Get the token from the Pinia store
-    const authToken = useUsuarioStore().usuario._token;
+  const userStore = useUsuarioStore();
+  const authToken = userStore.usuario._token;
+  const userType = useUsuarioStore().usuario.usuario.tipo_usuario;
 
-    // If the user is authenticated (has a token), allow access to the route
-    if (authToken) {
-      next();
-    } else {
-      // If the user is not authenticated, redirect to the login page
+  if (to.name === 'login' && authToken) {
+    next('/cuerpo');
+  }
+  else if (to.matched.some((route) => route.meta.requiresAuth)) {
+    if (!authToken) {
       next('/login');
     }
-  } else {
-    // For public routes, allow access without authentication
+    else if (userType === 'Administrador' && to.name === 'perfil') {
+      console.log('Redireccionando a Control porque es un Administrador.');
+      next('/control');
+    } 
+    else if (to.matched.some(route => route.meta.requiredRole && route.meta.requiredRole !== userType)) {
+      next('/login'); 
+    } 
+    else {
+      next();
+    }
+  } 
+  else {
     next();
   }
 });
+

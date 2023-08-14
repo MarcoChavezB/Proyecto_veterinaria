@@ -10,8 +10,8 @@
             </div>
             <div class="prod">
                 <div class="cont-productos">
-                    <producto @click="mandarIdProd(productoArray[0].id)" v-for="productoArray in productosEnPantalla" :key="productoArray[0].id"
-                      :id="productoArray[0].existencias"  :name="productoArray[0].nom_producto" :precio="productoArray[0].precio_venta" />
+                  <producto @click="sumarCant(productoArray[0].id)" v-for="productoArray in productosEnPantalla" :key="productoArray[0].id"
+                            :id="productoArray[0].existencias"  :name="productoArray[0].nom_producto" :precio="productoArray[0].precio_venta" />
                 </div>
             </div>
         </div>
@@ -65,6 +65,8 @@
             <div class="opciones">
                 <div class="status">
                   <btn id="black" title="Limpiar" @click="reload" />
+                  <successAlert name=" compra Realizada" v-if="mostrarSuccess"/>
+                  <errorAlert name="Seleccione un tipo de pago" v-if="mostrarAlerta"/>
                 </div>
             </div>
         </div>
@@ -80,11 +82,13 @@ import { useStore } from '@/stores/counter.js'
 import axios from 'axios'
 import {idProducto} from "@/stores/counter.js";
 import {cantProducto} from "@/stores/counter.js";
+import errorAlert from '../../components/Mensajes/BarAlertError.vue'
+import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
 import row_tiket_producto from '../../components/compras/RowTiketProd.vue'
 const id_producto = idProducto();
 const idProd = ref();
-
-
+const mostrarAlerta = ref(false)
+const mostrarSuccess = ref(false)
 
 // CALL venta_productos('efectivo', '[ [1, 3], [2,4], [3,4]]');
 const metodo_pago_total = ref('');
@@ -92,14 +96,26 @@ const productos_compra = ref([])
 
 const cantidad = cantProducto();
 const recibirCantidad = ref()
+const cantidadesPorID = ref({}); // Objeto para rastrear cantidades por ID
 
-const imprimir = () =>{
-  recibirCantidad.value = cantidad.state.variable
-}
+// Función para incrementar la cantidad del producto específico
+const sumarCant = (id) => {
+  const producto = productosEnPantalla.value.find(item => item[0].id === id);
+  if (producto) {
+    producto.cantidad++;
+    if (!cantidadesPorID.value[id]) {
+      cantidadesPorID.value[id] = 1;
+    } else {
+      cantidadesPorID.value[id]++;
+    }
+  }
+};
 
 
-
-setInterval(imprimir, 1000)
+//const imprimir = () =>{
+//  recibirCantidad.value = cantidad.state.variable
+//}
+//setInterval(imprimir, 1000)
 
 const store = useStore()
 const productosEnPantalla = ref([])
@@ -157,42 +173,56 @@ const calcularSubtotal = () => {
 }
 const tiketData = ref([])
 
+const construirArregloProductos = () => {
+  const arregloProductos = [];
+  for (const id in cantidadesPorID.value) {
+    arregloProductos.push([parseInt(id), cantidadesPorID.value[id]]);
+  }
+  return arregloProductos;
+};
 
 const reload = () =>{
   location.reload()
 }
 const terminar = async () => {
+  console.log(cantidadesPorID.value);
 
-  const productosInfo = productosEnPantalla.value.map(producto => [producto[0].id, recibirCantidad.value]);
+  const productosInfo = construirArregloProductos();
+
+  const productosString = productosInfo.map(([id, cantidad]) => `[${id}, ${cantidad}]`).join(', ');
+
   const jsonData = {
     metodo_pago: metodo_pago.value,
-    productos: JSON.stringify(productosInfo)
+    productos: `[${productosString}]` // Formatea la cadena de productos
   };
-  const parsedProductos = JSON.parse(jsonData.productos);
-  const productosInfoParsed = parsedProductos.map(producto => [parseInt(producto[0]), parseInt(producto[1])]);
-  const jsonDataFormatted = {
-    metodo_pago: jsonData.metodo_pago,
-    productos: productosInfoParsed
-  };
+  console.log(jsonData)
 
-  console.log(jsonDataFormatted);
+  if (jsonData.metodo_pago === ''){
+    mostrarAlerta.value = true
+    setTimeout(() => {
+      mostrarAlerta.value = false;
+    }, 4000);
+  } else {
 
-  try {
-    const response = await axios.post('http://web.backend.com/venta', jsonDataFormatted);
-    console.log(response)
-  } catch (error) {
-    console.log(error);
+    try {
+      const response = await axios.post('http://web.backend.com/venta', jsonData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      const GenerarTiket = await axios.get('http://web.backend.com/GenerarTiket');
+      tiketData.value = GenerarTiket.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+    mostrarSuccess.value = true
+    setTimeout(() => {
+      mostrarSuccess.value = false;
+    }, 4000);
   }
-
-  try {
-    const GenerarTiket = await axios.get('http://web.backend.com/GenerarTiket');
-    tiketData.value = GenerarTiket.data.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
+};
 
 const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'

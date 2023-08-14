@@ -3,9 +3,10 @@
       <div class="user-info">
           <h5>{{ Nombre }} {{ Apellido }}</h5>
         <div class="detail-grid">
-          <div class="renglon"><h6>ID de usuario: {{ Id }}</h6></div> 
           <div class="renglon"><h6>Correo: {{ Correo }}</h6></div> 
-          <button class="buton">Ver Usuario</button>
+          <div class="renglon"><h6>Telefono 1: {{ telefono1 }}</h6></div> 
+          <div class="renglon"><h6>Telefono 2: {{ telefono2 }}</h6></div> 
+          <button class="buton" @click="verperfil(Id)">Ver Usuario</button>
         </div>
       </div>
     </div>
@@ -13,6 +14,11 @@
   
   <script setup>
 import { defineProps } from 'vue';
+
+const emits = defineEmits(['ide'])
+const verperfil = (Id) => {
+  emits('ide', Id);
+}
 
 const props = defineProps({
   Nombre: {
@@ -31,13 +37,15 @@ const props = defineProps({
     type: Number,
     default: 0
   },
-  Foto: {
-    type: String,
-    default: ''
+  telefono1: {
+    type: Number
+  },
+  telefono2: {
+    type: Number
   }
 });
 
-let { Nombre, Apellido, Correo, Id, Foto } = props;
+let { Nombre, Apellido, Correo, Id, telefono1, telefono2 } = props;
   </script>
   
   <style scoped>

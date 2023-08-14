@@ -1,11 +1,8 @@
-
 <template>
     <div class="cont-fluid">
-        <header>
-            <headerClient />
-        </header>
+    
         <div id="top">
-
+  
             <main>
                 <article>
                     <!--Principal-->
@@ -15,12 +12,14 @@
                                 <span class="span">Gran calidad</span> Productos
                             </h1>
                             <p class="hero-text">Sale up to 40% off today</p>
+                            <router-link :to="{name: 'catalogo'}">
                             <a href="#" class="btn">Nuestros productos</a>
+                        </router-link>
                         </div>
                     </section>
                     <!--Principal-->
-
-
+  
+  
                     <!--Categorias-->
                     <section class="section category" aria-label="category">
                         <div class="cont">
@@ -35,7 +34,9 @@
                                                 loading="lazy" alt="Cat Food" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                            <a href="#" class="card-title">Cat Food</a>
+                                          <router-link :to="{name: 'catalogo'}">
+                                            <a class="card-title">Cat Food</a>
+                                          </router-link>
                                         </h3>
                                     </div>
                                 </li>
@@ -46,7 +47,9 @@
                                                 loading="lazy" alt="Cat Toys" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                            <a href="#" class="card-title">Cat Toys</a>
+                                          <router-link :to="{name: 'catalogo'}">
+                                            <a class="card-title">Cat Toys</a>
+                                          </router-link>
                                         </h3>
                                     </div>
                                 </li>
@@ -54,10 +57,12 @@
                                     <div class="category-card">
                                         <figure class="card-banner img-holder" style="--width: 330; --height: 300;">
                                             <img src="../../../assets/img/imgClient/category-3.jpg" width="330" height="300"
-                                                loading="lazy" alt="Dog Food" class="img-cover">
+                                                loading="lazy" alt="Dog Food" class="img-cover" />
                                         </figure>
                                         <h3 class="h3">
-                                            <a href="#" class="card-title">Dog Food</a>
+                                          <router-link :to="{name: 'catalogo'}">
+                                            <a class="card-title">Dog Food</a>
+                                          </router-link>
                                         </h3>
                                     </div>
                                 </li>
@@ -68,7 +73,9 @@
                                                 loading="lazy" alt="Dog Toys" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                            <a href="#" class="card-title">Dog Toys</a>
+                                          <router-link :to="{name: 'catalogo'}">
+                                            <a class="card-title">Dog Toys</a>
+                                          </router-link>
                                         </h3>
                                     </div>
                                 </li>
@@ -79,7 +86,9 @@
                                                 loading="lazy" alt="Dog Sumpplements" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                            <a href="#" class="card-title">Dog Sumpplements</a>
+                                          <router-link :to="{name: 'catalogo'}">
+                                            <a class="card-title">Dog Supplements</a>
+                                          </router-link>
                                         </h3>
                                     </div>
                                 </li>
@@ -87,98 +96,53 @@
                         </div>
                     </section>
                     <!--Categorias-->
-
+  
                     <!--Ofertas-->
                     <section class="section offer" aria-label="offer">
                         <div class="cont">
                             <ul class="grid-list">
                                 <li>
                                     <div class="offer-card has-bg-image img-holder" style="--width: 540; --height: 374;">
-                                        <p class="card-subtitle">Selected Items. Online Only.</p>
+                                        <p class="card-subtitle">Mira tus citas!</p>
                                         <h3 class="h3 card-title">
-                                            Hot Summer <span class="span">Deals</span>
+                                            Seguimiento <span class="span">Personalizado</span>
                                         </h3>
-                                        <a href="#" class="btn">Read More</a>
+                                      <router-link :to="{name: 'citasPendientesC'}">
+                                        <a href="#" class="btn">Mostrar mas</a>
+                                      </router-link>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="offer-card has-bg-image img-holder" style=" --width: 540; --height: 374;">
-                                        <p class="card-subtitle">Treats & Grooming</p>
+                                        <p class="card-subtitle">Esta con nosotros</p>
                                         <h3 class="h3 card-title">
-                                            Spoil your true <span class="span">love</span>
+                                          Realizar una <span class="span">cita</span>
                                         </h3>
-                                        <a href="#" class="btn">Read More</a>
+                                      <router-link :to="{name: 'cita'}">
+                                        <a href="#" class="btn">Realizar</a>
+                                      </router-link>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="offer-card has-bg-image img-holder" style="--width: 540; --height: 374;">
-                                        <p class="card-subtitle">Our Brand You Will Love</p>
+                                        <p class="card-subtitle">Muy rapido</p>
                                         <h3 class="h3 card-title">
-                                            New in this <span class="span">year</span>
+                                            Mas de lo que <span class="span">imaginas</span>
                                         </h3>
-                                        <a href="#" class="btn">Read More</a>
+  
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </section>
-
+  
                     <!--Ofertas-->
-
+  
                     <!--Productos-->
-                    <section class="section product" id="shop" aria-label="product">
-                        <div class="cont">
-                            <h2 class="h2 section-title">
-                                <span class="span">Mas</span> vendidos
-                            </h2>
-                            <ul class="grid-list">
-
-                                <li>
-                                    <div class="product-card">
-
-                                        <div class="card-banner img-holder" style="--width: 360; --height: 360;">
-                                            <img src="../../../assets/img/imgClient/product-1.jpg" width="360" height="360"
-                                                loading="lazy" alt="Componente" class="img-cover default">
-                                            <img src="../../../assets/img/imgClient/product-1_0.jpg" width="360"
-                                                height="360" loading="lazy" alt="Commodo leo sed porta"
-                                                class="img-cover hover">
-
-                                            <button class="card-action-btn" aria-label="add to card" title="Add To Card">
-                                                <ion-icon name="bag-add-outline" aria-hidden="true"></ion-icon>
-                                            </button>
-                                        </div>
-
-                                        <div class="card-content">
-
-                                            <div class="wrapper">
-                                                <div class="rating-wrapper">
-                                                    <ion-icon name="star" aria-hidden="true"></ion-icon>
-                                                    <ion-icon name="star" aria-hidden="true"></ion-icon>
-                                                    <ion-icon name="star" aria-hidden="true"></ion-icon>
-                                                    <ion-icon name="star" aria-hidden="true"></ion-icon>
-                                                    <ion-icon name="star" aria-hidden="true"></ion-icon>
-                                                </div>
-
-                                                <span class="span">(1)</span>
-                                            </div>
-
-                                            <h3 class="h3">
-                                                <a href="#" class="card-title">Componente producto</a>
-                                            </h3>
-
-                                            <data class="card-price" value="15">precio</data>
-
-                                        </div>
-
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                    <!--Productos-->
-
-
-
+  
+  
+  
+  
                     <!--Informacion-->
                     <section class="section service" aria-label="service">
                         <img src="../../../assets/img/imgClient/service-image.png" width="122" height="136" loading="lazy"
@@ -187,27 +151,27 @@
                             <span class="span">Todo lo que tu amigo necesita,</span> encuentralo aqui !
                         </h2>
                         <!--Informacion-->
-
-
-
+  
+  
+  
                         <!--Service-->
-                        <ul class="grid-list">
+                        <ul class="grid-list d-flex justify-content-center align-items-center">
                             <li>
                                 <div class="service-card">
                                     <figure class="card-icon">
                                         <img src="../../../assets/img/imgClient/service-icon-1.png" width="70" height="70"
                                             loading="lazy" alt="service icon">
                                     </figure>
-                                    <h3 class="h3 card-title">Free Same-Day Delivery</h3>
+                                    <h3 class="h3 card-title">Encuantranos cuando quieras </h3>
                                     <p class="card-text">
-                                        Order by 2pm local time to get free delivery on orders $35+ today.
+                                        Estamos disponibles 10 horas al dia
                                     </p>
                                 </div>
                             </li>
                         </ul>
                     </section>
                     <!--Service-->
-
+  
                     <!--Gato-->
                     <section class="cta has-bg-image taste" aria-label="cta">
                         <div class="cont">
@@ -220,54 +184,56 @@
                                     alt="taste guarantee" class="img">
                                 <h2 class="h2 section-title">Nuestros productos le encantaran!</h2>
                                 <p class="section-text">
-                                    En Petio, creemos que a tu perro y a tu gato les gustará tanto su comida que si no ...
+                                    En veterinariaCachorros, creemos que a tu perro y a tu gato les gustará tanto su comida que si no ...
                                     te ayudaremos a
                                     a encontrar
                                     sustituto. Esa es nuestra garantía de sabor.
                                 </p>
-                                <a href="#" class="btn">Find more</a>
+                              <router-link :to="{name: 'catalogo'}">
+                                <a class="btn">Mostrar</a>
+                              </router-link>
                             </div>
                         </div>
                     </section>
                     <!--Gato-->
-
+  
                     <section class="section brand" aria-label="brand">
                         <div class="cont">
-
+  
                             <h2 class="h2 section-title">
                                 <span class="span">Marcas</span> Populares
                             </h2>
-
+  
                             <ul class="has-scrollbar">
-
+  
                                 <li class="scrollbar-item">
                                     <div class="brand-card img-holder" style="--width: 150;">
                                         <img src="../../../assets/img/marcas/marca1.png" width="150" height="150"
                                             loading="lazy" alt="brand logo" class="img-cover">
                                     </div>
                                 </li>
-
+  
                                 <li class="scrollbar-item">
                                     <div class="brand-card img-holder" style="--width: 150;">
                                         <img src="../../../assets/img/marcas/marca2.png" width="150" height="150"
                                             loading="lazy" alt="brand logo" class="img-cover">
                                     </div>
                                 </li>
-
+  
                                 <li class="scrollbar-item">
                                     <div class="brand-card img-holder" style="--width: 150; ">
                                         <img src="../../../assets/img/marcas/marca4.png" width="150" height="150"
                                             loading="lazy" alt="brand logo" class="img-cover">
                                     </div>
                                 </li>
-
+  
                                 <li class="scrollbar-item">
                                     <div class="brand-card img-holder" style="--width: 150; ">
                                         <img src="../../../assets/img/marcas/marca5.png" width="150" height="150"
                                             loading="lazy" alt="brand logo" class="img-cover">
                                     </div>
                                 </li>
-
+  
                                 <li class="scrollbar-item">
                                     <div class="brand-card img-holder" style="--width: 150;">
                                         <img src="../../../assets/img/marcas/marca6.png" width="150" height="150"
@@ -277,7 +243,7 @@
                             </ul>
                         </div>
                     </section>
-
+  
                 </article>
             </main>
         </div>
@@ -286,7 +252,8 @@
             <footerClient/>
         </footer>
     </div>
-</template>
+  </template>
+  
 
 <script setup>
 import footerClient from '../../../components/cliente/menuComponents/footer.vue'

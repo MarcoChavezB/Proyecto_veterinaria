@@ -73,7 +73,6 @@
   const correct = ref(false);
 
   let updatedUserInfo = ref(null);
-const nombreA = ref('');
 const loading =ref(false);
 
 let userInfo = reactive({
@@ -112,7 +111,6 @@ async function updateUser() {
     } else {
      console.error('error al actualizar');
     }
-    console.log(response.data);
   } catch (error) {
     console.error('Hubo un error al actualizar los datos del usuario:', error);
   }
@@ -129,7 +127,6 @@ const userinfo = async () => {
     if (response.data.data) {
       Object.assign(userInfo, response.data.data);
     }    
-    console.log(userInfo)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -204,6 +201,8 @@ function saveInformation() {
   padding: 10px;
   box-shadow: 0 0 1rem #0000008a;
 }
+
+
 
 
 
