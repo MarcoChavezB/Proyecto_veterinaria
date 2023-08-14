@@ -4,22 +4,10 @@
     <div class="container">
       <div class="grid">
         <div class="column1">
-          <div class="image">
-            <FotoUsuario class="foto"/>
-        </div>
       </div>
         <div class="column2">
           <div class="row1 fil">
-             <h3>! HOLA {{ nombreA }} !</h3>
-          </div>
-          <div class="row2 fill2">
-            <h4>Nombre: {{ nombreA }}</h4>
-          </div>
-          <div class="row3 fill2">
-            <h4>Apellidos: {{ apellidosA }}</h4>
-          </div>
-          <div class="row4 fill2">
-            <h4>Correo: {{ correoA }}</h4>
+             <h3>! Hola  {{ userInfo.nombre }} !</h3>
           </div>
         </div>
         <div class="column3"></div>
@@ -27,20 +15,48 @@
     </div>
     <div class="informacion">
       <div class="info">
-        <div class="text-field" v-for="(field, index) in fields" :key="index">
-  <div class="input-wrapper">
-    <label :for="field">{{ field }}</label>
-    <div>
-      <input type="text" :id="field" v-model="userInfo[field]" :disabled="!isEditable[field]" />
-    </div>
-  </div>
+        <div class="text-field">
+          <div class="input-wrapper">
+            <div class="inputs">
+              <label>Nombre:</label>
+    <label>Apellido:</label>
+    <label>Correo:</label>
+            </div>
+<div class="inputss">
+  <input type="text" v-model="userInfo.nombre" :disabled="!isEditing" />
+      <input type="text" v-model="userInfo.apellido" :disabled="!isEditing" />
+      <input type="text" v-model="userInfo.correo" :disabled="!isEditing" />
 </div>
+
+    </div>
+    <div class="input-wrapper">
+      <div class="inputs">
+        <label>Telefono 1:</label>
+    <label>Telefono 2:</label>
+    <label>contraseña:</label>
+      </div>
+      <div class="inputss">     
+       <input type="text" v-model="userInfo.telefono1" :disabled="!isEditing" />
+      <input type="text" v-model="userInfo.telefono2" :disabled="!isEditing" />
+      <input type="password" v-model="userInfo.contra" :disabled="!isEditing" />
+      </div>
+    </div>
+     </div>
     <div class="botons">
       <button v-show=!loading class="button" @click="editInformation" v-if="!isEditing">Editar mi información</button>
     <button v-show=!loading class="button" @click="saveInformation" v-if="isEditing">Guardar</button>
     <div v-show=loading class="loader"></div>
+    <div v-if="correct">
+      <h5 class="tit">¡Se ha actualizado correctamente su información!</h5>
+    </div>
     </div>
       </div>
+
+    </div>
+    <div>
+
+    </div>
+    <div>
 
     </div>
 </div>
@@ -50,68 +66,52 @@
   <script setup>
 
   import axios from 'axios';
-  import { ref, reactive } from 'vue'
-  import FotoUsuario from '@/components/infoUsuario/FotoUsuario.vue';
+  import { ref, reactive, onMounted } from 'vue'
+  import {useUsuarioStore} from "@/stores/UsuariosStore";
 
-  let fields = ['nombre', 'apellido', 'correo', 'telefono1', 'telefono2', 'contrasena'];
+  const id_cliente = ref(useUsuarioStore().usuario.usuario.id);
+  const correct = ref(false);
+
   let updatedUserInfo = ref(null);
 const nombreA = ref('');
-const apellidosA = ref('');
-const correoA = ref('');
-let idCliente = ref(2);
 const loading =ref(false);
 
 let userInfo = reactive({
-  'nombre': '',
-  'apellido': '',
-  'correo': '',
-  'telefono1': '',
-  'telefono2': '',
-  'contrasena': ''
-});
-
-let isEditable = reactive({
-  'nombre': false,
-  'apellido': false,
-  'correo': false,
-  'telefono1': false,
-  'telefono2': false,
-  'contrasena': false
+  nombre: '',
+  apellido: '',
+  correo: '',
+  telefono1: '',
+  telefono2: '',
+  contra: ''
 });
 
 let isEditing = ref(false);
 
 function editInformation() {
   isEditing.value = true;
-  for(let key in isEditable) {
-     isEditable[key] = true;
-  }
 }
 
 
 async function updateUser() {
   try {
     const userUpdate = {
-  id: idCliente.value,
-  nombre: userInfo['nombre'],
-  correo: userInfo['correo'],
-  apellido: userInfo['apellido'],
-  telefono1: userInfo['telefono1'],
-  telefono2: userInfo['telefono2'],
-  contrasena: userInfo['contrasena']
+  id: id_cliente.value,
+  nombre: userInfo.nombre,
+  correo: userInfo.correo,
+  apellido: userInfo.apellido,
+  telefono1: userInfo.telefono1,
+  telefono2: userInfo.telefono2,
+  contra: userInfo.contra
   };
     loading.value = true;
-    console.log(userUpdate);
     const response = await axios.post('http://web.Backend.com/clientes/actualizar', userUpdate);
     updatedUserInfo.value = response.data;
-    if(updatedUserInfo.value && updatedUserInfo.value.message === 'Cliente actualizado exitosamente.') {
-       nombreA.value = userUpdate.nombre;
-       apellidosA.value = userUpdate.apellido;
-       correoA.value = userUpdate.correo;
+    if(response.status === 200) {
+        userinfo();
+        correct.value = true;
     } else {
-     console.error('updatedUserInfo.value no existe');
+     console.error('error al actualizar');
     }
-
     console.log(response.data);
   } catch (error) {
     console.error('Hubo un error al actualizar los datos del usuario:', error);
@@ -119,50 +119,90 @@ async function updateUser() {
   loading.value = false;
 }
 
+const userinfo = async () => {
+  resetUserInfo();
+  const user = {
+    id: id_cliente.value
+  };
+  try {
+    const response = await axios.post('http://web.Backend.com/clientes/infoID', user);
+    if (response.data.data) {
+      Object.assign(userInfo, response.data.data);
+    }    
+    console.log(userInfo)
+  } catch (error) {
+    console.error('Hubo un error al obtener los usuarios:', error);
+  }
+};
+function resetUserInfo() {
+  Object.assign(userInfo, {
+    nombre: '',
+    apellido: '',
+    correo: '',
+    telefono1: '',
+    telefono2: '',
+    contra: ''
+  });
+}
+
+
+onMounted(userinfo);
+
 function saveInformation() {
   updateUser();
   isEditing.value = false;
-  for(let key in isEditable) {
-    isEditable[key] = false;
-  }
 }
 
   </script>
   
   <style scoped>
+
+.tit{
+  color: rgb(39, 168, 0);
+}
+  .inputs{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20%;
+    justify-content: space-evenly;
+    align-items:flex-end;
+  }
+  .inputss{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20%;
+    justify-content: space-evenly;
+    margin-left: 5%;
+    align-items: flex-start;
+  }
 .input-wrapper {
   display: grid;
-  grid-template-columns: 1fr 2fr;
   gap: 10px;
-}
-
-.input-wrapper label {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 10px;
-}
-
-.input-wrapper div {
-  grid-column-start: 2;
-}
-
-.input-wrapper input {
+  height: 100%;
   width: 100%;
+  grid-template-columns: 25% 75%;
 }
+
 
     .text-field {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 50% 50%;
 }
 
 
 .text-field input {
-  border: 1px solid #000;
-  border-radius: 5px;
+  border: none;
+  border-radius: 20px;
+  width: 100%vh;
+  height: 5vh;
   padding: 10px;
-  box-shadow: 0 0 5px #000;
+  box-shadow: 0 0 1rem #0000008a;
 }
 
 
@@ -181,9 +221,7 @@ function saveInformation() {
   gap: 3%;
   grid-column-start: 2;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Divide el espacio disponible en dos columnas iguales */
-  grid-template-rows: auto auto auto; /* Crea tres filas que se ajustan al contenido */
-  grid-auto-flow: row; /* Llena las filas antes que las columnas */
+  grid-template-rows: 80% 20%;
   background-color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 10px;
@@ -191,17 +229,19 @@ function saveInformation() {
 }
 
   .pantalla{
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    display:grid;
-    grid-template-rows: 5% 35% 5% 55%;
-    grid-template-columns: 100%;
+    display:flex;
+    flex-direction: column;
+    gap:5%;
+    margin-top: 2%;
+    font-family: comfortaa;
   }
   .container {
     grid-row-start: 2;
     width: 90%;
-    height: 40vh;
-    background:linear-gradient(70deg, rgb(255, 255, 255), #dffffa);
+    height: 15vh;
+    background:linear-gradient(70deg, rgb(221, 240, 255), #fffacf);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -220,9 +260,10 @@ function saveInformation() {
   }
   
   .column2 {
-    display: grid;
-    grid-template-rows: repeat(7, 1fr);
-    gap: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
 
   .fil{
@@ -274,7 +315,8 @@ justify-content: start;
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-column-start: 2;
+  grid-row-start: 2;
+  flex-direction: column;
  }
 
  .button {

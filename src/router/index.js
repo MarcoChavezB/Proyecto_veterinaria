@@ -80,6 +80,11 @@ const routes = [
                         path: '/servicios',
                         name: 'servicios',
                         component: servicios
+                  },
+                  {
+                    path: '/perfil',
+                    name: 'perfil',
+                    component: gestionusuario
                   }
             ]
       },

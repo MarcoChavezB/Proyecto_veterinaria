@@ -30,9 +30,11 @@
                 </ul>
             </div>
             <div class="profile">
-                <p v-for="persona in nombre" :key="persona.id">{{ persona.nombre }}</p><span class="material-symbols-outlined">
-                    account_circle
-                </span>
+                <p  v-for="persona in nombre" :key="persona.id">{{ persona.nombre }} </p> 
+                    <li>
+                        <router-link :to="{name: 'perfil'}"> <span class="material-symbols-outlined">account_circle</span></router-link>
+                    </li>
+                
             </div>
         </header>
         
