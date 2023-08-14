@@ -153,13 +153,15 @@ const routes = [
     
   },
 
-  {
-
+  { 
     path: '/panelAdmin',
-    name: 'panelAdmin',
-    component: panelAdmin,
-            // 
+  name: 'panelAdmin',
+  component: panelAdmin,
+  meta: {
+    requiresAuth: true,
+    requiredRole: 'Administrador'
 
+  },
     children: [
       {
         path: '/control',
@@ -411,20 +413,30 @@ router.beforeEach((to, from, next) => {
 
 // Add navigation guard to check for authentication token
 router.beforeEach((to, from, next) => {
-  // Check if the route requires authentication
-  if (to.matched.some((route) => route.meta.requiresAuth)) {
-    // Get the token from the Pinia store
-    const authToken = useUsuarioStore().usuario._token;
+  const userStore = useUsuarioStore();
+  const authToken = userStore.usuario._token;
+  const userType = useUsuarioStore().usuario.usuario.tipo_usuario;
 
-    // If the user is authenticated (has a token), allow access to the route
-    if (authToken) {
-      next();
-    } else {
-      // If the user is not authenticated, redirect to the login page
+  if (to.name === 'login' && authToken) {
+    next('/cuerpo');
+  }
+  else if (to.matched.some((route) => route.meta.requiresAuth)) {
+    if (!authToken) {
       next('/login');
     }
-  } else {
-    // For public routes, allow access without authentication
+    else if (userType === 'Administrador' && to.name === 'perfil') {
+      console.log('Redireccionando a Control porque es un Administrador.');
+      next('/control');
+    } 
+    else if (to.matched.some(route => route.meta.requiredRole && route.meta.requiredRole !== userType)) {
+      next('/login'); 
+    } 
+    else {
+      next();
+    }
+  } 
+  else {
     next();
   }
 });
+
