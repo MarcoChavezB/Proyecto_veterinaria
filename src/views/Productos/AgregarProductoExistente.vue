@@ -48,6 +48,10 @@
                   <input type="number" placeholder="$" v-model="precio_venta">
                 </div>
                 <div class="input">
+                  <span>PRECIO COMPRA</span>
+                  <input type="number" placeholder="$" v-model="precio_compra">
+                </div>
+                <div class="input">
                   <span>TIPO PRODUCTO</span>
                   <select @change="mostrar_tipo_producto" name="tipo" v-model="tipo_producto">
                     <option value="venta">Venta</option>
@@ -75,15 +79,23 @@
           <row :name="prod.nom_producto" :stock="prod.existencias" :status="prod.estado" />
         </div>
       </div>
+      <div class="alertas">
+        <barSuccess name="Se actualizo el producto" v-if="mostrarSuccess"/>
+        <barError name="Verifique los campos" v-if="mostrarError"/>
+      </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
 import row from '../../components/tabla/RowTablesProduct.vue'
+import barSuccess from '../../components/Mensajes/BarAlertSuccess.vue'
+import barError from '../../components/Mensajes/BarAlertError.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
+
+const mostrarSuccess = ref(false)
+const mostrarError = ref(false)
 // MOSTRAR PRODUCTOS LATERAL
 const productos = ref([])
 const categorias = ref([])
@@ -92,6 +104,8 @@ const mostrar_precio = ref(true);
 const nombre_producto = ref('');
 const cantidad_producto = ref();
 const data = ref([]);
+
+
 
 const fetchData = async () => {
   try {
@@ -106,17 +120,32 @@ const fetchData = async () => {
 //MODIFICAR PRODUCTO EXISTENTE
 
 const alterCantProduct = async () => {
-  const producto = ({
+
+  if (nombre_producto.cantidad === '' && cantidad_producto.value === '') {
+    mostrarError.value = true
+  setTimeout(() => {
+  mostrarError.value = false;
+}, 2000);
+  } else {
+
+    mostrarSuccess.value = true;
+
+setTimeout(() => {
+  mostrarSuccess.value = false;
+}, 2000);
+    const producto = ({
     nombre_producto: nombre_producto.value,
     cantidad_producto: cantidad_producto.value,
     tipo_producto: tipo_producto.value,
   })
+
   try {
     const response = await axios.post('http://web.backend.com/alterProduct', producto);
     data.value = response.data.data;
     console.log(data.value);
   } catch (error) {
     console.log(error)
+  }
   }
 }
 
@@ -150,6 +179,7 @@ const descripcion = ref();
 const categoria = ref('');
 const precio_venta = ref();
 const info = ref([]);
+const precio_compra = ref();
 
 const alterProduct = async () => {
   const Alterproducto = ({
@@ -157,7 +187,9 @@ const alterProduct = async () => {
     descripcion: descripcion.value,
     categoria:categoria.value,
     precio_venta: precio_venta.value,
+    precio_compra: precio_compra.value
   })
+  console.log(Alterproducto);
   try {
     const response = await axios.post('http://web.backend.com/dataProd', Alterproducto);
     info.value = response.data.data;
@@ -166,23 +198,44 @@ const alterProduct = async () => {
     console.log(error)
   }
 }
+
+
+
 onMounted(fetchData)
 const editar = () =>{
-  alterProduct();
+
+  if (nombre.value === '' || descripcion.value === '' || categoria.value === '' || precio_venta.value === '' || precio_compra.value === '') {
+
+   mostrarError.value = true
+  setTimeout(() => {
+  mostrarError.value = false;
+}, 2000);
+} else{
+  mostrarSuccess.value = true;
+
+setTimeout(() => {
+  mostrarSuccess.value = false;
+}, 2000);
+
+alterProduct();
+}
 }
 const mostrar_categorias = () =>{
   categoriasData()
 }
 
 let intervalId;
+
 const mostrar_tipo_producto = () => {
   clearInterval(intervalId);
 
   if (tipo_producto.value === 'interno') {
     mostrar_precio.value = false;
+  
     intervalId = setInterval(prodInternos, 500);
     precio_venta.value = null;
     console.log(precio_venta.value)
+
   } else if (tipo_producto.value === 'venta') {
     mostrar_precio.value = true;
     intervalId = setInterval(fetchData, 500);

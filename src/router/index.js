@@ -32,10 +32,21 @@ const routes = [
                         component: ubicacion,
                   },
                   {
-                        path: '/servicios',
-                        name: 'servicios',
-                        component: servicios
-                  }
+                        path: '/serviciosSin',
+                        name: 'serviciosSin',
+                        component: servicios,
+
+                  },
+                {
+                    path: '/catalogo',
+                    name: 'catalogo',
+                    component: catalogo
+                },
+                {
+                    path: '/ubicacion',
+                    name: 'ubicacion',
+                    component: ubicacion,
+                }
             ],
       },
       {
@@ -55,11 +66,6 @@ const routes = [
                         path: '/cita',
                         name: 'cita',
                         component: citas,
-                  },
-                  {
-                        path: '/ubicacion',
-                        name: 'ubicacion',
-                        component: ubicacion,
                   },
                   {
                         path: '/catalogo',
@@ -405,7 +411,7 @@ router.beforeEach((to, from, next) => {
   // If the user is already authenticated and tries to access the login page,
   // redirect them to another page (e.g., dashboard)
   if (to.name === 'login' && authToken) {
-    next('/Home');
+    next('/cuerpo');
   } else {
     next();
   }

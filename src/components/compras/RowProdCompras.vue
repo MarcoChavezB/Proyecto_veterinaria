@@ -11,11 +11,7 @@
                         add
                     </span>
                 </button>
-                <button @click="mandarFalse">
-                    <span class="material-symbols-outlined">
-                        remove
-                    </span>
-                </button>
+
             </div>
         </div>
     </div>
@@ -125,16 +121,5 @@ setInterval(mandarTrue, 1000)
     color: white;
   }
 
-  .btns button:last-child{
-    display: flex;
-    border: none;
-    width: 30px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    background-color: #fd1853;
-    border-radius: 5px;
-    color: white;
-  }
 </style>
     

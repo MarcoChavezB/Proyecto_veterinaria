@@ -6,7 +6,8 @@
             </div>
         </div>
         <div class="login">
-            <div class="formulario">
+            <div class="log">
+                <div class="formulario">
                 <div class="form">
                     <h1>Bienvenido!</h1>
                     <p>Por favor ingrese sus credenciales.</p>
@@ -100,7 +101,13 @@
                     </p>
                 </div>
             </div>
+            </div>
+            <div class="salir">
+                <btn_salir/>
+            </div>
+        
         </div>
+        
         <!--Mensaje de error-->
 
             <div v-if="mostrarError" class="err">
@@ -128,6 +135,7 @@ import success from '../../components/Mensajes/Success.vue'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
 
 const nombre =          ref('');
 const last =            ref('');
@@ -171,7 +179,7 @@ const registro = () => {
 const verificarCorreo = async () => {
   try {
     const response = await axios.post('http://web.backend.com/verificarCorreoR', {correo: correo.value});
-    respuesta.value = response.data.data
+    
 
     if (response.data.data.data) {
       mostrarErrorRegistro.value = true;
@@ -238,11 +246,10 @@ const redirectToPage = () => {                                                  
 }
 
 .login {
-    display: flex;
-    justify-content: center;
-    border-radius: 2em 0 0 2em;
-    background-color: white;
-    height: 100vh;
+     display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-rows: 3fr 0.2fr; 
+  gap: 0px 0px; 
 
 }
 
@@ -258,8 +265,13 @@ const redirectToPage = () => {                                                  
         ". .";
 }
 
-
-
+.log{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2em 0 0 2em;
+    height: 90vh;
+}
 
 .form {
     display: flex;
@@ -294,7 +306,12 @@ const redirectToPage = () => {                                                  
     transition: 0.2s ease-in-out;
 
 }
-
+.salir{
+    
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+}
 .input {
     margin-left: 10px;
     border-radius: 10px;
@@ -306,8 +323,6 @@ const redirectToPage = () => {                                                  
 .input:focus {
     outline: none;
 }
-
-
 
 .flex-row {
     display: flex;

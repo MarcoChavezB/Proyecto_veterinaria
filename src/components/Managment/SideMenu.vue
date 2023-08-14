@@ -66,7 +66,7 @@
                 </div>
 
                 </div>
-                <router-link :to="{ name: 'principalMain' }" id="salir" @click="salir">
+                <router-link :to="{ name: 'login' }" id="salir" @click="salir">
                   <span class="material-symbols-outlined">logout</span>
                   <h4>Salir</h4>
                 </router-link>
@@ -162,7 +162,7 @@ body {
     background-color: #202237;
     user-select: none;
     overflow-x: hidden;
-    color: #363949;
+    color: whitesmoke;
 }
 
 
@@ -171,7 +171,7 @@ option {
 }
 
 a {
-    color: #363949;
+    color: white;
 }
 
 img {
@@ -189,7 +189,12 @@ h2 {
 }
 
 h4 {
+    color: white;
     font-size: 1rem;
+}
+
+span{
+  color: white;
 }
 
 h5 {
@@ -201,9 +206,12 @@ smal {
 }
 
 b {
-    color: #363949;
+    color: white;
 }
+p{
+  color: white;
 
+}
 .containerNorm {
     position: relative;
     display: grid;
@@ -215,7 +223,7 @@ b {
     margin-left: -24px;
     backdrop-filter: blur(20px);
     border-radius: 10px;
-  background-image: radial-gradient(circle at 13% 47%, rgba(140, 140, 140,0.03) 0%, rgba(140, 140, 140,0.03) 25%,transparent 25%, transparent 100%),radial-gradient(circle at 28% 63%, rgba(143, 143, 143,0.03) 0%, rgba(143, 143, 143,0.03) 16%,transparent 16%, transparent 100%),radial-gradient(circle at 81% 56%, rgba(65, 65, 65,0.03) 0%, rgba(65, 65, 65,0.03) 12%,transparent 12%, transparent 100%),radial-gradient(circle at 26% 48%, rgba(60, 60, 60,0.03) 0%, rgba(60, 60, 60,0.03) 6%,transparent 6%, transparent 100%),radial-gradient(circle at 97% 17%, rgba(150, 150, 150,0.03) 0%, rgba(150, 150, 150,0.03) 56%,transparent 56%, transparent 100%),radial-gradient(circle at 50% 100%, rgba(25, 25, 25,0.03) 0%, rgba(25, 25, 25,0.03) 36%,transparent 36%, transparent 100%),radial-gradient(circle at 55% 52%, rgba(69, 69, 69,0.03) 0%, rgba(69, 69, 69,0.03) 6%,transparent 6%, transparent 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
+    background-color: #0f0f0f;
 }
 
 
@@ -259,7 +267,7 @@ aside .close {
 
 aside .sidebar a {
     display: flex;
-    color: black;
+    color: white;
     margin-left: 2rem;
     gap: 1rem;
     align-items: center;
@@ -288,7 +296,7 @@ aside .sidebar a:hover span {
 }
 
 aside .sidebar {
-    color: #202237;
+    color: white;
     padding: 2px 24px;
     font-size: 11px;
     border-radius: 0.4rem;
@@ -296,7 +304,7 @@ aside .sidebar {
 
 .sidebar-select {
     display: flex;
-    color: black;
+    color: white;
     gap: 1rem;
     align-items: center;
     position: relative;

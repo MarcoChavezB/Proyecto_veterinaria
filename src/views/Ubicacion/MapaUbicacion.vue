@@ -5,7 +5,7 @@
         <img class="responsive-image" :src="imageSrc" alt="Ubicación" @click="goToMaps"/>
       </div>
       <h3 @click="goToMaps" class="address">Av Independencia 608-613, Centro, 27440 Matamoros, Coah.</h3>
-    </div>
+    </div>d
   </template>
   
   <script setup>
