@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import headerMenu from '../../components/cliente/menuComponents/headerSinLogin.vue'
+import headerMenu from '@/components/cliente/menuComponents/headerSinLogin.vue'
 </script>
 
 <style scoped>
