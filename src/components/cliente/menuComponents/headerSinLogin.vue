@@ -22,8 +22,7 @@
                     <li><router-link :to="{name: 'login'}">Citas</router-link></li>
                     <li><router-link :to="{name: 'ubicacionSin'}">Ubicacion</router-link></li>
                     <li><router-link :to="{name: 'login'}">Iniciar sesion</router-link></li>
-                <li><router-link :to="{name: 'register'}">Registrarse</router-link></li>
-
+                    <li><router-link :to="{name: 'register'}">Registrarse</router-link></li>
                 </ul>
             </div>
             

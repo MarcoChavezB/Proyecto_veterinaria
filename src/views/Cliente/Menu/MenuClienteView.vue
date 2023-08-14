@@ -57,7 +57,7 @@
                                     <div class="category-card">
                                         <figure class="card-banner img-holder" style="--width: 330; --height: 300;">
                                             <img src="../../../assets/img/imgClient/category-3.jpg" width="330" height="300"
-                                                loading="lazy" alt="Dog Food" class="img-cover">
+                                                loading="lazy" alt="Dog Food" class="img-cover" />
                                         </figure>
                                         <h3 class="h3">
                                           <router-link :to="{name: 'catalogo'}">
