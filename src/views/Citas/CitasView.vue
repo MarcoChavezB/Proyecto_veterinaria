@@ -1,10 +1,17 @@
 <template>
-  <div class="card">
-    <form @submit.prevent="agendarCita">
+  <div class = "pantalla" >
+    <div class="cita" >
+      <h4>Agenda una cita</h4>
+    <form @submit.prevent="agendarCita" class="info">
       <div>
         <label for="fechaCita">Fecha de la cita:</label>
-        <input type="datetime-local" id="fechaCita" v-model="fechaCita" />
+        <input type="datetime-local" id="fechaCita" v-model="fechaCita" @input="validarFecha" />
       </div>
+      <div v-show="showFechaOcupada" class="error-message">
+        Ya existe una cita para esta fecha.
+        Puedes seleccionar una con una hora de diferencia
+      </div>
+      <br/>
       <div>
         <label for="nombreMascota"  >selecciona tu mascota</label>
         <select id="nombreMascota" v-model="id_mascota">
@@ -21,7 +28,9 @@
         <label for="motivo">Motivo de la cita:</label>
         <textarea id="motivo" v-model="motivo"></textarea>
       </div>
-      <button type="submit">Agendar cita</button><br>
+      <div class="enviar">
+        <Btnn v-show="showButton" type="submit" title="Agendar cita"/>
+      </div>
       <RouterLink  :to="{name: 'cuerpo'}" class="custom-link"><p id="Exit">Volver al inicio</p></RouterLink>
     </form>
   </div>
@@ -51,17 +60,24 @@
       en las opciones</label>
       <label class="w2" for="Warning">En caso de emergencia, puedes contactarnos a través de nuestros medios de contacto</label>
       <br>
-      <button type="submit">Registrar mascota.</button><br>
+      <div class="enviar">
+        <Btnn type="submit" title="Registrar mascota"/>
+      </div>
+      <br>
       <p id="BackCitas" @click="BackCitas">Salir</p>
     </form>
   </div>
 </div>
+
+  </div>
+ 
 
 </template>
 
 <script setup>
 import { ref,  onMounted } from 'vue';
 import axios from 'axios';
+import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
 
 // Arreglo para los id's de servicios
 const Services = ref([]);
@@ -167,9 +183,91 @@ const FiltroMascotas = async () => {
 };
 onMounted(FiltroMascotas);
 
+const showFechaOcupada = ref(false);
+const showButton = ref(true);
+
+const validarFecha = async () => {
+  const fechaSeleccionada = new Date(fechaCita.value)
+  try {
+    const response = await axios.post('http://web.Backend.com/ValidacionFechas');
+    const fechasValidadas = response.data.data;
+    const fechasExistentes = fechasValidadas.some(cita => new Date(cita.fecha_cita).getTime() === fechaSeleccionada.getTime())
+    console.log(fechasExistentes);
+
+    if (fechasExistentes){
+      showFechaOcupada.value = true;
+      showButton.value = false;
+    }else{
+      showFechaOcupada.value = false;
+      showButton.value = true;
+    }
+
+  }catch (error){
+    console.error(error);
+  }
+}
+
+
+
 </script>
 
 <style scoped>
+
+.enviar{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input{
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0rem 1rem rgba(124, 125, 136, 0.384);
+  height: 4vh;
+}
+textarea{
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0rem 1rem rgba(124, 125, 136, 0.384);
+  height: 10vh;
+
+}
+
+select{
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0rem 1rem rgba(124, 125, 136, 0.384);
+  height: 4vh;
+}
+
+.info{
+  display: flex;
+  width: 80%;
+  height: 70%;
+  justify-content: center;
+
+}
+.pantalla{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'comfortaa';
+}
+
+.cita{
+  flex-direction: column;
+  width: 40%;
+  height: 80%;
+  background-color: white;
+  box-shadow: 0 2rem 3rem rgba(124, 125, 136, 0.562);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .card {
   font-family: 'Comfortaa';
@@ -258,6 +356,10 @@ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 #Warning, .w, .w2{
+  color: red;
+}
+
+.error-message{
   color: red;
 }
 

@@ -1,5 +1,12 @@
 <template>
     <div class="container">
+      <transition name="fade">
+    <div v-if="showModal" class="modal">
+    </div>
+</transition>
+<div class="modal-content" v-if="showModal">
+        <Infous @close="activar" :id="ide"/>
+      </div>
       <div class="controls">
             <btn title="Buscar Usuario" @click="buscar"/>
             <div class="search">
@@ -12,21 +19,18 @@
         </svg>
     </button>
          </div>
-          <label for="filterBy">Por:</label>
-          <select class="search-box" id="filterBy" v-model="filter">
-            <option :value="true">correo</option>
-            <option :value="false">ID</option>
-          </select>
+          <span for="filterBy">Busca por nombre, correo y telefono</span>
       </div>
         <div class="content">
         <div class="user-grid">
-        <InfousAdmin
+        <InfousAdmin @ide="activ"
           v-for="user in users"
           :Id="user.id"
           :Nombre="user.nombre"
-          :Apellidos="user.apellidos"
+          :Apellido="user.apellido"
           :Correo="user.correo"
-          :Foto="user.fotourl"
+          :telefono1="user.telefono1"
+          :telefono2="user.telefono2"
         />
     </div>
       </div>
@@ -38,12 +42,30 @@
   import axios from 'axios';
   import btn from '../../components/ControlesIndividuales/BotonBlanco.vue';
   import InfousAdmin from '../../components/infoUsuario/InfousAdmin.vue';
+  import Infous from '../../components/infoUsuario/infous.vue';
   const search = ref('');
   const texto = ref("Buscar Usuario...");
   const filter = ref(true);
   const users = ref([]);
   const inputType = ref("text");
+  const showModal = ref(false);
+  const ide = ref(0);
 
+  const activar= async () => {
+  if(showModal.value === false)
+  {
+    showModal.value = true;
+  } else if (showModal.value === true)
+  {
+    showModal.value = false;
+  }
+}
+  const activ = (data) =>{
+   const Id = data;
+   ide.value = Id.value;
+   activar();
+   
+  }
 watch(filter, (newValue) => {
   inputType.value = newValue ? "text" : "number";
 });
@@ -76,7 +98,6 @@ watch(filter, (newValue) => {
    } else {
     users.value = [response.data.data];
    }
-
   } catch (error) {
     console.error('Hubo un error al obtener el usuario:', error);
   }
@@ -98,18 +119,17 @@ const UsersCorreo = async () => {
    } else {
     users.value = [response.data.data];
    }  
-   console.log(response.data.data)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
 };
 
-  // traer todos los usuarios, se traen todos por default
   const fetchUsers = async () => {
     users.value = [];
   try {
     const response = await axios.get('http://web.Backend.com/clientes/All');
-    users.value = response.data.data; // Coloca la respuesta en el arreglo 'users'
+    users.value = response.data.data;
+    console.log(users.value)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -122,6 +142,26 @@ onMounted(fetchUsers);
   
   <style scoped>
 
+
+.modal-content {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+.modal {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  justify-content: center;
+  z-index: 98;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
   .router{
     display: flex;
     align-items: center;
@@ -162,7 +202,7 @@ onMounted(fetchUsers);
 
 .content {
   display: flex;
-  align-items: flex-start; /* Cambiado de center a flex-start */
+  align-items: flex-start; 
   justify-content: flex-start;
   width: 100%;
   height: 80%;
@@ -173,10 +213,29 @@ onMounted(fetchUsers);
 
 .user-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1rem;
-  width: 100%; /* Asegúrate de que la grilla toma todo el ancho posible */
+  width: 100%;
 }
+
+@media screen and (max-width: 1100px) {
+  .user-grid{
+    grid-template-columns: 1fr 1fr 1fr ;
+  }
+}
+@media screen and (max-width: 800px) {
+  .user-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .content{
+   align-items: center;
+  }
+}
+
+@media screen and (min-width: 1301px) {
+
+}
+
 
   
   .message {

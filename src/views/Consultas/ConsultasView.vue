@@ -331,7 +331,7 @@ try {
 }
 
 #Atras:hover{
-    
+
     cursor: pointer;
   }
   
