@@ -6,10 +6,9 @@
                 <li><router-link :to="{name: 'catalogoSin'}" href="#">Productos</router-link></li>
                 <li><router-link :to="{name: 'login'}">Citas</router-link></li>
                 <li><router-link :to="{name: 'ubicacionSin'}">Ubicacion</router-link></li>
-                <li><a href="#">contacto</a></li>
                 <li><router-link :to="{name: 'login'}">Iniciar sesion</router-link></li>
                 <li><router-link :to="{name: 'register'}">Registrarse</router-link></li>
-                <li><router-link :to="{name: 'servicios'}">Servicios</router-link></li>
+                <li><router-link :to="{name: 'serviciosSin'}">Servicios</router-link></li>
 
             </ul>
             <div class="main">
@@ -22,19 +21,18 @@
                     <li><router-link :to="{name: 'catalogoSin'}" href="#">Productos</router-link></li>
                     <li><router-link :to="{name: 'login'}">Citas</router-link></li>
                     <li><router-link :to="{name: 'ubicacionSin'}">Ubicacion</router-link></li>
-                    <li><a href="#">Contacto</a></li>
                     <li><router-link :to="{name: 'login'}">Iniciar sesion</router-link></li>
                 <li><router-link :to="{name: 'register'}">Registrarse</router-link></li>
 
                 </ul>
             </div>
-            <router-link :to="{name: 'control'}">
+            
             <div class="profile">
                 <p v-for="persona in nombre" :key="persona.id">{{ persona.nombre }}</p><span class="material-symbols-outlined">
                     account_circle
                 </span>
             </div>
-        </router-link>
+        
         </header>
         
         <body>

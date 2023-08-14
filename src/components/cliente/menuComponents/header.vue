@@ -6,13 +6,12 @@
                 <li><router-link :to="{name: 'cuerpo'}" class="active">Home</router-link></li>
                 <li><router-link :to="{name: 'catalogo'}" href="#">Productos</router-link></li>
                 <li><router-link :to="{name: 'cita'}">Citas</router-link></li>
-                <li><router-link :to="{name: 'ubicacion'}">Ubicacion</router-link></li>
                 <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atencion</router-link></li>
               <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>
               <li><router-link :to="{name: 'servicios'}">Servicios</router-link></li>
-              <li @click="cerrarSession">Cerrar Sesion</li>
-                <li><a href="#">contacto</a></li>
+              <li><a id="danger" @click="cerrarSession">Cerrar sesion</a></li>
             </ul>
+            
             <div class="main">
                 <span @click="menu" class="material-symbols-outlined">
                     menu
@@ -21,19 +20,14 @@
                     <li><router-link :to="{name: 'cuerpo'}" href="#" class="active">Home</router-link></li>
                     <li><router-link :to="{name: 'catalogo'}" href="#">Productos</router-link></li>
                     <li><router-link :to="{name: 'cita'}">Citas</router-link></li>
-                    <li><router-link :to="{name: 'ubicacion'}">Ubicacion</router-link></li>
                   <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atencion</router-link></li>
                   <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>
-                  <li @click="cerrarSession">Cerrar Sesion</li>
+                  <li><a id="danger" @click="cerrarSession">Cerrar sesion</a></li>
                     <li><a href="#">Contacto</a></li>
                     <li><a href="#">Perfil</a></li>
                 </ul>
             </div>
-            <div class="profile">
-                <p v-for="persona in nombre" :key="persona.id">{{ persona.nombre }}</p><span class="material-symbols-outlined">
-                    account_circle
-                </span>
-            </div>
+
         </header>
         
         <body>
@@ -46,11 +40,11 @@
 import { ref } from 'vue'
 import {dataLog} from '@/stores/counter.js'
 import {useUsuarioStore} from "@/stores/UsuariosStore";
+import logout from '../../ControlesIndividuales/OutBtn.vue'
 import router from "@/router";
 var userData = dataLog()
 const nombre = ref([])
 nombre.value = userData.state.variable;
-console.log("🚀 ~ file: headerjijijijij.vue:45 ~ nombre.value :", nombre.value )
 
 
 
@@ -129,7 +123,9 @@ header {
     margin-bottom: 10px;
 }
 
-
+#danger{
+    cursor: pointer;
+}
 
 .despliegue a:hover{
     color: blueviolet;
@@ -155,6 +151,7 @@ header {
     margin: 0px 30px;
     transition: all .50s ease;
 }
+
 
 .vet p{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;

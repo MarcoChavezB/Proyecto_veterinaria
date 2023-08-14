@@ -3,12 +3,12 @@
         <div class="img">
             <div class="imagen"></div>
         </div>
-        <div class="login">
+        <div class="login ">
             <div class="header">
                 <h5>Veterinaria cachorros</h5>
                 <div class="logo"></div>
             </div>
-            <div class="formulario">
+            <div class="formulario ">
                 <div class="form">
                     <h1>Welcome Back!</h1>
                     <p>porfavor ingrese sus credenciales.</p><br>
@@ -47,8 +47,13 @@
                         <router-link :to="{ name: 'register' }" class="custom-link">
                             <span class="span">registrate</span>
                         </router-link>
+
                     </p>
                 </div>
+
+            </div>
+            <div class="btnSalir d-flex align-items-center justify-content-end">
+                <btn_salir />
             </div>
         </div>
         <!--Mensaje de error-->
@@ -63,9 +68,10 @@
 import error from '../../components/Mensajes/Error.vue'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import {dataLog} from '@/stores/counter.js'
-
+import { dataLog } from '@/stores/counter.js'
+import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
 import axios from 'axios';
+
 const user = ref();
 const dataUser = dataLog();
 const email = ref('');
@@ -74,38 +80,53 @@ const router = useRouter();
 var mostrarError = ref();
 var mostrarSuccess = ref();
 
-const redirectToPage = () => {                                            
+const redirectToPage = () => {
     router.push('/cuerpo');
 };
 
+const redirectToPageAdmin = () => {
+    router.push('/control');
+}
 
-import {useUsuarioStore} from "@/stores/UsuariosStore";
+
+import { useUsuarioStore } from "@/stores/UsuariosStore";
 
 let usuarioStore = useUsuarioStore();
 let valid = ref(true)
 
 function login() {
-  if (!valid.value) {
-    return
-  }
-  let usuario = ref({
-    correo: email.value,
-    contra: pass.value
-  })
-  fetch('http://web.Backend.com/auth', {
-    method: 'POST',
-    body: JSON.stringify(usuario.value),
-  }).then(response => response.json())
-      .then(data => {
-        if (data.status != 200) {
-          console.log(usuario.value)
-          console.log(data)
-          alert(data.message)
-          return
-        }
-        usuarioStore.setUser(data.data)
-        redirectToPage();
-      });
+    if (!valid.value) {
+        return
+    }
+    let usuario = ref({
+        correo: email.value,
+        contra: pass.value
+    })
+    fetch('http://web.Backend.com/auth', {
+        method: 'POST',
+        body: JSON.stringify(usuario.value),
+    }).then(response => response.json())
+        .then(data => {
+            if (data.status != 200) {
+                console.log(usuario.value)
+                console.log(data)
+                alert(data.message)
+                return
+            }
+            if (
+                (usuario.value.correo === 'veterinaria@gmail.com' && usuario.value.contra === 'veterinaria') ||
+                (usuario.value.correo === 'root@utt.com' && usuario.value.contra === 'qwerty-1234')
+            ) {
+                redirectToPageAdmin();
+                console.log('administrador');
+                usuarioStore.setUser(data.data);
+            } else {
+                usuarioStore.setUser(data.data);
+                console.log(usuario.value);
+                console.log('no administrador');
+                redirectToPage();
+            }
+        });
 }
 
 
@@ -130,6 +151,7 @@ function login() {
 }
 
 .login {
+    height: 100vh;
     border-radius: 2em 0 0 2em;
     background-color: white;
 }
@@ -152,6 +174,10 @@ function login() {
     flex-direction: column;
 }
 
+.btnSalir {
+    margin-bottom: 50px;
+    margin-bottom: 50px;
+}
 
 .form {
     display: flex;
@@ -314,14 +340,16 @@ function login() {
 
 
 @media (max-width: 680px) {
-  .app{
-    background-color: white;
-  }
-  .img{
-    display: none;
-  }
-  .formulario{
-    width: 122%;
-  }
+    .app {
+        background-color: white;
+    }
+
+    .img {
+        display: none;
+    }
+
+    .formulario {
+        width: 122%;
+    }
 }
 </style>
