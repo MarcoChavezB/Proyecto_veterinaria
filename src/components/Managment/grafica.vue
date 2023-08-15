@@ -64,6 +64,7 @@ const chartData = reactive({
       backgroundColor: 'rgba(163, 39, 240, 0.2)',
       data: [],
       fill: true,
+      tension: 0.3, // Ajusta este valor para cambiar la curvatura
     },
     {
       label: 'Órdenes del mes pasado',
@@ -71,6 +72,8 @@ const chartData = reactive({
       backgroundColor: 'rgba(255, 99, 132, 0.1)',
       data: [],
       fill: true,
+      tension: 0.4, // Ajusta este valor para cambiar la curvatura
+
     },
   ],
 });
@@ -83,6 +86,9 @@ const chartOptions = {
       title: {
         display: true,
         text: 'Día del mes',
+      }, 
+      grid: {
+        display: false,
       },
     },
     y: {
@@ -92,7 +98,7 @@ const chartOptions = {
         text: 'Órdenes',
       },
       grid: {
-        display: true,
+        display: false,
       },
     },
   },

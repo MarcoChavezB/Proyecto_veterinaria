@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="productos">
             <div class="title">
-                <p class="titulo">Manage Products</p>
+                <p class="titulo">Products</p>
             </div>
             <div class="controles">
                 <search />
@@ -28,10 +28,10 @@
                                 </div>
                                 <div class="info_prod">
                                     <div class="id-cita d-flex gap-3">
-                                     <p>Id venta: </p>{{ tiketData.length > 0 ? tiketData[0].venta_id : '--' }}
+                                     <p>Id venta: </p> <h4>{{ tiketData.length > 0 ? tiketData[0].venta_id : '--' }}</h4>
                                     </div>
                                   <div class="tipo-pago d-flex gap-3">
-                                    <p>Tipo de pago: </p>{{ tiketData.length > 0 ? tiketData[0].tipo_pago : '--' }}
+                                    <p>Tipo de pago: </p> <h4>{{ metodo_pago }}</h4>
                                   </div>
                                   <div class="Products ">
                                     <h3>Productos</h3>
@@ -44,7 +44,7 @@
                                     </div>
                                   </div>
                                   <div class="precios d-flex gap-5 m-3">
-                                    <p>Monto Total: </p>{{ tiketData.length > 0 ? tiketData[0].monto_total : '---' }}
+                                    <p>Monto Total: </p><h4>{{ tiketData.length > 0 ? tiketData[0].monto_total : '$---' }}</h4>
                                   </div>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@ const terminar = async () => {
 
   const jsonData = {
     metodo_pago: metodo_pago.value,
-    productos: `[${productosString}]` // Formatea la cadena de productos
+    productos: `[${productosString}]`
   };
   console.log(jsonData)
 
@@ -287,13 +287,44 @@ const formatDate = (id, dateTimeString) => {
 h4 {
     font-size: 20px;
 }
+.id-cita{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.id-cita h4{
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  width: 4em;
+}
 
 .Products{
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 70%;
+  border-radius: 20px;
+  border: 1px solid rgba(132, 139, 200, 0.18);;
+  height: 75%;
 }
+
+.Products h3{
+  border-bottom: 1px dashed rgba(132, 139, 200, 0.18);;
+  display: flex;
+  justify-content: center;
+}
+
+.precios{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px dashed rgba(132, 139, 200, 0.18);;
+  border-top: 1px dashed rgba(132, 139, 200, 0.18);;
+}
+
 .term{
 
   height: 10em;
@@ -317,9 +348,6 @@ h4 {
         ".";
 }
 
-.productos {
-
-}
 
 .controles {
     display: flex;
@@ -356,8 +384,8 @@ h4 {
 
 /* IZQUIERDO */
 .fecha{
-  border-bottom: 1px dashed rgba(132, 139, 200, 0.18);
-
+  border: 1px solid rgba(132, 139, 200, 0.18);;
+  border-radius: 20px;
 }
 
 .izquierdo {

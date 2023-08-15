@@ -1,5 +1,5 @@
 <template>
-  <div class="right">
+  <div class="right ">
     <div class="sales-analytics">
       <div class="item">
         <div :class="iconClass">
