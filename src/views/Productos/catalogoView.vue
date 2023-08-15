@@ -87,6 +87,39 @@ const productocadena = async () => {
       margin: auto;
       grid-template-columns: auto auto auto auto;
 }
+
+@media (max-width: 1440px)
+{
+      .row
+      {
+            width: 100%;
+            display: grid;
+            margin: auto;
+            grid-template-columns: auto auto auto;
+      }
+}
+
+@media (max-width: 1050px)
+{
+      .row
+      {
+            width: 100%;
+            display: grid;
+            margin: auto;
+            grid-template-columns: auto auto;
+      }
+}
+
+@media (max-width: 720px)
+{
+      .row
+      {
+            width: 100%;
+            display: grid;
+            margin: auto;
+            grid-template-columns: auto;
+      }
+}
 #card-total
 {
       width: 80%;

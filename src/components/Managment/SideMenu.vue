@@ -223,7 +223,7 @@ p{
     margin-left: -24px;
     backdrop-filter: blur(20px);
     border-radius: 10px;
-    background-color: #0f0f0f;
+    background-color: #4a4a4a;
 }
 
 

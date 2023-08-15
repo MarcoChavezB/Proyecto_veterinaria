@@ -167,16 +167,6 @@
       overflow: initial;
 }
 
-/* .header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 20rem;
-      grid-row-start: 1;
-      background-color: rgb(255, 255, 255);
-} */
-
 h4
 {
       font-size: 67px;
@@ -202,28 +192,141 @@ h4
       text-align: center;
       text-justify: center;
 }
+/*-------------------------------------------------------------------------------------------- */
+#card-total
+{
+      width: 80%;
+}
+#card-body
+{
+      width: 16rem;
+      height: 25rem;
+      border: 1px solid rgb(119, 119, 119);
+      border-radius: 12px;
+      font-size: 19px;
+      padding: 18px;
+      margin-bottom: 30px;
+}
+
+.row
+{
+      width: 100%;
+      display: grid;
+      margin: auto;
+      grid-template-columns: auto auto auto auto;
+}
+
+@media (max-width: 1440px)
+{
+      .row
+      {
+            width: 100%;
+            display: grid;
+            margin: auto;
+            grid-template-columns: auto auto auto;
+      }
+}
+
+@media (max-width: 1050px)
+{
+      .row
+      {
+            width: 100%;
+            display: grid;
+            margin: auto;
+            grid-template-columns: auto auto;
+      }
+}
+
+@media (max-width: 720px)
+{
+      .row
+      {
+            width: 100%;
+            display: grid;
+            margin: auto;
+            grid-template-columns: auto;
+      }
+}
+
+#card-title
+{
+      font-size: 30px;
+}
+#card-body
+{
+      width: 16rem;
+      height: 25rem;
+      border: 1px solid rgb(119, 119, 119);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 30px;
+}
+.card-text
+{
+      font-size: 20px;     
+}
+
+#card-body:hover
+{
+      transform: translateY(-20px);
+      transition: all 0.3s;
+      box-shadow: 5px 5px 3px black;
+      font-size: 26px;
+      background-color: rgb(230, 230, 230);
+}
+/*------------------------------------------------------------------------------*/
+#imagen-services
+{
+      margin-top: 125px;
+      width: 100%;
+      height: 430px;
+      overflow:hidden;
+      position: relative;
+      margin-bottom: 30px;
+}
+#imagen-services img
+{
+      width: 100%;
+}
+
+#imagen-services h4
+{
+      width: 100px; 
+      height: 100%;
+      font-size: 5rem;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate( -205%, -30%);
+      z-index: 30px;
+}
+.link-services
+{
+      text-decoration: none;
+      list-style: none;
+}
+#tipe-service-select
+{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+}
 </style>
 <template>
-            <div class="body">
-                 <div class="card-services">
-                        <table>
-                              <thead>
-                                    <tr id="services-titles">
-                                          <th>Servicio</th>
-                                          <th>Descripción</th>
-                                          <th>Precio</th>
-                                    </tr>
-                              </thead>
-                              <tbody>
-                                    <tr id="filas-servicios" v-for="servicio in servicios" :key="servicio.id">
-                                          <td>{{ servicio.nombre_TServicio }}</td>
-                                          <td>{{ servicio.descripcion }}</td>
-                                          <td>${{ servicio.precio }}</td>
-                                    </tr>
-                              </tbody>
-                        </table>
+      
+      <div class="row">
+            <div class="body" v-for="servicio in servicios" :key="servicio.id">
+                 <div id="card-total">
+                        <div id="card-body">
+                              <h5 id="card-title">{{ servicio.nombre_TServicio }}</h5>
+                              <p class="card-text">{{ servicio.descripcion }}</p>
+                              <p class="card-text">${{ servicio.precio }}</p>
+                        </div>
                  </div>
             </div>
+      </div>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';

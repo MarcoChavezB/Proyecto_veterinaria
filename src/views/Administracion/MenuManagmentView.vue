@@ -13,7 +13,7 @@
       <div class="cards">
         <div class="estadisticas">
           <grafica />
-          <div class="info">
+          <!-- <div class="info">
             <div class="purple">
               <div></div>
               <label>This month</label>
@@ -22,7 +22,7 @@
               <div></div>
               <label>Last month</label>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="pequenas">
 
@@ -52,7 +52,7 @@
         </div>
         <div class="extra">
           <div class="compras">
-              <graf/>
+              <row/>
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ import TablaComp from '../../components/Managment/TablaComp.vue'
 import grafica from '../../components/managment/grafica.vue'
 import estadisticas from '../../components/Managment/estadisticas.vue'
 import info_card from '../../components/Managment/InfoCard.vue'
-
+import row from '../../components/Managment/Row.vue'
 
 const globalStore = useGlobalStore();
 const valorAlmacenado = globalStore.state.variable;
@@ -192,11 +192,10 @@ onMounted(estadisticas_positivo_negativo)
   gap: 4px;
 }
 .pequenas{
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0px 0px;
-  height: 2em;
+  display: flex;
+  margin-left: 50px;
+  gap: 10px;
+  
 }
 .pequenas div{
   display: flex;
@@ -218,7 +217,6 @@ onMounted(estadisticas_positivo_negativo)
 
 .compras{
   display: flex;
-  align-items: flex-end;
   justify-content: center;
   margin-bottom: 15px;
 

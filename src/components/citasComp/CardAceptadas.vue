@@ -133,13 +133,18 @@ var CitaResponse = ref();
 const respuesta = (seleccion) =>{
   CitaResponse.value = seleccion;
   CitaResponse.value = CitaResponse.value === 1 ? 'Rechazada' : CitaResponse.value === 2 ? 'Realizada' : 'otro_valor';
+
   if (CitaResponse.value === 'Realizada'){
     mostrarAlertSuccess.value = true
     mostrarAlertError.value = false
+    MandarCorreo()
+
   } else if(CitaResponse.value === 'Rechazada'){
     mostrarAlertError.value = true
     mostrarAlertSuccess.value = false
+    MandarCorreo()
   }
+  
   citaResponse();
 }
 
