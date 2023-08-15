@@ -62,9 +62,9 @@
   <script setup>
   import { ref, watch } from 'vue';
   import axios from 'axios';
- import InputCliente from '../../components/ControlesSencillos/InputCliente.vue';
- import Inputs from "@/components/ControlesSencillos/Inputs.vue";
- import Router from "@/router";
+  import InputCliente from '../../components/ControlesSencillos/InputCliente.vue';
+  import Inputs from "@/components/ControlesSencillos/Inputs.vue";
+  import Router from "@/router";
   import router from "@/router";
 
  const nomC = ref("");

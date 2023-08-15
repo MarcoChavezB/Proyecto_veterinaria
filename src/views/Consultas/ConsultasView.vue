@@ -114,7 +114,7 @@
           <p>Puedes ver los costos de las consultas en tu apartado de reportes</p>
         </router-link>
         <br>
-          <button type="submit">Guardar Consulta.</button><br>
+        <Btnn type="submit" title="Guardar consulta"/><br>
         <p id="Atras" @click="Atras">Salir</p>
       </form>
     </div>
@@ -130,6 +130,8 @@
   import InputFecha from '../../components/ControlesSencillos/InputFecha.vue';
   import router from "@/router";
   import { useRouter } from 'vue-router';
+  import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
+
 
   const selectedOption = ref('opcion3');
   const status1 = ref(false);
@@ -356,18 +358,11 @@ try {
   form input,
   form select,
   form textarea {
-    width: 100%;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0rem 1rem rgba(124, 125, 136, 0.384);
+    height: 4vh;
   }
 
-  .label{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.plabel{
-    color: #c2c5d3;
-}
   </style>
   
