@@ -76,6 +76,7 @@ onMounted(obtenerservicioscli);
 {
       position: absolute;
       font-size: 100px;
+      color: #ffffff;
       top: 40%;
       left: 52%;
       transform: translate(-55%, -90%);
@@ -116,20 +117,20 @@ onMounted(obtenerservicioscli);
     border-radius: 30px;
     overflow: hidden;
     border: 2px;
-    border-color: black;
+    border-color: #000000;
     box-shadow: 0 0 1em #00000013;
     font-size: 45px;
     transition: 0.2s;
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: #000000;
 }
 
 #tipe-service-select button:hover
 {
       box-shadow: 0 0 2em #00000013;
   transform: scale(1.03);
-  background-color: rgb(8, 114, 163);
-  color: white;
+  background-color: #0872a3;
+  color: #ffffff;
   box-shadow: 0 2rem 3rem rgba(96, 101, 146, 0.18);
 }
 .card-services
@@ -146,7 +147,7 @@ onMounted(obtenerservicioscli);
 
 .card-services table tr
 {
-      border: 1px solid grey;
+      border: 1px solid #808080;
 }
 #filas-servicios
 {
@@ -179,7 +180,7 @@ onMounted(obtenerservicioscli);
       width: 100%;
       display: flex;
       justify-content: space-around;
-      border: 1px solid black;
+      border: 1px solid #000000;
 }
 
 .card-services table thead
@@ -204,7 +205,7 @@ onMounted(obtenerservicioscli);
       display: grid;
       grid-template-columns: 10% 25% 30% 25% 10%;
       color: rgb(255, 255, 255);
-      background: linear-gradient(rgb(104, 68, 235), rgb(255, 255, 255));
+      background: linear-gradient(#6844eb, #ffffff);
       border-radius: 15px;
       font-weight: bold;
 }
@@ -215,7 +216,7 @@ onMounted(obtenerservicioscli);
       justify-content: center;
       gap: 10%;
       color: rgb(255, 255, 255);
-      background: linear-gradient(rgb(44, 135, 209), rgb(255, 255, 255));
+      background: linear-gradient(#2c87d1, rgb(255, 255, 255));
       border-radius: 15px;
       font-weight: bold;
 }
