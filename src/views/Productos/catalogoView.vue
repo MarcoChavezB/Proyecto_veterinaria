@@ -17,7 +17,9 @@
                         <div id="card-total">
                               <div id="card-body">
                                     <h5 class="card-title"> {{ producto.nom_producto }}</h5>
-                                    <img :src="producto.imagen" alt="imagen">
+                                    <div id="imagen">
+                                          <img :src="producto.imagen" alt="imagen">
+                                    </div>
                                     <p class="card-text">{{ producto.descripcion }}</p>
                                     <p class="card-text" id="precio-producto">Precio: ${{ producto.precio_venta }}</p>
                               </div>
@@ -75,6 +77,19 @@ const productocadena = async () => {
 </script>
   
 <style scoped>
+#imagen
+{
+      margin-top: 20px;
+      width: 210px;
+      height: 210px;
+      border: 2px solid gray;
+      overflow: hidden;
+}
+#imagen img
+{
+      width: 100%;
+      height: 100%;
+}
 .control
 {
       padding: 10px;
@@ -132,6 +147,9 @@ const productocadena = async () => {
       border: 1px solid rgb(119, 119, 119);
       border-radius: 12px;
       font-size: 19px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 18px;
       margin-bottom: 30px;
 }
