@@ -117,6 +117,7 @@ const productocadena = async () => {
             width: 100%;
             display: grid;
             margin: auto;
+            justify-content: center;
             grid-template-columns: auto;
       }
 }
