@@ -24,7 +24,7 @@
                     <section class="section category" aria-label="category">
                         <div class="cont">
                             <h2 class="h2 section-title">
-                                <span class="span">Mejores</span> categorias
+                                <span class="span">Mejores</span> categorías
                             </h2>
                             <ul class="has-scrollbar">
                                 <li class="scrollbar-item">
@@ -108,13 +108,13 @@
                                             Seguimiento <span class="span">Personalizado</span>
                                         </h3>
                                       <router-link :to="{name: 'citasPendientesC'}">
-                                        <a href="#" class="btn">Mostrar mas</a>
+                                        <a href="#" class="btn">Mostrar más</a>
                                       </router-link>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="offer-card has-bg-image img-holder" style=" --width: 540; --height: 374;">
-                                        <p class="card-subtitle">Esta con nosotros</p>
+                                        <p class="card-subtitle">Está con nosotros</p>
                                         <h3 class="h3 card-title">
                                           Realizar una <span class="span">cita</span>
                                         </h3>
@@ -125,9 +125,9 @@
                                 </li>
                                 <li>
                                     <div class="offer-card has-bg-image img-holder" style="--width: 540; --height: 374;">
-                                        <p class="card-subtitle">Muy rapido</p>
+                                        <p class="card-subtitle">Muy rápido</p>
                                         <h3 class="h3 card-title">
-                                            Mas de lo que <span class="span">imaginas</span>
+                                            Más de lo que <span class="span">imaginas</span>
                                         </h3>
   
                                     </div>
@@ -162,9 +162,9 @@
                                         <img src="../../../assets/img/imgClient/service-icon-1.png" width="70" height="70"
                                             loading="lazy" alt="service icon">
                                     </figure>
-                                    <h3 class="h3 card-title">Encuantranos cuando quieras </h3>
+                                    <h3 class="h3 card-title">Encuentranos cuando quieras </h3>
                                     <p class="card-text">
-                                        Estamos disponibles 10 horas al dia
+                                        Estamos disponibles 10 horas al día
                                     </p>
                                 </div>
                             </li>
@@ -182,10 +182,10 @@
                             <div class="cta-content">
                                 <img src="../../../assets/img/imgClient/cta-icon.png" width="120" height="35" loading="lazy"
                                     alt="taste guarantee" class="img">
-                                <h2 class="h2 section-title">Nuestros productos le encantaran!</h2>
+                                <h2 class="h2 section-title">¡Nuestros productos le encantarán!</h2>
                                 <p class="section-text">
                                     En veterinariaCachorros, creemos que a tu perro y a tu gato les gustará tanto su comida que si no ...
-                                    te ayudaremos a
+                                    te ayudaremos 
                                     a encontrar
                                     sustituto. Esa es nuestra garantía de sabor.
                                 </p>

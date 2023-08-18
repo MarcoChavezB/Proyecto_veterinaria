@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h1 class="title">¿Donde nos ubicamos?</h1>
+      <h1 class="title">¿Dónde nos ubicamos?</h1>
       <div class="image-container">
         <img class="responsive-image" :src="imageSrc" alt="Ubicación" @click="goToMaps"/>
       </div>

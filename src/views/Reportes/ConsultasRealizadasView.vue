@@ -8,7 +8,7 @@
       <div class="filtro2">
         <InputCliente tittle1="Nombre del cliente atendido" tittle2="Apellidos del cliente atendido" @input="ReporteConsultas" v-model:modelValue1="nomC" v-model:modelValue2="apellidos" />
         <div class="label">
-          <p class="plabel">Nombre mascota</p>
+          <p class="plabel">Nombre de la mascota</p>
           <Inputs placeholder="Nombre mascota" v-model="nomM" @input="ReporteConsultas"/>
         </div>
       </div>
@@ -29,7 +29,7 @@
               <th>Altura</th>
               <th>Edad</th>
               <th>Observaciones</th>
-              <th>Medicacion</th>
+              <th>Medicación</th>
               <th>Cantidad</th>
               <th>Costo de los servicios ofrecidos</th>
               <th>Costo de los productos</th>

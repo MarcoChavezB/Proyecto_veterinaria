@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import recent from '../../components/tabla/RowTablesRencent.vue'
+// import recent from '../../components/tabla/RowTablesRencent.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 
@@ -52,7 +52,7 @@ onMounted(infoCitas);
 
 /*=================Tabla==================*/
 
-overflow-y: scroll;
+/* overflow-y: scroll; */
 ::-webkit-scrollbar {
   width: 0.5em;
 }

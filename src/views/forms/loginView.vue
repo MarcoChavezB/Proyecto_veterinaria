@@ -11,7 +11,7 @@
             <div class="formulario ">
                 <div class="form">
                     <h1>Welcome Back!</h1>
-                    <p>porfavor ingrese sus credenciales.</p><br>
+                    <p>Por favor, ingrese sus credenciales.</p><br>
                     <div class="flex-column">
                         <label>Email </label>
                     </div>
@@ -43,9 +43,9 @@
                     <!-- <router-link :to="{name: 'MenuCliente'}"> -->
                     <button @click="login" class="button-submit">Sign In</button>
                     <!-- </router-link> -->
-                    <p class="p">No tienes una cuenta?
+                    <p class="p">¿No tienes una cuenta?
                         <router-link :to="{ name: 'register' }" class="custom-link">
-                            <span class="span">registrate</span>
+                            <span class="span">Regístrate</span>
                         </router-link>
 
                     </p>

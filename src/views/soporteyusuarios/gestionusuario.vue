@@ -7,7 +7,7 @@
       </div>
         <div class="column2">
           <div class="row1 fil">
-             <h3>! Hola  {{ userInfo.nombre }} !</h3>
+             <h3>¡Hola  {{ userInfo.nombre }} !</h3>
           </div>
         </div>
         <div class="column3"></div>
@@ -31,9 +31,9 @@
     </div>
     <div class="input-wrapper">
       <div class="inputs">
-        <label>Telefono 1:</label>
-    <label>Telefono 2:</label>
-    <label>contraseña:</label>
+        <label>Teléfono 1:</label>
+    <label>Teléfono 2:</label>
+    <label>Contraseña:</label>
       </div>
       <div class="inputss">     
        <input type="text" v-model="userInfo.telefono1" :disabled="!isEditing" />

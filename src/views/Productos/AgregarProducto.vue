@@ -10,7 +10,7 @@
                                     <div class="title">
                                           <div class="g">
                                                 <h3>AGREGAR PRODUCTO NUEVO</h3>
-                                                <p>Se agregara un producto no existente</p>
+                                                <p>Se agregará un producto no existente</p>
                                           </div>
                                           <div class="more">
                                                 <RouterLink :to="{ name: 'add' }" class="custom-link">
@@ -26,11 +26,11 @@
                                           <input type="text" v-model="nombre_producto">
                                     </div>
                                     <div class="input">
-                                          <span>DESCRIPCION DEL PRODUCTO</span>
+                                          <span>DESCRIPCIÓN DEL PRODUCTO</span>
                                           <input type="text" v-model="descripcion_producto">
                                     </div>
                                     <div class="input">
-                                          <span>CATEGORIA DEL PRODUCTO</span>
+                                          <span>CATEGORÍA DEL PRODUCTO</span>
                                           <select @click="mostrar_categorias" name="categorias" id="2"
                                                 v-model="categoria_producto">
                                                 <option disabled selected value="">Selecciona una categorias</option>
@@ -41,12 +41,12 @@
                                     </div>
                                     <div class="precios">
                                           <div class="input" v-if="mostrar_precio">
-                                                <span>PRECIO VENTA</span>
+                                                <span>PRECIO DE VENTA</span>
                                                 <input type="number" v-model="precio_venta" placeholder="$">
                                           </div>
 
                                           <div class="input" >
-                                                <span>PRECIO COMPRA</span>
+                                                <span>PRECIO DE  COMPRA</span>
                                                 <input type="number" v-model="precio_compra" placeholder="$">
                                           </div>
                                           

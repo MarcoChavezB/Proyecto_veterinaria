@@ -6,8 +6,8 @@
                   <h4>SERVICIOS</h4>
             </div>
             <div id="tipe-service-select">
-                  <router-link class="link-services" to="/serviciosesteticos"><button>Esteticos</button></router-link>
-                  <router-link class="link-services" to="/serviciosclinicos"><button>Clinicos</button></router-link>
+                  <router-link class="link-services" to="/serviciosesteticos"><button>Estéticos</button></router-link>
+                  <router-link class="link-services" to="/serviciosclinicos"><button>Clínicos</button></router-link>
             </div>
             <RouterView />
 

@@ -59,7 +59,7 @@ import InputFecha from "@/components/ControlesSencillos/InputFecha.vue";
                                                       <input type="text" v-model="animal.raza">
                                                 </div>
                                                 <div class="input">
-                                                      <span>GENERO</span>
+                                                      <span>GÉNERO</span>
                                                       <input type="text" v-model="animal.genero">
                                                 </div>
                                           </div>
