@@ -44,7 +44,7 @@ onMounted(userinfo);
         <button class="cerrar" @click="cerra" >X</button>
         <div class="grid">
             <div class="info">
-                <h4>informacion de usuario</h4>
+                <h4>Información de usuario</h4>
                 <h6>Nombre: {{ userInfo.nombre }}</h6>
                 <h6>Apellido: {{ userInfo.apellido }}</h6>
                 <h6>Correo: {{ userInfo.correo }}</h6>

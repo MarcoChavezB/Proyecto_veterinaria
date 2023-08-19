@@ -223,6 +223,7 @@ h4
       width: 100%;
       display: grid;
       margin: auto;
+      justify-content: center;
       grid-template-columns: auto auto auto auto;
 }
 
@@ -247,7 +248,62 @@ h4
             grid-template-columns: auto auto;
       }
 }
+@media (max-width: 780px)
+{
+      #imagen-services h4
+{
+      width: 100px; 
+      height: 100%;
+      font-size: 2rem;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate( -215%, -30%);
+      z-index: 30px;
+}
 
+#card-title
+{
+      font-size: 20px;
+}
+#card-body
+{
+      width: 10rem;
+      height: 25rem;
+      border: 1px solid rgb(119, 119, 119);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 30px;
+}
+.card-text
+{
+      font-size: 20px;     
+}
+
+#tipe-service-select button
+{
+      box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    position: relative;
+    margin-left: 50px;
+    width: 200px;
+    height: 90px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    overflow: hidden;
+    border: 2px;
+    border-color: #000000;
+    box-shadow: 0 0 1em #00000013;
+    font-size: 45px;
+    transition: 0.2s;
+    text-align: center;
+    color: #000000;
+}
+}
 @media (max-width: 720px)
 {
       .row
@@ -255,6 +311,7 @@ h4
             width: 100%;
             display: grid;
             margin: auto;
+            justify-content: center;
             grid-template-columns: auto;
       }
 }

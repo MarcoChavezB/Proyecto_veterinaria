@@ -4,7 +4,7 @@
             <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>
             </span>
-            <span class="button-text">Iniciar sesion</span>
+            <span class="button-text">Iniciar sesión</span>
         </button>
     </router-link>
 </template>

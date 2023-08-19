@@ -30,11 +30,11 @@
                 <input type="text" v-model="nombre">
               </div>
               <div class="input">
-                <span>DESCRIPCION DEL PRODUCTO</span>
+                <span>DESCRIPCIÓN DEL PRODUCTO</span>
                 <input type="text" v-model="descripcion">
               </div>
               <div class="input">
-                <span>CATEGORIA DEL PRODUCTO</span>
+                <span>CATEGORÍA DEL PRODUCTO</span>
                 <select @click="mostrar_categorias" name="categorias" id="2" v-model="categoria">
                   <option disabled selected value="">Selecciona una categorias</option>
                   <option v-for="cat in categorias" :key="cat.id" :value="cat.categoria">

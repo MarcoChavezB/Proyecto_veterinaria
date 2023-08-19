@@ -24,7 +24,7 @@
               <th>Nombre</th>
               <th>Especie</th>
               <th>Raza</th>
-              <th>Genero</th>
+              <th>Género</th>
               <th>Dueño</th>
               <th>Fecha</th>
               <th>Motivo</th>
@@ -55,7 +55,7 @@
               <th>Nombre</th>
               <th>Especie</th>
               <th>Raza</th>
-              <th>Genero</th>
+              <th>Género</th>
               <th>Dueño</th>
               <th>Fecha</th>
               <th>Motivo</th>
@@ -82,7 +82,7 @@
   <div v-if="showRegistrarMascota" class="overlay">
     <div class="floating-form">
       <form @submit.prevent="RegistroConsulta">
-        <label for="observaciones">Observaciones medicas:</label>
+        <label for="observaciones">Observaciones médicas:</label>
           <textarea id="observaciones" v-model="observaciones"></textarea>
           <label for="peso">Peso (kg):</label>
           <input type="text" id="peso" v-model="peso"> 

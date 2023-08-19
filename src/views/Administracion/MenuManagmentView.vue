@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="top-menu">
-      <h3>Menu control</h3>
+      <h3>Menú control</h3>
     </div>
     <div class="profile">
         <p>Administrador</p>
@@ -55,7 +55,7 @@
     <div class="right">
       <div class="cont">
         <div class="title">
-          <h1>Citas Proximas</h1>
+          <h1>Citas Próximas</h1>
         </div>
         <div class="citas" v-for="cita in citas" :key="cita.id">
           <Notificaciones  class="not"

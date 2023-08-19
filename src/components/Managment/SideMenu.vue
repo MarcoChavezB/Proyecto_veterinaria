@@ -56,7 +56,7 @@
                         <span class="material-symbols-outlined">summarize</span>
                         <select v-model="selectedOption" class="sidebar-select" @change="onReportChange">
                             <option value="" disabled selected>Reportes</option>
-                            <option value="reportehistorialmedico">Historial medico.</option>
+                            <option value="reportehistorialmedico">Historial médico.</option>
                             <option value="reportconsultasrealizadas">Consultas realizadas.</option>
                             <option value="reportconsultasrechazadas">Citas rechazadas.</option>
                             <option value="reportordenescompra">Ordenes de compra.</option>

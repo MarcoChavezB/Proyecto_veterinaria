@@ -10,18 +10,18 @@
             <MenuDesplegable/>
             <div class="middle">
                 <RouterLink :to="{name: 'control'}" class="custom-link">
-                    <p>sobre nosotros</p>
+                    <p>Sobre nosotros</p>
                 </RouterLink>
                 <RouterLink :to="{name: 'citas'}" class="custom-link">
-                    <p>citas</p>
+                    <p>Citas</p>
                 </RouterLink>
             </div>
             <div class="aside">
                 <router-link :to="{name: 'register'}" class="custom-link">
-                    <p>registrarse</p>
+                    <p>Registrarse</p>
                 </router-link>
                 <RouterLink :to="{name: 'login'}" class="custom-link">
-                    <p>iniciar sesion</p>    
+                    <p>Iniciar sesión</p>    
                 </RouterLink>
             </div>
         </div>

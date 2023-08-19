@@ -4,12 +4,14 @@
             <headerMenu/>
         </div>
         <div class="body">
-            <router-view></router-view>
+            <!-- <router-view></router-view> -->
+            <RouterView/>
         </div>
     </div>
 </template>
 
 <script setup>
+// import {RouterView} from 'vue'
 import headerMenu from '@/components/cliente/menuComponents/headerSinLogin.vue'
 </script>
 

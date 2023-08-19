@@ -11,7 +11,7 @@
       <div class="table">
         <div class="headerTable">
           <h4>Nombre</h4>
-          <h4>Telefono</h4>
+          <h4>Teléfono</h4>
           <h4>Fecha cita</h4>
           <h4>Estatus</h4>
           <h4>Raza</h4>

@@ -43,7 +43,7 @@ import Rows from '../../components/Tabla/RowTablesProducts.vue';
 import search from '../../components/ControlesIndividuales/BuscarInterno.vue'
 import encabezado from '../../components/Tabla/header.vue'
 import add from '../../components/ControlesIndividuales/ingresar.vue'
-import btn2 from '../../components/ControlesIndividuales/BotonConEstilo.vue'
+// import btn2 from '../../components/ControlesIndividuales/BotonConEstilo.vue'
 import precios from '../../components/ControlesIndividuales/RangoPrecioPublicos.vue'
 import axios from 'axios'
 import { ref, onMounted} from 'vue';

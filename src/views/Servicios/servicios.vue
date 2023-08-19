@@ -1,12 +1,14 @@
-<template>
+<template id="template">
       <div class="pantalla">
+            <headerMenu/>
             <div id="imagen-services">
                   <img src="@\assets\img\imagen-servicios-veterinaria.png" alt="imagen-servicios">
+                  <!-- <img src="../src/assets/img/imagen-servicios-veterinaria" alt="imagen-servicios"> -->
                   <h4>SERVICIOS</h4>
             </div>
             <div id="tipe-service-select">
-                  <router-link class="link-services" to="/serviciosesteticos"><button>Esteticos</button></router-link>
-                  <router-link class="link-services" to="/serviciosclinicos"><button>Clinicos</button></router-link>
+                  <router-link class="link-services" to="/serviciosesteticos"><button>Estéticos</button></router-link>
+                  <router-link class="link-services" to="/serviciosclinicos"><button>Clínicos</button></router-link>
             </div>
             <RouterView />
 
@@ -14,13 +16,14 @@
 </template>
   
 <script setup>
+import headerMenu from '@/components/cliente/menuComponents/headerSinLogin.vue'
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { RouterLink } from 'vue-router';
 import { RouterView } from 'vue-router';
 
 import CardService from '../../components/servicios/CardService.vue';
-import btn from '../../components/ControlesIndividuales/BotonBlanco.vue';
+// import btn from '../../components/ControlesIndividuales/BotonBlanco.vue';
 
 // var opcion1 = ref(true);
 // var opcion2 = ref(false);
@@ -62,34 +65,157 @@ const obtenerservicioscli = async () => {
 }
 onMounted(obtenerservicioscli);
 </script>
-  
+
 <style scoped>
-#imagen-services {
-      margin-top: 125px;
+#template {
       width: 100%;
-      height: 370px;
-      overflow: hidden;
-      position: relative;
-      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 }
 
-#imagen-services img {
-      width: 100%;
+#imagen-services {
+      /* width: 400px;
+      height: 300px; */
+      margin: 120px auto 0 auto;
+      /* position: relative; */
 }
 
 #imagen-services h4 {
-      width: 100px;
-      height: 100%;
-      font-size: 5rem;
-      color: white;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-205%, -30%);
-      z-index: 30px;
+      font-size: 100px;
+      color: #ffffff;
+      top: 40%;
+      left: 52%;
+      transform: translate(-55%, -90%);
 }
 
-.link-services {
+@media (max-width: 720px) {
+      #imagen-services {
+            width: 400px;
+            height: 300px;
+            margin: 120px auto 0 auto;
+            /* position: relative; */
+      }
+
+      #imagen-services img {
+            width: 100%;
+      }
+
+      #imagen-services h4 {
+            position: absolute;
+            font-size: 50px;
+            color: #ffffff;
+            top: 40%;
+            left: 52%;
+            transform: translate(-55%, -245%);
+            z-index: 30px;
+      }
+
+      #tipe-service-select button {
+            box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+            position: relative;
+            margin-left: 25px;
+            width: 140px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px;
+            border-color: #000000;
+            box-shadow: 0 0 1em #00000013;
+            font-size: 20px;
+            transition: 0.2s;
+            text-align: center;
+            color: #000000;
+      }
+      #tipe-service-select {
+            display: flex;
+            width: 70%;
+            flex-direction: column;
+            justify-content: center;
+      }
+}
+
+@media (max-width: 610px) {
+      #tipe-service-select button {
+            box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+            position: relative;
+            margin-left: 20px;
+            width: 125px;
+            height: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px;
+            border-color: #000000;
+            box-shadow: 0 0 1em #00000013;
+            font-size: 25px;
+            transition: 0.2s;
+            text-align: center;
+            color: #000000;
+      }
+
+      #tipe-service-select {
+            display: flex;
+            width: 70%;
+            flex-direction: column;
+            justify-content: center;
+      }
+
+      .link-services {
+            text-decoration: none;
+
+            list-style: none;
+      }
+
+      #imagen-services {
+            width: 300px;
+            height: 200px;
+            margin: 120px auto 0 auto;
+            /* position: relative; */
+      }
+
+      #imagen-services img {
+            width: 100%;
+      }
+
+      #imagen-services h4 
+      {
+            position: absolute;
+            font-size: 30px;
+            color: #ffffff;
+            top: 40%;
+            left: 52%;
+            transform: translate(-55%, -255%);
+            z-index: 30px;
+      }
+}
+@media (max-width: 430px)
+{
+      #imagen-services h4 
+      {
+            position: absolute;
+            font-size: 30px;
+            color: #ffffff;
+            top: 40%;
+            left: 52%;
+            transform: translate(-55%, -315%);
+            z-index: 30px;
+      }
+}
+
+.link-services 
+{
       text-decoration: none;
       list-style: none;
 }
@@ -100,30 +226,25 @@ onMounted(obtenerservicioscli);
       /* justify-content: flex-start; */
       align-items: center;
       gap: 25px;
-      margin-top: -43px;
       width: 100%;
       height: 95vh;
 }
 
-/* #imagen-services h4
+#tipe-service-select 
 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-} */
-#tipe-service-select {
       display: flex;
+      width: 80%;
       flex-direction: row;
-      /* justify-content: space-around; */
+      justify-content: center;
 }
 
-#tipe-service-select button {
+#tipe-service-select button 
+{
       box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
       position: relative;
-      margin-left: 50px;
-      width: 250px;
-      height: 140px;
+      margin-left: 20px;
+      width: 180px;
+      height: 70px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -132,37 +253,42 @@ onMounted(obtenerservicioscli);
       border-radius: 30px;
       overflow: hidden;
       border: 2px;
-      border-color: black;
+      border-color: #000000;
       box-shadow: 0 0 1em #00000013;
-      font-size: 45px;
+      font-size: 30px;
       transition: 0.2s;
       text-align: center;
-      color: rgb(0, 0, 0);
+      color: #000000;
 }
 
-#tipe-service-select button:hover {
+#tipe-service-select button:hover 
+{
       box-shadow: 0 0 2em #00000013;
       transform: scale(1.03);
-      background-color: rgb(8, 114, 163);
-      color: white;
+      background-color: #0872a3;
+      color: #ffffff;
       box-shadow: 0 2rem 3rem rgba(96, 101, 146, 0.18);
 }
 
-.card-services {
+.card-services 
+{
       /* border: 1px solid rgb(105, 105, 105); */
       width: 90%;
 }
 
-.card-services table {
+.card-services table 
+{
       width: 100%;
       margin: auto;
 }
 
-.card-services table tr {
-      border: 1px solid grey;
+.card-services table tr 
+{
+      border: 1px solid #808080;
 }
 
-#filas-servicios {
+#filas-servicios 
+{
       font-size: 30px;
       width: 100%;
       display: flex;
@@ -170,11 +296,13 @@ onMounted(obtenerservicioscli);
       text-align: center;
 }
 
-#filas-servicios td {
+#filas-servicios td 
+{
       width: 84%;
 }
 
-#services-titles {
+#services-titles 
+{
       width: 100%;
       font-size: 40px;
       display: flex;
@@ -182,63 +310,72 @@ onMounted(obtenerservicioscli);
       justify-content: space-around;
 }
 
-.card-services table {
+.card-services table 
+{
       width: 90%;
 }
 
-#services-titles table thead tr {
+#services-titles table thead tr 
+{
       width: 100%;
       display: flex;
       justify-content: space-around;
-      border: 1px solid black;
+      border: 1px solid #000000;
 }
 
-.card-services table thead {
+.card-services table thead 
+{
       width: 100%;
 }
 
-.tit {
+.tit 
+{
       display: flex;
       align-items: center;
       justify-content: center;
       grid-column-start: 3;
 }
 
-.agreg {
+.agreg 
+{
       display: flex;
       align-items: center;
       justify-content: center;
       grid-column-start: 4;
 }
 
-.titulo {
+.titulo 
+{
       display: grid;
       grid-template-columns: 10% 25% 30% 25% 10%;
       color: rgb(255, 255, 255);
-      background: linear-gradient(rgb(104, 68, 235), rgb(255, 255, 255));
+      background: linear-gradient(#6844eb, #ffffff);
       border-radius: 15px;
       font-weight: bold;
 }
 
-.titulo2 {
+.titulo2 
+{
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10%;
       color: rgb(255, 255, 255);
-      background: linear-gradient(rgb(44, 135, 209), rgb(255, 255, 255));
+      background: linear-gradient(#2c87d1, rgb(255, 255, 255));
       border-radius: 15px;
       font-weight: bold;
 }
 
-.services {
+.services 
+{
       display: grid;
       grid-template-columns: 1fr;
       justify-content: center;
       gap: 5rem;
 }
 
-.content {
+.content 
+{
       display: flex;
       align-items: center;
       justify-content: center;
@@ -248,7 +385,8 @@ onMounted(obtenerservicioscli);
       overflow: initial;
 }
 
-.servi {
+.servi 
+{
       display: grid;
       grid-template-rows: 1fr 9fr;
       margin: 20px;
@@ -257,12 +395,23 @@ onMounted(obtenerservicioscli);
       overflow: initial;
 }
 
+/* .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 20rem;
+      grid-row-start: 1;
+      background-color: rgb(255, 255, 255);
+} */
 
-h4 {
+h4 
+{
       font-size: 67px;
 }
 
-.body {
+.body 
+{
       display: flex;
       width: 100%;
       height: 100%;
@@ -271,14 +420,14 @@ h4 {
       align-items: center;
 }
 
-
-.service-form {
+.service-form 
+{
       margin-top: 20px;
 }
 
-.texto {
+.texto 
+{
       text-align: center;
       text-justify: center;
 }
 </style>
-  

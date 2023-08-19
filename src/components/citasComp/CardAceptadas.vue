@@ -85,8 +85,8 @@ import { onMounted, ref } from 'vue'
 import { mostrarCartaCita, citaID } from '@/stores/counter.js'
 import axios from 'axios'
 import loader from '../loaders/loaderPrincipal.vue'
-import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
-import errorAlert from '../../components/Mensajes/BarAlertError.vue'
+// import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
+// import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 
 
 const monthNames = [

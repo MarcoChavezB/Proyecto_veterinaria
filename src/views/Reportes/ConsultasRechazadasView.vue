@@ -32,7 +32,7 @@
               <th>Nombre</th>
               <th>Especie</th>
               <th>Raza</th>
-              <th>Genero</th>
+              <th>Género</th>
               <th>Dueño</th>
               <th>Fecha</th>
               <th>Motivo</th>
