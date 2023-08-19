@@ -151,7 +151,7 @@ const publicar = (data) =>{
   if(isPublic === true){
     valorP.value = 'publicar';
   }else if(isPublic === false){
-    valorP.value = 'despublicar';
+    valorP.value = 'ocultar';
   }
 }
 
@@ -280,20 +280,20 @@ const continuar = async () => {
   .titulo{
     display: grid;
     grid-template-columns: 10% 25% 30% 25% 10%;
-    color: rgb(255, 255, 255);
-    background: linear-gradient(rgb(104, 68, 235), rgb(255, 255, 255));
+    color: rgb(0, 0, 0);
     border-radius: 15px;
     font-weight: bold;
     height: 20vh;
     grid-row-start: 1;
+    font-size: large;
   }
   .titulo2{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10%;
-    color: rgb(255, 255, 255);
-    background: linear-gradient(rgb(44, 135, 209), rgb(255, 255, 255));
+    color: rgb(0, 0, 0);
+    font-size: large;
     border-radius: 15px;
     font-weight: bold;
     height: 20vh;
@@ -321,7 +321,7 @@ const continuar = async () => {
     display: grid;
     grid-template-rows: 1fr 9fr;
     margin: 20px ;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    box-shadow: 1rem 0rem 3rem rgba(74, 77, 102, 0.349);
     border-radius: 15px;
     overflow:auto;
     height: 90%;

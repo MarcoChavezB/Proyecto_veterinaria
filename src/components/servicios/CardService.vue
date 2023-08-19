@@ -19,10 +19,6 @@ const props = defineProps({
     type: Number,
     default: 1
   },
-  Foto: {
-    type: String,
-    default: '../src/assets/img/FotosServicios/estetico1.jpeg'
-  },
   precio: {
     type: Number,
     default: 0
@@ -32,7 +28,7 @@ const props = defineProps({
   }
 });
 
-let { Description, Service, Foto } = props;
+let { Description, Service  } = props;
 const emits = defineEmits(['ide'])
 const { Type } = toRefs(props);
 const computedType = computed(() => {
@@ -54,9 +50,9 @@ const { ispublic, Id } = toRefs(props);
 
 <template>
     <div class="carta">
-        <div class="service-image" :style="{ backgroundImage: `url(${Foto})` }" ></div>
+        <div class="service-image"></div>
         <div class="info">
-            <div class="texto">
+            <div class="texto tit" >
                 <h3 class="grilla" >{{ Service }}</h3>
             </div>
             <div class="texto">
@@ -70,13 +66,17 @@ const { ispublic, Id } = toRefs(props);
             </div>
             <div  class="boton">
                 <BotonConEstilo @click="editService(Id, ispublic)" title="Publicar" v-show="ispublic" />
-                <BotonConEstilo @click="editService(Id, ispublic)" title="Despublicar" v-show="!ispublic" />
+                <BotonConEstilo @click="editService(Id, ispublic)" title="Ocultar" v-show="!ispublic" />
             </div>
       </div>
     </div>
 </template>
 
 <style scoped>
+
+.tit{
+  color: white;
+}
 
 .text{
     grid-column-start: 2;
@@ -101,28 +101,27 @@ const { ispublic, Id } = toRefs(props);
 }
 .carta {
     display: grid;
-    grid-template-rows: 1fr 1fr 8fr; 
+    grid-template-rows: 5% 5% 90%; 
     grid-template-columns: 100%;
     width: 65vh;
-    height: 40vh;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    height: 35vh;
+    box-shadow: 0 2rem 3rem rgba(77, 80, 107, 0.432);
     border-radius: 15px;
     overflow: hidden; 
 }
 
 .service-image {
+  height: 100%;
   grid-row-start: 1;
-  position: relative;
   width: 100%; 
-  padding-bottom: 17%;
-  background-size: cover;
-  background-position:center;
+  padding-bottom: 20%;
+  background: linear-gradient(rgb(16, 50, 145), rgb(255, 255, 255));
 }
 
 .info{
     grid-row-start: 3;
     display: grid;
-    grid-template-rows: 15% 10% 35% 15% 20% 5%;
+    grid-template-rows: 25% 10% 25% 15% 20% 5%;
 }
 
 </style>

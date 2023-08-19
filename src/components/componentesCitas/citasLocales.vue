@@ -1,5 +1,17 @@
 <script>
 import InputFecha from "@/components/ControlesSencillos/InputFecha.vue";
+import {ref, reactive} from 'vue'
+const nombre = ref('');
+const apellidos = ref('');
+const telefono1 = ref(0);
+const telefono2 = ref(0);
+const aninombre = ref('');
+const aniespecie = ref('');
+const aniraza = ref('');
+const anigenero = ref('');
+
+
+
 
 </script>
 <template>
@@ -48,19 +60,19 @@ import InputFecha from "@/components/ControlesSencillos/InputFecha.vue";
                                                 <h4>DATOS DE LA MASCOTA</h4>
                                                 <div class="input">
                                                       <span>NOMBRE</span>
-                                                      <input type="text" v-model="anima.nombre">
+                                                      <input type="text" v-model="aninombre">
                                                 </div>
                                                 <div class="input">
                                                       <span>ESPECIE</span>
-                                                      <input type="text" v-model="animal.especie">
+                                                      <input type="text" v-model="aniespecie">
                                                 </div>
                                                 <div class="input">
                                                       <span>RAZA</span>
-                                                      <input type="text" v-model="animal.raza">
+                                                      <input type="text" v-model="aniraza">
                                                 </div>
                                                 <div class="input">
                                                       <span>GENERO</span>
-                                                      <input type="text" v-model="animal.genero">
+                                                      <input type="text" v-model="anigenero">
                                                 </div>
                                           </div>
                                     </div>
