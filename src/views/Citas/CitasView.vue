@@ -79,27 +79,19 @@ import { ref,  onMounted } from 'vue';
 import axios from 'axios';
 import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
 
-// Arreglo para los id's de servicios
 const Services = ref([]);
-// Referencias a elementos del formulario
 const fechaCita = ref('');
 const id_mascota = ref('');
 const estatus = ref('Pendiente');
 const motivo = ref('');
 
 import {useUsuarioStore} from "@/stores/UsuariosStore";
-
 let usuarioStore = useUsuarioStore();
 
-
-// Elementos para insertar en tabla de muchos a muchos
 const servicioSelect = ref('');
 const tipo_servicio = ref('');
 
-// ID del cliente (debe obtenerse del servidor)
 const id_cliente = ref(usuarioStore.usuario.usuario.id);
-
-// Mostrar/ocultar formulario de registro de mascotas
 const showRegistrarMascota = ref(false);
 const FormFlotante = () => {
   showRegistrarMascota.value = true;
@@ -108,7 +100,6 @@ const BackCitas = () => {
   showRegistrarMascota.value = false;
 };
 
-// Registro de mascotas
 const nombre = ref('');
 const raza = ref('');
 const especie = ref('');
@@ -136,13 +127,13 @@ const registrarMascota = async () => {
   }
 };
 
-// Agendar cita
 const agendarCita = async () => {
   const cita = {
     fechaCita: fechaCita.value,
     estatus: estatus.value,
     motivo: motivo.value,
-    id_mascota: id_mascota.value
+    id_mascota: id_mascota.value,
+    id_cliente: id_cliente.value
   };
   console.log(cita);
   try {
@@ -157,7 +148,6 @@ const agendarCita = async () => {
   }
 };
 
-// Limpiar formulario
 const cleanForm = () => {
   fechaCita.value = '';
   id_mascota.value = '';
@@ -167,7 +157,6 @@ const cleanForm = () => {
   motivo.value = '';
 };
 
-// Obtener mascotas del usuario
 const Mascotas = ref([]);
 const FiltroMascotas = async () => {
   try {
@@ -186,14 +175,16 @@ onMounted(FiltroMascotas);
 const showFechaOcupada = ref(false);
 const showButton = ref(true);
 
+
 const validarFecha = async () => {
-  const fechaSeleccionada = new Date(fechaCita.value)
+  const fechaSeleccionada = new Date(fechaCita.value);
   try {
     const response = await axios.post('http://web.Backend.com/ValidacionFechas');
     const fechasValidadas = response.data.data;
-    const fechasExistentes = fechasValidadas.some(cita => new Date(cita.fecha_cita).getTime() === fechaSeleccionada.getTime())
-    console.log(fechasExistentes);
-
+    const fechasExistentes = fechasValidadas.some(cita => {
+      const fechaCita = new Date(cita.fecha_cita);
+      return Math.abs(fechaCita - fechaSeleccionada) < 60 * 60 * 1000;
+    });
     if (fechasExistentes){
       showFechaOcupada.value = true;
       showButton.value = false;
@@ -202,12 +193,10 @@ const validarFecha = async () => {
       showButton.value = true;
     }
 
-  }catch (error){
+  } catch (error) {
     console.error(error);
   }
 }
-
-
 
 </script>
 

@@ -152,6 +152,7 @@ const citaResponse = async () => {
     }
     const response = await axios.post('http://web.backend.com/citasResponse', data)
     console.log(response)
+    getUserEmail(data.cita_id);
     isLoading.value = false
   } catch (error) {
     console.log(error)
@@ -160,6 +161,33 @@ const citaResponse = async () => {
 }
 
 
+const email = ref();
+const citaId = ref("");
+const getUserEmail = async (idcita) => {
+  citaId.value = idcita;
+  console.log(citaId.value);
+  try {
+    const response = await axios.post('http://web.backend.com/CorreoUsuario',{cita_id: citaId.value})
+    console.log(response.data);
+    email.value = response.data.data;
+    //console.log("email.value", email.value);
+    await SendEmail(email.value[0].correo);
+    //console.log("Testeo 2");
+  }catch (error){
+    console.error(error)
+
+  }
+}
+
+
+const SendEmail = async (emailString) => {
+  try {
+    const response = await axios.post('http://web.backend.com/NotiCorreo', {correo_u: emailString});
+    console.log(response.data);
+  }catch (error){
+    console.error(error);
+  }
+}
 
 // 1 horas y minutos formato
 // 2 solo año formato

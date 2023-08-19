@@ -23,25 +23,21 @@
   
     <div class="pantalla">
       <div class="table-container">
-
-      <!-- Tabla de consultas por fecha -->
-      <div class="responsive-table" v-if="selectedOption === 'opcion2' && consFecha.length > 0">
+        <div class="responsive-table" v-if="selectedOption === 'opcion2' && consFecha.length > 0">
         <table class="table table-hover custom-table">
         <thead>
             <tr>
-              <th>Nombre</th>
+              <th>Mascota</th>
               <th>Especie</th>
               <th>Raza</th>
               <th>Genero</th>
-              <th>Dueño</th>
+              <th>Cliente</th>
               <th>Fecha</th>
               <th>Motivo</th>
-              <th>Servicios</th>
-              <th>Servicio Solicitado</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in consFecha" :key="item.Motivo">
+            <tr v-for="item in consFecha" :key="item.id">
               <td id="Nombre">{{ item.Nombre }}</td>
               <td>{{ item.Especie }}</td>
               <td>{{ item.Raza }}</td>
@@ -49,16 +45,12 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
-              <td>{{ item.Servicios }}</td>
-              <td>{{ item.Servicio_solicitado }}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p v-else-if="selectedOption === 'opcion2'">No hay datos disponibles.</p>
-
-      <!-- Tabla de consultas por cliente -->
-      <div class="responsive-table" v-if="selectedOption === 'opcion1' && constCliente.length > 0">
+        <div class="responsive-table" v-if="selectedOption === 'opcion1' && constCliente.length > 0">
         <table class="table table-hover custom-table">
         <thead>
             <tr>
@@ -69,12 +61,10 @@
               <th>Dueño</th>
               <th>Fecha</th>
               <th>Motivo</th>
-              <th>Servicios</th>
-              <th>Servicio Solicitado</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in constCliente" :key="item.Motivo">
+            <tr v-for="item in constCliente" :key="item.id">
               <td id="Nombre">{{ item.Nombre }}</td>
               <td>{{ item.Especie }}</td>
               <td>{{ item.Raza }}</td>
@@ -82,8 +72,6 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
-              <td>{{ item.Servicios }}</td>
-              <td>{{ item.Servicio_solicitado }}</td>
             </tr>
           </tbody>
         </table>
@@ -122,7 +110,6 @@ const ReporteCitasRechazadasFecha = async () => {
 try {
   const response = await axios.post('http://web.Backend.com/ReporteCitasRechazadasFecha', {Fecha: FechaCons.value, Fecha2: FechaCons2.value})
   consFecha.value = response.data.data;
-  console.log(response.data);
 } catch (error) {
   console.error(error);
 }
@@ -133,11 +120,10 @@ const Apellidos = ref("");
 const constCliente = ref([]);
 const ReporteCitasRechazadasCliente = async () => {
 try {
-  const response = await axios.post('http://web.Backend.com/ReporteCitasRechazadasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
+  const response = await axios.post('http://web.Backend.com/ReporteCiasRechazadasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
   constCliente.value = response.data.data;
-  console.log(response.data);
 } catch (error) {
-  console.error("Error al obtener el reporte de inventario", error);
+  console.error(error);
 }
 };
   </script>
@@ -198,33 +184,15 @@ try {
     font-weight: bold;
     background-color: white;
   }
-  .custom-table td,
-  .custom-table th {
-    border: 1px solid #dee2e6;
-  }
-
   .table-container {
     height: 500px;
     overflow: auto;
   }
 
   @media (max-width: 767px) {
-    .custom-table thead {
+    .table-container::-webkit-scrollbar{
       display: none;
     }
-    .custom-table td {
-      display: block;
-      text-align: right;
-    }
-    .custom-table td:before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    #Nombre {
-    font-weight: bold;
-  }
   }
   .label{
     display: flex;

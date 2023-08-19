@@ -1,7 +1,7 @@
 <template>
   <div class="first-container">
             <div class="Titulo"> 
-          <span class="material-symbols-outlined">respiratory_rate</span><h2>Hisotorial Medico</h2>
+          <span class="material-symbols-outlined">respiratory_rate</span><h2>Hisotorial de atencion</h2>
         </div>
         <div class="second-container">
           <div class="carta" v-for="mascota in Mascotas" :key="mascota.id" @click="DisplayWindow(mascota.id)">
@@ -25,7 +25,7 @@
                 <th>Altura</th>
                 <th>Edad</th>
                 <th>Observaciones</th>
-                <th>Medicacion</th>
+                <th>Productos usados</th>
                 <th>Cantidad</th>
                 <th>Costo de los servicios ofrecidos</th>
                 <th>Costo de los productos</th>
