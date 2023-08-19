@@ -18,7 +18,7 @@
         </div>
         <div class="izquierdo">
 
-            <div class="seccion">
+            <div class="seon">
 
                 <div class="cuerpo">
                     <div class="tiket">
@@ -136,11 +136,8 @@ const quitarProducto = (id) => {
     productosEnPantalla.value = productosEnPantalla.value.filter(item => item[0].id !== id);
     console.log(productosEnPantalla.value)
 
-    // Desactivar el botón de eliminación después de eliminar el producto
     deleteProd.value = 0;
-    
-    // quiero que unicamente al producto que se le dio click es decir a su id que es el que toma de parametro la funcion 
-    // se inicialize en cero cantidadesPorIDporque como esta ahorita se inicializa para todos los productos
+        
     cantidadesPorID.value[id] = 0;
     productoEliminado.setVariable(deleteProd.value);
   }

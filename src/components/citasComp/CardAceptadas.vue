@@ -138,18 +138,12 @@ const respuesta = (seleccion) =>{
     mensaje_success.value = 'Cita marcada como aceptada'
     mostrarAlertSuccess.value = true
     mostrarAlertError.value = false
-      mandarValorCarta.value = false
-  mostrarCarta.setVariable(mandarValorCarta.value)
-  console.log( 'sokakoskoaksoakosk' , mandarValorCarta.value)
     MandarCorreo()
 
   } else if(CitaResponse.value === 'Rechazada'){
     mensaje_error.value = 'Cita marcada como rechazada'
     mostrarAlertError.value = true
     mostrarAlertSuccess.value = false
-    mandarValorCarta.value = false
-  mostrarCarta.setVariable(mandarValorCarta.value)
-  console.log( 'sokakoskoaksoakosk' ,mandarValorCarta.value)
     MandarCorreo()
   }
 

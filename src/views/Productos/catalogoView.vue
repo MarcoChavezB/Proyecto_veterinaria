@@ -33,7 +33,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-// import footer from '@\components\cliente\menuComponents\footer.vue';
+// import foote from '@\components\cliente\menuComponents\footer.vue';
 const productos =ref([]);
 const search = ref([]);
 const obtenerproductos = async () => 

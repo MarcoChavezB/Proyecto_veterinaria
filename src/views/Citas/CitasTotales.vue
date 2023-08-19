@@ -7,7 +7,7 @@
     <div class="app">
       <div class="controles">
         <div class="botones">
-          <btnn title="Agendar Cita" @click="agendar"/>
+          <btn id="btn_black" title="Agendar Cita" @click="agendar"/>
         </div>
       </div>
       <div class="table">
@@ -41,15 +41,13 @@
 <script setup>
 import Rows from '../../components/citasComp/RowTableCitas.vue'
 import encabezado from '../../components/citasComp/CitasHeadre.vue'
-import mensaje from '@/components/citasComp/AceptacionCard.vue'
-import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
+import mensaje from '../../components/citasComp/AceptacionCard.vue'
+import btn from '../../components/ControlesIndividuales/BotonConEstilo.vue'
 import axios from 'axios'
 import {ref} from 'vue'
-import {mostrarCartaCita, citaID} from '@/stores/counter.js'
+import {citaID} from '@/stores/counter.js'
 
 
-const mostrarDetalleCita = mostrarCartaCita()
-var mandarValorCita = ref()
 const showModal = ref(true);
 const cita_id = citaID()
 const msgID = ref()
@@ -132,6 +130,10 @@ const agendar =()=>{
   background-color: rgba(0,0,0,0.4);
 }
 
+#btn_black{
+  color: white;
+  background-color: black;
+}
 .controles{
   display: grid;
   grid-auto-columns: 1fr;

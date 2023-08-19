@@ -72,13 +72,10 @@ import { dataLog } from '@/stores/counter.js'
 import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
 import axios from 'axios';
 
-const user = ref();
-const dataUser = dataLog();
 const email = ref('');
 const pass = ref('');
 const router = useRouter();
 var mostrarError = ref();
-var mostrarSuccess = ref();
 
 const redirectToPage = () => {
     router.push('/cuerpo');

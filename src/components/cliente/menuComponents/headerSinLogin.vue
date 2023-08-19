@@ -5,12 +5,7 @@
             <ul class="navbar normal">
                 <li><router-link :to="{name: 'catalogoSin'}" href="#">Productos</router-link></li>
                 <li><router-link :to="{name: 'login'}">Citas</router-link></li>
-<<<<<<< HEAD
                 <li><router-link :to="{name: 'login'}">Iniciar sesion</router-link></li>
-=======
-                <li><router-link :to="{name: 'ubicacionSin'}">Ubicación</router-link></li>
-                <li><router-link :to="{name: 'login'}">Iniciar sesión</router-link></li>
->>>>>>> 5de18b826620e0b3d2211e71ac83615a867c9193
                 <li><router-link :to="{name: 'register'}">Registrarse</router-link></li>
                 <li><router-link :to="{name: 'serviciosSin'}">Servicios</router-link></li>
 
@@ -24,12 +19,8 @@
                     
                     <li><router-link :to="{name: 'catalogoSin'}" href="#">Productos</router-link></li>
                     <li><router-link :to="{name: 'login'}">Citas</router-link></li>
-<<<<<<< HEAD
-                    <li><router-link :to="{name: 'login'}">Iniciar sesion</router-link></li>
-=======
                     <li><router-link :to="{name: 'ubicacionSin'}">Ubicación</router-link></li>
                     <li><router-link :to="{name: 'login'}">Iniciar sesión</router-link></li>
->>>>>>> 5de18b826620e0b3d2211e71ac83615a867c9193
                     <li><router-link :to="{name: 'register'}">Registrarse</router-link></li>
                     <li><router-link :to="{name: 'servicios'}">Servicios</router-link></li>
                 </ul>

@@ -196,8 +196,9 @@ const fetchData = async () => {
       try {
             const response = await axios.post('http://web.backend.com/revisar_producto', { nombre_producto: nombre_producto.value });
             console.log(response.data.data);
+            console.log(nombre_producto.value)
 
-            if (response.data.data === true) {
+            if (response.data.data.data === true) {
                   try {
                         const responseAgregar = await axios.post('http://web.backend.com/agregarProducto', data);
                         productos.value = responseAgregar.data.data;
