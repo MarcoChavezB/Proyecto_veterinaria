@@ -201,9 +201,9 @@ const verificarCorreo = async () => {
 
 const data = async () => {
     const reg = {
-        nombres: nombre.value,
-        apellidos: last.value,
-        password: contrasena.value,
+        nombre: nombre.value,
+        last: last.value,
+        contrasena: contrasena.value,
         correo: correo.value,
         tel1: tel1.value,
         tel2: tel2.value,
@@ -211,7 +211,7 @@ const data = async () => {
     };
 
     try {
-        const response = await axios.post('http://web.backend.com/signin', reg);
+        const response = await axios.post('http://web.backend.com/registrar', reg);
         console.log(response.data); 
     } catch (error) {
         console.error(error);

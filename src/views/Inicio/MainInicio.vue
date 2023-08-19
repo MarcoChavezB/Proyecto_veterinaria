@@ -243,8 +243,18 @@
                               </li>
                           </ul>
                       </div>
+                  <div class="ubicacion">
+                    <div class="title">
+                      <h2 class="h2 section-title">
+                        <span class="material-symbols-outlined icon-map">map</span>
+                              <span class="span">Descubre</span> nuestra ubicacion!
+                        </h2>
+                        <div class="mapa-container d-flex justify-content-center w-90">
+                          <div class="mapa" @click="goToMaps"></div>
+                        </div>
+                    </div>
+                  </div>
                   </section>
-
               </article>
           </main>
       </div>
@@ -258,6 +268,9 @@
 <script setup>
 import headerClient from '../../components/cliente/menuCOmponents/headerSinLogin.vue'
 import footerClient from '../../components/cliente/menuComponents/footer.vue';
+const goToMaps = () => {
+    window.open("https://www.google.com/maps/place/Clinica+veterinaria+cachorros/@25.5260108,-103.2249768,16.74z/data=!4m6!3m5!1s0x868fc1bf8b8f70e5:0x30f7ddd0cd2cd4a!8m2!3d25.5259657!4d-103.2227034!16s%2Fg%2F11fr37vvbn?hl=en-MX&entry=ttu", "_blank")
+  }
 </script>
 
 
@@ -284,7 +297,14 @@ import footerClient from '../../components/cliente/menuComponents/footer.vue';
 }
 
 
-
+.mapa{  
+  height: 30em;
+  width: 100%;
+  background-image: url('../../assets/img/ubicacion3.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
 
 /*-----------------------------------*\
 #RESET
@@ -300,6 +320,11 @@ import footerClient from '../../components/cliente/menuComponents/footer.vue';
 
 li {
   list-style: none;
+}
+.icon-map{
+  margin-top: 2em;
+  color: coral;
+  font-size: 4rem;
 }
 
 a,

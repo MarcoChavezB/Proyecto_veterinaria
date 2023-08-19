@@ -17,7 +17,7 @@ onMounted(() => {
   // Simula una carga
   setTimeout(() => {
     isLoading.value = false;
-  }, 2000);
+  }, 1000);
 });
 </script>
 

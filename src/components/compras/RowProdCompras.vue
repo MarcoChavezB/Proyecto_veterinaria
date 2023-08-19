@@ -11,7 +11,16 @@
                         add
                     </span>
                 </button>
-
+                <button @click="mandarFalse">
+                    <span class="material-symbols-outlined">
+                        remove
+                    </span>
+                </button>
+                <button @click="quitarProducto">
+                    <span class="material-symbols-outlined">
+                        delete
+                    </span>
+                </button>
             </div>
         </div>
     </div>
@@ -22,9 +31,12 @@
 import { defineProps, ref } from 'vue';
 import { StorePublics } from '@/stores/counter.js'
 import {quitarProd} from '@/stores/counter.js'
-import {cantProducto} from '@/stores/counter.js'
+import {cantProducto, deleteProduct} from '@/stores/counter.js'
 const cantidad = cantProducto()
 const mandarCant = ref();
+
+const producto = deleteProduct()
+const deleteProd = ref();
 
 const quitar = quitarProd()
 const productoR = ref();
@@ -40,14 +52,17 @@ defineProps({
 
 })
 
-const store = StorePublics();
+const store = StorePublics(0);
 var numero = ref(0)
 
 
 const mandarTrue =  (a) =>{
   if (a === 1){
-    numero.value ++;
-
+    numero.value++;
+    mandarCant.value = numero.value;
+    store.setVariable(numero);
+    cantidad.setVariable(mandarCant.value);
+    cantidadesPorID.value[id] = mandarCant.value;
   }else{
     mandarCant.value = numero.value
     store.setVariable(numero)
@@ -59,18 +74,19 @@ const mandarTrue =  (a) =>{
 
 const mandarFalse =  () =>{
   if (numero.value >= 2){
-    numero.value --;
-    mandarCant.value = numero.value
-    store.setVariable(numero)
-    cantidad.setVariable(mandarCant.value)
+    numero.value--;
+    mandarCant.value = numero.value;
+    cantidad.setVariable(mandarCant.value);
+    cantidadesPorID.value[id] = mandarCant.value; // Agregar esta línea
   } else {
     return numero.value
   }
 }
 
-
-
-setInterval(mandarTrue, 1000)
+const quitarProducto = () =>{
+  deleteProd.value = 1
+  producto.setVariable(deleteProd.value)
+}
 
 </script>
     
@@ -109,17 +125,24 @@ setInterval(mandarTrue, 1000)
     gap: 10px;
   }
 
-  .btns button:first-child{
-    display: flex;
-    border: none;
-    width: 30px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    background-color: green;
+  .btns button{
+    position: relative;
+    width: 50px;
+    height: 35px;
+    cursor: pointer;
+    background-color: white;
     border-radius: 5px;
-    color: white;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 0 1em #00000013;
+    transition: all 0.3s;
+    font-weight: 500;
   }
 
+
+  .btns button:hover{
+    background-color: black;
+    color: white;
+  }
 </style>
     

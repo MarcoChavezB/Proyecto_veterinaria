@@ -42,28 +42,20 @@
 import Rows from '../../components/citasComp/RowTableCitas.vue'
 import encabezado from '../../components/citasComp/CitasHeadre.vue'
 import mensaje from '@/components/citasComp/AceptacionCard.vue'
-import add from '../../components/ControlesIndividuales/ingresar.vue'
 import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
-import cita from '@/components/componentesCitas/citasLocales.vue';
 import axios from 'axios'
-import load from '../../components/loaders/loaderPrincipal.vue'
 import {ref} from 'vue'
-import {useStore} from '@/stores/counter.js'
-import {StoreProdInternos} from '@/stores/counter.js'
-import {card, citaID} from '@/stores/counter.js'
+import {mostrarCartaCita, citaID} from '@/stores/counter.js'
 
 
-const loading = ref(false);
+const mostrarDetalleCita = mostrarCartaCita()
+var mandarValorCita = ref()
 const showModal = ref(true);
-const carta = card()
 const cita_id = citaID()
 const msgID = ref()
 const inicial = ref(false)
-const globalShow = true
-const prodInterno = StoreProdInternos();
-const store = useStore()
 const citas = ref([])
-const nombre = ref();
+
 
 const fetchData = async () => {
   try {
@@ -76,13 +68,8 @@ const fetchData = async () => {
 
 const seleccion = (id) => {
   msgID.value = id;
-
-  // Cambiar el valor entre false y true
   inicial.value = true;
-
   cita_id.setVariable(msgID.value);
-  mandarEstatus.setVariable();
-  console.log('90909090',inicial.value)
 };
 
 

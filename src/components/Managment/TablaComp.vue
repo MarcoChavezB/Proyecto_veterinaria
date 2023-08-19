@@ -38,24 +38,10 @@ onMounted(infoCitas);
 </script>
 
 <style scoped>
-* {
-    font-family: 'Comfortaa', cursive;
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    appearance: none;
-    border: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-}
+
 
 /*=================Tabla==================*/
 
-overflow-y: scroll;
-::-webkit-scrollbar {
-  width: 0.5em;
-}
 
 ::-webkit-scrollbar-thumb {
   background-color: #888;
@@ -83,7 +69,7 @@ main .recent-orders table:hover {
 }
 
 table {
-    height: 2.8rem;
+    
     border-bottom: 1px solid rgba(132, 139, 200, 0.18);
     color: #677483;
 }
@@ -106,7 +92,6 @@ main .recent-orders a {
 .headerTable {
     display: flex;
     justify-content: space-around;
-
 }
 </style>
 

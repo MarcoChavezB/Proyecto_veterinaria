@@ -82,7 +82,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { card, citaID } from '@/stores/counter.js'
+import { mostrarCartaCita, citaID } from '@/stores/counter.js'
 import axios from 'axios'
 import loader from '../loaders/loaderPrincipal.vue'
 import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
@@ -92,15 +92,15 @@ import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
-
-const recibirEstatus = ref()
-const recibirShow = card()
+const mostrarCarta = mostrarCartaCita()
+const mandarValorCarta = ref()
+const esconder = ref(true)
+const mensaje_error = ref('')
+const mensaje_success = ref('')
 const today = new Date();
 const currentMonth = monthNames[today.getMonth()];
 const currentDay = today.getDate();
 const formattedDate = `${currentMonth}, ${currentDay}`;
-var esconder = ref(true)
-var show = recibirShow.state.variable
 var citaid = citaID()
 var id = citaid.state.variable
 var mostrarAlertSuccess= ref(false);
@@ -135,16 +135,24 @@ const respuesta = (seleccion) =>{
   CitaResponse.value = CitaResponse.value === 1 ? 'Rechazada' : CitaResponse.value === 2 ? 'Realizada' : 'otro_valor';
 
   if (CitaResponse.value === 'Realizada'){
+    mensaje_success.value = 'Cita marcada como aceptada'
     mostrarAlertSuccess.value = true
     mostrarAlertError.value = false
+      mandarValorCarta.value = false
+  mostrarCarta.setVariable(mandarValorCarta.value)
+  console.log( 'sokakoskoaksoakosk' , mandarValorCarta.value)
     MandarCorreo()
 
   } else if(CitaResponse.value === 'Rechazada'){
+    mensaje_error.value = 'Cita marcada como rechazada'
     mostrarAlertError.value = true
     mostrarAlertSuccess.value = false
+    mandarValorCarta.value = false
+  mostrarCarta.setVariable(mandarValorCarta.value)
+  console.log( 'sokakoskoaksoakosk' ,mandarValorCarta.value)
     MandarCorreo()
   }
-  
+
   citaResponse();
 }
 
@@ -162,13 +170,6 @@ const citaResponse = async () => {
     isLoading.value = false
   }
 }
-
-
-
-
-
-
-
 
 
 // 1 horas y minutos formato
