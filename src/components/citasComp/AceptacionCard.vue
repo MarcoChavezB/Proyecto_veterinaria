@@ -121,7 +121,7 @@ const dataCita = async () => {
   try {
     await pause(1000);
 
-    const response = await axios.post('http://web.backend.com/citas_id', cita_id);
+    const response = await axios.post('http://backend.vetcachorros.one/citas_id', cita_id);
     citasdata.value = response.data.data;
     isLoading.value = false;
   } catch (error) {
@@ -151,7 +151,7 @@ const respuesta = (seleccion) =>{
 const correo = ref()
 const MandarCorreo = async () => {
   try {
-    const response = await axios.post('http://web.backend.com/mandarCorreo', id);
+    const response = await axios.post('http://backend.vetcachorros.one/mandarCorreo', id);
     correo.value = response.data.data;
     console.log(correo.value);
   } catch (error) {
@@ -166,7 +166,7 @@ const citaResponse = async () => {
       cita_id: id,
       cita_respuesta: CitaResponse.value
     }
-    const response = await axios.post('http://web.backend.com/citasResponse', data)
+    const response = await axios.post('http://backend.vetcachorros.one/citasResponse', data)
     console.log(response)
     getUserEmail(data.cita_id);
     isLoading.value = false
@@ -183,7 +183,7 @@ const getUserEmail = async (idcita) => {
   citaId.value = idcita;
   console.log(citaId.value);
   try {
-    const response = await axios.post('http://web.backend.com/CorreoUsuario',{cita_id: citaId.value})
+    const response = await axios.post('http://backend.vetcachorros.one/CorreoUsuario',{cita_id: citaId.value})
     console.log(response.data);
     email.value = response.data.data;
     //console.log("email.value", email.value);
@@ -198,7 +198,7 @@ const getUserEmail = async (idcita) => {
 
 const SendEmail = async (emailString) => {
   try {
-    const response = await axios.post('http://web.backend.com/NotiCorreo', {correo_u: emailString});
+    const response = await axios.post('http://backend.vetcachorros.one/NotiCorreo', {correo_u: emailString});
     console.log(response.data);
   }catch (error){
     console.error(error);

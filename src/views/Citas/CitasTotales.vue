@@ -67,7 +67,7 @@ const nombre = ref();
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://web.backend.com/citas_total');
+    const response = await axios.get('http://backend.vetcachorros.one/citas_total');
     citas.value = response.data.data;
   } catch(error) {
     console.log(error)

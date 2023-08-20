@@ -87,7 +87,7 @@ watch(filter, (newValue) => {
      id: search.value
     };
   try {
-    const response = await axios.post('http://web.Backend.com/clientes/infoID', userUpdate);
+    const response = await axios.post('http://backend.vetcachorros.one/clientes/infoID', userUpdate);
     if(response.data.data===null)
     {
       users.value=[]
@@ -113,7 +113,7 @@ const UsersCorreo = async () => {
     };
     console.log(userUpdate);
   try {
-    const response = await axios.post('http://web.Backend.com/clientes/infoCorreo', userUpdate);
+    const response = await axios.post('http://backend.vetcachorros.one/clientes/infoCorreo', userUpdate);
     if (Array.isArray(response.data.data)) {
   users.value = response.data.data;
    } else {
@@ -127,7 +127,7 @@ const UsersCorreo = async () => {
   const fetchUsers = async () => {
     users.value = [];
   try {
-    const response = await axios.get('http://web.Backend.com/clientes/All');
+    const response = await axios.get('http://backend.vetcachorros.one/clientes/All');
     users.value = response.data.data;
     console.log(users.value)
   } catch (error) {

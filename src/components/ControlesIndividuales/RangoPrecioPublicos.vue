@@ -40,7 +40,7 @@ const data = async () => {
     }
   
     try {
-      const response = await axios.post('http://web.backend.com/preciosPublicos', rango);
+      const response = await axios.post('http://backend.vetcachorros.one/preciosPublicos', rango);
       filtData.value = response.data;
       updateVariable()
     } catch (error) {

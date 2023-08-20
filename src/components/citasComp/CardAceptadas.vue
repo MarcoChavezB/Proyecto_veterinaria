@@ -120,7 +120,7 @@ const dataCita = async () => {
   try {
     await pause(1000);
 
-    const response = await axios.post('http://web.backend.com/citas_id', cita_id);
+    const response = await axios.post('http://backend.vetcachorros.one/citas_id', cita_id);
     citasdata.value = response.data.data;
     isLoading.value = false;
   } catch (error) {
@@ -156,7 +156,7 @@ const citaResponse = async () => {
       cita_id: id,
       cita_respuesta: CitaResponse.value
     }
-    const response = await axios.post('http://web.backend.com/citasAceptadasResponse', data)
+    const response = await axios.post('http://backend.vetcachorros.one/citasAceptadasResponse', data)
     console.log(response)
     isLoading.value = false
   } catch (error) {

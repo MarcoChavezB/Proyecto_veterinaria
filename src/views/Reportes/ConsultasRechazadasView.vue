@@ -108,7 +108,7 @@ const FechaCons = ref("");
 const consFecha = ref ([]);
 const ReporteCitasRechazadasFecha = async () => {
 try {
-  const response = await axios.post('http://web.Backend.com/ReporteCitasRechazadasFecha', {Fecha: FechaCons.value, Fecha2: FechaCons2.value})
+  const response = await axios.post('http://backend.vetcachorros.one/ReporteCitasRechazadasFecha', {Fecha: FechaCons.value, Fecha2: FechaCons2.value})
   consFecha.value = response.data.data;
 } catch (error) {
   console.error(error);
@@ -120,7 +120,7 @@ const Apellidos = ref("");
 const constCliente = ref([]);
 const ReporteCitasRechazadasCliente = async () => {
 try {
-  const response = await axios.post('http://web.Backend.com/ReporteCiasRechazadasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
+  const response = await axios.post('http://backend.vetcachorros.one/ReporteCiasRechazadasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
   constCliente.value = response.data.data;
 } catch (error) {
   console.error(error);

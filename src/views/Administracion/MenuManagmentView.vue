@@ -99,7 +99,7 @@ setInterval(intervalMessage,100)
 const citas = ref([])
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://web.backend.com/citasPendientes');
+    const response = await axios.get('http://backend.vetcachorros.one/citasPendientes');
     citas.value = response.data.data;
   } catch(error) {
     console.log(error)
@@ -110,7 +110,7 @@ const fetchData = async () => {
 const productos = ref([])
 const bajaProd = async () => {
   try {
-    const response = await axios.get('http://web.backend.com/bajaProductos');
+    const response = await axios.get('http://backend.vetcachorros.one/bajaProductos');
     productos.value = response.data.data;
     console.log(productos.value)
   } catch(error) {
@@ -124,11 +124,11 @@ const citasR = ref([])
 const montoT = ref([])
 const cantidadVentas = async () => {
   try {
-    const response = await axios.get('http://web.backend.com/total_ventas');
+    const response = await axios.get('http://backend.vetcachorros.one/total_ventas');
     ventas.value = response.data.data;
-    const citasResponse = await axios.get('http://web.backend.com/total_citas');
+    const citasResponse = await axios.get('http://backend.vetcachorros.one/total_citas');
     citasR.value = citasResponse.data.data;
-    const montoTotal = await axios.get('http://web.backend.com/monto_total');
+    const montoTotal = await axios.get('http://backend.vetcachorros.one/monto_total');
     montoT.value = montoTotal.data.data
   } catch (error) {
     console.log(error)

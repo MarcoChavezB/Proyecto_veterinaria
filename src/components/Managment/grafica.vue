@@ -32,7 +32,7 @@ const fetchData = async () => {
   };
 
   try {
-    const response = await axios.post('http://web.backend.com/data', rango);
+    const response = await axios.post('http://backend.vetcachorros.one/data', rango);
     data.value = response.data;
     // Obtener los datos del mes pasado
     const lastMonthStartDate = new Date(year, mes - 2, 1);
@@ -43,7 +43,7 @@ const fetchData = async () => {
       fechaI: formattedLastMonthStartDate,
       fechaF: formattedLastMonthEndDate
     };
-    const responseLastMonth = await axios.post('http://web.backend.com/data', rangoLastMonth);
+    const responseLastMonth = await axios.post('http://backend.vetcachorros.one/data', rangoLastMonth);
     previousMonthData.value = responseLastMonth.data;
     updateChartData();
   } catch (error) {

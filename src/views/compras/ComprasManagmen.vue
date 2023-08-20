@@ -232,7 +232,7 @@ const terminar = async () => {
   } else {
     try {
       const response = await axios.post(
-        'http://web.backend.com/venta',
+        'http://backend.vetcachorros.one/venta',
         jsonData
       );
       console.log(response);
@@ -242,7 +242,7 @@ const terminar = async () => {
 
     try {
       const GenerarTiket = await axios.get(
-        'http://web.backend.com/GenerarTiket'
+        'http://backend.vetcachorros.one/GenerarTiket'
       );
       tiketData.value = GenerarTiket.data.data;
     } catch (error) {
@@ -270,7 +270,7 @@ const cancelarCompra = async () => {
     }, 2000);
   } else{
     try {
-    const response = await axios.post('http://web.backend.com/CancelarCompra');
+    const response = await axios.post('http://backend.vetcachorros.one/CancelarCompra');
     console.log('venta revertida', response.data.data)
     tiketData.value = []
     mensaje_success.value = 'Venta cancelada'
