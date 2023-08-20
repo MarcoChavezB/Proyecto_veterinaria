@@ -1,20 +1,19 @@
 <template id="template">
       <div class="pantalla">
-            
+
             <div id="imagen-services">
                   <img src="@\assets\img\imagen-servicios-veterinaria.png" alt="imagen-servicios">
                   <!-- <img src="../src/assets/img/imagen-servicios-veterinaria" alt="imagen-servicios"> -->
                   <h4>SERVICIOS</h4>
             </div>
             <div id="tipe-service-select">
-                  <router-link class="link-services" to="/serviciosesteticos"><button>Estéticos</button></router-link>
-                  <router-link class="link-services" to="/serviciosclinicos"><button>Clínicos</button></router-link>
+                  <router-link class="link-services" to="/serviciosesteticosConLogin"><button>Estéticos</button></router-link>
+                  <router-link class="link-services" to="/serviciosclinicosConLogin"><button>Clínicos</button></router-link>
             </div>
             <RouterView />
 
       </div>
 </template>
-  
 <script setup>
 
 import { ref, onMounted } from 'vue';
@@ -65,7 +64,6 @@ const obtenerservicioscli = async () => {
 }
 onMounted(obtenerservicioscli);
 </script>
-
 <style scoped>
 #template {
       width: 100%;

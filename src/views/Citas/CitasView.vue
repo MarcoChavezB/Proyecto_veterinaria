@@ -340,7 +340,6 @@ form textarea {
       justify-content: center;
       align-items: center;
       z-index: 999;
-      /* Asegúrate de que el índice z sea mayor que el de otros elementos para que aparezca en frente */
 }
 
 .floating-form {
