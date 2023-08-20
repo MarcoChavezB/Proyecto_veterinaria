@@ -120,7 +120,7 @@ const registrarMascota = async () => {
       console.log(mascota);
       try {
             const response = await axios.post(
-                  'http://web.Backend.com/registrarMascota',
+                  'http://Backend.vetcachorros.one/registrarMascota',
                   mascota
             );
             console.log(response.data);
@@ -140,7 +140,7 @@ const agendarCita = async () => {
       console.log(cita);
       try {
             const response = await axios.post(
-                  'http://web.Backend.com/agendarcita',
+                  'http://Backend.vetcachorros.one/agendarcita',
                   cita
             );
             console.log(response.data);
