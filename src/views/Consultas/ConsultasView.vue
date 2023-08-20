@@ -6,7 +6,7 @@
           <span class="material-symbols-outlined">local_hospital</span><h2>Generar Consultas</h2>
         </div>
       <div class="filtro">
-        <ComboBox v-model="selectedOption" title="Filtrar por:" :options="[{ text: 'Cliente', value: 'opcion1' },{ text: 'Reporte General', value: 'opcion3' }]"/>
+        <ComboBox v-model="selectedOption" title="Filtrar por:" :options="[{ text: 'Cliente', value: 'opcion1' },{ text: 'General', value: 'opcion3' }]"/>
       </div>
       <div class="filtro2" v-show="status1">
         <InputCliente tittle1="Nombres(S)" tittle2="Apellidos" v-model:modelValue1="Nombres" v-model:modelValue2="Apellidos" @input="GenerarConsultasCliente" />
@@ -108,11 +108,13 @@
           </tbody>
         </table>
       </div>
-            <br>
           </div>
-        <router-link :to="{ name: 'reportconsultasrealizadas' }">
-          <p>Puedes ver los costos de las consultas en tu apartado de reportes</p>
-        </router-link>
+        <br>
+        <div v-for="costos in costosPS">
+          <p>Costo Servicios:  ${{costos.costo_servicios_total}}</p>
+          <p>Costo Articulos:  ${{costos.costo_productos_total}}</p>
+          <p>Total:  ${{costos.costo_total}}</p>
+        </div>
         <br>
         <Btnn type="submit" title="Guardar consulta"/><br>
         <p id="Atras" @click="Atras">Salir</p>
@@ -159,6 +161,13 @@
   }
   };
 
+
+  watch(services, async (newValue) => {
+
+    await CalcularCostoDetallado();
+  });
+
+
   const RegistroConsulta = async () => {
   const Consulta = {
     id_cita: id_cita.value,
@@ -176,11 +185,26 @@
         Consulta
       );
       console.log("respuesta",response.data);
-      router.push('/consultasHechas')
+      location.reload();
     } catch (error) {
       console.error(error);
     }
   };
+
+
+  const costosPS = ref("");
+  const CalcularCostoDetallado = async () => {
+    try{
+      const response = await axios.post('http://web.Backend.com/CalcularCostoDetallado', {CostosServicios: services.value});
+      console.log(response.data);
+      costosPS.value = response.data.data;
+    }catch (error) {
+      console.error(error);
+
+    }
+  }
+
+
 
   const showRegistrarMascota = ref(false);
   const FormFlotante = () => {
@@ -232,7 +256,7 @@ try {
 }
 };
 
-  </script>
+</script>
   
   <style scoped>
   * {
@@ -330,6 +354,7 @@ try {
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  width: 550px;
 }
 
 #Atras:hover{

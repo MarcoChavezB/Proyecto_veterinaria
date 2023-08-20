@@ -11,8 +11,6 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
-
-
 import App from './App.vue'
 import router from './router'
 

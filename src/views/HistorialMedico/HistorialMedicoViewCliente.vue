@@ -25,7 +25,7 @@
                 <th>Altura</th>
                 <th>Edad</th>
                 <th>Observaciones</th>
-                <th>Medicación</th>
+                <th>Productos usados</th>
                 <th>Cantidad</th>
                 <th>Costo de los servicios ofrecidos</th>
                 <th>Costo de los productos</th>

@@ -3,12 +3,12 @@
         <div class="cont">
             <div class="fila">
                 <div class="footer-col">
-                    <h4>Company</h4>
+                    <h4>Desarrollares</h4>
                     <ul>
-                        <li><a href="#">about us</a></li>
-                        <li><a href="#">our services</a></li>
-                        <li><a href="#">privacy policy</a></li>
-                        <li><a href="#">affiliate program</a></li>
+                        <li><a href="https://github.com/MarcoChavezB">Marco Chavez</a></li>
+                        <li><a href="https://github.com/anthonyfs77">Anthony Fuentes</a></li>
+                        <li><a href="https://github.com/AAReynosoG">Abraham Alonoso</a></li>
+                        <li><a href="#">Jose Jeronimo</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">

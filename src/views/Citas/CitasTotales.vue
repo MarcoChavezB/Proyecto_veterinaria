@@ -21,7 +21,7 @@
         <div class="tableCel">
           <div class="headerTable">
             <h4>Nombre</h4>
-            <h4>Teléfono</h4>
+            <h4>Telefono</h4>
             <h4>Fecha cita</h4>
             <h4>Estatus</h4>
             <h4>Raza</h4>
@@ -54,7 +54,7 @@ import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
 import cita from '@/components/componentesCitas/citasLocales.vue';
 import axios from 'axios'
 import load from '../../components/loaders/loaderPrincipal.vue'
-import {ref} from 'vue'
+import {ref, onMounted, onUnmounted} from 'vue'
 import {useStore} from '@/stores/counter.js'
 import {StoreProdInternos} from '@/stores/counter.js'
 import {card, citaID} from '@/stores/counter.js'
@@ -99,6 +99,8 @@ setInterval(fetchData, 600)
 const agendar =()=>{
   showModal.value = true;
 }
+
+
 </script>
 
 

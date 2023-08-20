@@ -14,9 +14,9 @@
             </div>
             <div class="inp">
               <span>CANTIDAD A AGREGAR</span>
-              <input type="text" v-model="cantidad_producto">
+              <input type="number" v-model="cantidad_producto">
             </div>
-            <button @click="agregar"><span>Agregar existencias</span></button>
+            <button @click="verificacion"><span>Agregar existencias</span></button>
           </div>
         </div>
         <div class="alter-product">
@@ -27,7 +27,7 @@
             <div class="detalle-productos">
               <div class="input">
                 <span>NOMBRE DEL PRODUCTO</span>
-                <input type="text" v-model="nombre" >
+                <input type="text" v-model="nombre">
               </div>
               <div class="input">
                 <span>DESCRIPCIÓN DEL PRODUCTO</span>
@@ -80,8 +80,8 @@
         </div>
       </div>
       <div class="alertas">
-        <barSuccess name="Se actualizo el producto" v-if="mostrarSuccess"/>
-        <barError name="Verifique los campos" v-if="mostrarError"/>
+        <barSuccess :name="mensaje_success" v-if="mostrarSuccess" />
+        <barError :name="mensaje_error" v-if="mostrarError" />
       </div>
     </div>
   </div>
@@ -96,16 +96,18 @@ import { ref, onMounted } from 'vue'
 
 const mostrarSuccess = ref(false)
 const mostrarError = ref(false)
+const mensaje_error = ref('')
+const mensaje_success = ref('')
 // MOSTRAR PRODUCTOS LATERAL
 const productos = ref([])
 const categorias = ref([])
 const tipo_producto = ref();
 const mostrar_precio = ref(true);
 const nombre_producto = ref('');
-const cantidad_producto = ref();
+const cantidad_producto = ref('');
 const data = ref([]);
 
-
+//////////--------------MODIFICAR EL PRODUCTO-------------- ///////////
 
 const fetchData = async () => {
   try {
@@ -116,24 +118,45 @@ const fetchData = async () => {
   }
 }
 
+// verificar la existencia del producto
+const verificacion = () => {
+  if (nombre_producto.value === '' || cantidad_producto.value === '') {
+    mensaje_error.value = 'Campos obligatorios'
+    mostrarError.value = true
+    setTimeout(() => {
+      mostrarError.value = false
+    }, 2000);
 
-//MODIFICAR PRODUCTO EXISTENTE
+  } else {
+    const verificarExistencia = async () => {
+      try {
+        const response = await axios.post('http://web.backend.com/revisar_producto', { nombre_producto: nombre_producto.value });
+        if (response.data.data.data === true) {
+          mensaje_error.value = 'El producto no existe'
+          mostrarError.value = true
+          setTimeout(() => {
+          mostrarError.value = false
+          }, 2000);
+        } else{
+          
+        }
+      } catch (error) {
+        alterCantProduct()
+      }
+    }
+    verificarExistencia()
+  }
+}
+
+
 
 const alterCantProduct = async () => {
-
-  if (nombre_producto.cantidad === '' && cantidad_producto.value === '') {
-    mostrarError.value = true
+  mensaje_success.value = `El producto ${nombre_producto.value} se actualizó`;
+  mostrarSuccess.value = true
   setTimeout(() => {
-  mostrarError.value = false;
-}, 2000);
-  } else {
-
-    mostrarSuccess.value = true;
-
-setTimeout(() => {
-  mostrarSuccess.value = false;
-}, 2000);
-    const producto = ({
+    mostrarSuccess.value = false;
+  }, 2000);
+  const producto = ({
     nombre_producto: nombre_producto.value,
     cantidad_producto: cantidad_producto.value,
     tipo_producto: tipo_producto.value,
@@ -146,34 +169,33 @@ setTimeout(() => {
   } catch (error) {
     console.log(error)
   }
-  }
 }
 
-const categoriasData = async () =>{
-  try{
+
+const categoriasData = async () => {
+  try {
     const response = await axios.get('http://web.backend.com/categorias');
     categorias.value = response.data.data;
   }
-  catch(error){
+  catch (error) {
     console.log(error)
   }
 }
 
 
-const prodInternos = async () =>{
-  try{
+const prodInternos = async () => {
+  try {
     const response = await axios.get('http://web.backend.com/productosInternos');
     productos.value = response.data.data;
   }
-  catch(error){
+  catch (error) {
     console.log(error)
   }
 }
-const agregar = () =>{
-  alterCantProduct();
-}
 
-// MODIFICAR PRODUCTO EXISTENTE
+
+//////////--------------MODIFICAR EL PRODUCTO Existente-------------- ///////////
+
 const nombre = ref();
 const descripcion = ref();
 const categoria = ref('');
@@ -185,7 +207,7 @@ const alterProduct = async () => {
   const Alterproducto = ({
     nombre: nombre.value,
     descripcion: descripcion.value,
-    categoria:categoria.value,
+    categoria: categoria.value,
     precio_venta: precio_venta.value,
     precio_compra: precio_compra.value
   })
@@ -202,25 +224,43 @@ const alterProduct = async () => {
 
 
 onMounted(fetchData)
-const editar = () =>{
+const editar = () => {
 
   if (nombre.value === '' || descripcion.value === '' || categoria.value === '' || precio_venta.value === '' || precio_compra.value === '') {
+    mensaje_error.value = 'Campos obligatorios'
+    mostrarError.value = true
+    setTimeout(() => {
+      mostrarError.value = false;
+    }, 2000);
+  } else {
 
-   mostrarError.value = true
-  setTimeout(() => {
-  mostrarError.value = false;
-}, 2000);
-} else{
-  mostrarSuccess.value = true;
+    const verificarExistencia = async () => {
+      try {
+        const response = await axios.post('http://web.backend.com/revisar_producto', { nombre_producto: nombre.value });
+        if (response.data.data.data === true) {
+          mensaje_error.value = 'El producto no existe'
+          mostrarError.value = true
+          setTimeout(() => {
+          mostrarError.value = false
+          }, 2000);
+          
+        } else{
+          mensaje_success.value = 'El producto fue actualizado'
+          mostrarSuccess.value = true;
+          setTimeout(() => {
+          mostrarSuccess.value = false;
+          }, 2000);
 
-setTimeout(() => {
-  mostrarSuccess.value = false;
-}, 2000);
-
-alterProduct();
+          alterProduct();
+        }
+      } catch (error) {
+        alterCantProduct()
+      }
+    }
+    verificarExistencia()
+  }
 }
-}
-const mostrar_categorias = () =>{
+const mostrar_categorias = () => {
   categoriasData()
 }
 
@@ -231,7 +271,7 @@ const mostrar_tipo_producto = () => {
 
   if (tipo_producto.value === 'interno') {
     mostrar_precio.value = false;
-  
+
     intervalId = setInterval(prodInternos, 500);
     precio_venta.value = null;
     console.log(precio_venta.value)
@@ -251,9 +291,10 @@ const mostrar_tipo_producto = () => {
   gap: 0px 0px;
 }
 
-.prod{
+.prod {
   height: 5em;
 }
+
 .izquierdo {
   display: grid;
   grid-auto-columns: 1fr;
@@ -261,8 +302,8 @@ const mostrar_tipo_producto = () => {
   grid-template-rows: 0.2fr 1.8fr;
   gap: 0px 0px;
   grid-template-areas:
-        "."
-        ".";
+    "."
+    ".";
   height: 82%;
 }
 
@@ -301,13 +342,14 @@ const mostrar_tipo_producto = () => {
   justify-content: space-around;
 }
 
-.formulario{
+.formulario {
   height: 120%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.detalle-productos{
+
+.detalle-productos {
   width: 80%;
 }
 
@@ -318,8 +360,8 @@ const mostrar_tipo_producto = () => {
   grid-template-rows: 0.6fr 1.4fr;
   gap: 0px 0px;
   grid-template-areas:
-        "."
-        ".";
+    "."
+    ".";
 }
 
 .stock p:first-child {
@@ -369,7 +411,8 @@ input {
   flex-direction: column;
 }
 
-.inp span, .input span {
+.inp span,
+.input span {
   font-size: 13px;
   color: #898c8f;
 }
@@ -431,5 +474,4 @@ button span {
 select option {
   font-size: 14px;
   color: #333;
-}
-</style>
+}</style>

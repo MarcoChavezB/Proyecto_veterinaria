@@ -66,7 +66,7 @@
                 </div>
 
                 </div>
-                <router-link :to="{ name: 'login' }" id="salir" @click="salir">
+                <router-link :to="{ path: 'login' }" id="salir" @click="salir">
                   <span class="material-symbols-outlined">logout</span>
                   <h4>Salir</h4>
                 </router-link>

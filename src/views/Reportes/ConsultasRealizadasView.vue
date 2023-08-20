@@ -4,8 +4,20 @@
     <div class="parametros">
         <div class="Titulo">
           <span class="material-symbols-outlined">pet_supplies</span><h2>Consultas Realizadas</h2></div>
+
+      <div class="filtro">
+        <ComboBox v-model="selectedOption" title="Filtrar por:" :options="[{ text: 'Cliente', value: 'opcion1' },{ text: 'Fecha', value: 'opcion2' }]"/>
+      </div>
+
+      <div class="filtro4" v-show="status1">
+        <div class="label">
+          <p class="plabel">Fecha</p>
+          <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="Fecha" @input="ReporteConsultasFecha" /><br>
+          <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="Fecha2" @input="ReporteConsultasFecha" /><br>
+        </div>
+      </div>
       
-      <div class="filtro2">
+      <div class="filtro2" v-show="status2">
         <InputCliente tittle1="Nombre del cliente atendido" tittle2="Apellidos del cliente atendido" @input="ReporteConsultas" v-model:modelValue1="nomC" v-model:modelValue2="apellidos" />
         <div class="label">
           <p class="plabel">Nombre de la mascota</p>
@@ -17,7 +29,7 @@
       <div class="pantalla">
       <div class="table-container">
 
-      <div class="responsive-table"  v-show="status1">
+      <div class="responsive-table"  v-if="selectedOption === 'opcion1' && consultas.length > 0">
         <table class="table table-hover custom-table">
           <thead>
             <tr>
@@ -53,6 +65,47 @@
           </tbody>
         </table>
       </div>
+        <!-- -->
+        <div class="responsive-table"  v-if="selectedOption === 'opcion2' && consultasF.length > 0">
+          <table class="table table-hover custom-table">
+            <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Cliente</th>
+              <th>Motivo</th>
+              <th>Servicios</th>
+              <th>Servicios prestados</th>
+              <th>Mascota</th>
+              <th>Peso</th>
+              <th>Altura</th>
+              <th>Edad</th>
+              <th>Observaciones</th>
+              <th>Medicacion</th>
+              <th>Cantidad</th>
+              <th>Costo de los servicios ofrecidos</th>
+              <th>Costo de los productos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="consulta in consultasF" :key="consulta.id">
+              <td id="Nombre">{{ consulta.Fecha }}</td>
+              <td>{{ consulta.Dueño }}</td>
+              <td>{{ consulta.Motivo }}</td>
+              <td>{{ consulta.Servicios }}</td>
+              <td>{{ consulta.Servicio_solicitado }}</td>
+              <td>{{ consulta.Mascota }}</td>
+              <td>{{ consulta.Peso }}</td>
+              <td>{{ consulta.Altura }}</td>
+              <td>{{ consulta.Edad }}</td>
+              <td>{{ consulta.Observaciones }}</td>
+              <td>{{ consulta.Medicacion }}</td>
+              <td>{{ consulta.Cantidad }}</td>
+              <td>${{consulta.costo_servicios}} + costo de la cita</td>
+              <td>${{consulta.costo_productos}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
     </div>
     </div>
   </div>
@@ -66,13 +119,27 @@
   import Inputs from "@/components/ControlesSencillos/Inputs.vue";
   import Router from "@/router";
   import router from "@/router";
+  import ComboBox from "@/components/ControlesSencillos/ComboBox.vue";
+  import InputFecha from "@/components/ControlesSencillos/InputFecha.vue";
 
  const nomC = ref("");
  const nomM = ref("");
  const apellidos = ref("");
 
- const status1 = ref(false);
  const consultas = ref([]);
+ const selectedOption = ref('opcion1');
+ const status1 = ref(false);
+ const status2 = ref(true);
+
+  watch(selectedOption, (newValue) => {
+    if (newValue === 'opcion1') {
+      status2.value = true;
+      status1.value = false;
+    } else if (newValue === 'opcion2') {
+      status1.value = true;
+      status2.value = false;
+    }
+  });
 
  const ReporteConsultas = async () => {
    const data = {
@@ -83,11 +150,23 @@
    try {
      const response = await axios.post('http://web.Backend.com/ReporteConsultas', data)
      consultas.value = response.data.data
-     status1.value = true;
    }catch (error){
      console.error(error)
    }
  }
+
+  const Fecha = ref("");
+  const Fecha2 = ref("");
+  const consultasF = ref([]);
+
+  const ReporteConsultasFecha = async () => {
+    try {
+      const response = await axios.post('http://web.Backend.com/ReporteConsultasFecha', {Fecha: Fecha.value, Fecha2: Fecha2.value})
+      consultasF.value = response.data.data
+    }catch (error){
+      console.error(error)
+    }
+  }
 
   </script>
   
@@ -151,10 +230,6 @@
 .custom-table thead th {
   font-weight: bold;
   background-color: white;
-}
-.custom-table td,
-.custom-table th {
-  border: 1px solid #dee2e6;
 }
 
 .table-container {

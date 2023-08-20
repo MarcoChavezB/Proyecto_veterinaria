@@ -1,5 +1,4 @@
 <template>
-  
   <div class="search">
     <input v-model="nombre" type="text" class="search__input" placeholder="Buscar producto">
     <button class="search__button" @click="fetchData">
@@ -76,7 +75,11 @@ setInterval(() => {
 
 }
 .recomendaciones{
-  z-index: 9999;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column; 
+  position: relative;
+  z-index: 99999;
 }
 .search__input {
   font-family: inherit;
@@ -89,11 +92,13 @@ setInterval(() => {
   width: 25em;
   transition: all ease-in-out .5s;
   margin-right: -2rem;
+
 }
+
+
 
 .search__input:hover, .search__input:focus {
   box-shadow: 0 0 1em #00000013;
-
 }
 
 .search__input:focus {

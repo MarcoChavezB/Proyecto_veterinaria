@@ -12,12 +12,13 @@
                 <div class="cont-productos">
                   <producto @click="sumarCant(productoArray[0].id)" v-for="productoArray in productosEnPantalla" :key="productoArray[0].id"
                             :id="productoArray[0].existencias"  :name="productoArray[0].nom_producto" :precio="productoArray[0].precio_venta" />
+                            
                 </div>
             </div>
         </div>
         <div class="izquierdo">
 
-            <div class="seccion">
+            <div class="seon">
 
                 <div class="cuerpo">
                     <div class="tiket">
@@ -55,7 +56,7 @@
                         <btn class="bt" title="Mixto" @click="declararMixto"/>
                       </div>
                       <div class="term">
-                        <btn capture class="bt" title="Transfer..." @click="declararTransferencia"/>
+                        <notifi capture class="bt transferencia" notifi="Transferencia" title="Transfer..." @click="declararTransferencia"/>
                         <btn id="black" title="Terminar" @click="terminar" />
                       </div>
                     </div>
@@ -64,9 +65,12 @@
 
             <div class="opciones">
                 <div class="status">
-                  <btn id="black" title="Limpiar" @click="reload" />
-                  <successAlert name=" compra Realizada" v-if="mostrarSuccess"/>
-                  <errorAlert name="Seleccione un tipo de pago" v-if="mostrarAlerta"/>
+                  <div class="btns d-flex justify-content-center">
+                    <btn id="black" title="Limpiar" @click="reload" />
+                    <btn id="red" title="Cancelar" @click="cancelarCompra" />
+                  </div>
+                  <successAlert :name="mensaje_success" v-if="mostrarSuccess"/>
+                  <errorAlert :name="mensaje_error" v-if="mostrarAlerta"/>
                 </div>
             </div>
         </div>
@@ -77,39 +81,69 @@
 import producto from '../../components/compras/RowProdCompras.vue'
 import btn from '../../components/controlesindividuales/BotonConEstilo.vue'
 import search from '../../components/controlesindividuales/searchInput.vue'
+import notifi from '../../components/controlesindividuales/BtnConNotificacion.vue'
 import { ref } from 'vue'
 import { useStore } from '@/stores/counter.js'
 import axios from 'axios'
 import {idProducto} from "@/stores/counter.js";
-import {cantProducto} from "@/stores/counter.js";
+import {cantProducto, deleteProduct} from "@/stores/counter.js";
 import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
 import row_tiket_producto from '../../components/compras/RowTiketProd.vue'
+
+
+
+const productoEliminado = deleteProduct()
+const deleteProd = ref();
+
 const id_producto = idProducto();
 const idProd = ref();
 const mostrarAlerta = ref(false)
 const mostrarSuccess = ref(false)
+const mensaje_error = ref('')
+const mensaje_success = ref('')
+let funcionEjecutada = false;
 
 // CALL venta_productos('efectivo', '[ [1, 3], [2,4], [3,4]]');
 const metodo_pago_total = ref('');
 const productos_compra = ref([])
 
 const cantidad = cantProducto();
-const recibirCantidad = ref()
-const cantidadesPorID = ref({}); // Objeto para rastrear cantidades por ID
+const recibirCantidad = ref(0)
+const cantidadesPorID = ref({});
 
 // Función para incrementar la cantidad del producto específico
 const sumarCant = (id) => {
+  recibirCantidad.value = cantidad.state.variable
+  deleteProd.value = productoEliminado.state.variable
+  quitarProducto(id)
   const producto = productosEnPantalla.value.find(item => item[0].id === id);
   if (producto) {
-    producto.cantidad++;
+    // producto.cantidad++;
     if (!cantidadesPorID.value[id]) {
-      cantidadesPorID.value[id] = 1;
+      cantidadesPorID.value[id] = recibirCantidad.value 
+
     } else {
-      cantidadesPorID.value[id]++;
+      cantidadesPorID.value[id] = recibirCantidad.value 
     }
   }
-};
+}
+
+const quitarProducto = (id) => {
+  console.log(deleteProd.value, id)
+
+  if (deleteProd.value === 1) {
+    productosEnPantalla.value = productosEnPantalla.value.filter(item => item[0].id !== id);
+    console.log(productosEnPantalla.value)
+
+    deleteProd.value = 0;
+        
+    cantidadesPorID.value[id] = 0;
+    productoEliminado.setVariable(deleteProd.value);
+  }
+}
+
+
 
 
 //const imprimir = () =>{
@@ -138,13 +172,6 @@ const declararMixto = () =>{
   metodo_pago.value = 'mixto'
 }
 
-const datas = {
-  tipo_pago: metodo_pago.value,
-  productos: productos_compra.value
-
-}
-
-
 const agregar = () => {
   const newProduct = store.state.variable;
   newProduct.cantidad = recibirCantidad.value; // Agregar la cantidad al objeto del producto
@@ -153,76 +180,109 @@ const agregar = () => {
   productos_comprados.value++;
   idProd.value = id_producto.state.variable;
 
-  calcularSubtotal();
 }
 
-
-const calcularSubtotal = () => {
-    let subtotal = 0;
-    let iva = 0;
-    let totalSinIva = 0;
-
-    for (const productoArray of productosEnPantalla.value) {
-        const precioVenta = parseFloat(productoArray[0].precio_venta);
-        subtotal += isNaN(precioVenta) ? 0 : precioVenta;
-    }
-
-    iva = subtotal * 0.16;
-    totalSinIva = subtotal - iva;
-    subTotal.value = totalSinIva;
-}
 const tiketData = ref([])
 
 const construirArregloProductos = () => {
+  
   const arregloProductos = [];
   for (const id in cantidadesPorID.value) {
     arregloProductos.push([parseInt(id), cantidadesPorID.value[id]]);
   }
+  console.log(arregloProductos)
   return arregloProductos;
 };
 
-const reload = () =>{
-  location.reload()
-}
+
+
+const reload = () => {
+  location.reload();
+};
 const terminar = async () => {
-  console.log(cantidadesPorID.value);
-
-  const productosInfo = construirArregloProductos();
-
-  const productosString = productosInfo.map(([id, cantidad]) => `[${id}, ${cantidad}]`).join(', ');
+  const productosInfo = construirArregloProductos().filter(([id, cantidad]) => cantidad !== 0);
+  const productosString = productosInfo
+    .map(([id, cantidad]) => `[${id}, ${cantidad}]`)
+    .join(', ');
 
   const jsonData = {
     metodo_pago: metodo_pago.value,
-    productos: `[${productosString}]`
+    productos: `[${productosString}]`,
   };
-  console.log(jsonData)
-
-  if (jsonData.metodo_pago === ''){
-    mostrarAlerta.value = true
+  
+  if (jsonData.metodo_pago === '') {
+    mensaje_error.value = 'Seleccione un tipo de pago';
+    mostrarAlerta.value = true;
     setTimeout(() => {
       mostrarAlerta.value = false;
-    }, 4000);
+    }, 2000);
+  } else if (productosInfo.length === 0) {
+    mensaje_error.value = 'No hay nada para vender';
+    mostrarAlerta.value = true;
+    
+    setTimeout(() => {
+      mostrarAlerta.value = false;
+    }, 2000);
+  } else if (funcionEjecutada) {
+    mensaje_error.value = 'Limpiar antes de realizar otra venta';
+    mostrarAlerta.value = true;
+    setTimeout(() => {
+      mostrarAlerta.value = false;
+    }, 2000);
   } else {
-
     try {
-      const response = await axios.post('http://web.backend.com/venta', jsonData);
+      const response = await axios.post(
+        'http://web.backend.com/venta',
+        jsonData
+      );
       console.log(response);
     } catch (error) {
       console.log(error);
     }
 
     try {
-      const GenerarTiket = await axios.get('http://web.backend.com/GenerarTiket');
+      const GenerarTiket = await axios.get(
+        'http://web.backend.com/GenerarTiket'
+      );
       tiketData.value = GenerarTiket.data.data;
     } catch (error) {
       console.log(error);
     }
-    mostrarSuccess.value = true
+    mensaje_success.value = 'Compra realizada'
+    mostrarSuccess.value = true;
     setTimeout(() => {
       mostrarSuccess.value = false;
-    }, 4000);
+    }, 2000);
+
+    funcionEjecutada = true;
   }
 };
+
+const cancelarCompra = async () => {
+  const productosInfo = construirArregloProductos().filter(([id, cantidad]) => cantidad !== 0);
+  if (productosInfo.length === 0) {
+    mensaje_error.value = 'No se puede cancelar la venta';
+    mostrarAlerta.value = true;
+    
+    
+    setTimeout(() => {
+      mostrarAlerta.value = false;
+    }, 2000);
+  } else{
+    try {
+    const response = await axios.post('http://web.backend.com/CancelarCompra');
+    console.log('venta revertida', response.data.data)
+    tiketData.value = []
+    mensaje_success.value = 'Venta cancelada'
+    mostrarSuccess.value = true;
+    setTimeout(() => {
+      mostrarSuccess.value = false;
+    }, 2000);
+  } catch(error) {
+    console.log(error)
+  }
+  }
+}
 
 const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
@@ -232,43 +292,6 @@ const fechaActual = new Date();
 // Obtener el día y el mes de la fecha actual
 const diaActual = fechaActual.getDate();
 const mesActual = monthNames[fechaActual.getMonth()];
-
-// 1 horas y minutos formato
-// 2 solo año formato
-// 3 mes con dia formato
-// 4 solo dia
-// 5 solo mes
-const formatDate = (id, dateTimeString) => {
-  if (!dateTimeString) {
-    return '--';
-  }
-  switch (id) {
-    case 1:
-      const dateTime = new Date(dateTimeString);
-      const hours = dateTime.getHours();
-      const minutes = dateTime.getMinutes();
-      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    case 2:
-      const year = new Date(dateTimeString).getFullYear();
-      return year.toString();
-    case 3:
-      const dateTimeMonth = new Date(dateTimeString);
-      const month = dateTimeMonth.getMonth();
-      const day = dateTimeMonth.getDate() + 1 ;
-
-      const formattedDate = `${monthNames[month]}, ${day}`;
-      return formattedDate;
-    case 4:
-      const dayOnly = new Date(dateTimeString).getDate() + 1;
-      return dayOnly.toString();
-    case 5:
-      const monthOnly = new Date(dateTimeString).getMonth();
-      return monthNames[monthOnly];
-    default:
-      return ' ';
-  }
-}
-
 
 </script>
 
@@ -301,6 +324,7 @@ h4 {
   background-color: black;
   width: 4em;
 }
+
 
 .Products{
   display: flex;
@@ -355,6 +379,10 @@ h4 {
     justify-content: center;
     align-items: center;
 }
+.Añadir{
+  position: fixed;
+  z-index: 9;
+}
 
 .title {
     display: flex;
@@ -374,7 +402,12 @@ h4 {
     width: 90%;
     max-height: 66em;
   overflow-y: auto;
-    height: 90%;
+    max-height: 40em;
+
+}
+#red{
+  color: #f85149;
+  background-color: #32302f;
 }
 
 .titulo {
@@ -396,6 +429,7 @@ h4 {
     width: 90%;
     height: auto;
     display: grid;
+    gap: 20px;
     grid-template-columns: 1fr 1fr;
 }
 
@@ -464,50 +498,6 @@ h4 {
     gap: 20px;
     width: 100%;
     height: 90%;
-}
-
-.input-container {
-    position: relative;
-}
-
-.input {
-    font-size: 1em;
-    padding: 0.6em 1em;
-    border: none;
-    border-radius: 6px;
-    background-color: #f8f8f8;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-    color: #333;
-}
-
-.input:hover {
-    background-color: #f2f2f2;
-}
-
-.input:focus {
-    outline: none;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.input::placeholder {
-    color: #999;
-}
-
-.highlight {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #6c63ff;
-    transition: width 0.3s ease;
-}
-
-.input:focus+.highlight {
-    width: 100%;
 }
 
 /* Optional: Animation on focus */

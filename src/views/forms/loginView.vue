@@ -5,11 +5,13 @@
         </div>
         <div class="login ">
             <div class="header">
+              <BarAlertError v-show="showError" />
                 <h5>Veterinaria cachorros</h5>
                 <div class="logo"></div>
             </div>
             <div class="formulario ">
                 <div class="form">
+
                     <h1>Welcome Back!</h1>
                     <p>Por favor, ingrese sus credenciales.</p><br>
                     <div class="flex-column">
@@ -38,7 +40,7 @@
                                 d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0">
                             </path>
                         </svg>
-                        <input v-model="pass" placeholder="Ingresa tu contrasela" class="input" type="password">
+                        <input v-model="pass" placeholder="Ingresa tu contraseña" class="input" type="password">
                     </div>
                     <!-- <router-link :to="{name: 'MenuCliente'}"> -->
                     <button @click="login" class="button-submit">Sign In</button>
@@ -71,14 +73,14 @@ import { useRouter } from 'vue-router';
 import { dataLog } from '@/stores/counter.js'
 import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
 import axios from 'axios';
+import BarAlertError from "@/components/Mensajes/BarAlertError.vue";
 
-const user = ref();
-const dataUser = dataLog();
 const email = ref('');
 const pass = ref('');
 const router = useRouter();
 var mostrarError = ref();
-var mostrarSuccess = ref();
+
+const showError = ref(false);
 
 const redirectToPage = () => {
     router.push('/cuerpo');
@@ -110,7 +112,7 @@ function login() {
             if (data.status != 200) {
                 console.log(usuario.value)
                 console.log(data)
-                alert(data.message)
+              alert("Tu correo o tu contraseña son incorrectos.")
                 return
             }
             if (
@@ -128,6 +130,7 @@ function login() {
             }
         });
 }
+
 
 
 </script>
