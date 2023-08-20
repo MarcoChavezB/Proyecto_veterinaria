@@ -6,8 +6,8 @@
                 </svg>
             </div>
             <div class="content">
-                <span class="title">Se ha registrado correctamente! <br> :)</span>
-                <p class="message">Se redirigira a login para acceder a su cuenta</p>
+                <span class="title">¡Se ha registrado correctamente! <br> :)</span>
+                <p class="message">Se redirigirá al login para acceder a su cuenta</p>
             </div>
             <div class="actions">
                 <button @click="quitar" class="cancel" type="button">Entendido</button>

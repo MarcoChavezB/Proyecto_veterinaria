@@ -2,7 +2,7 @@
   <div class="app">
     <div class="column">
       <p>{{ nombre }}</p>
-      <p>{{ cantidad }}</p>
+      <p :class="{ 'red-text': cantidad === 0 }">{{ cantidad }}</p>
       <p>{{ precio }}</p>
     </div>
   </div>
@@ -29,10 +29,14 @@ defineProps({
   max-height: 3em !important;
 }
 
+.red-text{
+  color: red;
+}
+
 .column {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
 
 }

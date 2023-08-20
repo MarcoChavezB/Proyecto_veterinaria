@@ -30,8 +30,8 @@
               <th>Mascota</th>
               <th>Especie</th>
               <th>Raza</th>
-              <th>Genero</th>
-              <th>Cliente</th>
+              <th>Género</th>
+              <th>Dueño</th>
               <th>Fecha</th>
               <th>Motivo</th>
             </tr>

@@ -24,7 +24,7 @@
                     <section class="section category" aria-label="category">
                         <div class="cont">
                             <h2 class="h2 section-title">
-                                <span class="span">Mejores</span> categorias
+                                <span class="span">Mejores</span> categorías
                             </h2>
                             <ul class="has-scrollbar">
                                 <li class="scrollbar-item">
@@ -108,13 +108,13 @@
                                             Seguimiento <span class="span">Personalizado</span>
                                         </h3>
                                       <router-link :to="{name: 'citasPendientesC'}">
-                                        <a href="#" class="btn">Mostrar mas</a>
+                                        <a href="#" class="btn">Mostrar más</a>
                                       </router-link>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="offer-card has-bg-image img-holder" style=" --width: 540; --height: 374;">
-                                        <p class="card-subtitle">Esta con nosotros</p>
+                                        <p class="card-subtitle">Está con nosotros</p>
                                         <h3 class="h3 card-title">
                                           Realizar una <span class="span">cita</span>
                                         </h3>
@@ -125,9 +125,9 @@
                                 </li>
                                 <li>
                                     <div class="offer-card has-bg-image img-holder" style="--width: 540; --height: 374;">
-                                        <p class="card-subtitle">Muy rapido</p>
+                                        <p class="card-subtitle">Muy rápido</p>
                                         <h3 class="h3 card-title">
-                                            Mas de lo que <span class="span">imaginas</span>
+                                            Más de lo que <span class="span">imaginas</span>
                                         </h3>
   
                                     </div>
@@ -162,9 +162,9 @@
                                         <img src="../../../assets/img/imgClient/service-icon-1.png" width="70" height="70"
                                             loading="lazy" alt="service icon">
                                     </figure>
-                                    <h3 class="h3 card-title">Encuantranos cuando quieras </h3>
+                                    <h3 class="h3 card-title">Encuentranos cuando quieras </h3>
                                     <p class="card-text">
-                                        Estamos disponibles 10 horas al dia
+                                        Estamos disponibles 10 horas al día
                                     </p>
                                 </div>
                             </li>
@@ -182,10 +182,10 @@
                             <div class="cta-content">
                                 <img src="../../../assets/img/imgClient/cta-icon.png" width="120" height="35" loading="lazy"
                                     alt="taste guarantee" class="img">
-                                <h2 class="h2 section-title">Nuestros productos le encantaran!</h2>
+                                <h2 class="h2 section-title">¡Nuestros productos le encantarán!</h2>
                                 <p class="section-text">
                                     En veterinariaCachorros, creemos que a tu perro y a tu gato les gustará tanto su comida que si no ...
-                                    te ayudaremos a
+                                    te ayudaremos 
                                     a encontrar
                                     sustituto. Esa es nuestra garantía de sabor.
                                 </p>
@@ -242,6 +242,17 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="ubicacion">
+                    <div class="title">
+                      <h2 class="h2 section-title">
+                        <span class="material-symbols-outlined icon-map">map</span>
+                              <span class="span">Descubre</span> nuestra Ubicación!
+                        </h2>
+                        <div class="mapa-container d-flex justify-content-center w-90">
+                          <div class="mapa" @click="goToMaps"></div>
+                        </div>
+                    </div>
+                  </div>
                     </section>
   
                 </article>
@@ -257,6 +268,9 @@
 
 <script setup>
 import footerClient from '../../../components/cliente/menuComponents/footer.vue'
+const goToMaps = () => {
+    window.open("https://www.google.com/maps/place/Clinica+veterinaria+cachorros/@25.5260108,-103.2249768,16.74z/data=!4m6!3m5!1s0x868fc1bf8b8f70e5:0x30f7ddd0cd2cd4a!8m2!3d25.5259657!4d-103.2227034!16s%2Fg%2F11fr37vvbn?hl=en-MX&entry=ttu", "_blank")
+  }
 </script>
 
 
@@ -308,6 +322,21 @@ button,
 ion-icon {
     display: block;
 }
+
+.mapa{  
+  height: 30em;
+  width: 100%;
+  background-image: url('../../../assets/img/ubicacion3.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+.icon-map{
+  margin-top: 2em;
+  color: coral;
+  font-size: 4rem;
+}
+
 
 a {
     color: inherit;

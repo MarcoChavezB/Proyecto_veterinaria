@@ -9,7 +9,7 @@
                 </svg></div>
             <div class="content">
                 <span class="title">{{ title }}<br> :(</span>
-                <p class="message">Asegurese de que los campos esten correctamente</p>
+                <p class="message">Asegúrese de que los campos esten puestos correctamente</p>
             </div>
             <div class="actions">
                 <button @click="quitar" class="cancel" type="button">Entendido</button> 

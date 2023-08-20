@@ -37,16 +37,16 @@ const routes = [
                         component: servicios,
 
                   },
-                {
-                    path: '/catalogo',
-                    name: 'catalogo',
-                    component: catalogo
-                },
-                {
-                    path: '/ubicacion',
-                    name: 'ubicacion',
-                    component: ubicacion,
-                }
+                  {
+                        path: '/catalogo',
+                        name: 'catalogo',
+                        component: catalogo
+                  },
+                  {
+                        path: '/ubicacion',
+                        name: 'ubicacion',
+                        component: ubicacion,
+                  }
             ],
       },
       {
@@ -54,7 +54,7 @@ const routes = [
             name: 'MenuCliente',
             component: MenuCliente,
             meta: {
-              requiresAuth: true
+                  requiresAuth: true
             },
             children: [
                   {
@@ -88,9 +88,9 @@ const routes = [
                         component: servicios
                   },
                   {
-                    path: '/perfil',
-                    name: 'perfil',
-                    component: gestionusuario
+                        path: '/perfil',
+                        name: 'perfil',
+                        component: gestionusuario
                   }
             ]
       },
@@ -133,142 +133,139 @@ const routes = [
                               component: serviciosclinicos
                         }
                   ]
-      }
-      ,
-      
+      },
+      {
+            path: '/login',
+            name: 'login',
+            component: login
+      },
+      {
+            path: '/register',
+            name: 'register',
+            component: register
+      },
+      {
+            path: '/soporteyayuda',
+            name: 'soporteyayuda',
+            component: soporteyayuda
+      },
+      {
+            path: '/citas',
+            name: 'citas',
+            component: citas
 
-  {
-    path: '/login',
-    name: 'login',
-    component: login
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: register
-  },
-  {
-    path: '/soporteyayuda',
-    name: 'soporteyayuda',
-    component: soporteyayuda
-  },
-  {
-    path:'/citas',
-    name: 'citas',
-    component: citas
-    
-  },
+      },
 
-  { 
-    path: '/panelAdmin',
-  name: 'panelAdmin',
-  component: panelAdmin,
-  meta: {
-    requiresAuth: true,
-    requiredRole: 'Administrador'
+      {
+            path: '/panelAdmin',
+            name: 'panelAdmin',
+            component: panelAdmin,
+            meta: {
+                  requiresAuth: true,
+                  requiredRole: 'Administrador'
 
-  },
-    children: [
-      {
-        path: '/control',
-        name: 'control',
-        component: control
-      },
-      {
-        path: '/citasTotales',
-        name: 'citasTotales',
-        component:citasTotales
-      },
-      {
-        path: '/calendario',
-        name: 'calendar',
-        component: calendar
-      },
-      {
-        path: '/CitasAceptadas',
-        name: 'CitasAceptadas',
-        component: citasAceptadas
-      },
-      {
-        path: '/compras',
-        name: 'compras',
-        component: compras
-      },
-      {
-        path: '/productos',
-        name: 'productos',
-        component: productos,
-      },
-      {
-        path: '/productosInternos',
-        name: 'productosInternos',
-        component: productosInternos
-      },
-      {
-        path:'/AgregarProducto',
-        name: 'AgregarProducto',
-        component: AgregarProducto
-      },
-      {
-        path: '/productosPublicos',
-        name: 'productosPublicos',
-        component: productosPublicos
-      },
-      {
-        path: '/historialMedico',
-        name:'reportehistorialmedico',
-        component: historialMedico
-      },
-      {
-        path: '/consultasHechas',
-        name : 'reportconsultasrealizadas',
-        component: consultasHechas
-      },
-      {
-        path: '/consultasRechazadas',
-        name: 'reportconsultasrechazadas',
-        component: consultasRechazadas
-      },
-      {
-        path: '/ordenesCompra',
-        name: 'reportordenescompra',
-        component: ordenesCompra
-      },
-      {
-        path: '/reporteVentas',
-        name: 'reporteventas',
-        component: reporteVentas
-      },
-      {
-        path:'/consultas',
-        name: 'consultas',
-        component: consultas
-      },
-      {   
-        path: '/GestionProveedores',
-        name: 'GestionProveedores',
-        component: GestionProveedores
-      },
-      {
-        path: '/GestionUsuarios',
-        name: 'GestionUsuarios',
-        component: gestionusAdmin
-      },
-      {
-        path: '/AdminServicios',
-        name: 'AdminServicios',
-        component: Adminservicios
-      },
-      {
-        path: '/ordenes',
-        name: 'ordenes',
-        component: ordenes
-      },
-      {
-        path: '/add',
-        name: 'add',
-        component: AgregarProductoExistente
-      }
+            },
+            children: [
+                  {
+                        path: '/control',
+                        name: 'control',
+                        component: control
+                  },
+                  {
+                        path: '/citasTotales',
+                        name: 'citasTotales',
+                        component: citasTotales
+                  },
+                  {
+                        path: '/calendario',
+                        name: 'calendar',
+                        component: calendar
+                  },
+                  {
+                        path: '/CitasAceptadas',
+                        name: 'CitasAceptadas',
+                        component: citasAceptadas
+                  },
+                  {
+                        path: '/compras',
+                        name: 'compras',
+                        component: compras
+                  },
+                  {
+                        path: '/productos',
+                        name: 'productos',
+                        component: productos,
+                  },
+                  {
+                        path: '/productosInternos',
+                        name: 'productosInternos',
+                        component: productosInternos
+                  },
+                  {
+                        path: '/AgregarProducto',
+                        name: 'AgregarProducto',
+                        component: AgregarProducto
+                  },
+                  {
+                        path: '/productosPublicos',
+                        name: 'productosPublicos',
+                        component: productosPublicos
+                  },
+                  {
+                        path: '/historialMedico',
+                        name: 'reportehistorialmedico',
+                        component: historialMedico
+                  },
+                  {
+                        path: '/consultasHechas',
+                        name: 'reportconsultasrealizadas',
+                        component: consultasHechas
+                  },
+                  {
+                        path: '/consultasRechazadas',
+                        name: 'reportconsultasrechazadas',
+                        component: consultasRechazadas
+                  },
+                  {
+                        path: '/ordenesCompra',
+                        name: 'reportordenescompra',
+                        component: ordenesCompra
+                  },
+                  {
+                        path: '/reporteVentas',
+                        name: 'reporteventas',
+                        component: reporteVentas
+                  },
+                  {
+                        path: '/consultas',
+                        name: 'consultas',
+                        component: consultas
+                  },
+                  {
+                        path: '/GestionProveedores',
+                        name: 'GestionProveedores',
+                        component: GestionProveedores
+                  },
+                  {
+                        path: '/GestionUsuarios',
+                        name: 'GestionUsuarios',
+                        component: gestionusAdmin
+                  },
+                  {
+                        path: '/AdminServicios',
+                        name: 'AdminServicios',
+                        component: Adminservicios
+                  },
+                  {
+                        path: '/ordenes',
+                        name: 'ordenes',
+                        component: ordenes
+                  },
+                  {
+                        path: '/add',
+                        name: 'add',
+                        component: AgregarProductoExistente
+                  }
 
             ]
       },
@@ -282,8 +279,8 @@ const routes = [
 
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes
+      history: createWebHistory(import.meta.env.BASE_URL),
+      routes
 })
 
 export default router
@@ -402,47 +399,47 @@ import citasAceptadas from '../views/citas/citasAceptadas.vue'
 // }
 
 
-import {useUsuarioStore} from "@/stores/UsuariosStore";
+import { useUsuarioStore } from "@/stores/UsuariosStore";
 
 // Navigation guard to check if the user is already authenticated (has a token)
 router.beforeEach((to, from, next) => {
-  const authToken = useUsuarioStore().usuario._token;
+      const authToken = useUsuarioStore().usuario._token;
 
-  // If the user is already authenticated and tries to access the login page,
-  // redirect them to another page (e.g., dashboard)
-  if (to.name === 'login' && authToken) {
-    next('/cuerpo');
-  } else {
-    next();
-  }
+      // If the user is already authenticated and tries to access the login page,
+      // redirect them to another page (e.g., dashboard)
+      if (to.name === 'login' && authToken) {
+            next('/cuerpo');
+      } else {
+            next();
+      }
 });
 
 // Add navigation guard to check for authentication token
 router.beforeEach((to, from, next) => {
-  const userStore = useUsuarioStore();
-  const authToken = userStore.usuario._token;
-  const userType = useUsuarioStore().usuario.usuario.tipo_usuario;
+      const userStore = useUsuarioStore();
+      const authToken = userStore.usuario._token;
+      const userType = useUsuarioStore().usuario.usuario.tipo_usuario;
 
-  if (to.name === 'login' && authToken) {
-    next('/cuerpo');
-  }
-  else if (to.matched.some((route) => route.meta.requiresAuth)) {
-    if (!authToken) {
-      next('/login');
-    }
-    else if (userType === 'Administrador' && to.name === 'perfil') {
-      console.log('Redireccionando a Control porque es un Administrador.');
-      next('/control');
-    } 
-    else if (to.matched.some(route => route.meta.requiredRole && route.meta.requiredRole !== userType)) {
-      next('/login'); 
-    } 
-    else {
-      next();
-    }
-  } 
-  else {
-    next();
-  }
+      if (to.name === 'login' && authToken) {
+            next('/cuerpo');
+      }
+      else if (to.matched.some((route) => route.meta.requiresAuth)) {
+            if (!authToken) {
+                  next('/login');
+            }
+            else if (userType === 'Administrador' && to.name === 'perfil') {
+                  console.log('Redireccionando a Control porque es un Administrador.');
+                  next('/control');
+            }
+            else if (to.matched.some(route => route.meta.requiredRole && route.meta.requiredRole !== userType)) {
+                  next('/login');
+            }
+            else {
+                  next();
+            }
+      }
+      else {
+            next();
+      }
 });
 

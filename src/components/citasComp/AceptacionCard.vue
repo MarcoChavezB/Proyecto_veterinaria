@@ -130,6 +130,7 @@ const dataCita = async () => {
   }
 };
 
+
 var CitaResponse = ref();
 const respuesta = (seleccion) =>{
   CitaResponse.value = seleccion;
@@ -137,12 +138,27 @@ const respuesta = (seleccion) =>{
   if (CitaResponse.value === 'Aceptada'){
     mostrarAlertSuccess.value = true
     mostrarAlertError.value = false
+    // MandarCorreo()
   } else if(CitaResponse.value === 'Rechazada'){
+    // MandarCorreo()
     mostrarAlertError.value = true
     mostrarAlertSuccess.value = false
   }
   citaResponse();
 }
+
+/*
+const correo = ref()
+const MandarCorreo = async () => {
+  try {
+    const response = await axios.post('http://web.backend.com/mandarCorreo', id);
+    correo.value = response.data.data;
+    console.log(correo.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
+*/
 
 const citaResponse = async () => {
   try {

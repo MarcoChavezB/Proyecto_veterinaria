@@ -29,9 +29,9 @@
                   <th><span class="material-symbols-outlined">fingerprint</span>Id</th>
                   <th><span class="material-symbols-outlined">store</span>Empresa</th>
                   <th><span class="material-symbols-outlined">contacts</span>Proveedor</th>
-                  <th> <span class="material-symbols-outlined">map</span>Direccion</th>
-                  <th><span class="material-symbols-outlined">contact_phone</span>Telefono 1</th>
-                  <th><span class="material-symbols-outlined">contact_phone</span>Telefono 2</th>
+                  <th> <span class="material-symbols-outlined">map</span>Dirección</th>
+                  <th><span class="material-symbols-outlined">contact_phone</span>Teléfono 1</th>
+                  <th><span class="material-symbols-outlined">contact_phone</span>Teléfono 2</th>
                 </tr>
               </thead>
               <tbody> 

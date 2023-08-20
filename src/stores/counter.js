@@ -284,8 +284,37 @@ export const useButtonStore = defineStore('button', {
   },
 });
 
+export const deleteProduct = defineStore('product', () => {
+  const state = {
+    variable: '',
+  };
+
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
 
 
+
+export const mostrarCartaCita = defineStore('cita', () => {
+  const state = {
+    variable: '',
+  };
+
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
 
 
 // // LOCAL STORAGE PINIA 

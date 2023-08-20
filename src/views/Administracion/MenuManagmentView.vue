@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="top-menu">
-      <h3>Menu control</h3>
+      <h3>Menú control</h3>
     </div>
     <div class="profile">
         <p>Administrador</p>
@@ -13,7 +13,7 @@
       <div class="cards">
         <div class="estadisticas">
           <grafica />
-          <div class="info">
+          <!-- <div class="info">
             <div class="purple">
               <div></div>
               <label>This month</label>
@@ -22,7 +22,7 @@
               <div></div>
               <label>Last month</label>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="pequenas">
 
@@ -50,17 +50,12 @@
         <div class="table">
           <TablaComp />
         </div>
-        <div class="extra">
-          <div class="compras">
-              <graf/>
-          </div>
-        </div>
       </div>
     </div>
     <div class="right">
       <div class="cont">
         <div class="title">
-          <h1>Citas Proximas</h1>
+          <h1>Citas Próximas</h1>
         </div>
         <div class="citas" v-for="cita in citas" :key="cita.id">
           <Notificaciones  class="not"
@@ -86,7 +81,7 @@ import TablaComp from '../../components/Managment/TablaComp.vue'
 import grafica from '../../components/managment/grafica.vue'
 import estadisticas from '../../components/Managment/estadisticas.vue'
 import info_card from '../../components/Managment/InfoCard.vue'
-
+import shop from '../../components/Managment/Row.vue'
 
 const globalStore = useGlobalStore();
 const valorAlmacenado = globalStore.state.variable;
@@ -178,7 +173,6 @@ onMounted(estadisticas_positivo_negativo)
 
 .cont {
   margin-bottom: 10px;
-  margin-top: 0px;
   background: #fff;
   padding: 1.2rem;
   border-radius: 0rem 0rem 2rem 2rem;
@@ -192,42 +186,20 @@ onMounted(estadisticas_positivo_negativo)
   gap: 4px;
 }
 .pequenas{
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0px 0px;
-  height: 2em;
+  display: flex;
+  margin-left: 50px;
+  gap: 10px;
 }
 .pequenas div{
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.comp{
-  max-height: 3em;
-}
-.extra{
-  height: 90%;
-}
-.extra{
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  max-height: 20.5em;
-}
 
-.compras{
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  margin-bottom: 15px;
-
-}
 
 #confirmar{
   position: fixed;
   margin-left: 30%;
-  margin-top: 15%;
   z-index: 9999;
 }
 .top-menu{
@@ -267,34 +239,6 @@ onMounted(estadisticas_positivo_negativo)
   max-height: 10em;
 }
 
-.info{
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-.red, .purple{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-.red div{
-  background-color: rgba(255, 99, 132, 0.5);
-  width: 20px;
-  height: 20px;
-  border-radius: 10px 0px 10px 0px;
-}
-
-.purple div{
-  background-color: rgba(163, 39, 240, 0.5);
-  width: 20px;
-  height: 20px;
-  border-radius: 10px 0px 10px 0px;
-}
-
-
 
 .tabla h1{
   font-weight: 300;
@@ -303,16 +247,14 @@ onMounted(estadisticas_positivo_negativo)
   justify-content: center;
 }
 .tabla{
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-template-columns: 1fr 1fr;
-  gap: 0px 0px;
+display: flex;
+justify-content: center;
 }
 
 
 .table{
   max-height: 13em;
-  margin-bottom: 130px;
+  width: 90%;
 }
 
 .top-menu h1{
@@ -415,7 +357,7 @@ h1 {
 
 
   .tabla {
-    margin-bottom: 20px;
+    
     width: 200%;
   }
 }

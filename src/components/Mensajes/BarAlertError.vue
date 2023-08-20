@@ -66,7 +66,7 @@ onMounted(() => {
 }
 
 .izquierdo {
-  width: 11em;
+  width: 16em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,8 +82,9 @@ onMounted(() => {
 }
 
 .txt{
+  margin-left: 20px;
   height: 100%;
-  width: 20em;
+  width: 200em;
   display: flex;
   justify-content: center;
   align-items: center;

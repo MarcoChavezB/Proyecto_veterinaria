@@ -2,12 +2,12 @@
   <div class="first-container">
     <div class="parametros">
       <div class="Titulo"> 
-        <span class="material-symbols-outlined">respiratory_rate</span><h2>Hisotorial Medico</h2>
+        <span class="material-symbols-outlined">respiratory_rate</span><h2>Historial Médico</h2>
       </div>
       <div class="filtro">
         <div class="label">
-          <p class="plabel">Nombre mascota</p>
-          <InputsBusqueda type="search" name="animales" id="busqueda"  v-model="nomMascota" @input="generarHistorial" placeholder="Nombre mascota" />
+          <p class="plabel">Nombre de la mascota</p>
+          <InputsBusqueda type="search" name="animales" id="busqueda"  v-model="nomMascota" @input="generarHistorial" placeholder="Nombre" />
         </div>
         <InputCliente type="search" tittle1="Nombre(S)" tittle2="Apellidos" v-model:modelValue1="nombre"  v-model:modelValue2="apellido" @input="generarHistorial"  />
       </div>
@@ -20,7 +20,7 @@
           <tr>  
             <th>Nombre</th>
             <th>Raza</th>
-            <th>Genero</th>
+            <th>Género</th>
             <th>Dueño</th>
             <th>Fecha</th>
             <th>Motivo</th>
@@ -29,8 +29,8 @@
             <th>Peso</th>
             <th>Altura</th>
             <th>Edad</th>
-            <th>Observaciones medicas</th>
-            <th>Medicacion</th>
+            <th>Observaciones médicas</th>
+            <th>Medicación</th>
             <th>Dosis</th>
             <th>Cantidad</th>
           </tr>
