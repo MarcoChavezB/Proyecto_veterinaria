@@ -153,9 +153,6 @@ const quitarProducto = (id) => {
 
 const store = useStore()
 const productosEnPantalla = ref([])
-const precioTotal = ref(0)
-const subTotal = ref(0)
-const data = ref([])
 const metodo_pago = ref('')
 const productos_comprados = ref(0)
 
@@ -182,30 +179,45 @@ const agregar = () => {
 
 }
 
-const tiketData = ref([])
+const tiketData = ref([]);
+let productosInfo = [];
+const arregloProductos = [];
+let productosString = '';
+
+const reload = () => {
+  
+  productosEnPantalla.value = [];
+  tiketData.value = [];
+  productosInfo = [];
+  arregloProductos.length = 0;
+  productosString = ''; 
+  metodo_pago.value = ''; 
+  productos_comprados.value = 0;
+  mostrarAlerta.value = false;
+  mostrarSuccess.value = false;
+  mensaje_error.value = '';
+  mensaje_success.value = '';
+  funcionEjecutada = false;
+  recibirCantidad.value = 0;
+  cantidadesPorID.value = {};
+};
 
 const construirArregloProductos = () => {
-  
-  const arregloProductos = [];
   for (const id in cantidadesPorID.value) {
     arregloProductos.push([parseInt(id), cantidadesPorID.value[id]]);
   }
-  console.log(arregloProductos)
+  console.log(arregloProductos);
   return arregloProductos;
 };
 
 
-
-const reload = () => {
-  location.reload();
-};
 const terminar = async () => {
-  const productosInfo = construirArregloProductos().filter(([id, cantidad]) => cantidad !== 0);
-  const productosString = productosInfo
+  productosInfo = construirArregloProductos().filter(([id, cantidad]) => cantidad !== 0);
+  productosString = productosInfo
     .map(([id, cantidad]) => `[${id}, ${cantidad}]`)
     .join(', ');
 
-  const jsonData = {
+    const jsonData = {
     metodo_pago: metodo_pago.value,
     productos: `[${productosString}]`,
   };
@@ -244,7 +256,9 @@ const terminar = async () => {
       const GenerarTiket = await axios.get(
         'http://backend.vetcachorros.one/GenerarTiket'
       );
+      
       tiketData.value = GenerarTiket.data.data;
+      console.log(tiketData.value)
     } catch (error) {
       console.log(error);
     }
@@ -254,7 +268,6 @@ const terminar = async () => {
       mostrarSuccess.value = false;
     }, 2000);
 
-    funcionEjecutada = true;
   }
 };
 
@@ -273,6 +286,7 @@ const cancelarCompra = async () => {
     const response = await axios.post('http://backend.vetcachorros.one/CancelarCompra');
     console.log('venta revertida', response.data.data)
     tiketData.value = []
+    productosEnPantalla.value = []
     mensaje_success.value = 'Venta cancelada'
     mostrarSuccess.value = true;
     setTimeout(() => {

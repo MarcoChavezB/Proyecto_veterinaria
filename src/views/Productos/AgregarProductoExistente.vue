@@ -131,6 +131,7 @@ const verificacion = () => {
     const verificarExistencia = async () => {
       try {
         const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre_producto.value });
+        console.log(response)
         if (response.data.data.data === true) {
           mensaje_error.value = 'El producto no existe'
           mostrarError.value = true
@@ -138,10 +139,9 @@ const verificacion = () => {
           mostrarError.value = false
           }, 2000);
         } else{
-          
+          alterCantProduct()
         }
       } catch (error) {
-        alterCantProduct()
       }
     }
     verificarExistencia()
@@ -216,8 +216,19 @@ const alterProduct = async () => {
     const response = await axios.post('http://backend.vetcachorros.one/dataProd', Alterproducto);
     info.value = response.data.data;
     console.log(Alterproducto)
+    mensaje_success.value = 'El producto fue actualizado'
+    mostrarSuccess.value = true;
+    setTimeout(() => {
+    mostrarSuccess.value = false;
+    }, 2000);
+
   } catch (error) {
     console.log(error)
+              mensaje_error.value = 'Hubo un problema con el servidor'
+          mostrarError.value = true
+          setTimeout(() => {
+          mostrarError.value = false
+          }, 2000);
   }
 }
 
@@ -237,6 +248,7 @@ const editar = () => {
     const verificarExistencia = async () => {
       try {
         const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre.value });
+        console.log(response.data)
         if (response.data.data.data === true) {
           mensaje_error.value = 'El producto no existe'
           mostrarError.value = true
@@ -245,12 +257,6 @@ const editar = () => {
           }, 2000);
           
         } else{
-          mensaje_success.value = 'El producto fue actualizado'
-          mostrarSuccess.value = true;
-          setTimeout(() => {
-          mostrarSuccess.value = false;
-          }, 2000);
-
           alterProduct();
         }
       } catch (error) {

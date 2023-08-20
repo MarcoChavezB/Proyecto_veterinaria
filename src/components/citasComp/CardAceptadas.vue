@@ -74,8 +74,8 @@
       </div>
     </div>
     <div class="alertas">
-      <successAlert name="Cita Realizada" v-if="mostrarAlertSuccess"/>
-      <errorAlert name="Cita rechazada" v-if="mostrarAlertError"/>
+      <successAlert :name="mensaje_success" v-if="mostrarAlertSuccess"/>
+      <errorAlert :name="mensaje_error" v-if="mostrarAlertError"/>
     </div>
   </div>
 </template>
@@ -85,8 +85,8 @@ import { onMounted, ref } from 'vue'
 import { mostrarCartaCita, citaID } from '@/stores/counter.js'
 import axios from 'axios'
 import loader from '../loaders/loaderPrincipal.vue'
-// import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
-// import errorAlert from '../../components/Mensajes/BarAlertError.vue'
+import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
+import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 
 
 const monthNames = [
@@ -123,6 +123,8 @@ const dataCita = async () => {
     const response = await axios.post('http://backend.vetcachorros.one/citas_id', cita_id);
     citasdata.value = response.data.data;
     isLoading.value = false;
+
+
   } catch (error) {
     console.log(error);
     isLoading.value = false;
@@ -136,18 +138,22 @@ const respuesta = (seleccion) =>{
 
   if (CitaResponse.value === 'Realizada'){
     mensaje_success.value = 'Cita marcada como aceptada'
-    mostrarAlertSuccess.value = true
-    mostrarAlertError.value = false
-    MandarCorreo()
-
+    mostrarAlertSuccess.value = true;
+    setTimeout(() => {
+      mostrarAlertSuccess.value = false;
+    }, 2000);
+  
   } else if(CitaResponse.value === 'Rechazada'){
     mensaje_error.value = 'Cita marcada como rechazada'
-    mostrarAlertError.value = true
-    mostrarAlertSuccess.value = false
-    MandarCorreo()
+    mostrarAlertError.value = true;
+    setTimeout(() => {
+      mostrarAlertError.value = false;
+    }, 2000);
+  
   }
 
   citaResponse();
+
 }
 
 const citaResponse = async () => {
