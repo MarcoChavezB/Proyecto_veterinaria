@@ -124,6 +124,7 @@ import AlertSucces from '../../components/Mensajes/BarAlertSuccess.vue'
 import AlertError from '../../components/Mensajes/BarAlertError.vue'
 import BarAlertAdvertencia from '../../components/Mensajes/BarAdvertencia.vue'
 import { ref } from 'vue'
+
 import axios from 'axios'
 
 
@@ -194,13 +195,13 @@ const fetchData = async () => {
       };
 
       try {
-            const response = await axios.post('http://web.backend.com/revisar_producto', { nombre_producto: nombre_producto.value });
+            const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre_producto.value });
             console.log(response.data.data);
             console.log(nombre_producto.value)
 
             if (response.data.data.data === true) {
                   try {
-                        const responseAgregar = await axios.post('http://web.backend.com/agregarProducto', data);
+                        const responseAgregar = await axios.post('http://backend.vetcachorros.one/agregarProducto', data);
                         productos.value = responseAgregar.data.data;
                         mostrar_success.value = true;
                         setTimeout(() => {
@@ -230,7 +231,7 @@ const fetchData = async () => {
 
 const categoriasData = async () => {
       try {
-            const response = await axios.get('http://web.backend.com/categorias');
+            const response = await axios.get('http://backend.vetcachorros.one/categorias');
             categorias.value = response.data.data;
       }
       catch (error) {

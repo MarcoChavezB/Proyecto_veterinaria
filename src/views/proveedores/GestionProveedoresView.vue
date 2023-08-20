@@ -243,7 +243,7 @@ const RegistroProveedor = async () => {
       telefono2: phone2.value
     };
     try {
-      const response = await axios.post('http://web.Backend.com/registrarProveedor',Proveedor);
+      const response = await axios.post('http://backend.vetcachorros.one/registrarProveedor',Proveedor);
       console.log(response.data);
       location.reload();
     } catch (error) {
@@ -254,7 +254,7 @@ const RegistroProveedor = async () => {
   const proveedores = ref([]);
   const TablaProveedor = async () => {
   try {
-  const response = await axios.post('http://web.Backend.com/TablaProveedor')
+  const response = await axios.post('http://backend.vetcachorros.one/TablaProveedor')
   proveedores.value = response.data.data;
   console.log(response.data);
   } catch (error) {

@@ -60,7 +60,7 @@ const nombre = ref();
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://web.backend.com/productosInternos');
+    const response = await axios.get('http://backend.vetcachorros.one/productosInternos');
     productos.value = response.data.data;
      nombre.value =  response.data.data;
   } catch(error) {

@@ -24,7 +24,7 @@
   const fetchData = async () =>{
     try{
       // productos.value = response.data.data;
-      const response = await axios.post('http://web.backend.com/buscarInterno', {nombre: nombre.value});
+      const response = await axios.post('http://backend.vetcachorros.one/buscarInterno', {nombre: nombre.value});
       productos.value = response.data.data
       prodPublico.setVariable(productos.value)
       console.log(productos.value)

@@ -1,5 +1,12 @@
 <template>
   <div class="pantalla">
+    <transition name="fade">
+    <div v-if="showModal" class="modal">
+    </div>
+</transition>
+<div class="modal-content" v-if="showModal">
+       <cita  @close="activar" />
+      </div>
     <div class="app">
     <div class="title">
       <encabezado /> 
@@ -54,7 +61,7 @@ import {card, citaID} from '@/stores/counter.js'
 
 
 const loading = ref(false);
-const showModal = ref(true);
+const showModal = ref(false);
 const carta = card()
 const cita_id = citaID()
 const msgID = ref()
@@ -67,7 +74,7 @@ const nombre = ref();
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://web.backend.com/citas_total');
+    const response = await axios.get('http://backend.vetcachorros.one/citas_total');
     citas.value = response.data.data;
   } catch(error) {
     console.log(error)

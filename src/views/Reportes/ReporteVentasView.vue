@@ -106,7 +106,7 @@ const FechaVenta = ref("");
 const ventaFecha = ref([]);
 const ReporteFechaVentas = async () => {
   try {
-    const response = await axios.post('http://web.Backend.com/ReporteFechaVentas', { Fecha: FechaVenta.value });
+    const response = await axios.post('http://backend.vetcachorros.one/ReporteFechaVentas', { Fecha: FechaVenta.value });
     ventaFecha.value = response.data.data;
     console.log(response.data);
   } catch (error) {
@@ -117,7 +117,7 @@ const ReporteFechaVentas = async () => {
 const gralVenta = ref("");
 const ReporteGralVentas = async () => {
   try {
-    const response = await axios.post('http://web.Backend.com/ReporteGralVentas');
+    const response = await axios.post('http://backend.vetcachorros.one/ReporteGralVentas');
     gralVenta.value = response.data.data;
     console.log(response.data);
   } catch (error) {

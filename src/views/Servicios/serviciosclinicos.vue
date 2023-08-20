@@ -390,7 +390,7 @@ import axios from 'axios';
 const servicioscli =ref([]);
 const obtenerservicioscli = async () => {
     try {
-        const response = await axios.get('http://web.Backend.com/serviciospublicosclinicos')
+        const response = await axios.get('http://backend.vetcachorros.one/serviciospublicosclinicos')
       
       console.log(response.data);
       servicioscli.value = response.data.data;

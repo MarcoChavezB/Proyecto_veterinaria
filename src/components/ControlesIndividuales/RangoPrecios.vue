@@ -41,7 +41,7 @@ const data = async () => {
   };
 
   try {
-    const response = await axios.post('http://web.backend.com/precios', rango);
+    const response = await axios.post('http://backend.vetcachorros.one/precios', rango);
     filtData.value = response.data;
     updateVariable();
     console.log(response.data);

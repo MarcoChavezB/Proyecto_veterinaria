@@ -46,7 +46,7 @@ const buscar = async () => {
 
 const obtenerOrdenesPendientes = async () => {
     try {
-        const response = await axios.get('http://web.Backend.com/orden/pendientes')
+        const response = await axios.get('http://backend.vetcachorros.one/orden/pendientes')
         if (Array.isArray(response.data.data)) {
             ordenes.value = response.data.data;
         } else {
@@ -68,7 +68,7 @@ async function buscarOrdenesPorFecha() {
       fecha1: fecha1.value,
       fecha2: fecha2.value
     };
-    const response = await axios.post('http://web.Backend.com/orden/porfecha', data);
+    const response = await axios.post('http://backend.vetcachorros.one/orden/porfecha', data);
     if (Array.isArray(response.data.data)) {
             ordenes.value = response.data.data;
         } else {
@@ -87,7 +87,7 @@ async function buscarOrdenesPorEstado() {
       columna: columna.value
     };
     console.log(data);
-    const response = await axios.post('http://web.Backend.com/orden/porestado', data);
+    const response = await axios.post('http://backend.vetcachorros.one/orden/porestado', data);
     if (Array.isArray(response.data.data)) {
             ordenes.value = response.data.data;
         } else {

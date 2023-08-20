@@ -41,7 +41,7 @@ const obtenerproductos = async () =>
       productos.value = [];
     try 
     {
-        const response = await axios.get('http://web.Backend.com/productosPublicos')
+        const response = await axios.get('http://backend.vetcachorros.one/productosPublicos')
          if (Array.isArray(response.data.data)) {
              productos.value = response.data.data;
              console.log(response.data.data);
@@ -63,7 +63,7 @@ const productocadena = async () => {
       const data = {
       cadena: search.value,
     };
-        const response = await axios.post('http://web.Backend.com/productopublicoporcadena', data)
+        const response = await axios.post('http://backend.vetcachorros.one/productopublicoporcadena', data)
         if (Array.isArray(response.data.data)) {
             productos.value = response.data.data;
         } else {

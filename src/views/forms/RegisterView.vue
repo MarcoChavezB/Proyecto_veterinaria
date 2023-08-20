@@ -178,7 +178,7 @@ const registro = () => {
 
 const verificarCorreo = async () => {
   try {
-    const response = await axios.post('http://web.backend.com/verificarCorreoR', {correo: correo.value});
+    const response = await axios.post('http://backend.vetcachorros.one/verificarCorreoR', {correo: correo.value});
     
 
     if (response.data.data.data) {
@@ -211,7 +211,7 @@ const data = async () => {
     };
 
     try {
-        const response = await axios.post('http://web.backend.com/registrar', reg);
+        const response = await axios.post('http://backend.vetcachorros.one/registrar', reg);
         console.log(response.data); 
     } catch (error) {
         console.error(error);

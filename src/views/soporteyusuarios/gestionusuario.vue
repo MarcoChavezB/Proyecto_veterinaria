@@ -103,7 +103,7 @@ async function updateUser() {
   contra: userInfo.contra
   };
     loading.value = true;
-    const response = await axios.post('http://web.Backend.com/clientes/actualizar', userUpdate);
+    const response = await axios.post('http://backend.vetcachorros.one/clientes/actualizar', userUpdate);
     updatedUserInfo.value = response.data;
     if(response.status === 200) {
         userinfo();
@@ -123,7 +123,7 @@ const userinfo = async () => {
     id: id_cliente.value
   };
   try {
-    const response = await axios.post('http://web.Backend.com/clientes/infoID', user);
+    const response = await axios.post('http://backend.vetcachorros.one/clientes/infoID', user);
     if (response.data.data) {
       Object.assign(userInfo, response.data.data);
     }    

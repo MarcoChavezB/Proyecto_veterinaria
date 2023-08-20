@@ -78,7 +78,7 @@ const apellido = ref("");
 
 const generarHistorial = async () => {
   try {
-    const response = await axios.post('http://web.Backend.com/historialMedicoCliente', { nombreMascota: nomMascota.value, nombres: nombre.value, apellidos: apellido.value });
+    const response = await axios.post('http://backend.vetcachorros.one/historialMedicoCliente', { nombreMascota: nomMascota.value, nombres: nombre.value, apellidos: apellido.value });
     historialMedico.value = response.data.data;
     console.log(response.data);
   } catch (error) {

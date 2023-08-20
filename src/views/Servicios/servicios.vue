@@ -42,7 +42,7 @@ import CardService from '../../components/servicios/CardService.vue';
 const servicios = ref([]);
 const obtenerservicios = async () => {
       try {
-            const response = await axios.get('http://web.Backend.com/serviciosPEsteticos')
+            const response = await axios.get('http://backend.vetcachorros.one/serviciosPEsteticos')
 
             console.log(response.data);
             servicios.value = response.data.data;
@@ -55,7 +55,7 @@ onMounted(obtenerservicios);
 const servicioscli = ref([]);
 const obtenerservicioscli = async () => {
       try {
-            const response = await axios.get('http://web.Backend.com/serviciosPClinicos')
+            const response = await axios.get('http://backend.vetcachorros.one/serviciosPClinicos')
 
             console.log(response.data);
             servicioscli.value = response.data.data;

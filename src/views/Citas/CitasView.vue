@@ -120,7 +120,7 @@ const registrarMascota = async () => {
       console.log(mascota);
       try {
             const response = await axios.post(
-                  'http://Backend.vetcachorros.one/registrarMascota',
+                  'http://backend.vetcachorros.one/registrarMascota',
                   mascota
             );
             console.log(response.data);
@@ -140,7 +140,7 @@ const agendarCita = async () => {
       console.log(cita);
       try {
             const response = await axios.post(
-                  'http://Backend.vetcachorros.one/agendarcita',
+                  'http://backend.vetcachorros.one/agendarcita',
                   cita
             );
             console.log(response.data);
@@ -163,7 +163,7 @@ const Mascotas = ref([]);
 const FiltroMascotas = async () => {
       try {
             const response = await axios.post(
-                  'http://web.Backend.com/MascotasUsuario',
+                  'http://backend.vetcachorros.one/MascotasUsuario',
                   { id_cliente: id_cliente.value }
             );
             console.log(response.data);
@@ -181,7 +181,7 @@ const showButton = ref(true);
 const validarFecha = async () => {
       const fechaSeleccionada = new Date(fechaCita.value)
       try {
-            const response = await axios.post('http://web.Backend.com/ValidacionFechas');
+            const response = await axios.post('http://backend.vetcachorros.one/ValidacionFechas');
             const fechasValidadas = response.data.data;
             const fechasExistentes = fechasValidadas.some(cita => new Date(cita.fecha_cita).getTime() === fechaSeleccionada.getTime())
             console.log(fechasExistentes);
@@ -340,7 +340,6 @@ form textarea {
       justify-content: center;
       align-items: center;
       z-index: 999;
-      /* Asegúrate de que el índice z sea mayor que el de otros elementos para que aparezca en frente */
 }
 
 .floating-form {

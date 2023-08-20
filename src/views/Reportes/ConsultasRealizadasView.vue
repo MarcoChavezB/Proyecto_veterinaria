@@ -148,7 +148,7 @@
      nomM: nomM.value
    };
    try {
-     const response = await axios.post('http://Backend.vetcachorros.one/ReporteConsultas', data)
+     const response = await axios.post('http://backend.vetcachorros.one/ReporteConsultas', data)
      consultas.value = response.data.data
    }catch (error){
      console.error(error)
@@ -161,7 +161,7 @@
 
   const ReporteConsultasFecha = async () => {
     try {
-      const response = await axios.post('http://Backend.vetcachorros.one/ReporteConsultasFecha', {Fecha: Fecha.value, Fecha2: Fecha2.value})
+      const response = await axios.post('http://backend.vetcachorros.one/ReporteConsultasFecha', {Fecha: Fecha.value, Fecha2: Fecha2.value})
       consultasF.value = response.data.data
     }catch (error){
       console.error(error)
