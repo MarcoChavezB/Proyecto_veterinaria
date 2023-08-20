@@ -7,14 +7,14 @@
     <div class="app">
       <div class="controles">
         <div class="botones">
-          <btn id="btn_black" title="Agendar Cita" @click="agendar"/>
+          <btnn title="Agendar Cita" @click="agendar"/>
         </div>
       </div>
       <div class="table">
         <div class="tableCel">
           <div class="headerTable">
             <h4>Nombre</h4>
-            <h4>Teléfono</h4>
+            <h4>Telefono</h4>
             <h4>Fecha cita</h4>
             <h4>Estatus</h4>
             <h4>Raza</h4>
@@ -41,19 +41,29 @@
 <script setup>
 import Rows from '../../components/citasComp/RowTableCitas.vue'
 import encabezado from '../../components/citasComp/CitasHeadre.vue'
-import mensaje from '../../components/citasComp/AceptacionCard.vue'
-import btn from '../../components/ControlesIndividuales/BotonConEstilo.vue'
+import mensaje from '@/components/citasComp/AceptacionCard.vue'
+import add from '../../components/ControlesIndividuales/ingresar.vue'
+import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
+import cita from '@/components/componentesCitas/citasLocales.vue';
 import axios from 'axios'
-import {ref} from 'vue'
-import {citaID} from '@/stores/counter.js'
+import load from '../../components/loaders/loaderPrincipal.vue'
+import {ref, onMounted, onUnmounted} from 'vue'
+import {useStore} from '@/stores/counter.js'
+import {StoreProdInternos} from '@/stores/counter.js'
+import {card, citaID} from '@/stores/counter.js'
 
 
+const loading = ref(false);
 const showModal = ref(true);
+const carta = card()
 const cita_id = citaID()
 const msgID = ref()
 const inicial = ref(false)
+const globalShow = true
+const prodInterno = StoreProdInternos();
+const store = useStore()
 const citas = ref([])
-
+const nombre = ref();
 
 const fetchData = async () => {
   try {
@@ -66,8 +76,13 @@ const fetchData = async () => {
 
 const seleccion = (id) => {
   msgID.value = id;
+
+  // Cambiar el valor entre false y true
   inicial.value = true;
+
   cita_id.setVariable(msgID.value);
+  mandarEstatus.setVariable();
+  console.log('90909090',inicial.value)
 };
 
 
@@ -77,6 +92,8 @@ setInterval(fetchData, 600)
 const agendar =()=>{
   showModal.value = true;
 }
+
+
 </script>
 
 
@@ -130,10 +147,6 @@ const agendar =()=>{
   background-color: rgba(0,0,0,0.4);
 }
 
-#btn_black{
-  color: white;
-  background-color: black;
-}
 .controles{
   display: grid;
   grid-auto-columns: 1fr;

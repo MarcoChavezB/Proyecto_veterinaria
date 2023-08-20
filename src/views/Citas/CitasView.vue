@@ -81,9 +81,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
 
-// Arreglo para los id's de servicios
 const Services = ref([]);
-// Referencias a elementos del formulario
 const fechaCita = ref('');
 const id_mascota = ref('');
 const estatus = ref('Pendiente');
@@ -93,15 +91,10 @@ import { useUsuarioStore } from "@/stores/UsuariosStore";
 
 let usuarioStore = useUsuarioStore();
 
-
-// Elementos para insertar en tabla de muchos a muchos
 const servicioSelect = ref('');
 const tipo_servicio = ref('');
 
-// ID del cliente (debe obtenerse del servidor)
 const id_cliente = ref(usuarioStore.usuario.usuario.id);
-
-// Mostrar/ocultar formulario de registro de mascotas
 const showRegistrarMascota = ref(false);
 const FormFlotante = () => {
       showRegistrarMascota.value = true;
@@ -110,7 +103,6 @@ const BackCitas = () => {
       showRegistrarMascota.value = false;
 };
 
-// Registro de mascotas
 const nombre = ref('');
 const raza = ref('');
 const especie = ref('');
@@ -138,7 +130,6 @@ const registrarMascota = async () => {
       }
 };
 
-// Agendar cita
 const agendarCita = async () => {
       const cita = {
             fechaCita: fechaCita.value,
@@ -159,7 +150,6 @@ const agendarCita = async () => {
       }
 };
 
-// Limpiar formulario
 const cleanForm = () => {
       fechaCita.value = '';
       id_mascota.value = '';
@@ -169,7 +159,6 @@ const cleanForm = () => {
       motivo.value = '';
 };
 
-// Obtener mascotas del usuario
 const Mascotas = ref([]);
 const FiltroMascotas = async () => {
       try {
@@ -187,6 +176,7 @@ onMounted(FiltroMascotas);
 
 const showFechaOcupada = ref(false);
 const showButton = ref(true);
+
 
 const validarFecha = async () => {
       const fechaSeleccionada = new Date(fechaCita.value)
@@ -208,8 +198,6 @@ const validarFecha = async () => {
             console.error(error);
       }
 }
-
-
 
 </script>
 

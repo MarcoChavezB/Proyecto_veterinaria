@@ -5,11 +5,13 @@
         </div>
         <div class="login ">
             <div class="header">
+              <BarAlertError v-show="showError" />
                 <h5>Veterinaria cachorros</h5>
                 <div class="logo"></div>
             </div>
             <div class="formulario ">
                 <div class="form">
+
                     <h1>Welcome Back!</h1>
                     <p>Por favor, ingrese sus credenciales.</p><br>
                     <div class="flex-column">
@@ -71,11 +73,14 @@ import { useRouter } from 'vue-router';
 import { dataLog } from '@/stores/counter.js'
 import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
 import axios from 'axios';
+import BarAlertError from "@/components/Mensajes/BarAlertError.vue";
 
 const email = ref('');
 const pass = ref('');
 const router = useRouter();
 var mostrarError = ref();
+
+const showError = ref(false);
 
 const redirectToPage = () => {
     router.push('/cuerpo');
@@ -107,7 +112,7 @@ function login() {
             if (data.status != 200) {
                 console.log(usuario.value)
                 console.log(data)
-                alert(data.message)
+              alert("Tu correo o tu contraseña son incorrectos.")
                 return
             }
             if (
@@ -125,6 +130,7 @@ function login() {
             }
         });
 }
+
 
 
 </script>
