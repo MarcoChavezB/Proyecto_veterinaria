@@ -35,7 +35,19 @@ const routes = [
                         path: '/serviciosSin',
                         name: 'serviciosSin',
                         component: servicios,
-
+                        children:
+                        [
+                              {
+                                    path: '/serviciosesteticos',
+                                    name: 'serviciosesteticos',
+                                    component: serviciosesteticos
+                              },
+                              {
+                                    path: '/serviciosclinicos',
+                                    name: 'serviciosclinicos',
+                                    component: serviciosclinicos
+                              }
+                        ]
                   },
                   {
                         path: '/catalogo',
@@ -83,9 +95,22 @@ const routes = [
                         component: citasPendientesC
                   },
                   {
-                        path: '/servicios',
-                        name: 'servicios',
-                        component: servicios
+                        path: '/serviciosConLogin',
+                        name: 'serviciosConLogin',
+                        component: serviciosConLogin,
+                        children:
+                  [
+                        {
+                              path: '/serviciosesteticosConLogin',
+                              name: 'serviciosesteticosConLogin',
+                              component: serviciosesteticosConLogin
+                        },
+                        {
+                              path: '/serviciosclinicosConLogin',
+                              name: 'serviciosclinicosConLogin',
+                              component: serviciosclinicosConLogin
+                        }
+                  ]
                   },
                   {
                         path: '/perfil',
@@ -115,24 +140,6 @@ const routes = [
             name: 'citas',
             component: citas
 
-      },
-      {
-            path: '/servicios',
-            name: 'servicios',
-            component: servicios,
-            children:
-                  [
-                        {
-                              path: '/serviciosesteticos',
-                              name: 'serviciosesteticos',
-                              component: serviciosesteticos
-                        },
-                        {
-                              path: '/serviciosclinicos',
-                              name: 'serviciosclinicos',
-                              component: serviciosclinicos
-                        }
-                  ]
       },
       {
             path: '/login',
@@ -317,6 +324,9 @@ import catalogo from '../views/productos/catalogoView.vue'
 import AgregarProducto from '../views/Productos/AgregarProducto.vue';
 import AgregarProductoExistente from '../views/productos/AgregarProductoExistente.vue'
 import servicios from '../views/servicios/servicios.vue'
+import serviciosConLogin from '../views/Servicios/serviciosConLogin.vue'
+import serviciosclinicosConLogin from '../views/Servicios/serviciosclinicosConLogin.vue'
+import serviciosesteticosConLogin from '../views/Servicios/serviciosesteticosConLogin.vue'
 
 
 import consultas from '../views/Consultas/ConsultasView.vue';

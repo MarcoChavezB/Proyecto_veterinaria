@@ -22,7 +22,7 @@
                     <li><router-link :to="{name: 'ubicacionSin'}">Ubicación</router-link></li>
                     <li><router-link :to="{name: 'login'}">Iniciar sesión</router-link></li>
                     <li><router-link :to="{name: 'register'}">Registrarse</router-link></li>
-                    <li><router-link :to="{name: 'servicios'}">Servicios</router-link></li>
+                    <li><router-link :to="{name: 'serviciosSin'}">Servicios</router-link></li>
                 </ul>
             </div>
             
