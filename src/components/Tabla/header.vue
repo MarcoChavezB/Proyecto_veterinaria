@@ -6,7 +6,7 @@
                 <router-link :to="{ name: 'productosPublicos' }" class="custom-link">
                 <h3>
                     <span class="material-symbols-outlined">dynamic_form</span>
-                    Productos publicos
+                    Productos públicos
                 </h3>
             </router-link>
             </div>

@@ -148,17 +148,17 @@ async function buscarOrdenesPorEstado() {
             <h5>Generar Nueva Orden</h5>
           </div>
       </div>
-      <span>Aqui se mostraran todas las ordenes de compra pendientes por entregar:</span>
+      <span>Aquí se mostrarán todas las ordenes de compra pendientes por entregar:</span>
       <div class="pendien">
         <div class="columns">
           <div class="file">
             <h5>
-              Fecha Compra
+              Fecha de compra
             </h5>
           </div>
           <div class="file">
             <h5>
-              Fecha de Pago
+              Fecha de pago
             </h5>
           </div>
           <div class="file">
@@ -168,12 +168,12 @@ async function buscarOrdenesPorEstado() {
           </div>
           <div class="file">
             <h5>
-              estado de pago
+              Estado de pago
             </h5>
           </div>
           <div class="file">
             <h5>
-              Gestion
+              Gestión
             </h5>
           </div>
         </div>

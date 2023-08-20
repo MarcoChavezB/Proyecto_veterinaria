@@ -9,8 +9,8 @@
             <div class="log">
                 <div class="formulario">
                 <div class="form">
-                    <h1>Bienvenido!</h1>
-                    <p>Por favor ingrese sus credenciales.</p>
+                    <h1>¡Bienvenido!</h1>
+                    <p>Por favor, ingrese sus credenciales.</p>
                     <div class="flex-column">
                         <label>Nombre </label>
                     </div>
@@ -71,32 +71,32 @@
                         <input v-model="confirmacion" placeholder="Confirma tu contraseña" class="input" type="password">
                     </div>
                     <div class="flex-column">
-                        <label>Telefono </label>
+                        <label>Télefono</label>
                     </div>
                     <div class="telefonos">
                         <div class="flex-column">
                         </div>
                         <div class="inputForm personal">
-                            <input v-model="tel1" class="input nombre" type="text" placeholder="Telefono 1">
+                            <input v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1">
                         </div>
                         <div class="flex-column ">
                         </div>
                         <div class="inputForm personal">
-                            <input v-model="tel2" class="input password" type="text" placeholder="Telefono 2 (opcional)">
+                            <input v-model="tel2" class="input password" type="text" placeholder="Teléfono 2 (opcional)">
                         </div>
                     </div>
 
                     <div class="flex-row">
                         <div>
                             <input type="radio">
-                            <label>Recuerdame </label>
+                            <label>Recuérdame </label>
                         </div>
-                        <span class="span">Olvidaste tu contraseña?</span>
+                        <span class="span">¿Olvidaste tu contraseña?</span>
                     </div>
                     <button @click="verificarCorreo" class="button-submit">Sign In</button>
-                    <p class="p">Ya tienes una cuenta?
+                    <p class="p">¿Ya tienes una cuenta?
                         <router-link :to="{ name: 'login' }" class="custom-link">
-                            <span class="span">inicia sesion</span>
+                            <span class="span">Iniciar sesión</span>
                         </router-link>
                     </p>
                 </div>

@@ -2,7 +2,7 @@
   <div class="first-container">
 
     <div class="parametros">
-        <div class="Titulo"><span class="material-symbols-outlined">inventory_2</span><h2>Reporte Inventario Interno</h2></div>
+        <div class="Titulo"><span class="material-symbols-outlined">inventory_2</span><h2>Reporte de Inventario Interno</h2></div>
       <div class="filtro">
         <label for="tipo" class="label-tipo">Seleccione el tipo de reporte que desea realizar:</label>
         <select v-model="selectedOption" id="tipo" class="select-tipo">

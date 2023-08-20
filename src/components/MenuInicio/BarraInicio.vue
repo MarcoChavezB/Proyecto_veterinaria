@@ -7,7 +7,7 @@
                 </span>Productos
             </h5>
             <RouterLink :to="{name: 'catalogo'}" class="custom-link">
-                    <p>Nuestros productos!</p>
+                    <p>¡Nuestros productos!</p>
             </RouterLink>
         </div>
         <div class="sec2">
@@ -17,7 +17,7 @@
                 </span>
                 Citas
             </h5>
-            <RouterLink  :to="{name: 'citas'}" class="custom-link"><p>Agenda una cita o registra a tu mascota!</p></RouterLink>
+            <RouterLink  :to="{name: 'citas'}" class="custom-link"><p>¡Agenda una cita o registra a tu mascota!</p></RouterLink>
         </div>
         <div class="sec3">
             <h5>
@@ -25,7 +25,7 @@
                     location_on
                 </span>Ubicacion
             </h5>
-            <p>Descubre nuestra ubicacion!</p>
+            <p>¡Descubre nuestra ubicacion!</p>
         </div>
     </div>
 </template>

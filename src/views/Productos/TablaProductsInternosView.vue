@@ -25,7 +25,7 @@
         <div class="headerTable">
           <h4>Nombre</h4>
           <h4>Stock</h4>
-          <h4>Descripcion</h4>
+          <h4>Descripción</h4>
           <h4>Status</h4>
         </div>
         <div class="cont-table">
@@ -46,7 +46,7 @@ import Rows from '../../components/Tabla/RowTablesInternos.vue'
 import encabezado from '../../components/Tabla/header.vue'
 import search from '../../components/ControlesIndividuales/BuscarPublicos.vue'
 import add from '../../components/ControlesIndividuales/ingresar.vue'
-import btn2 from '../../components/ControlesIndividuales/BotonConEstilo.vue'
+// import btn2 from '../../components/ControlesIndividuales/BotonConEstilo.vue'
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
 import {useStore} from '@/stores/counter.js'
@@ -220,9 +220,9 @@ strong {
     width: 40em;
   }
 
-  .fila{
+  /* .fila{
 
-  }
+  } */
 }
 
 

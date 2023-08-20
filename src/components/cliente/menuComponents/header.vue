@@ -6,10 +6,10 @@
                 <li><router-link :to="{name: 'cuerpo'}" class="active">Home</router-link></li>
                 <li><router-link :to="{name: 'catalogo'}" href="#">Productos</router-link></li>
                 <li><router-link :to="{name: 'cita'}">Citas</router-link></li>
-                <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atencion</router-link></li>
+                <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atención</router-link></li>
               <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>
               <li><router-link :to="{name: 'servicios'}">Servicios</router-link></li>
-              <li><a id="danger" @click="cerrarSession">Cerrar sesion</a></li>
+              <li><a id="danger" @click="cerrarSession">Cerrar sesión</a></li>
             </ul>
             
             <div class="main">
@@ -20,9 +20,9 @@
                     <li><router-link :to="{name: 'cuerpo'}" href="#" class="active">Home</router-link></li>
                     <li><router-link :to="{name: 'catalogo'}" href="#">Productos</router-link></li>
                     <li><router-link :to="{name: 'cita'}">Citas</router-link></li>
-                  <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atencion</router-link></li>
+                  <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atención</router-link></li>
                   <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>
-                  <li><a id="danger" @click="cerrarSession">Cerrar sesion</a></li>
+                  <li><a id="danger" @click="cerrarSession">Cerrar sesión</a></li>
                     <li><a href="#">Contacto</a></li>
                     <li><a href="#">Perfil</a></li>
                 </ul>

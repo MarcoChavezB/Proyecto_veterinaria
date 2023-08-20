@@ -1,13 +1,14 @@
 <template id="template">
       <div class="pantalla">
+            <headerMenu/>
             <div id="imagen-services">
                   <img src="@\assets\img\imagen-servicios-veterinaria.png" alt="imagen-servicios">
                   <!-- <img src="../src/assets/img/imagen-servicios-veterinaria" alt="imagen-servicios"> -->
                   <h4>SERVICIOS</h4>
             </div>
             <div id="tipe-service-select">
-                  <router-link class="link-services" to="/serviciosesteticos"><button>Esteticos</button></router-link>
-                  <router-link class="link-services" to="/serviciosclinicos"><button>Clinicos</button></router-link>
+                  <router-link class="link-services" to="/serviciosesteticos"><button>Estéticos</button></router-link>
+                  <router-link class="link-services" to="/serviciosclinicos"><button>Clínicos</button></router-link>
             </div>
             <RouterView />
 
@@ -15,13 +16,14 @@
 </template>
   
 <script setup>
+import headerMenu from '@/components/cliente/menuComponents/headerSinLogin.vue'
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { RouterLink } from 'vue-router';
 import { RouterView } from 'vue-router';
 
 import CardService from '../../components/servicios/CardService.vue';
-import btn from '../../components/ControlesIndividuales/BotonBlanco.vue';
+// import btn from '../../components/ControlesIndividuales/BotonBlanco.vue';
 
 // var opcion1 = ref(true);
 // var opcion2 = ref(false);

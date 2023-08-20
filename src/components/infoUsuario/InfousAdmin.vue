@@ -4,8 +4,8 @@
           <h5>{{ Nombre }} {{ Apellido }}</h5>
         <div class="detail-grid">
           <div class="renglon"><h6>Correo: {{ Correo }}</h6></div> 
-          <div class="renglon"><h6>Telefono 1: {{ telefono1 }}</h6></div> 
-          <div class="renglon"><h6>Telefono 2: {{ telefono2 }}</h6></div> 
+          <div class="renglon"><h6>Teléfono 1: {{ telefono1 }}</h6></div> 
+          <div class="renglon"><h6>Teléfono 2: {{ telefono2 }}</h6></div> 
           <button class="buton" @click="verperfil(Id)">Ver Usuario</button>
         </div>
       </div>

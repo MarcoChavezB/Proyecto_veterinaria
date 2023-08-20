@@ -39,7 +39,7 @@
             <div class="servi">
                 <div class="titulo">
                     <div class="tit">
-                        NO PUBLICOS
+                        NO PÚBLICOS
                     </div>
                     <div class="agreg">
                         <btn title="Agregar +" @click="activar"/>
@@ -62,7 +62,7 @@
             </div>
             <div class="servi">
                 <div class="titulo2">
-                    PUBLICOS
+                    PÚBLICOS
                 </div>
                 <div class="content" ref="contentPublic">
                     <div class="services">

@@ -19,7 +19,7 @@
         </svg>
     </button>
          </div>
-          <span for="filterBy">Busca por nombre, correo y telefono</span>
+          <span for="filterBy">Busca por nombre, correo y teléfono</span>
       </div>
         <div class="content">
         <div class="user-grid">

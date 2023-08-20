@@ -1,5 +1,12 @@
 <template>
   <div class="pantalla">
+    <transition name="fade">
+    <div v-if="showModal" class="modal">
+    </div>
+</transition>
+<div class="modal-content" v-if="showModal">
+       <cita  @close="activar" />
+      </div>
     <div class="app">
     <div class="title">
       <encabezado /> 
@@ -14,7 +21,7 @@
         <div class="tableCel">
           <div class="headerTable">
             <h4>Nombre</h4>
-            <h4>Telefono</h4>
+            <h4>Teléfono</h4>
             <h4>Fecha cita</h4>
             <h4>Estatus</h4>
             <h4>Raza</h4>
@@ -54,7 +61,7 @@ import {card, citaID} from '@/stores/counter.js'
 
 
 const loading = ref(false);
-const showModal = ref(true);
+const showModal = ref(false);
 const carta = card()
 const cita_id = citaID()
 const msgID = ref()

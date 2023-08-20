@@ -1,7 +1,7 @@
 <script setup>
 import {ref, defineProps, watch, computed, toRefs, onMounted} from 'vue';
 import BotonConEstilo from '../ControlesIndividuales/BotonAntho.vue';
-import RangoPrecioPublicos from '../ControlesIndividuales/RangoPrecioPublicos.vue';
+// import RangoPrecioPublicos from '../ControlesIndividuales/RangoPrecioPublicos.vue';
 const props = defineProps({
   Service: {
     type: String,

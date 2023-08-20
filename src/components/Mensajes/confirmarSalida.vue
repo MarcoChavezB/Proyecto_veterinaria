@@ -1,8 +1,8 @@
 <template>
   <div id="app" v-if="mostrar">
     <div class="cookie-card" >
-      <span class="cookie-title">🚧confirmar🚧</span>
-      <p class="cookie-description">La sesion de administrador no se mantendra por seguridad.</p>
+      <span class="cookie-title">🚧Confirmar🚧</span>
+      <p class="cookie-description">La sesión de administrador no se mantendrá por seguridad.</p>
       <div class="btns">
         <button @click="cancelar" class="accept-button">Cancelar</button>
         <button @click="mandarVariable" class="accept-button">Accept</button>

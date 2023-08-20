@@ -133,7 +133,7 @@ obtenerproductos();
       <label for="payment-date" >Nombre:</label>
       <input class="search-box" type="text" v-model="nombre"/>
       <br/>
-      <label>Descripcion:</label>
+      <label>Descripción:</label>
       <input class="search-boxx" type="text" v-model="desc"/>
       <br />
       <label>Precio:</label>
@@ -141,8 +141,8 @@ obtenerproductos();
       <br />
       <label for="status">Tipo de Servicio:</label>
       <select class="search-box" id="1" v-model="tipo">
-        <option value="1">Clinico</option>
-        <option value="2">Estetico</option>
+        <option value="1">Clínico</option>
+        <option value="2">Estético</option>
       </select>
       <br>
       <span>Elige los productos para el servicio:</span>
