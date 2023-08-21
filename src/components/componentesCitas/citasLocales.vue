@@ -173,7 +173,6 @@ const UsersCorreo = async () => {
    } else {
     usuarios.value = [response.data.data];
    }  
-   console.log(usuarios.value)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -191,7 +190,6 @@ const mascota = async () => {
    } else {
     mascotas.value = [response.data.data];
    }  
-   console.log(mascotas.value)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -253,7 +251,7 @@ const registrarMascota = async () => {
                   'http://backend.vetcachorros.one/registrarMascota',
                   mascotaa
             );
-            console.log(response)
+            
             if (response.status === 200){
             await mascota();
             aniinombre.value = ''

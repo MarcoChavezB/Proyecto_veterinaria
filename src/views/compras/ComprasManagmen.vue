@@ -130,11 +130,9 @@ const sumarCant = (id) => {
 }
 
 const quitarProducto = (id) => {
-  console.log(deleteProd.value, id)
 
   if (deleteProd.value === 1) {
     productosEnPantalla.value = productosEnPantalla.value.filter(item => item[0].id !== id);
-    console.log(productosEnPantalla.value)
 
     deleteProd.value = 0;
         
@@ -206,7 +204,6 @@ const construirArregloProductos = () => {
   for (const id in cantidadesPorID.value) {
     arregloProductos.push([parseInt(id), cantidadesPorID.value[id]]);
   }
-  console.log(arregloProductos);
   return arregloProductos;
 };
 
@@ -247,7 +244,7 @@ const terminar = async () => {
         'http://backend.vetcachorros.one/venta',
         jsonData
       );
-      console.log(response);
+
     } catch (error) {
       console.log(error);
     }
@@ -258,7 +255,7 @@ const terminar = async () => {
       );
       
       tiketData.value = GenerarTiket.data.data;
-      console.log(tiketData.value)
+
     } catch (error) {
       console.log(error);
     }
@@ -284,7 +281,7 @@ const cancelarCompra = async () => {
   } else{
     try {
     const response = await axios.post('http://backend.vetcachorros.one/CancelarCompra');
-    console.log('venta revertida', response.data.data)
+
     tiketData.value = []
     productosEnPantalla.value = []
     mensaje_success.value = 'Venta cancelada'

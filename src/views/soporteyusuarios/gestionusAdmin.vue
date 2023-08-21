@@ -86,7 +86,7 @@ const UsersCorreo = async () => {
     const userUpdate = {
      cadena: search.value
     };
-    console.log(userUpdate);
+    
   try {
     const response = await axios.post('http://backend.vetcachorros.one/clientes/infoCorreo', userUpdate);
     if (Array.isArray(response.data.data)) {
@@ -104,7 +104,7 @@ const UsersCorreo = async () => {
   try {
     const response = await axios.get('http://backend.vetcachorros.one/clientes/All');
     users.value = response.data.data;
-    console.log(users.value)
+    
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }

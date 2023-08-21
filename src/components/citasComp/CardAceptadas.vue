@@ -163,7 +163,6 @@ const citaResponse = async () => {
       cita_respuesta: CitaResponse.value
     }
     const response = await axios.post('http://backend.vetcachorros.one/citasAceptadasResponse', data)
-    console.log(response)
     isLoading.value = false
   } catch (error) {
     console.log(error)
@@ -209,7 +208,6 @@ onMounted(async () => {
 
 const salir = () => {
   location.reload()
-  console.log('291092019029091',esconder.value)
 }
 
 </script>

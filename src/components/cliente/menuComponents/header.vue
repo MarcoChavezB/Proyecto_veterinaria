@@ -59,11 +59,9 @@ var despliegue = ref(false);
 const menu = () => {
     if (despliegue.value) {
         despliegue.value = false
-        console.log('true')
     }
     else {
         despliegue.value = true
-        console.log('false')
     }
 }
 
