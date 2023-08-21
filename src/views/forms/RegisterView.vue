@@ -226,6 +226,13 @@ const redirectToPage = () => {                                                  
 
 
 
+<!-- $c->nombre = $dataObject->nombres;
+$c->apellido = $dataObject->apellidos;
+$c->correo = $dataObject->correo;
+$c->telefono1 = $dataObject->tel1;
+$c->telefono2 = $dataObject->tel2;
+$c->contra = $dataObject->password;
+$c->tipo_usuario = $dataObject->ts; -->
 
 
 

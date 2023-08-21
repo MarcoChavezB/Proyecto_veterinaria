@@ -224,6 +224,11 @@ const fetchData = async () => {
             
     } catch (error) {
         console.log(error);
+        mensaje_error.value = 'Error en el servidor';
+            mostrar_error.value = true;
+            setTimeout(() => {
+                  mostrar_error.value = false;
+            }, 2000);
     }
 };
 
