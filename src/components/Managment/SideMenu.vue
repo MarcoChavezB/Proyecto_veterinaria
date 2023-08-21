@@ -39,6 +39,11 @@
                         <span class="material-symbols-outlined">person</span>
                         <h4>Usuarios</h4>
                     </router-link>
+
+                    <router-link :to="{ name: 'GestionUsuarios' }">
+                        <span class="material-symbols-outlined">person</span>
+                        <h4>Administrador</h4>
+                    </router-link>
                 </div>
 
                 <div class="reportes">

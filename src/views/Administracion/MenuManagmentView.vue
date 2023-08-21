@@ -13,16 +13,6 @@
       <div class="cards">
         <div class="estadisticas">
           <grafica />
-          <!-- <div class="info">
-            <div class="purple">
-              <div></div>
-              <label>This month</label>
-            </div>
-            <div class="red">
-              <div></div>
-              <label>Last month</label>
-            </div>
-          </div> -->
         </div>
         <div class="pequenas">
 
@@ -44,7 +34,6 @@
                           :number="citas.citas_mes_actual"
                           :arrow="arrow_citas"/></div>
         </div>
-
       </div>
       <div class="tabla">
         <div class="table">
