@@ -236,7 +236,7 @@ function saveInformation() {
   }
   .container {
     grid-row-start: 2;
-    width: 90%;
+    width: 100%;
     height: 15vh;
     background:linear-gradient(70deg, rgb(221, 240, 255), #fffacf);
     display: flex;

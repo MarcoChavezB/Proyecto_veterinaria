@@ -24,8 +24,7 @@
                   <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>
                   <li><router-link :to="{name: 'serviciosConLogin'}">Servicios</router-link></li>
                   <li><a id="danger" @click="cerrarSession">Cerrar sesión</a></li>
-                    <li><a href="#">Contacto</a></li>
-                    <li><a href="#">Perfil</a></li>
+                    <li><router-link :to="{name: 'perfil'}"><a href="#">Perfil</a></router-link></li>
                 </ul>
             </div>
             <div class="profile">
