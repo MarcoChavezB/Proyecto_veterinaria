@@ -108,7 +108,6 @@ const ReporteFechaVentas = async () => {
   try {
     const response = await axios.post('http://backend.vetcachorros.one/ReporteFechaVentas', { Fecha: FechaVenta.value });
     ventaFecha.value = response.data.data;
-    console.log(response.data);
   } catch (error) {
     console.error("Error al obtener el reporte de inventario", error);
   }
@@ -119,7 +118,6 @@ const ReporteGralVentas = async () => {
   try {
     const response = await axios.post('http://backend.vetcachorros.one/ReporteGralVentas');
     gralVenta.value = response.data.data;
-    console.log(response.data);
   } catch (error) {
     console.error("Error al obtener el reporte de inventario", error);
   }

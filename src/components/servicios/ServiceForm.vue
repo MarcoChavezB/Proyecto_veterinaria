@@ -47,7 +47,7 @@
       productosSeleccionados.value.splice(index, 1);
     }
   }
-  console.log(productosSeleccionados)
+  
 };
 
 
@@ -76,7 +76,6 @@ const sendPostRequest = async () => {
          desc.value="";
          precio.value= 0;
     }
-    console.log(response.data);
   } catch (error) {
     console.error(error);
   }

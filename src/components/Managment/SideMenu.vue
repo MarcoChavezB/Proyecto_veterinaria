@@ -105,7 +105,6 @@ const onReportChange = (event) => {
 const salir = () =>{
   if (mandarVariable.value === true){
     mandarVariable.value = false;
-    console.log(mandarVariable)
     varSalir.setVariable(mandarVariable.value);
   }else if (mandarVariable.value === false ){
     mandarVariable.value = true;

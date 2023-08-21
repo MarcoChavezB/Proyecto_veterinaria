@@ -86,7 +86,7 @@ async function buscarOrdenesPorEstado() {
     const data = {
       columna: columna.value
     };
-    console.log(data);
+
     const response = await axios.post('http://backend.vetcachorros.one/orden/porestado', data);
     if (Array.isArray(response.data.data)) {
             ordenes.value = response.data.data;

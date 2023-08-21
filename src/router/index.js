@@ -443,7 +443,6 @@ router.beforeEach((to, from, next) => {
                   next('/login');
             }
             else if (userType === 'Administrador' && to.name === 'perfil') {
-                  console.log('Redireccionando a Control porque es un Administrador.');
                   next('/control');
             }
             else if (to.matched.some(route => route.meta.requiredRole && route.meta.requiredRole !== userType)) {

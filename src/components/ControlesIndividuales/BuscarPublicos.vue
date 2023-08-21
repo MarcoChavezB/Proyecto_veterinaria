@@ -27,7 +27,7 @@
       const response = await axios.post('http://backend.vetcachorros.one/buscarInterno', {nombre: nombre.value});
       productos.value = response.data.data
       prodPublico.setVariable(productos.value)
-      console.log(productos.value)
+  
     } catch(error){
       console.log(error)
     }

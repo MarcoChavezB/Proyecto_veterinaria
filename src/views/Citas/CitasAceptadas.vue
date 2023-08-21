@@ -70,7 +70,6 @@ const seleccion = (id) => {
   msgID.value = id;
   inicial.value = true;
   cita_id.setVariable(msgID.value);
-  console.log('variable mandada cota', msgID.value);
 };
 
 const citasProximas = () => {

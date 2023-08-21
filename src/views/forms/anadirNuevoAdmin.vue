@@ -126,7 +126,7 @@ const recibirModulo = ref()
 const quitarAdmin = (id) => {
     recibirModulo.value = id
     useStore.setVariable(recibirModulo.value)
-    console.log(recibirModulo.value)
+
 };
 
 
@@ -204,7 +204,7 @@ const mandarAdmin = async () => {
         };
         
         const response = await axios.post('http://backend.vetcachorros.one/registrarAdmin', infoAdmin);
-        console.log(infoAdmin);
+    
         users.value = response.data.data;
         mostrarmensajeSuccess.value = 'Se registró el usuario';
         mostrarSuccess.value = true;

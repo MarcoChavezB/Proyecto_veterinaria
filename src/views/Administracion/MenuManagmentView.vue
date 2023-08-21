@@ -182,6 +182,11 @@ onMounted(estadisticas_positivo_negativo)
   margin-left: 50px;
   gap: 10px;
 }
+
+.pequenas div:nth-child(2){
+  width: 40%;
+  
+}
 .pequenas div{
   display: flex;
   justify-content: center;

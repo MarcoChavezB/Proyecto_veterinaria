@@ -147,19 +147,6 @@ const respuesta = (seleccion) =>{
   citaResponse();
 }
 
-/*
-const correo = ref()
-const MandarCorreo = async () => {
-  try {
-    const response = await axios.post('http://backend.vetcachorros.one/mandarCorreo', id);
-    correo.value = response.data.data;
-    console.log(correo.value);
-  } catch (error) {
-    console.log(error);
-  }
-};
-*/
-
 const citaResponse = async () => {
   try {
     const data = {
@@ -181,14 +168,10 @@ const email = ref();
 const citaId = ref("");
 const getUserEmail = async (idcita) => {
   citaId.value = idcita;
-  console.log(citaId.value);
   try {
     const response = await axios.post('http://backend.vetcachorros.one/CorreoUsuario',{cita_id: citaId.value})
-    console.log(response.data);
     email.value = response.data.data;
-    //console.log("email.value", email.value);
     await SendEmail(email.value[0].correo);
-    //console.log("Testeo 2");
   }catch (error){
     console.error(error)
 
@@ -243,7 +226,6 @@ onMounted(async () => {
 
 const salir = () => {
   location.reload()
-  console.log('291092019029091',esconder.value)
 }
 
 </script>

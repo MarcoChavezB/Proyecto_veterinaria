@@ -23,7 +23,6 @@ const data = ref()
 
 const borrar = () =>{
     data.value = useStore.state.variable
-    console.log(data.value)
     const userData = async () => {
     try {
         const response = await axios.post('http://backend.vetcachorros.one/eliminarAdmin', {id: data.value}); 

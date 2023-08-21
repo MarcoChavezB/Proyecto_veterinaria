@@ -95,7 +95,7 @@ const ReporteGeneralOrdenesCompra = async () => {
   try {
     const response = await axios.post('http://backend.vetcachorros.one/ReporteGeneralOrdenesCompra');
     General.value = response.data.data;
-    console.log(response.data);
+    
   } catch (error) {
     console.error("Error al obtener el reporte ", error);
   }
@@ -107,7 +107,7 @@ const ReporteGeneralOrdenesCompraPagadas = async () => {
   try {
     const response = await axios.post('http://backend.vetcachorros.one/ReporteGeneralOrdenesCompraPagadas');
     Pagadas.value = response.data.data;
-    console.log(response.data);
+    
   } catch (error) {
     console.error("Error al obtener el reporte", error);
   }
