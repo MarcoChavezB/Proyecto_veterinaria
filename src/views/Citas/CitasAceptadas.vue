@@ -5,7 +5,10 @@
     </div>
     <div class="app">
       <div class="controles">
-        <div class="botones">
+        <div class="botones ">
+          <btnn id="black" title="Citas proximas" @click="citasProximas"/>
+          <btnn title="Agendar Cita" @click="agendar"/>
+          <btnn title="Limpiar" @click="fetchData"/>
         </div>
       </div>
       <div class="table">
@@ -36,9 +39,9 @@
 import Rows from '../../components/citasComp/RowTableCitas.vue'
 import encabezado from '../../components/citasComp/CitasHeadre.vue'
 import mensaje from '../../components/citasComp/CardAceptadas.vue'
-import add from '../../components/ControlesIndividuales/ingresar.vue'
+import Btnn from '@/components/ControlesIndividuales/BotonConEstilo.vue';
 import axios from 'axios'
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {useStore} from '@/stores/counter.js'
 import {StoreProdInternos} from '@/stores/counter.js'
 import {card, citaID} from '@/stores/counter.js'
@@ -70,8 +73,19 @@ const seleccion = (id) => {
   console.log('variable mandada cota', msgID.value);
 };
 
+const citasProximas = () => {
+  const mostrarCitasProximas = async () => {
+  try {
+    const response = await axios.get('http://backend.vetcachorros.one/proximas');
+    citas.value = response.data.data;
+  } catch(error) {
+    console.log(error)
+  }
+  }
+mostrarCitasProximas()
+}
 
-setInterval(fetchData, 600)
+onMounted(fetchData)
 </script>
 
 
@@ -103,7 +117,10 @@ setInterval(fetchData, 600)
   margin-bottom: 2em;
 }
 
-
+#black{
+  background-color: black;
+  color: white;
+}
 .app {
   display: grid;
   grid-auto-columns: 1fr;

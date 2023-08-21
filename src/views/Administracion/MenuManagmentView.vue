@@ -47,8 +47,10 @@
           <h1>Citas Próximas</h1>
         </div>
         <div class="citas" v-for="cita in citas" :key="cita.id">
-          <Notificaciones  class="not"
+          <router-link class="custom-link" :to="{name: 'citasTotales'}">
+            <Notificaciones  class="not"
                            :fecha="cita.fecha_cita" :descripcion="cita.motivo" />
+          </router-link>
         </div>
       </div>
       <div class="estadisticas-aside" >
@@ -59,6 +61,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted, } from 'vue'
@@ -83,7 +86,6 @@ const intervalMessage = () =>{
 
 setInterval(intervalMessage,100)
 
-// variabel apra mo stra la etiqueta con el if neecsito una funcion que leea cuando se dio click
 
 const citas = ref([])
 const fetchData = async () => {
@@ -101,7 +103,6 @@ const bajaProd = async () => {
   try {
     const response = await axios.get('http://backend.vetcachorros.one/bajaProductos');
     productos.value = response.data.data;
-    console.log(productos.value)
   } catch(error) {
     console.log(error)
   }
@@ -164,6 +165,7 @@ onMounted(estadisticas_positivo_negativo)
   margin-bottom: 10px;
   background: #fff;
   padding: 1.2rem;
+  overflow-y: auto;
   border-radius: 0rem 0rem 2rem 2rem;
   box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.1);
   transition: all 300ms ease;
@@ -174,6 +176,7 @@ onMounted(estadisticas_positivo_negativo)
   flex-direction: column;
   gap: 4px;
 }
+
 .pequenas{
   display: flex;
   margin-left: 50px;

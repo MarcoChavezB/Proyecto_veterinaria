@@ -1,6 +1,6 @@
-<template>
+<template>    
   <div class="precios">
-    <p>Rango de precios</p>
+    <p>Rango de citas</p>
     <div class="inputGroup">
       <input type="number" autocomplete="off" v-model="minPrice" :placeholder="tittle1">
       <span class="material-symbols-outlined">
@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { useStore } from '@/stores/counter.js';
+import { rangoFechaCita } from '@/stores/counter.js';
 import { ref, defineProps, onMounted, onBeforeUnmount } from 'vue';
 import axios from 'axios';
 
@@ -25,25 +25,24 @@ defineProps({
   },
 });
 
+const usarRango = rangoFechaCita()
+const mandarRango = ref()
 const minPrice = ref('');
 const maxPrice = ref('');
 const filtData = ref();
-const store = useStore();
 
 const data = async () => {
-  const rango = {
-    minPrice: minPrice.value,
-    maxPrice: maxPrice.value,
-  };
+  const startDate = new Date('2023-08-01');
+  const endDate = new Date('2023-08-31'); 
 
-  const updateVariable = () => {
-    store.setVariable(filtData);
+  const rango = {
+    minPrice: startDate.toISOString().substring(0, 10),
+    maxPrice: endDate.toISOString().substring(0, 10),
   };
 
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/precios', rango);
+    const response = await axios.post('http://backend.vetcachorros.one/rangoFechaCitas', rango);
     filtData.value = response.data;
-    updateVariable();
     console.log(response.data);
     console.log('internos');
   } catch (error) {
@@ -51,17 +50,20 @@ const data = async () => {
   }
 };
 
-// Ejecutar la función data al montar el componente
-onMounted(data);
+let intervalId; // Definir el intervalo aquí
 
-// Limpiar el intervalo cuando el componente se desmonta
+
+onMounted(() => {
+  data();
+  intervalId = setInterval(data, 2000);
+});
+
+
 onBeforeUnmount(() => {
   clearInterval(intervalId);
 });
-
-// Definir el intervalo fuera del bloque setup
-const intervalId = setInterval(data, 1000);
 </script>
+
 
 
 

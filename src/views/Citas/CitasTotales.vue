@@ -3,8 +3,8 @@
     <transition name="fade">
     <div v-if="showModal" class="modal">
     </div>
-</transition>
-<div class="modal-content" v-if="showModal">
+    </transition>
+      <div class="modal-content" v-if="showModal">
        <cita @close="agendar"/>
       </div>
     <div class="app">
@@ -13,8 +13,10 @@
     </div>
     <div class="app">
       <div class="controles">
-        <div class="botones">
+        <div class="botones ">
+          <btnn id="black" title="Citas hoy" @click="citasHoy"/>
           <btnn title="Agendar Cita" @click="agendar"/>
+          <btnn title="Limpiar" @click="fetchData"/>
         </div>
       </div>
       <div class="table">
@@ -49,17 +51,19 @@
 import Rows from '../../components/citasComp/RowTableCitas.vue'
 import encabezado from '../../components/citasComp/CitasHeadre.vue'
 import mensaje from '@/components/citasComp/AceptacionCard.vue'
-import add from '../../components/ControlesIndividuales/ingresar.vue'
-import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
+import rangoFechas from '../../components/ControlesIndividuales/RangoPrecios.vue'
+import Btnn from '@/components/ControlesIndividuales/BotonConEstilo.vue';
 import cita from '@/components/componentesCitas/citasLocales.vue';
+import { productosPublicosR } from '@/stores/counter.js';
+
 import axios from 'axios'
-import load from '../../components/loaders/loaderPrincipal.vue'
-import {ref, onMounted, onUnmounted} from 'vue'
+import {ref, onMounted} from 'vue'
 import {useStore} from '@/stores/counter.js'
 import {StoreProdInternos} from '@/stores/counter.js'
 import {card, citaID} from '@/stores/counter.js'
 
-
+const rango = productosPublicosR()
+const recibirRango = ref()
 const loading = ref(false);
 const showModal = ref(false);
 const carta = card()
@@ -76,10 +80,23 @@ const fetchData = async () => {
   try {
     const response = await axios.get('http://backend.vetcachorros.one/citas_total');
     citas.value = response.data.data;
+    
   } catch(error) {
     console.log(error)
   }
 }
+
+const citasHoy = async () =>{
+  try {
+    const response = await axios.get('http://backend.vetcachorros.one/citasActuales');
+    citas.value = response.data.data;
+
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+
 
 const seleccion = (id) => {
   msgID.value = id;
@@ -89,11 +106,7 @@ const seleccion = (id) => {
 
   cita_id.setVariable(msgID.value);
   mandarEstatus.setVariable();
-  console.log('90909090',inicial.value)
 };
-
-
-setInterval(fetchData, 600)
 
 
 const agendar =()=>{
@@ -103,7 +116,7 @@ const agendar =()=>{
     showModal.value = false;
   }
 }
-
+onMounted(fetchData)
 
 </script>
 
@@ -161,16 +174,18 @@ const agendar =()=>{
 .controles{
   display: grid;
   grid-auto-columns: 1fr;
-  grid-template-columns: 1.1fr 1.6fr 0.8fr;
+  grid-template-columns: 1fr 1fr;
   gap: 0px 0px;
   height: 100px;
   width: 94%;
   margin-left: 50px;
+  
 }
 
 .botones{
   display: flex;
   gap: 40px;
+  width: 100%;
   align-items: flex-end;
 }
 
@@ -181,6 +196,10 @@ const agendar =()=>{
   margin-bottom: 2em;
 }
 
+#black{
+  background-color: black;
+  color: white;
+}
 
 .app {
   display: grid;

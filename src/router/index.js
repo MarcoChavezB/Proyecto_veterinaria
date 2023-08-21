@@ -179,6 +179,11 @@ const routes = [
                         component: control
                   },
                   {
+                        path: '/agregarAdmin',
+                        name: 'agregarAdmin',
+                        component: agregarAdmin     
+                  },
+                  {
                         path: '/citasTotales',
                         name: 'citasTotales',
                         component: citasTotales
@@ -338,7 +343,7 @@ import serviciosesteticos from '../views/Servicios/serviciosesteticos.vue'
 import serviciosclinicos from '../views/Servicios/serviciosclinicos.vue'
 import citasTotales from '../views/citas/citasTotales.vue'
 import citasAceptadas from '../views/citas/citasAceptadas.vue'
-
+import agregarAdmin from '../views/forms/anadirNuevoAdmin.vue'
 
 // // to = a donde
 // // from = de donde
