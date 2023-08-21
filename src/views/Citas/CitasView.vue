@@ -141,6 +141,7 @@ const agendarCita = async () => {
                   'http://backend.vetcachorros.one/agendarcita',
                   cita
             );
+            console.log(response.data)
             cleanForm();
       } catch (error) {
             console.error(error);
@@ -357,4 +358,26 @@ form textarea {
 
 .error-message {
       color: red;
-}</style>
+}
+
+@media (max-width: 768px) {
+  .pantalla {
+    flex-direction: column; /* Cambia a disposición de columna en pantallas pequeñas */
+    align-items: center;
+  }
+
+  .cita {
+    width: 90%; /* Haz que el formulario ocupe un 90% del ancho en pantallas pequeñas */
+    margin-bottom: 20px; /* Añade espacio entre los elementos en pantallas pequeñas */
+  }
+
+  .overlay {
+    align-items: flex-start; /* Alinea el contenido a la izquierda en pantallas pequeñas */
+  }
+
+  .floating-form{
+    margin-top: 100px;
+  }
+}
+
+</style>
