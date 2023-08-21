@@ -394,10 +394,10 @@ const obtenerservicios = async () => {
     try {
         const response = await axios.get('http://backend.vetcachorros.one/serviciospublicosesteticos')
       
-      console.log(response.data);
+      // console.log(response.data);
       servicios.value = response.data.data;
     } catch (error) {
-        console.error(error)
+      //   console.error(error)
     }
 }
 onMounted(obtenerservicios);
