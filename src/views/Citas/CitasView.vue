@@ -131,6 +131,7 @@ const registrarMascota = async () => {
 
 const agendarCita = async () => {
       const cita = {
+            user_regis: id_cliente,
             fechaCita: fechaCita.value,
             estatus: estatus.value,
             motivo: motivo.value,
