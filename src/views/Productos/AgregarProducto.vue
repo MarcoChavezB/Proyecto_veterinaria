@@ -182,22 +182,20 @@ const validar = () => {
 };
 
 
-
 const fetchData = async () => {
-      const data = {
-            nombre_producto: nombre_producto.value,
-            descripcion_producto: descripcion_producto.value,
-            tipo_producto: tipo_producto.value,
-            cantidad_pructos: cantidad_pructos.value,
-            precio_venta: precio_venta.value,
-            precio_compra: precio_compra.value,
-            categoria_producto: categoria_producto.value,
-      };
+    const data = {
+        nombre_producto: nombre_producto.value,
+        descripcion_producto: descripcion_producto.value,
+        tipo_producto: tipo_producto.value,
+        cantidad_pructos: cantidad_pructos.value,
+        precio_venta: precio_venta.value,
+        precio_compra: precio_compra.value,
+        categoria_producto: categoria_producto.value,
+    };
 
-      try {
-            const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre_producto.value });
-            console.log(response.data.data);
-            console.log(nombre_producto.value)
+    try {
+        const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre_producto.value });
+        console.log(response.data);
 
             if (response.data.data.data === true) {
                   try {
@@ -210,7 +208,7 @@ const fetchData = async () => {
                   } catch (error) {
                         console.log(error);
                   }
-            } else {
+            }else {
                   mensaje_error.value = 'Producto ya existente'
                   mostrar_error.value = true;
                   setTimeout(() => {
@@ -222,11 +220,13 @@ const fetchData = async () => {
                               estiloBoton.value = '';
                         }, 3000);
                   }, 3000);
-            }
-      } catch (error) {
-            console.log(error);
-      }
+            } 
+            
+    } catch (error) {
+        console.log(error);
+    }
 };
+
 
 
 const categoriasData = async () => {

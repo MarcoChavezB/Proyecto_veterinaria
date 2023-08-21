@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="search">
     <input v-model="nombre" type="text" class="search__input" placeholder="Buscar producto">
     <button class="search__button" @click="fetchData">
