@@ -4,7 +4,7 @@
             <div class="vet"> <router-link :to="{path: '/cuerpo'}" ><span class="logo material-symbols-outlined">sound_detection_dog_barking <p>Veterinaria</p></span></router-link></div>
             <ul class="navbar normal">
                 <li><router-link :to="{name: 'cuerpo'}" class="active">Home</router-link></li>
-                <li><router-link :to="{name: 'catalogo'}" href="#">Productos</router-link></li>
+                <li><router-link :to="{name: 'catalogoConLogin'}" href="#">Productos</router-link></li>
                 <li><router-link :to="{name: 'cita'}">Citas</router-link></li>
                 <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atención</router-link></li>
               <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>
@@ -18,7 +18,7 @@
                 </span>
                 <ul v-if="despliegue" class=" despliegue">
                     <li><router-link :to="{name: 'cuerpo'}" href="#" class="active">Home</router-link></li>
-                    <li><router-link :to="{name: 'catalogo'}" href="#">Productos</router-link></li>
+                    <li><router-link :to="{name: 'catalogoConLogin'}" href="#">Productos</router-link></li>
                     <li><router-link :to="{name: 'cita'}">Citas</router-link></li>
                   <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atención</router-link></li>
                   <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>

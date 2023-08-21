@@ -80,9 +80,9 @@ const routes = [
                         component: citas,
                   },
                   {
-                        path: '/catalogo',
-                        name: 'catalogo',
-                        component: catalogo
+                        path: '/catalogoConLogin',
+                        name: 'catalogoConLogin',
+                        component: catalogoViewConLogin
                   },
                   {
                         path: '/HistorialMedicoC',
@@ -327,7 +327,7 @@ import servicios from '../views/servicios/servicios.vue'
 import serviciosConLogin from '../views/Servicios/serviciosConLogin.vue'
 import serviciosclinicosConLogin from '../views/Servicios/serviciosclinicosConLogin.vue'
 import serviciosesteticosConLogin from '../views/Servicios/serviciosesteticosConLogin.vue'
-
+import catalogoViewConLogin from '../views/Productos/catalogoViewConLogin.vue'
 
 import consultas from '../views/Consultas/ConsultasView.vue';
 import ordenes from '../views/Ordenes_de_Compra/OrdenesCompraView.vue'
