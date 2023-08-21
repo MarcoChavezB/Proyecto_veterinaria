@@ -35,8 +35,6 @@
 
     <div class="third-container" v-show="ShowSecondCard" >
       <div class="carta" v-for="cita in citasR">
-        <div class="decoracion">
-        </div>
         <ul>
           <li id="li1"><label class="labels" for="li1">Mascota:</label> {{cita.Nombre}}</li>
           <li id="li2"><label class="labels" for="li2">Fecha:</label> {{cita.Fecha}}</li>
@@ -44,7 +42,7 @@
             <li id="li3"><label class="labels" for="li3">Motivo:</label> {{cita.Motivo}}</li>
           </div>
           <li id="li4"><label class="labels" for="li4">Estatus:</label>
-            <span :style="{
+            <span  class="status" :style="{
                             'background-color': cita.Estatus === 'Rechazada' ? 'red' : 'transparent',
                             'color': cita.Estatus === 'Rechazada' ? 'white' : 'black'
                           }">
@@ -113,25 +111,22 @@ watch(citaSeleccionada, (newValue) => {
   box-sizing: border-box;
 }
 
+
 .first-container {
   font-family: 'Comfortaa';
   width: 100%;
   height: 100%;
 }
 
-.carta{
-  border-radius: 8px;
-  width: 395px;
-  height: 265px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-
+.status{
+  border-radius: 10px;
 }
 
 .second-container{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 3em;
   justify-content: center;
 }
 
@@ -143,10 +138,15 @@ watch(citaSeleccionada, (newValue) => {
   justify-content: center;
 }
 
-.decoracion{
-  height: 20px;
-  background-color: #f3ae23;
 
+.carta{
+  border-radius: 15px;
+  flex-direction: column;
+  width: 395px;
+  height: 265px;
+  box-shadow: 0px 0px 2em rgba(0, 0, 0, 0.4);
+  overflow: hidden; 
+  background: linear-gradient(rgb(255, 253, 234), rgb(255, 255, 255));
 }
 .labels{
   font-weight: bold;

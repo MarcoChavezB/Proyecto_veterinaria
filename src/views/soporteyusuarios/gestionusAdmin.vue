@@ -73,36 +73,11 @@ watch(filter, (newValue) => {
   const buscar = async () => {
   if(search.value==="") {
     await fetchUsers();
-  } else if(filter.value===false) {
-    await UsersID();
   } else if(filter.value===true) {
     await UsersCorreo();
   }
 }
 
-  //usuario x id
-  const UsersID = async () => {
-    users.value = [];
-    const userUpdate = {
-     id: search.value
-    };
-  try {
-    const response = await axios.post('http://backend.vetcachorros.one/clientes/infoID', userUpdate);
-    if(response.data.data===null)
-    {
-      users.value=[]
-    }
-    console.log(response.data.data)
-    if (Array.isArray(response.data.data)) {
-  users.value = response.data.data;
-   } else {
-    users.value = [response.data.data];
-   }
-  } catch (error) {
-    console.error('Hubo un error al obtener el usuario:', error);
-  }
-  
-};
 
 //usuario x correo
 

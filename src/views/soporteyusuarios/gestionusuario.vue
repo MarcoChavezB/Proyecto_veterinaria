@@ -196,14 +196,10 @@ function saveInformation() {
 .text-field input {
   border: none;
   border-radius: 20px;
-  width: 100%vh;
   height: 5vh;
   padding: 10px;
   box-shadow: 0 0 1rem #0000008a;
 }
-
-
-
 
 
     .informacion{
@@ -212,9 +208,11 @@ function saveInformation() {
       width: 100%;
       border-radius: 15px;
       display:grid;
-      grid-template-columns:20% 60% 20%;
+      grid-template-columns:25% 50% 25%;
       grid-template-rows: 100%;
     }
+
+
 
     .info{
   gap: 3%;
@@ -238,7 +236,7 @@ function saveInformation() {
   }
   .container {
     grid-row-start: 2;
-    width: 90%;
+    width: 100%;
     height: 15vh;
     background:linear-gradient(70deg, rgb(221, 240, 255), #fffacf);
     display: flex;
@@ -412,5 +410,56 @@ justify-content: start;
     left: unset;
   }
 }
+
+
+@media screen and (max-width: 1450px) {
+  .informacion{
+      grid-template-columns:20% 60% 20%;
+    }
+ }
+ @media screen and (max-width: 1250px) {
+  .informacion{
+      grid-template-columns:15% 70% 15%;
+    }
+ }
+ @media screen and (max-width: 1050px) {
+  .informacion{
+      grid-template-columns:7.5% 85% 7.5%;
+    }
+ }
+ @media screen and (max-width: 850px) {
+  .informacion{
+      grid-template-columns:2.5% 95% 2.5%;
+    }
+    .container{
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+
+    }
+    .text-field {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+      row-gap: 10%;
+
+
+}
+    
+ }
+
+ @media screen and (max-width: 750px) {
+  .informacion{
+      grid-template-columns:5% 90% 5%;
+    }
+
+    .container{
+      width: 100%;
+    }
+
+ }
   </style>
   

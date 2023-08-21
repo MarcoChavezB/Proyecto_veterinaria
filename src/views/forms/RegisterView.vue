@@ -201,9 +201,9 @@ const verificarCorreo = async () => {
 
 const data = async () => {
     const reg = {
-        nombre: nombre.value,
-        last: last.value,
-        contrasena: contrasena.value,
+        nombres: nombre.value,
+        apellidos: last.value,
+        password: contrasena.value,
         correo: correo.value,
         tel1: tel1.value,
         tel2: tel2.value,
@@ -211,7 +211,7 @@ const data = async () => {
     };
 
     try {
-        const response = await axios.post('http://backend.vetcachorros.one/registrar', reg);
+        const response = await axios.post('http://backend.vetcachorros.one/signin', reg);
         console.log(response.data); 
     } catch (error) {
         console.error(error);
@@ -226,6 +226,13 @@ const redirectToPage = () => {                                                  
 
 
 
+<!-- $c->nombre = $dataObject->nombres;
+$c->apellido = $dataObject->apellidos;
+$c->correo = $dataObject->correo;
+$c->telefono1 = $dataObject->tel1;
+$c->telefono2 = $dataObject->tel2;
+$c->contra = $dataObject->password;
+$c->tipo_usuario = $dataObject->ts; -->
 
 
 
