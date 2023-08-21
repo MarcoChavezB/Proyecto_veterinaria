@@ -8,8 +8,8 @@
                               <input type="datetime-local" id="fechaCita" v-model="fechaCita" @input="validarFecha" />
                         </div>
                         <div v-show="showFechaOcupada" class="error-message">
-                              Ya existe una cita para esta fecha.
-                              Puedes seleccionar una con una hora de diferencia
+                              Ya existe una cita para esta fecha y hora.
+                              Puedes probar seleccionar otra con una hora de diferencia.
                         </div>
                         <br />
                         <div>
@@ -123,7 +123,6 @@ const registrarMascota = async () => {
                   'http://backend.vetcachorros.one/registrarMascota',
                   mascota
             );
-            console.log(response.data);
             location.reload();
       } catch (error) {
             console.error(error);
@@ -137,13 +136,11 @@ const agendarCita = async () => {
             motivo: motivo.value,
             id_mascota: id_mascota.value
       };
-      console.log(cita);
       try {
             const response = await axios.post(
                   'http://backend.vetcachorros.one/agendarcita',
                   cita
             );
-            console.log(response.data);
             cleanForm();
       } catch (error) {
             console.error(error);
@@ -166,7 +163,6 @@ const FiltroMascotas = async () => {
                   'http://backend.vetcachorros.one/MascotasUsuario',
                   { id_cliente: id_cliente.value }
             );
-            console.log(response.data);
             Mascotas.value = response.data.data;
       } catch (error) {
             console.error(error);
@@ -177,31 +173,35 @@ onMounted(FiltroMascotas);
 const showFechaOcupada = ref(false);
 const showButton = ref(true);
 
-
 const validarFecha = async () => {
-      const fechaSeleccionada = new Date(fechaCita.value)
-      try {
-            const response = await axios.post('http://backend.vetcachorros.one/ValidacionFechas');
-            const fechasValidadas = response.data.data;
-            const fechasExistentes = fechasValidadas.some(cita => new Date(cita.fecha_cita).getTime() === fechaSeleccionada.getTime())
-            console.log(fechasExistentes);
+  const fechaSeleccionada = new Date(fechaCita.value);
+  try {
+    const response = await axios.post('http://backend.vetcachorros.one/ValidacionFechas');
+    const fechasValidadas = response.data.data;
+    const fechasExistentes = fechasValidadas.some(cita => {
+      const fechaCita = new Date(cita.fecha_cita);
+      return Math.abs(fechaCita - fechaSeleccionada) < 60 * 60 * 1000;
+    });
+    if (fechasExistentes){
+      showFechaOcupada.value = true;
+      showButton.value = false;
+    }else{
+      showFechaOcupada.value = false;
+      showButton.value = true;
+    }
 
-            if (fechasExistentes) {
-                  showFechaOcupada.value = true;
-                  showButton.value = false;
-            } else {
-                  showFechaOcupada.value = false;
-                  showButton.value = true;
-            }
-
-      } catch (error) {
-            console.error(error);
-      }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 </script>
 
 <style scoped>
+*{
+  box-sizing: border-box;
+}
+
 .enviar {
       width: 90%;
       display: flex;

@@ -71,7 +71,6 @@
   const DisplayWindow = (id) => {
     id_animal.value = id;
     ShowWindow.value = true;
-    console.log(id_animal.value)
     HistorialMedicoIDMascota();
   };
   const CloseWindow = () => {
@@ -86,7 +85,6 @@
         'http://backend.vetcachorros.one/MascotasUsuario',
         { id_cliente: id_cliente.value }
       );
-      console.log(response.data);
       Mascotas.value = response.data.data;
     } catch (error) {
       console.error(error);
@@ -102,7 +100,6 @@
     try {
       const response = await axios.post('http://backend.vetcachorros.one/HistorialIDMascota', {id_mascota: id_animal.value} )
       HistorialM2.value = response.data.data;
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -117,7 +114,7 @@
     box-sizing: border-box;
   }
 
-  .table-container::-webkit-scrollbar{ /*Oculta la barra deslizadora en navegadores como Chrome, Safari, Internet Explorer y Edge */
+  .table-container::-webkit-scrollbar{
     display: none;
   }
   
@@ -125,7 +122,6 @@
     font-family: 'Comfortaa';
     width: 100%;
     height: 100%;
-  
   }
   .Titulo {
     display: flex;
@@ -222,9 +218,79 @@ th{
 }
 
   @media (max-width: 767px) {
-    .table-container2::-webkit-scrollbar{ /*Oculta la barra deslizadora en navegadores como Chrome, Safari, Internet Explorer y Edge */
+    .table-container2::-webkit-scrollbar{
       display: none;
     }
+    .first-container{
+      margin-top: 85px;
+    }
   }
+
+
+  @media (max-width: 768px) {
+    .table-container2::-webkit-scrollbar{
+      display: none;
+    }
+    .first-container {
+      margin-top: 85px;
+    }
+  }
+
+
+  @media (max-width: 480px) {
+    .table-container2::-webkit-scrollbar{
+      display: none;
+    }
+    .first-container {
+      margin-top: 85px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .table-container2::-webkit-scrollbar{
+      display: none;
+    }
+    .first-container {
+      margin-top: 85px;
+    }
+  }
+
+
+  @media (max-width: 1076px) {
+    .table-container2::-webkit-scrollbar{
+      display: none;
+    }
+    .first-container {
+      margin-top: 85px;
+    }
+  }
+
+  @media (max-width: 1092px) {
+    .table-container2::-webkit-scrollbar{
+      display: none;
+    }
+    .first-container {
+      margin-top: 85px;
+    }
+  }
+
+  @media (max-width: 1204px) {
+    .table-container2::-webkit-scrollbar{
+      display: none;
+    }
+    .first-container {
+      margin-top: 85px;
+    }
+  }
+
+  @media (max-width: 1486px) {
+    .table-container2::-webkit-scrollbar{
+      display: none;
+    }
+    .first-container {
+      margin-top: 80px;
+    }
+  }
+
   </style>
     

@@ -154,7 +154,6 @@
   try {
   const response = await axios.post('http://backend.vetcachorros.one/TServicios')
   servicios.value = response.data.data;
-  console.log(id_cita.value);
   FormFlotante();
   } catch (error) {
   console.error(error);
@@ -178,13 +177,10 @@
     servicios_id: services.value
   }
     try {
-      console.log("CITA", id_cita.value)
-    console.log("Datos 1", Consulta);
       const response = await axios.post(
         'http://backend.vetcachorros.one/RegistroConsulta',
         Consulta
       );
-      console.log("respuesta",response.data);
       location.reload();
     } catch (error) {
       console.error(error);
@@ -196,7 +192,6 @@
   const CalcularCostoDetallado = async () => {
     try{
       const response = await axios.post('http://backend.vetcachorros.one/CalcularCostoDetallado', {CostosServicios: services.value});
-      console.log(response.data);
       costosPS.value = response.data.data;
     }catch (error) {
       console.error(error);
@@ -235,9 +230,8 @@ const GenerarConsultas = async () => {
  try {
  const response = await axios.post('http://backend.vetcachorros.one/GenerarConsultas')
  General.value = response.data.data;
- console.log(response.data);
 } catch (error) {
- console.error("Error al obtener el reporte de inventario", error);
+ console.error(error);
 }
 };
 onMounted(GenerarConsultas);
@@ -250,7 +244,6 @@ const GenerarConsultasCliente = async () => {
 try {
   const response = await axios.post('http://backend.vetcachorros.one/GenerarConsultasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
   constCliente.value = response.data.data;
-  console.log(response.data);
 } catch (error) {
   console.error("Error al obtener el reporte de inventario", error);
 }
