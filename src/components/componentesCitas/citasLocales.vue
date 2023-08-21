@@ -213,7 +213,7 @@ async function citalocal() {
   };
 
   try {
-    const response = await axios.post('http://web.Backend.com/citalocal', dataToSend);
+    const response = await axios.post('http://backend.vetcachorros.one/citalocal', dataToSend);
     if (response.status === 200) {
       limpiar();
       mensaje.value = '¡Cita local registrada correctamente!';
