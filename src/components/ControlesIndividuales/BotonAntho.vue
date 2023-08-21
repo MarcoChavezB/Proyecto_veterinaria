@@ -1,6 +1,6 @@
 
 <template>
-  <button class="button" type="button" @click="toggleCheckbox">
+  <button class="button" type="button" @click="toggleCheckbox" :disabled="disabledd">
     <span class="button__text">{{ title }}</span>
   </button>
 </template>
@@ -11,6 +11,9 @@ import { defineProps } from 'vue';
 defineProps({
     title:{
         type: String,
+    },
+    disabledd:{
+      type: Boolean
     }
 })
 

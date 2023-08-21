@@ -5,7 +5,7 @@
     </div>
 </transition>
 <div class="modal-content" v-if="showModal">
-       <cita  @close="activar" />
+       <cita @close="agendar"/>
       </div>
     <div class="app">
     <div class="title">
@@ -97,7 +97,11 @@ setInterval(fetchData, 600)
 
 
 const agendar =()=>{
-  showModal.value = true;
+  if(showModal.value === false){
+    showModal.value = true;
+  }else if (showModal.value === true){
+    showModal.value = false;
+  }
 }
 
 

@@ -177,4 +177,48 @@ watch(citaSeleccionada, (newValue) => {
   gap: 10px;
 }
 
+@media (max-width: 768px) {
+  .first-container {
+    margin-top: 85px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .first-container {
+    margin-top: 85px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .first-container {
+    margin-top: 85px;
+  }
+}
+
+
+@media (max-width: 1076px) {
+  .first-container {
+    margin-top: 85px;
+  }
+}
+
+@media (max-width: 1092px) {
+  .first-container {
+    margin-top: 85px;
+  }
+}
+
+@media (max-width: 1204px) {
+  .first-container {
+    margin-top: 85px;
+  }
+}
+
+@media (max-width: 1486px) {
+  .first-container {
+    margin-top: 80px;
+  }
+}
+
 </style>
