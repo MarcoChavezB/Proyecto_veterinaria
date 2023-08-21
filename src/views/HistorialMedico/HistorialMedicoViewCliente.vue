@@ -13,6 +13,7 @@
   <div v-if="ShowWindow" class="overlay">
     <div class="floating-form">
       <form>
+        <span class="material-symbols-outlined" id="Atras" @click="CloseWindow">cancel_presentation</span>
         <div class="table-container2">
           <div class="responsive-table" v-show="ShowTable1">
             <table class="table table-hover custom-table">
@@ -49,8 +50,6 @@
             </table>
           </div>
         </div>
-        <br><br>
-        <p id="Atras" @click="CloseWindow">Salir</p>
       </form>
     </div>
   </div>
