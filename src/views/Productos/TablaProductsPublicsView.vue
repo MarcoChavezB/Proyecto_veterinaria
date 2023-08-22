@@ -26,10 +26,11 @@
                 <h4>Precio v</h4>
                 <h4>IVA</h4>
                 <h4>Status</h4>
+                <h4>edits</h4>
             </div>
             <div class="cont-table">
                 <div v-for="productos in productos" :key="productos.id">
-                    <Rows :name="productos.nom_producto" :stock="productos.existencias" :priceV="productos.precio_venta" 
+                    <Rows @click="eliminarProd(productos.id)" :name="productos.nom_producto" :stock="productos.existencias" :priceV="productos.precio_venta" 
                      :iva="productos.iva"
                     :status="productos.estado" />
                 </div>
@@ -48,8 +49,11 @@ import precios from '../../components/ControlesIndividuales/RangoPrecioPublicos.
 import axios from 'axios'
 import { ref, onMounted} from 'vue';
 import {productosPublicosR} from '@/stores/counter.js'
-import {StoreProdPublics} from '@/stores/counter.js'
+import {StoreProdPublics, deleteProd} from '@/stores/counter.js'
 
+
+const eliminarProducto = ref()
+const recibirProd = deleteProd()
 const prodPublico = StoreProdPublics();
 const productoPublico = productosPublicosR();
 const productos = ref([])
@@ -63,9 +67,10 @@ const fetchData = async () =>{
         nombre.value =  response.data.data;
 
     } catch(error){
-        console.log(error)
+        
     }
 }
+
 onMounted(fetchData);
 
 
@@ -75,6 +80,11 @@ const filtrar = () =>{
 const onInput = () =>{
   productos.value = prodPublico.state.variable;
 }
+
+const eliminarProd = (id) => {
+    recibirProd.setVariable(id)
+};
+
 
 
 // Agregar un watcher para la variable "nombre"
