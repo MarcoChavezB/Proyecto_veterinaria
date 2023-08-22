@@ -85,18 +85,7 @@ const sendPostRequest = async () => {
   loading.value=false;
 };
 
-const obtenerproductos = async () => {
-    try {
-        const response = await axios.get('http://backend.vetcachorros.one/productosprivados')
-        if (Array.isArray(response.data.data)) {
-            productos.value = response.data.data;
-        } else {
-            productos.value = [response.data.data];
-        }
-    } catch (error) {
-        console.error(error)
-    }
-}
+
 
 const productocadena = async () => {
     productos.value = [];
@@ -115,7 +104,6 @@ const productocadena = async () => {
     }
 }
 
-obtenerproductos();
 
 </script>
 
