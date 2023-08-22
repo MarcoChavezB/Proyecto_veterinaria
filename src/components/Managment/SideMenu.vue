@@ -61,11 +61,9 @@
                         <span class="material-symbols-outlined">summarize</span>
                         <select v-model="selectedOption" class="sidebar-select" @change="onReportChange">
                             <option value="" disabled selected>Reportes</option>
-                            <option value="reportehistorialmedico">Historial médico.</option>
                             <option value="reportconsultasrealizadas">Consultas realizadas.</option>
                             <option value="reportconsultasrechazadas">Citas rechazadas.</option>
                             <option value="reportordenescompra">Ordenes de compra.</option>
-                            <option value="reporteventas">Productos vendidos.</option>
                         </select>
                     </a>
                 </div>
@@ -172,7 +170,8 @@ body {
 
 
 option {
-    background-color: #202237;
+    background-color: #4a4a4a;
+    color: white;
 }
 
 a {
