@@ -16,7 +16,7 @@
         <div class="botones ">
           <btnn id="black" title="Citas hoy" @click="citasHoy"/>
           <btnn title="Agendar Cita" @click="agendar"/>
-          <btnn title="Limpiar" @click="fetchData"/>
+          <btnn title="General" @click="fetchData"/>
         </div>
       </div>
       <div class="table">
@@ -36,7 +36,7 @@
                     :raza="citas.raza"/>
             </div>
             <div>
-              <mensaje v-if="inicial"/>
+              <mensaje v-if="inicial" />
             </div>
           </div>
         </div>
@@ -51,30 +51,23 @@
 import Rows from '../../components/citasComp/RowTableCitas.vue'
 import encabezado from '../../components/citasComp/CitasHeadre.vue'
 import mensaje from '@/components/citasComp/AceptacionCard.vue'
-import rangoFechas from '../../components/ControlesIndividuales/RangoPrecios.vue'
 import Btnn from '@/components/ControlesIndividuales/BotonConEstilo.vue';
 import cita from '@/components/componentesCitas/citasLocales.vue';
-import { productosPublicosR } from '@/stores/counter.js';
+import {showModalCard } from '@/stores/counter.js';
 
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
-import {useStore} from '@/stores/counter.js'
-import {StoreProdInternos} from '@/stores/counter.js'
-import {card, citaID} from '@/stores/counter.js'
+import {citaID} from '@/stores/counter.js'
 
-const rango = productosPublicosR()
-const recibirRango = ref()
-const loading = ref(false);
+
+
+const showCard = showModalCard()
 const showModal = ref(false);
-const carta = card()
 const cita_id = citaID()
 const msgID = ref()
 const inicial = ref(false)
-const globalShow = true
-const prodInterno = StoreProdInternos();
-const store = useStore()
 const citas = ref([])
-const nombre = ref();
+
 
 const fetchData = async () => {
   try {
@@ -96,18 +89,25 @@ const citasHoy = async () =>{
   }
 }
 
+const valorModal = () =>{
+  inicial.value = showCard.state.variable
+}
+
+setInterval(() => {
+  valorModal()
+}, 100);
 
 
 const seleccion = (id) => {
   msgID.value = id;
-
-  // Cambiar el valor entre false y true
   inicial.value = true;
-
+  showCard.setVariable(inicial.value)
   cita_id.setVariable(msgID.value);
-  mandarEstatus.setVariable();
 };
 
+const closeModal = () =>{
+  inicial.value = true;
+}
 
 const agendar =()=>{
   if(showModal.value === false){

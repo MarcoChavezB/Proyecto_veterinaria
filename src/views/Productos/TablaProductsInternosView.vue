@@ -27,11 +27,12 @@
           <h4>Stock</h4>
           <h4>Descripción</h4>
           <h4>Status</h4>
+          <h4>Editar</h4>
         </div>
         <div class="cont-table">
           <div v-for="producto in productos" :key="producto.id" class="fila">
             <!-- Pasa las propiedades únicas a Rows -->
-            <Rows :name="producto.nom_producto" :stock="producto.existencias" 
+            <Rows @click="eliminarProd(producto.id)" :name="producto.nom_producto" :stock="producto.existencias" 
             :descripcion="producto.descripcion" 
              :status="producto.estado"/>
           </div>
@@ -50,9 +51,10 @@ import add from '../../components/ControlesIndividuales/ingresar.vue'
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
 import {useStore} from '@/stores/counter.js'
-import {StoreProdInternos} from '@/stores/counter.js'
+import {StoreProdInternos, deleteProdInter} from '@/stores/counter.js'
 
 const prodInterno = StoreProdInternos();
+const deleteProducto = deleteProdInter()
 const store = useStore()
 const productos = ref([])
 const nombre = ref();
@@ -81,6 +83,11 @@ const buscar = () =>{
 const onInput = () =>{
     buscar();
 }
+
+const eliminarProd = (id) => {
+    deleteProducto.setVariable(id)
+    
+};
 
 
 

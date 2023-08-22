@@ -88,6 +88,7 @@ import axios from 'axios'
 import loader from '../loaders/loaderPrincipal.vue'
 import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
 import errorAlert from '../../components/Mensajes/BarAlertError.vue'
+import {showModalCard } from '@/stores/counter.js';
 
 
 const monthNames = [
@@ -95,6 +96,7 @@ const monthNames = [
 ];
 
 const recibirEstatus = ref()
+const mandarVariable = showModalCard()
 const recibirShow = card()
 const today = new Date();
 const currentMonth = monthNames[today.getMonth()];
@@ -225,7 +227,9 @@ onMounted(async () => {
 
 
 const salir = () => {
-  location.reload()
+  const mandarShow = false
+  mandarVariable.setVariable(mandarShow)
+  
 }
 
 </script>

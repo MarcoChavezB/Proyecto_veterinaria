@@ -185,7 +185,6 @@ onMounted(estadisticas_positivo_negativo)
 
 .pequenas div:nth-child(2){
   width: 40%;
-  
 }
 .pequenas div{
   display: flex;

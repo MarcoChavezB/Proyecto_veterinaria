@@ -314,7 +314,35 @@ export const deleteAdmin = defineStore('admin', () => {
   };
 });
 
+export const deleteProd = defineStore('admin', () => {
+  const state = {
+    variable: '',
+  };
 
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
+
+export const deleteProdInter = defineStore('admin', () => {
+  const state = {
+    variable: '',
+  };
+
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
 
 export const mostrarCartaCita = defineStore('cita', () => {
   const state = {
@@ -347,6 +375,36 @@ export const rangoFechaCita = defineStore('cita', () => {
   };
 });
 
+
+export const showModalCard = defineStore('cita', () => {
+  const state = {
+    variable: '',
+  };
+
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
+
+export const showModalCardAcept = defineStore('cita', () => {
+  const state = {
+    variable: '',
+  };
+
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
 
 
 // // LOCAL STORAGE PINIA 

@@ -85,7 +85,7 @@ h3, h5 {
   box-shadow: 0 0rem 2rem rgba(132, 139, 200, 0.1);
   transition: all 300ms ease;
   height: 100%;
-  width: 90%;
+  width: 100%;
   min-width: 17em;
   min-height: 7em;
 }
