@@ -22,6 +22,7 @@ defineProps({
     width: 18em;
     transition: all ease-in-out .5s;
     margin-right: -2rem;
+   text-align: center;
   }
 
   .inputs:hover{

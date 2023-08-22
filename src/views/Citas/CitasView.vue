@@ -361,17 +361,17 @@ form textarea {
 
 @media (max-width: 768px) {
   .pantalla {
-    flex-direction: column; /* Cambia a disposición de columna en pantallas pequeñas */
+    flex-direction: column;
     align-items: center;
   }
 
   .cita {
-    width: 90%; /* Haz que el formulario ocupe un 90% del ancho en pantallas pequeñas */
-    margin-bottom: 20px; /* Añade espacio entre los elementos en pantallas pequeñas */
+    width: 90%;
+    margin-bottom: 20px;
   }
 
   .overlay {
-    align-items: flex-start; /* Alinea el contenido a la izquierda en pantallas pequeñas */
+    align-items: flex-start;
   }
 
   .floating-form{

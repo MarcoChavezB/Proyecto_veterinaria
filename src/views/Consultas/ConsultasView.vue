@@ -44,7 +44,7 @@
           </tbody>
         </table>
       </div>
-      <p v-else-if="selectedOption === 'opcion3'">No hay datos disponibles.</p>
+
 
       <!-- Tabla de consultas por cliente -->
       <div class="responsive-table" v-if="selectedOption === 'opcion1' && constCliente.length > 0">
@@ -75,7 +75,7 @@
           </tbody>
         </table>
       </div>
-      <p v-else-if="selectedOption === 'opcion1'">No hay datos disponibles.</p>
+
     </div>
     </div>
   </div>
@@ -307,12 +307,14 @@ try {
   }
   
   .table-container {
-    height: 500px;
+    height: 100%;
+    width: 100%;
     overflow: auto;
   }
 
   .table-container2 {
     height: 100px;
+    width: 100%;
     overflow: auto;
   }
 

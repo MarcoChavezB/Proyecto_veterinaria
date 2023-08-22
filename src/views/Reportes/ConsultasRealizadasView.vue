@@ -18,7 +18,7 @@
       </div>
       
       <div class="filtro2" v-show="status2">
-        <InputCliente tittle1="Nombre del cliente atendido" tittle2="Apellidos del cliente atendido" @input="ReporteConsultas" v-model:modelValue1="nomC" v-model:modelValue2="apellidos" />
+        <InputCliente tittle1="Nombre(s)" tittle2="Apellido(s)" @input="ReporteConsultas" v-model:modelValue1="nomC" v-model:modelValue2="apellidos" />
         <div class="label">
           <p class="plabel">Nombre de la mascota</p>
           <Inputs placeholder="Nombre mascota" v-model="nomM" @input="ReporteConsultas"/>
