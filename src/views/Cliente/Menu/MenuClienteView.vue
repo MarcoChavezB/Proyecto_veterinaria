@@ -9,10 +9,10 @@
                     <section class="section hero has-bg-image" id="home" aria-label="home">
                         <div class="cont">
                             <h1 class="h1 hero-title">
-                                <span class="span">Gran calidad</span> Productos
+                                <span class="span">Gran calidad de</span> Productos
                             </h1>
                             <p class="hero-text">Sale up to 40% off today</p>
-                            <router-link :to="{name: 'catalogo'}">
+                            <router-link :to="{name: 'catalogoConLogin'}">
                             <a href="#" class="btn">Nuestros productos</a>
                         </router-link>
                         </div>
@@ -34,7 +34,7 @@
                                                 loading="lazy" alt="Cat Food" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                          <router-link :to="{name: 'catalogo'}">
+                                          <router-link :to="{name: 'catalogoConLogin'}">
                                             <a class="card-title">Cat Food</a>
                                           </router-link>
                                         </h3>
@@ -47,7 +47,7 @@
                                                 loading="lazy" alt="Cat Toys" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                          <router-link :to="{name: 'catalogo'}">
+                                          <router-link :to="{name: 'catalogoConLogin'}">
                                             <a class="card-title">Cat Toys</a>
                                           </router-link>
                                         </h3>
@@ -60,7 +60,7 @@
                                                 loading="lazy" alt="Dog Food" class="img-cover" />
                                         </figure>
                                         <h3 class="h3">
-                                          <router-link :to="{name: 'catalogo'}">
+                                          <router-link :to="{name: 'catalogoConLogin'}">
                                             <a class="card-title">Dog Food</a>
                                           </router-link>
                                         </h3>
@@ -73,7 +73,7 @@
                                                 loading="lazy" alt="Dog Toys" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                          <router-link :to="{name: 'catalogo'}">
+                                          <router-link :to="{name: 'catalogoConLogin'}">
                                             <a class="card-title">Dog Toys</a>
                                           </router-link>
                                         </h3>
@@ -86,7 +86,7 @@
                                                 loading="lazy" alt="Dog Sumpplements" class="img-cover">
                                         </figure>
                                         <h3 class="h3">
-                                          <router-link :to="{name: 'catalogo'}">
+                                          <router-link :to="{name: 'catalogoConLogin'}">
                                             <a class="card-title">Dog Supplements</a>
                                           </router-link>
                                         </h3>
@@ -189,7 +189,7 @@
                                     a encontrar
                                     sustituto. Esa es nuestra garantía de sabor.
                                 </p>
-                              <router-link :to="{name: 'catalogo'}">
+                              <router-link :to="{name: 'catalogoConLogin'}">
                                 <a class="btn">Mostrar</a>
                               </router-link>
                             </div>
@@ -267,6 +267,7 @@
   
 
 <script setup>
+import {RouterLink} from 'vue-router'
 import footerClient from '../../../components/cliente/menuComponents/footer.vue'
 const goToMaps = () => {
     window.open("https://www.google.com/maps/place/Clinica+veterinaria+cachorros/@25.5260108,-103.2249768,16.74z/data=!4m6!3m5!1s0x868fc1bf8b8f70e5:0x30f7ddd0cd2cd4a!8m2!3d25.5259657!4d-103.2227034!16s%2Fg%2F11fr37vvbn?hl=en-MX&entry=ttu", "_blank")

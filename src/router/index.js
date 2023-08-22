@@ -3,7 +3,7 @@ const routes = [
       {
             path: '/',
             name: 'sinlogin',
-            component: MenuCLienteSinIniciar,
+            component:MenuCLienteSinIniciar,
 
             children: [
                   {
@@ -283,10 +283,6 @@ const routes = [
             ]
       },
 ]
-
-
-
-
 
 
 

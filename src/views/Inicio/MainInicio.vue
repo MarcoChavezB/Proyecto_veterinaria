@@ -15,7 +15,9 @@
                               <span class="span">Gran calidad de</span> Productos
                           </h1>
                           <p class="hero-text">Sale up to 40% off today</p>
-                          <a href="#" class="btn">Nuestros productos</a>
+                          <router-link :to="{name: 'catalogo'}">
+                            <a href="#" class="btn">Nuestros productos</a>
+                        </router-link>
                       </div>
                   </section>
                   <!--Principal-->
@@ -266,6 +268,7 @@
 </template>
 
 <script setup>
+import {RouterLink} from 'vue-router'
 import headerClient from '../../components/cliente/menuCOmponents/headerSinLogin.vue'
 import footerClient from '../../components/cliente/menuComponents/footer.vue';
 const goToMaps = () => {

@@ -9,7 +9,7 @@
       </div>
 
       <div class="filtro2" v-show="status1">
-        <InputCliente tittle1="Nombres(S)" tittle2="Apellidos" @input="ReporteCitasRechazadasCliente" v-model:modelValue1="Nombres" v-model:modelValue2="Apellidos" />
+        <InputCliente tittle1="Nombres(s)" tittle2="Apellido(s)" @input="ReporteCitasRechazadasCliente" v-model:modelValue1="Nombres" v-model:modelValue2="Apellidos" />
       </div>
   
       <div class="filtro4" v-show="status3">
@@ -49,7 +49,7 @@
           </tbody>
         </table>
       </div>
-      <p v-else-if="selectedOption === 'opcion2'">No hay datos disponibles.</p>
+
         <div class="responsive-table" v-if="selectedOption === 'opcion1' && constCliente.length > 0">
         <table class="table table-hover custom-table">
         <thead>
@@ -76,7 +76,7 @@
           </tbody>
         </table>
       </div>
-      <p v-else-if="selectedOption === 'opcion1'">No hay datos disponibles.</p>
+
     </div>
     </div>
   </div>
@@ -185,7 +185,8 @@ try {
     background-color: white;
   }
   .table-container {
-    height: 500px;
+    height: 100%;
+    width: 100%;
     overflow: auto;
   }
 

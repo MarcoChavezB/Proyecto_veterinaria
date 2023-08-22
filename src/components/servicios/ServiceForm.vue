@@ -63,12 +63,14 @@ const sendPostRequest = async () => {
       estado: 'no publico',
       productos: productosSeleccionados.value,
     };
+    console.log(jsonData.data)
     const response = await axios.post('http://backend.vetcachorros.one/agregarservicioproduct', jsonData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    if(response.status === 200){
+    console.log(response.data)
+    if(response.data.status === 200){
          detallar.value = true;
          productosSeleccionados.value = [];
          tipo.value = 1;
