@@ -1,10 +1,10 @@
 <script setup>
-import {ref, defineProps, onMounted, reactive} from 'vue';
+import {ref, defineProps, onMounted, reactive, watch} from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
   id: {
-    type: String,
+    type: Number,
     default: 0
   }
 });
@@ -25,8 +25,10 @@ let userInfo = reactive({
 });
 const userinfo = async () => {
   const user = {
-    id: id.value
+    id: id
   };
+  console.log(user)
+
   try {
     const response = await axios.post('http://backend.vetcachorros.one/clientes/infoID', user);
     if (response.data.data) {
@@ -37,6 +39,10 @@ const userinfo = async () => {
   }
 };
 onMounted(userinfo);
+
+watch(id, () => {
+  userinfo();
+});
 </script>
 
 <template>

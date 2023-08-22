@@ -1,5 +1,55 @@
 <template>
-    <div class="pantalla">
+    <div class="pantalla">        
+      <transition name="fade">
+    <div v-if="showModal" class="modal">
+    </div>
+</transition>
+<div class="modal-content" v-if="showModal">
+       <div class="veri">
+        <div class="contra">
+          <h5 style="color: rgb(0, 46, 11);">¡Inserta tu Contraseña!</h5>
+          <input type="password" v-model="vericontra" class="inputt">
+          <div class="botones">
+            <button class="button" @click="activar" >Cancelar</button>
+            <button class="button" @click="verificacion" >Verificar</button>
+          </div>
+
+            <span style="color: red;" v-show="sierto">La contraseña es incorrecta</span>
+        </div>
+       </div>
+      </div>
+
+
+      <transition name="fade">
+    <div v-if="repetircontra" class="modal">
+    </div>
+</transition>
+<div class="modal-content" v-if="repetircontra">
+       <div class="veri2">
+        <div class="contra">
+          <h5 style="color: rgb(0, 46, 11);">¡Inserta tu Nueva Contraseña!</h5>
+
+
+
+        <div class="contras">
+          <label>Contraseña:</label>
+        <input  class="input" type="text" v-model="contr1"  />
+        </div >
+        <div class="contras"> 
+          <label>Repetir Contraseña:</label>
+      <input  class="input" type="text" v-model="contr2" />
+        </div>
+
+          <div class="botones">
+            <button class="button" @click="activar2" >Cancelar</button>
+            <button class="button" @click="verificacion2" >Cambiar</button>
+          </div>
+
+            <span style="color: red;" v-show="sierto2">La contraseña no coincide</span>
+        </div>
+       </div>
+      </div>
+
 
     <div class="container">
       <div class="grid">
@@ -33,17 +83,17 @@
       <div class="inputs">
         <label>Teléfono 1:</label>
     <label>Teléfono 2:</label>
-    <label>Contraseña:</label>
+    <label v-show="puede" >Contraseña:</label>
       </div>
       <div class="inputss">     
        <input type="text" v-model="userInfo.telefono1" :disabled="!isEditing" />
       <input type="text" v-model="userInfo.telefono2" :disabled="!isEditing" />
-      <input type="password" v-model="userInfo.contra" :disabled="!isEditing" />
+        <button class="button" v-show="puede" @click="activar2">Cambiar Contraseña </button>
       </div>
     </div>
      </div>
     <div class="botons">
-      <button v-show=!loading class="button" @click="editInformation" v-if="!isEditing">Editar mi información</button>
+      <button v-show=!loading class="button" @click="activar" v-if="!isEditing">Editar mi información</button>
     <button v-show=!loading class="button" @click="saveInformation" v-if="isEditing">Guardar</button>
     <div v-show=loading class="loader"></div>
     <div v-if="correct">
@@ -66,11 +116,38 @@
   <script setup>
 
   import axios from 'axios';
-  import { ref, reactive, onMounted } from 'vue'
+  import { ref, reactive, onMounted, watch } from 'vue'
   import {useUsuarioStore} from "@/stores/UsuariosStore";
 
   const id_cliente = ref(useUsuarioStore().usuario.usuario.id);
   const correct = ref(false);
+  const showModal = ref(false);
+  const sierto = ref(false);
+  const sierto2 = ref(false);
+  const vericontra = ref('');
+  const repetircontra = ref(false);
+  const puede = ref(false);
+  const contr1 = ref('');
+  const contr2 = ref('');
+
+  const activar= async () => {
+  if(showModal.value === false)
+  {
+    showModal.value = true;
+  } else if (showModal.value === true)
+  {
+    showModal.value = false;
+  }
+}
+const activar2= async () => {
+  if(repetircontra.value === false)
+  {
+    repetircontra.value = true;
+  } else if (repetircontra.value === true)
+  {
+    repetircontra.value = false;
+  }
+}
 
   let updatedUserInfo = ref(null);
 const loading =ref(false);
@@ -84,10 +161,29 @@ let userInfo = reactive({
   contra: ''
 });
 
+watch(vericontra, () => {
+sierto.value = false
+});
+
 let isEditing = ref(false);
 
-function editInformation() {
-  verificacion.value = true;
+const verificacion= ()=> {
+  if(vericontra.value === userInfo.contra){
+    isEditing.value = true
+    activar()
+    vericontra.value = ''
+    puede.value = true
+  }else{
+    sierto.value = true;
+  }
+}
+
+const verificacion2= ()=> {
+  if(contr2.value === contr1.value){
+    repetircontra.value = false
+  }else{
+    sierto2.value = true;
+  }
 }
 
 
@@ -127,6 +223,8 @@ const userinfo = async () => {
     if (response.data.data) {
       Object.assign(userInfo, response.data.data);
     }    
+    contr1.value = userInfo.contra
+    contr2.value = userInfo.contra
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -154,6 +252,81 @@ function saveInformation() {
   
   <style scoped>
 
+  .contras{
+    display:flex;
+    row-gap: 10%;
+    height: 20%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .botones{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items:center;
+  }
+.inputt{
+  border-radius: 15px;
+  height: 10%;
+  width: 50%;
+ border: none;
+ box-shadow: 0 0 2rem #00000050;
+ text-align: center;
+
+}
+  .veri{
+    width: 35%;
+    height: 30%;
+    display: flex;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 2rem #ffffff88;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .veri2{
+    width: 35%;
+    height: 50%;
+    display: flex;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 2rem #ffffff88;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contra{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 10%;
+  }
+
+.modal-content {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+.modal {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  justify-content: center;
+  z-index: 98;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
 .tit{
   color: rgb(39, 168, 0);
 }
@@ -319,8 +492,8 @@ justify-content: start;
  .button {
  display: inline-block;
  padding: 12px 24px;
- border: 1px solid #4f4f4f;
- border-radius: 4px;
+ border: none;
+ border-radius: 20px;
  transition: all 0.2s ease-in;
  position: relative;
  overflow: hidden;
@@ -416,15 +589,24 @@ justify-content: start;
   .informacion{
       grid-template-columns:20% 60% 20%;
     }
+    .veri{
+      width: 40%;
+    }
  }
  @media screen and (max-width: 1250px) {
   .informacion{
       grid-template-columns:15% 70% 15%;
     }
+    .veri{
+      width: 50%;
+    }
  }
  @media screen and (max-width: 1050px) {
   .informacion{
       grid-template-columns:7.5% 85% 7.5%;
+    }
+    .veri{
+      width: 70%;
     }
  }
  @media screen and (max-width: 850px) {
@@ -445,9 +627,11 @@ justify-content: start;
       width: 100%;
       flex-direction: column;
       row-gap: 10%;
-
-
 }
+
+.veri{
+      width: 80%;
+    }
     
  }
 
@@ -458,6 +642,22 @@ justify-content: start;
 
     .container{
       width: 100%;
+    }
+    .veri{
+      width: 95%;
+    }
+    .botones{
+      width: 60%;
+    }
+
+ }
+
+ @media screen and (max-width: 550px) {
+    .veri{
+      width: 100%;
+    }
+    .botones{
+      width: 80%;
     }
 
  }
