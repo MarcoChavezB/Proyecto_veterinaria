@@ -87,7 +87,7 @@ let userInfo = reactive({
 let isEditing = ref(false);
 
 function editInformation() {
-  isEditing.value = true;
+  verificacion.value = true;
 }
 
 
