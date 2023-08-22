@@ -12,7 +12,7 @@
         </RouterLink>
         </div>
             <div class="rango">
-                <precios tittle1="$min" tittle2="$max" />
+                <precios tittle1="$min" tittle2="$max" principal="Rango de precios" />
             </div>
             <div class="izquierdo">
                 <div class="btns"></div>

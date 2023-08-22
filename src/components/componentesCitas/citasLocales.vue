@@ -42,7 +42,7 @@ const aniiraza = ref('');
 const aniigenero = ref('');
 const loadingmasco = ref(false);
 const loading = ref(false);
-
+const respuesta = ref([]);
 
 const emi = defineEmits(['close']);
 
@@ -132,8 +132,11 @@ const validarFecha = async () => {
       try {
             const response = await axios.post('http://Backend.vetcachorros.one/ValidacionFechas');
             const fechasValidadas = response.data.data;
-            const fechasExistentes = fechasValidadas.some(cita => new Date(cita.fecha_cita).getTime() === fechaSeleccionada.getTime())
-            if (fechasExistentes) {
+            const fechasExistentes = fechasValidadas.some(cita => {
+      const fechaCita = new Date(cita.fecha_cita);
+      return Math.abs(fechaCita - fechaSeleccionada) < 60 * 60 * 1000;
+    });          
+      if (fechasExistentes) {
                   mensaje.value = '¡Esta fecha ya esta ocupada!';
                   COL1.value = 'red';
                   disable.value = true;
@@ -170,7 +173,6 @@ const UsersCorreo = async () => {
    } else {
     usuarios.value = [response.data.data];
    }  
-   console.log(usuarios.value)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -188,7 +190,6 @@ const mascota = async () => {
    } else {
     mascotas.value = [response.data.data];
    }  
-   console.log(mascotas.value)
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }
@@ -250,7 +251,7 @@ const registrarMascota = async () => {
                   'http://backend.vetcachorros.one/registrarMascota',
                   mascotaa
             );
-            console.log(response)
+            
             if (response.status === 200){
             await mascota();
             aniinombre.value = ''
@@ -283,16 +284,20 @@ const citasweb = async () => {
             motivo: motivo.value,
             id_mascota: mascotaSeleccionada.value
       };
-      console.log(cita)
+      
       try {
             const response = await axios.post(
                   'http://backend.vetcachorros.one/agendarcita',
                   cita
             );
-            if(response.status === 200){
+            if(response.data.status === 200){
               limpiar()
               mensaje.value = '¡Cita local registrada correctamente!';
               COL1.value = 'green';
+            }else if (response.data.status === 400){
+              limpiar()
+              mensaje.value = '¡Error al agendar la cita, esta fecha ya esta ocupada!';
+              COL1.value = 'red';
             }
       } catch (error) {
             console.error(error);

@@ -40,7 +40,7 @@
                         <h4>Usuarios</h4>
                     </router-link>
 
-                    <router-link :to="{ name: 'GestionUsuarios' }">
+                    <router-link :to="{ name: 'agregarAdmin' }">
                         <span class="material-symbols-outlined">person</span>
                         <h4>Administrador</h4>
                     </router-link>
@@ -103,7 +103,6 @@ const onReportChange = (event) => {
 const salir = () =>{
   if (mandarVariable.value === true){
     mandarVariable.value = false;
-    console.log(mandarVariable)
     varSalir.setVariable(mandarVariable.value);
   }else if (mandarVariable.value === false ){
     mandarVariable.value = true;

@@ -28,7 +28,6 @@ const infoCitas = async () => {
   try {
     const response = await axios.get('http://backend.vetcachorros.one/citas_total');
     info.value = response.data.data;
-    console.log(info.value)
   } catch(error) {
     console.log(error)
   }

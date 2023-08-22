@@ -49,7 +49,6 @@ import {RouterLink} from "vue-router";
 var userData = dataLog()
 const nombre = ref([])
 nombre.value = userData.state.variable;
-console.log("🚀 ~ file: headerjijijijij.vue:45 ~ nombre.value :", nombre.value )
 
 
 
@@ -58,11 +57,9 @@ var despliegue = ref(false);
 const menu = () => {
     if (despliegue.value) {
         despliegue.value = false
-        console.log('true')
     }
     else {
         despliegue.value = true
-        console.log('false')
     }
 }
 

@@ -244,7 +244,7 @@ const RegistroProveedor = async () => {
     };
     try {
       const response = await axios.post('http://backend.vetcachorros.one/registrarProveedor',Proveedor);
-      console.log(response.data);
+  
       location.reload();
     } catch (error) {
       console.error(error);
@@ -256,7 +256,7 @@ const RegistroProveedor = async () => {
   try {
   const response = await axios.post('http://backend.vetcachorros.one/TablaProveedor')
   proveedores.value = response.data.data;
-  console.log(response.data);
+  
   } catch (error) {
   console.error("Error al obtener el reporte de inventario", error);
   }

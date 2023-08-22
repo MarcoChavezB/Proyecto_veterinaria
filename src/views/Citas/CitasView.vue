@@ -117,7 +117,6 @@ const registrarMascota = async () => {
             raza_: raza.value,
             genero_: genero.value,
       };
-      console.log(mascota);
       try {
             const response = await axios.post(
                   'http://backend.vetcachorros.one/registrarMascota',
@@ -142,7 +141,6 @@ const agendarCita = async () => {
                   'http://backend.vetcachorros.one/agendarcita',
                   cita
             );
-            console.log(response.data)
             cleanForm();
       } catch (error) {
             console.error(error);

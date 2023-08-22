@@ -174,10 +174,10 @@ const validar = () => {
             setTimeout(() => {
                   mostrar_error.value = false;
             }, 2000);
-            console.log(1);
+            
       } else {
             fetchData();
-            console.log(2);
+            
       }
 };
 
@@ -195,7 +195,7 @@ const fetchData = async () => {
 
     try {
         const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre_producto.value });
-        console.log(response.data);
+        
 
             if (response.data.data.data === true) {
                   try {

@@ -110,8 +110,6 @@ function login() {
     }).then(response => response.json())
         .then(data => {
             if (data.status != 200) {
-                console.log(usuario.value)
-                console.log(data)
               alert("Tu correo o tu contraseña son incorrectos.")
                 return
             }
@@ -120,12 +118,12 @@ function login() {
                 (usuario.value.correo === 'root@utt.com' && usuario.value.contra === 'qwerty-1234')
             ) {
                 redirectToPageAdmin();
-                console.log('administrador');
+                
                 usuarioStore.setUser(data.data);
             } else {
                 usuarioStore.setUser(data.data);
-                console.log(usuario.value);
-                console.log('no administrador');
+                
+                
                 redirectToPage();
             }
         });

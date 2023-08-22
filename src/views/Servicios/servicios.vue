@@ -44,10 +44,10 @@ const obtenerservicios = async () => {
       try {
             const response = await axios.get('http://backend.vetcachorros.one/serviciosPEsteticos')
 
-            // console.log(response.data);
+            
             servicios.value = response.data.data;
       } catch (error) {
-            // console.error(error)
+            
       }
 }
 onMounted(obtenerservicios);
@@ -57,10 +57,10 @@ const obtenerservicioscli = async () => {
       try {
             const response = await axios.get('http://backend.vetcachorros.one/serviciosPClinicos')
 
-            // console.log(response.data);
+            
             servicioscli.value = response.data.data;
       } catch (error) {
-            // console.error(error)
+            
       }
 }
 onMounted(obtenerservicioscli);
