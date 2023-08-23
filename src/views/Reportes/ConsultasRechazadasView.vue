@@ -34,6 +34,7 @@
               <th>Dueño</th>
               <th>Fecha</th>
               <th>Motivo</th>
+              <th>Motivo Rechazo</th>
             </tr>
           </thead>
           <tbody>
@@ -45,6 +46,7 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
+              <td>{{ item.MotivoRechazo }}</td>
             </tr>
           </tbody>
         </table>
@@ -61,6 +63,7 @@
               <th>Dueño</th>
               <th>Fecha</th>
               <th>Motivo</th>
+              <th>Motivo del rechazo</th>
             </tr>
           </thead>
           <tbody>
@@ -72,6 +75,7 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
+              <td>{{ item.MotivoRechazo }}</td>
             </tr>
           </tbody>
         </table>
