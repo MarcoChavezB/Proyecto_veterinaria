@@ -212,7 +212,7 @@ const data = async () => {
 
     try {
         const response = await axios.post('http://backend.vetcachorros.one/signin', reg);
-        console.log(response.data.data)
+        console.log('funcion nueva', reg)
     } catch (error) {
         console.error(error);
     }
