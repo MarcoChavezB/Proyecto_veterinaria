@@ -155,7 +155,7 @@
   const SearchServices = async () => {
     if (search.value === ""){
       await TServicios();
-    }else if(filter.value === true){
+    }else if(search.value !== ""){
       await Services();
     }
   }
@@ -226,11 +226,7 @@
       console.error(error);
 
     }
-  }
-
-
-
-
+  };
 
   const showRegistrarMascota = ref(false);
   const FormFlotante = () => {
