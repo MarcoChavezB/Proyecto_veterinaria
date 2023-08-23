@@ -17,7 +17,7 @@ Este es un proyecto de software diseñado para ayudar a administrar una veterina
 
 ## Capturas de Pantalla 📸
 
-![Captura 1](https://github.com/MarcoChavezB/Proyecto_veterinaria/assets/123757334/5f0fe1a1-c735-412f-b325-53f3f0601862)
+![Captura 1](![image](https://github.com/MarcoChavezB/Proyecto_veterinaria/assets/123757334/880f4136-c4b3-4088-842d-41fa463cf7bd))
 
 ## Tecnologías Utilizadas 💻
 
