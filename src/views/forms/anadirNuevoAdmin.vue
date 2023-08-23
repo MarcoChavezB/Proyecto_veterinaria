@@ -78,14 +78,14 @@
                         </div>
                         <div class="telefonos d-flex">    
                             <div class="inputForm personal">
-                                <input v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1">
+                                <input maxlength="10" v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1">
                             </div>
                             <div class="inputForm personal">
-                                <input v-model="tel2" class="input nombre" type="text" placeholder="Teléfono 2 (opcional)">
+                                <input maxlength="10" v-model="tel2" class="input nombre" type="text" placeholder="Teléfono 2 (opcional)">
                             </div>
                        
                         </div>
-                        <div class="btn">
+                        <div class="btns">
                                 <btnNot @click="verificar" />
                             </div>
 
@@ -141,7 +141,7 @@ const mostrarmensajeError = ref('')
 
 const userData = async () => {
     try {
-        const response = await axios.get('http://backend.vetcachorros.one/userData'); // funcional
+        const response = await axios.get('http://backend.vetcachorros.one/userData'); 
         users.value = response.data.data;
     } catch (error) {
         console.log(error)
@@ -275,7 +275,7 @@ onMounted(userData)
     align-self: flex-end;
 }
 
-.btn {
+.btns {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;

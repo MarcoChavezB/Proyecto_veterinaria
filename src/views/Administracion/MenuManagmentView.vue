@@ -58,13 +58,16 @@
             :nombre="prod.nom_producto" :stock="prod.existencias"/>
         </div>
       </div>
+      <div class="mensajes">
+        <successAlert :name="citasMensaje" v-if="mostrarMensaje"/>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script setup>
-import { ref, onMounted, } from 'vue'
+import { ref, onMounted } from 'vue'
 import {useGlobalStore} from "@/stores/counter.js";
 import axios from 'axios'
 import {logout} from "@/stores/counter.js"
@@ -73,12 +76,15 @@ import TablaComp from '../../components/Managment/TablaComp.vue'
 import grafica from '../../components/managment/grafica.vue'
 import estadisticas from '../../components/Managment/estadisticas.vue'
 import info_card from '../../components/Managment/InfoCard.vue'
-import shop from '../../components/Managment/Row.vue'
+import successAlert from '../../components/Mensajes/BarAlert.vue'
 
 const globalStore = useGlobalStore();
 const valorAlmacenado = globalStore.state.variable;
 var log = logout()
 var mostrar = ref()
+const mostrarMensaje = ref(false)
+const citasMensaje = ref()
+const total_citas = ref()
 
 const intervalMessage = () =>{
   mostrar.value = log.state.variable;
@@ -97,6 +103,21 @@ const fetchData = async () => {
   }
 }
 
+const totalCitasHoy = async () => {
+  try {
+    const response = await axios.get('http://backend.vetcachorros.one/citasTotHoy');
+    const totCitas = response.data.data[0].tot_citas; 
+    mostrarMensaje.value = true
+    citasMensaje.value = totCitas;
+    citasMensaje.value = `Tiene ${citasMensaje.value} citas por atender Hoy`;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+onMounted(totalCitasHoy)
 
 const productos = ref([])
 const bajaProd = async () => {
@@ -171,6 +192,7 @@ onMounted(estadisticas_positivo_negativo)
   transition: all 300ms ease;
   max-width: 25em;
   min-height: 30em;
+  overflow-y: auto;
   max-height: 30em;
   display: flex;
   flex-direction: column;
@@ -309,6 +331,7 @@ justify-content: center;
 }
 
 .title{
+  
   display: flex;
   justify-content: center;
   align-items: center;

@@ -20,8 +20,10 @@ import {deleteAdmin} from '@/stores/counter.js'
 import {defineProps} from 'vue'
 const useStore = deleteAdmin()
 const data = ref()
+const users = ref()
 
 const borrar = () =>{
+
     data.value = useStore.state.variable
     const userData = async () => {
     try {

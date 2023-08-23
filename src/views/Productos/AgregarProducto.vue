@@ -1,7 +1,12 @@
 <template>
       <div class="cont">
             <div class="header">
-                  <p>Manage Product</p>
+                  <router-link class="custom-link" :to="{path: '/productos'}">
+        <span class="material-symbols-outlined">
+          keyboard_backspace
+        </span>
+      </router-link>
+      <p class="ti d-flex">Manage Product</p>
             </div>
             <div class="body">
                   <div class="checkout">
@@ -248,72 +253,15 @@ const seleccionTipoProducto = () => {
 }
 
 .header {
-      display: flex;
-      align-items: flex-end;
-      border-bottom: 1px solid rgba(132, 139, 200, 0.18);
-      height: 4.2em;
+      margin-left: 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(132, 139, 200, 0.18);
+  height: 4.2em;
 }
 
-.carta-image {
-      width: 100%;
-      /* Ajusta el ancho según tus necesidades */
-      height: 300px;
-      /* Ajusta la altura según tus necesidades */
-      background-size: cover;
-      background-repeat: no-repeat;
-      border-radius: 10px;
-      /* Otros estilos que puedas necesitar */
-}
-
-.custum-file-upload {
-      height: 14rem;
-      width: 100%;
-      margin-bottom: 1rem;
-      max-height: 14rem;
-      display: flex;
-      flex-direction: column;
-      align-items: space-between;
-      gap: 20px;
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-      border: 2px dashed #cacaca;
-      background-color: rgba(255, 255, 255, 1);
-      background-size: contain;
-      background-repeat: no-repeat;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
-}
-
-.custum-file-upload .icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-}
-
-.custum-file-upload .icon svg {
-      height: 80px;
-      fill: rgba(75, 85, 99, 1);
-}
-
-.custum-file-upload .text {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-}
-
-.custum-file-upload .text span {
-      font-weight: 400;
-      color: rgba(75, 85, 99, 1);
-}
-
-.contenido {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      width: 100%;
-      height: 55%;
+.header span{
+  cursor: pointer;
 }
 
 .custum-file-upload input {
@@ -416,7 +364,11 @@ const seleccionTipoProducto = () => {
       width: 100%;
       margin-bottom: 30px;
 }
-
+.ti{
+  height: 70%;
+  justify-content: center;
+  align-items: flex-end;
+}
 .data {
       display: grid;
       grid-auto-columns: 1fr;

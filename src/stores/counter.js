@@ -406,6 +406,38 @@ export const showModalCardAcept = defineStore('cita', () => {
   };
 });
 
+export const idProductoPublico = defineStore('cita', () => {
+  const state = {
+    variable: '',
+  };
+
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
+
+
+export const idProductoInterno = defineStore('cita', () => {
+  const state = {
+    variable: '',
+  };
+
+  const setVariable = (newValue) => {
+    state.variable = newValue;
+  };
+
+  return {
+    state,
+    setVariable,
+  };
+});
+
+
 
 // // LOCAL STORAGE PINIA 
 

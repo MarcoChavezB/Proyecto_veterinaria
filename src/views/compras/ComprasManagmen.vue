@@ -264,36 +264,53 @@ const terminar = async () => {
     setTimeout(() => {
       mostrarSuccess.value = false;
     }, 2000);
-
+    funcionEjecutada = true;
   }
 };
 
+
+
+let cancelando = false;
+
 const cancelarCompra = async () => {
-  const productosInfo = construirArregloProductos().filter(([id, cantidad]) => cantidad !== 0);
-  if (productosInfo.length === 0) {
+  if (cancelando) {
     mensaje_error.value = 'No se puede cancelar la venta';
     mostrarAlerta.value = true;
-    
-    
     setTimeout(() => {
       mostrarAlerta.value = false;
     }, 2000);
-  } else{
-    try {
-    const response = await axios.post('http://backend.vetcachorros.one/CancelarCompra');
+    return;
+  }
 
-    tiketData.value = []
-    productosEnPantalla.value = []
-    mensaje_success.value = 'Venta cancelada'
-    mostrarSuccess.value = true;
+  cancelando = true;
+
+  const productosInfo = construirArregloProductos().filter(([id, cantidad]) => cantidad !== 0);
+
+  if (productosInfo.length === 0) {
+    mensaje_error.value = 'No se puede cancelar la venta';
+    mostrarAlerta.value = true;
     setTimeout(() => {
-      mostrarSuccess.value = false;
+      mostrarAlerta.value = false;
+      cancelando = false;
     }, 2000);
-  } catch(error) {
-    console.log(error)
+  } else {
+    try {
+      const response = await axios.post('http://backend.vetcachorros.one/CancelarCompra');
+      tiketData.value = [];
+      productosEnPantalla.value = [];
+      mensaje_success.value = 'Venta cancelada';
+      mostrarSuccess.value = true;
+
+      setTimeout(() => {
+        mostrarSuccess.value = false;
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+    }
   }
-  }
-}
+};
+
+
 
 const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
