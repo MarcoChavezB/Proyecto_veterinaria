@@ -228,7 +228,6 @@ const routes = [
                         name: 'reportehistorialmedico',
                         component: historialMedico
                   },
-                  
                   {
                         path: '/consultasHechas',
                         name: 'reportconsultasrealizadas',
@@ -292,13 +291,13 @@ const routes = [
 
 
 const router = createRouter({
-      history: createWebHashHistory(process.env.BASE_URL),
-      routes,
-    });
+      history: createWebHistory(import.meta.env.BASE_URL),
+      routes
+})
 
 export default router
 
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import calendar from '../views/Calendar/Calendario.vue'
 import principalMain from '../../src/views/Inicio/MainInicio.vue'
 import control from '../views/Administracion/MenuManagmentView.vue';
@@ -345,8 +344,6 @@ import serviciosclinicos from '../views/Servicios/serviciosclinicos.vue'
 import citasTotales from '../views/citas/citasTotales.vue'
 import citasAceptadas from '../views/citas/citasAceptadas.vue'
 import agregarAdmin from '../views/forms/anadirNuevoAdmin.vue'
-
-
 
 // // to = a donde
 // // from = de donde
