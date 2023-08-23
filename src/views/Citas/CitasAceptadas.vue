@@ -6,8 +6,9 @@
     <div class="app">
       <div class="controles">
         <div class="botones ">
-          <btnn id="black" title="Citas proximas" @click="citasProximas"/>
-          <btnn title="Agendar Cita" @click="agendar"/>
+          <btnn id="black" title="Agendar Cita" @click="agendar"/>
+          <btnn title="Citas proximas" @click="citasProximas"/>
+          <btnn title="Citas hoy" @click="citasHoy"/>
           <btnn title="General" @click="fetchData"/>
         </div>
       </div>
@@ -21,7 +22,6 @@
         </div>
         <div class="cont-table">
           <div v-for="citas in citas" :key="citas.id" class="fila" >
-            <!-- Pasa las propiedades únicas a Rows -->
             <Rows @click="seleccion(citas.id)" :nombre="citas.nombre" :telefono="citas.telefono1"
                   :fecha_cita="citas.fecha_cita" :estatus="citas.estatus"
                   :raza="citas.raza"/>
@@ -65,6 +65,16 @@ const fetchData = async () => {
     console.log(error)
   }
 }
+
+const citasHoy = async () => {
+  try {
+    const response = await axios.get('http://backend.vetcachorros.one/citasActualesAcept');
+    citas.value = response.data.data;
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 
 const seleccion = (id) => {
   msgID.value = id;

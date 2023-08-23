@@ -98,7 +98,7 @@ const fetchData = async () => {
   try {
     const response = await axios.get('http://backend.vetcachorros.one/citasPendientes');
     citas.value = response.data.data;
-  } catch(error) {
+  } catch(error) {                   
     console.log(error)
   }
 }

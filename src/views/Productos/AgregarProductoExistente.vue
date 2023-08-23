@@ -300,6 +300,9 @@ const alterProduct = async () => {
     precio_compra.value = ''
     tipo_producto.value = ''
     categoria.value = ''
+    placeHolderDescripcion.value = ''
+    placeHolderVenta.value = ''
+    placeHolderCompra.value = ''
     
     mensaje_success.value = 'El producto fue actualizado'
     mostrarSuccess.value = true;
