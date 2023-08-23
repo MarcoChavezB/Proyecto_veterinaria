@@ -77,12 +77,12 @@
                         <div class="flex-column">
                         </div>
                         <div class="inputForm personal">
-                            <input v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1">
+                            <input maxlength="10" v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1">
                         </div>
                         <div class="flex-column ">
                         </div>
                         <div class="inputForm personal">
-                            <input v-model="tel2" class="input password" type="text" placeholder="Teléfono 2 (opcional)">
+                            <input maxlength="10" v-model="tel2" class="input password" type="text" placeholder="Teléfono 2 (opcional)">
                         </div>
                     </div>
 
@@ -212,8 +212,6 @@ const data = async () => {
 
     try {
         const response = await axios.post('http://backend.vetcachorros.one/signin', reg);
-        console.log(response.data)
-        
     } catch (error) {
         console.error(error);
     }

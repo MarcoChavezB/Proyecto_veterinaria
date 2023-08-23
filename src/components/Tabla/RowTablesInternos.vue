@@ -10,8 +10,7 @@
       }">{{ status }}</p>
       <div id="ult">
           <router-link class="custom-link" :to="{name: 'add'}">
-          <div class="edit">
-            
+          <div class="edit" @click="editarProducto">
               <span class="material-symbols-outlined">
               edit_note
             </span>
@@ -37,8 +36,10 @@ defineProps({
 })
 
 import axios from 'axios'
-import { deleteProdInter} from '@/stores/counter.js'
+import { deleteProdInter, idProductoInterno} from '@/stores/counter.js'
 
+const mandarSeñalEditar = idProductoInterno()
+var resivirSeñalEditar = ref()
 const mandarVariable = ref()
 const deleteProducto = deleteProdInter()
 const recibirValor = () =>{
@@ -57,6 +58,13 @@ const eliminar = async () =>{
     }
 }
 
+const editarProducto = () =>{
+  setTimeout(() => {
+    resivirSeñalEditar.value = mandarSeñalEditar.state.variable;
+    console.log(resivirSeñalEditar.value);
+  }, 1000);
+}
+
 </script>
   
 <style scoped>
@@ -68,6 +76,9 @@ const eliminar = async () =>{
 .text-green{
   color: green;
 }
+.app:hover{
+    background-color: #f8f8f8;
+  }
 .app {
   display: flex;
   justify-content: space-evenly;

@@ -51,8 +51,9 @@ import add from '../../components/ControlesIndividuales/ingresar.vue'
 import axios from 'axios'
 import {ref, onMounted} from 'vue'
 import {useStore} from '@/stores/counter.js'
-import {StoreProdInternos, deleteProdInter} from '@/stores/counter.js'
+import {StoreProdInternos, deleteProdInter, idProductoInterno} from '@/stores/counter.js'
 
+const editarProducto = idProductoInterno()
 const prodInterno = StoreProdInternos();
 const deleteProducto = deleteProdInter()
 const store = useStore()
@@ -85,8 +86,11 @@ const onInput = () =>{
 }
 
 const eliminarProd = (id) => {
-    deleteProducto.setVariable(id)
-    
+  const id_producto = id  
+  editarProducto.setVariable(id_producto)
+  deleteProducto.setVariable(id)
+  console.log(id_producto)
+
 };
 
 
@@ -152,6 +156,7 @@ span {
     width: 100%;
     height: 100vh;
 }
+
 
 #black{
   background-color: black;

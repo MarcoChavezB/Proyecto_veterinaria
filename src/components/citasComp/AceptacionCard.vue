@@ -38,20 +38,26 @@
           </div>
         </div>
         <div class="body-card">
-          <div class="desc">
+          <div class="desc ">
             <div class="text-area d-flex flex-column">
               <div class="prop w-100">
                 <p>Motivo de la cita</p>
               </div>
-              <div class="ctn">
+              <div class="ctn ">
                 <div class="texto overflow-auto">
                   {{citasdata.data.length > 0 ? citasdata.data[0].motivo : 'No hay datos' }}
                 </div>
               </div>
             </div>
+            <div class="text-area d-flex flex-column" v-if="mostrarMotivo">
+              <div class="prop w-100">
+                <p>Motivo del rechazo</p>
+              </div>
+              <textarea class="ctn" v-model="motivo"></textarea>
+            </div> 
             <div class="btns">
               <div class="Rechazar d-flex justify-content-center align-items-end">
-                <button class="noselect" @click="respuesta(1)">
+                <button class="noselect" @click="mostrarPorque">
                   <span class="text">Rechazar</span>
                   <span class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -77,6 +83,7 @@
     <div class="alertas">
         <successAlert name="Cita aceptada" v-if="mostrarAlertSuccess"/>
         <errorAlert name="Cita rechazada" v-if="mostrarAlertError"/>
+        <alert :name="mensajeAlert" v-if="mostrarAlert"/>
     </div>
   </div>
 </template>
@@ -88,6 +95,7 @@ import axios from 'axios'
 import loader from '../loaders/loaderPrincipal.vue'
 import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
 import errorAlert from '../../components/Mensajes/BarAlertError.vue'
+import alert from '../../components/Mensajes/BarAlert.vue'
 import {showModalCard } from '@/stores/counter.js';
 
 
@@ -95,6 +103,8 @@ const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
 
+const mostrarAlert = ref(false)
+const mensajeAlert = ref()
 const recibirEstatus = ref()
 const mandarVariable = showModalCard()
 const recibirShow = card()
@@ -109,6 +119,8 @@ var id = citaid.state.variable
 var mostrarAlertSuccess= ref(false);
 var mostrarAlertError = ref(false);
 const citasdata = ref([])
+const mostrarMotivo = ref(false)
+const motivo = ref('')
 
 const cita_id = {
   cita_id: id
@@ -133,6 +145,42 @@ const dataCita = async () => {
 };
 
 
+let funcionEjecutada = false;
+
+const mostrarPorque = () => {
+  if (!funcionEjecutada) {
+    mensajeAlert.value = 'Ingrese el motivo';
+    mostrarMotivo.value = true;
+    mostrarAlert.value = true;
+
+    setTimeout(() => {
+      mostrarAlert.value = false;
+    }, 2000);
+
+    funcionEjecutada = true;
+
+  } else {
+  
+    if (motivo.value === '') {
+      mensajeAlert.value = 'El motivo no puede estar vacío';
+      mostrarAlert.value = true
+      mostrarMotivo.value = true;
+      setTimeout(() => {
+        mostrarAlert.value = false;
+      }, 2000);
+    } else {
+      mensajeAlert.value = 'Se registró el motivo';
+      mostrarAlert.value = true
+      mostrarMotivo.value = true;
+      setTimeout(() => {
+        mostrarAlert.value = false;
+      }, 2000);
+      respuesta(1)
+    }
+  }
+}
+
+
 var CitaResponse = ref();
 const respuesta = (seleccion) =>{
   CitaResponse.value = seleccion;
@@ -153,10 +201,10 @@ const citaResponse = async () => {
   try {
     const data = {
       cita_id: id,
-      cita_respuesta: CitaResponse.value
+      cita_respuesta: CitaResponse.value,
+      motivor: motivo.value,
     }
     const response = await axios.post('http://backend.vetcachorros.one/citasResponse', data)
-    console.log(response)
     getUserEmail(data.cita_id);
     isLoading.value = false
   } catch (error) {
@@ -274,13 +322,17 @@ const salir = () => {
   height: 100%;
 }
 .ctn{
+  border-style: none;
   width: 90%;
-  height: 80%;
-  border-radius: 20px;
+  height: 100%;
+  border-radius: 10px;
   border: 1px solid rgba(132, 139, 200, 0.09);
   display: flex;
   justify-content: center;
 }
+textarea:focus {
+    outline: none;
+  }
 .texto{
   display: flex;
   flex-wrap: wrap;
@@ -318,10 +370,8 @@ const salir = () => {
 }
 .text-area{
   width: 100%;
-  height: 100%;
+  height: 80%;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .icon{
   display: flex;

@@ -26,20 +26,24 @@
                 <h4>Precio v</h4>
                 <h4>IVA</h4>
                 <h4>Status</h4>
-                <h4>edits</h4>
+                <h4>Editar</h4>
             </div>
             <div class="cont-table">
-                <div v-for="productos in productos" :key="productos.id">
+                <div class="row" v-for="productos in productos" :key="productos.id">
                     <Rows @click="eliminarProd(productos.id)" :name="productos.nom_producto" :stock="productos.existencias" :priceV="productos.precio_venta" 
                      :iva="productos.iva"
                     :status="productos.estado" />
                 </div>
+                
             </div>
+            
         </div>
+
     </div>
 </template>
 
 <script setup>
+import success from '../../components/Mensajes/BarAlertSuccess.vue'
 import Rows from '../../components/Tabla/RowTablesProducts.vue';
 import search from '../../components/ControlesIndividuales/BuscarInterno.vue'
 import encabezado from '../../components/Tabla/header.vue'
@@ -49,9 +53,10 @@ import precios from '../../components/ControlesIndividuales/RangoPrecioPublicos.
 import axios from 'axios'
 import { ref, onMounted} from 'vue';
 import {productosPublicosR} from '@/stores/counter.js'
-import {StoreProdPublics, deleteProd} from '@/stores/counter.js'
+import {StoreProdPublics, deleteProd, idProductoPublico} from '@/stores/counter.js'
 
-
+const recibirEdit = ref()
+const editarProducto = idProductoPublico()
 const eliminarProducto = ref()
 const recibirProd = deleteProd()
 const prodPublico = StoreProdPublics();
@@ -82,7 +87,10 @@ const onInput = () =>{
 }
 
 const eliminarProd = (id) => {
-    recibirProd.setVariable(id)
+    const id_producto = id
+    editarProducto.setVariable(id_producto)
+    recibirProd.setVariable(id_producto)
+    console.log(id_producto)
 };
 
 
@@ -152,6 +160,7 @@ span {
     color: #ffd800;
 
 }
+    
 
 .app {
     display: grid;

@@ -2,7 +2,12 @@
   <div class="container-fluid">
     <div class="izquierdo">
       <div class="header">
-        <p>Manage Product</p>
+        <router-link class="custom-link" :to="{path: '/AgregarProducto'}">
+        <span class="material-symbols-outlined">
+          keyboard_backspace
+        </span>
+      </router-link>
+        <p class="ti d-flex">Manage Product</p>
       </div>
       <div class="body">
         <div class="stock">
@@ -10,7 +15,7 @@
           <div class="inputs">
             <div class="inp">
               <span>NOMBRE DEL PRODUCTO</span>
-              <input type="text" v-model="nombre_producto">
+              <input disabled type="text" v-model="nombre_producto">
             </div>
             <div class="inp">
               <span>CANTIDAD A AGREGAR</span>
@@ -25,18 +30,18 @@
           </div>
           <div class="formulario">
             <div class="detalle-productos">
-              <div class="input">
+              <div class="input disabled-input">
                 <span>NOMBRE DEL PRODUCTO</span>
-                <input type="text" v-model="nombre">
+                <input disabled type="text" v-model="nombre">
               </div>
               <div class="input">
                 <span>DESCRIPCIÓN DEL PRODUCTO</span>
-                <input type="text" v-model="descripcion">
+                <input type="text" v-model="descripcion" :placeholder="placeHolderDescripcion">
               </div>
               <div class="input">
                 <span>CATEGORÍA DEL PRODUCTO</span>
                 <select @click="mostrar_categorias" name="categorias" id="2" v-model="categoria">
-                  <option disabled selected value="">Selecciona una categorias</option>
+                  <option disabled selected value="">{{ categoria }}</option>
                   <option v-for="cat in categorias" :key="cat.id" :value="cat.categoria">
                     {{ cat.categoria }}
                   </option>
@@ -45,15 +50,15 @@
               <div class="precios">
                 <div class="input" v-if="mostrar_precio">
                   <span>PRECIO VENTA</span>
-                  <input type="number" placeholder="$" v-model="precio_venta">
+                  <input type="number" :placeholder="placeHolderVenta" v-model="precio_venta">
                 </div>
                 <div class="input">
                   <span>PRECIO COMPRA</span>
-                  <input type="number" placeholder="$" v-model="precio_compra">
+                  <input type="number" :placeholder="placeHolderCompra" v-model="precio_compra">
                 </div>
                 <div class="input">
                   <span>TIPO PRODUCTO</span>
-                  <select @change="mostrar_tipo_producto" name="tipo" v-model="tipo_producto">
+                  <select @change="mostrar_tipo_producto" name="tipo" v-model="tipo_producto" :placeholder="placeHolderTipo_producto">
                     <option value="venta">Venta</option>
                     <option value="interno">Interno</option>
                   </select>
@@ -74,15 +79,17 @@
           <p>Nombre</p>
           <p>Stock</p>
           <p>Status</p>
+          <p>Editar</p>
         </div>
         <div class="prod" v-for="prod in productos" :key="prod.id">
-          <row :name="prod.nom_producto" :stock="prod.existencias" :status="prod.estado" />
+          <row @click="edit(prod.id)" :name="prod.nom_producto" :stock="prod.existencias" :status="prod.estado" />
         </div>
       </div>
       <div class="alertas">
         <barSuccess :name="mensaje_success" v-if="mostrarSuccess" />
         <barError :name="mensaje_error" v-if="mostrarError" />
       </div>
+      
     </div>
   </div>
 </template>
@@ -93,7 +100,12 @@ import barSuccess from '../../components/Mensajes/BarAlertSuccess.vue'
 import barError from '../../components/Mensajes/BarAlertError.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
+import {idProductoPublico, idProductoInterno} from '@/stores/counter.js'
 
+const mandarSeñalEditar = idProductoPublico()
+var resivirSeñalEditar = ref()
+const mandarSeñarInterno = idProductoInterno()
+var resivirSeñarInterno = ref()
 const mostrarSuccess = ref(false)
 const mostrarError = ref(false)
 const mensaje_error = ref('')
@@ -106,8 +118,26 @@ const mostrar_precio = ref(true);
 const nombre_producto = ref('');
 const cantidad_producto = ref('');
 const data = ref([]);
-
+const placeHolderName = ref('')
+const placeHolderDescripcion = ref('')
+const placeHolderVenta = ref('$')
+const placeHolderCompra = ref('$')
+const placeHolderAlterProd = ref('')
+const id_producto = ref()
 //////////--------------MODIFICAR EL PRODUCTO-------------- ///////////
+
+const editarProducto = () =>{
+    resivirSeñalEditar.value = mandarSeñalEditar.state.variable;
+    resivirSeñalEditar.value = mandarSeñarInterno.state.variable;
+}
+
+setInterval(() => {
+  editarProducto()
+}, 1000);
+
+setTimeout(() => {
+  productosPorID()
+}, 1000);
 
 const fetchData = async () => {
   try {
@@ -118,6 +148,50 @@ const fetchData = async () => {
   }
 }
 
+
+const edit = (id) =>{
+  id_producto.value = id
+  console.log(id_producto.value)
+  editarProd()
+}
+
+const editarProd = async () => {
+  try {
+    const response = await axios.post('http://backend.vetcachorros.one/mostrarProductoPorID', { id: id_producto.value });
+    const respuesta = response.data.data.data
+  for (const item of respuesta) {
+    nombre_producto.value = item.nom_producto;
+    nombre.value = item.nom_producto
+    placeHolderDescripcion.value = item.descripcion
+    placeHolderVenta.value = item.precio_venta
+    placeHolderCompra.value = item.precio_compra
+    tipo_producto.value = item.tipo_producto
+    categoria.value = item.categoria
+  }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+const productosPorID = async () => {
+  try {
+  const response = await axios.post('http://backend.vetcachorros.one/mostrarProductoPorID', { id: resivirSeñalEditar.value });
+  const respuesta = response.data.data.data
+  for (const item of respuesta) {
+    nombre_producto.value = item.nom_producto;
+    nombre.value = item.nom_producto
+    placeHolderDescripcion.value = item.descripcion
+    placeHolderVenta.value = item.precio_venta
+    placeHolderCompra.value = item.precio_compra
+    tipo_producto.value = item.tipo_producto
+    categoria.value = item.categoria
+  }
+} catch (error) {
+  console.log(error);
+}
+  
+};
 // verificar la existencia del producto
 const verificacion = () => {
   if (nombre_producto.value === '' || cantidad_producto.value === '') {
@@ -166,6 +240,9 @@ const alterCantProduct = async () => {
     const response = await axios.post('http://backend.vetcachorros.one/alterProduct', producto);
     data.value = response.data.data;
     
+
+
+
   } catch (error) {
     console.log(error)
   }
@@ -215,6 +292,17 @@ const alterProduct = async () => {
   try {
     const response = await axios.post('http://backend.vetcachorros.one/dataProd', Alterproducto);
     info.value = response.data.data;
+
+    nombre.value = ''
+    nombre_producto.value = ''
+    descripcion.value = ''
+    precio_venta.value = ''
+    precio_compra.value = ''
+    tipo_producto.value = ''
+    categoria.value = ''
+    placeHolderDescripcion.value = ''
+    placeHolderVenta.value = ''
+    placeHolderCompra.value = ''
     
     mensaje_success.value = 'El producto fue actualizado'
     mostrarSuccess.value = true;
@@ -224,11 +312,7 @@ const alterProduct = async () => {
 
   } catch (error) {
     console.log(error)
-              mensaje_error.value = 'Hubo un problema con el servidor'
-          mostrarError.value = true
-          setTimeout(() => {
-          mostrarError.value = false
-          }, 2000);
+        
   }
 }
 
@@ -315,9 +399,13 @@ const mostrar_tipo_producto = () => {
 
 .header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   border-bottom: 1px solid rgba(132, 139, 200, 0.18);
   height: 4.2em;
+}
+
+.header span{
+  cursor: pointer;
 }
 
 .header p {
@@ -330,6 +418,10 @@ const mostrar_tipo_producto = () => {
   height: 100vh;
   border-radius: 15px 0px 0px 15px;
   overflow-y: auto;
+}
+
+.disabled-input input{
+  cursor: not-allowed;
 }
 
 .title {
@@ -399,6 +491,12 @@ const mostrar_tipo_producto = () => {
   width: 50%;
 }
 
+.inputs .inp:first-child input {
+  cursor: not-allowed;
+}
+
+
+
 input {
   appearance: none;
   -webkit-appearance: none;
@@ -415,6 +513,12 @@ input {
 .inp {
   display: flex;
   flex-direction: column;
+}
+
+.ti{
+  height: 70%;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .inp span,

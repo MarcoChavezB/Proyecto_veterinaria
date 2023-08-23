@@ -11,12 +11,10 @@
         }">{{ status }}</p>
         <div id="ult">
           <router-link class="custom-link" :to="{name: 'add'}">
-          <div class="edit">
-            
+          <div class="edit" @click="editarProducto">
               <span class="material-symbols-outlined">
               edit_note
             </span>
-            
           </div>
         </router-link>
           <div class="delete" @click="eliminar">
@@ -32,10 +30,14 @@
 <script setup>
 import {defineProps, ref} from 'vue'
 import axios from 'axios'
-import {deleteProd} from '@/stores/counter.js'
+import {deleteProd, idProductoPublico} from '@/stores/counter.js'
 
+const mandarSeñalEditar = idProductoPublico()
+var resivirSeñalEditar = ref()
+const mandarFuncion = ref()
 const mandarVariable = ref()
 const deleteProducto = deleteProd()
+
 const recibirValor = () =>{
   mandarVariable.value = deleteProducto.state.variable
 }
@@ -50,6 +52,15 @@ const eliminar = async () =>{
     } catch(error){
         console.log(error)
     }
+}
+
+
+
+const editarProducto = () =>{
+  setTimeout(() => {
+    resivirSeñalEditar.value = mandarSeñalEditar.state.variable;
+    console.log(resivirSeñalEditar.value);
+  }, 1000);
 }
 
 defineProps({
@@ -71,11 +82,14 @@ defineProps({
   .app {
     display: flex;
     justify-content: space-evenly;
-    
     border-bottom: 1px solid rgba(132, 139, 200, 0.18);
     color: #677483;
     max-height: 4.5em;
     height: 1em;
+  }
+
+  .app:hover{
+    background-color: #f8f8f8;
   }
 .column span{
   color: green;
