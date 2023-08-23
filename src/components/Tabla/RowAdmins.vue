@@ -27,6 +27,7 @@ const borrar = () =>{
     try {
         const response = await axios.post('http://backend.vetcachorros.one/eliminarAdmin', {id: data.value}); 
         users.value = response.data.data;
+        console.log(users.value)
     } catch (error) {
         console.log(error)
         }

@@ -54,21 +54,24 @@
 
 const sendPostRequest = async () => {
   loading.value=true;
+  const parsedTipo = parseInt(tipo.value, 10);
   try {
     const jsonData = {
       nombre_TServicio: nombre.value,
-      id_servicio: tipo.value,
+      id_servicio: parsedTipo,
       descripcion: desc.value,
       precio: precio.value,
       estado: 'no publico',
       productos: productosSeleccionados.value,
     };
+    console.log(jsonData)
     const response = await axios.post('http://backend.vetcachorros.one/agregarservicioproduct', jsonData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    if(response.status === 200){
+    console.log(response.data)
+    if(response.data.status === 200){
          detallar.value = true;
          productosSeleccionados.value = [];
          tipo.value = 1;
@@ -82,18 +85,7 @@ const sendPostRequest = async () => {
   loading.value=false;
 };
 
-const obtenerproductos = async () => {
-    try {
-        const response = await axios.get('http://backend.vetcachorros.one/productos/all')
-        if (Array.isArray(response.data.data)) {
-            productos.value = response.data.data;
-        } else {
-            productos.value = [response.data.data];
-        }
-    } catch (error) {
-        console.error(error)
-    }
-}
+
 
 const productocadena = async () => {
     productos.value = [];
@@ -112,7 +104,6 @@ const productocadena = async () => {
     }
 }
 
-obtenerproductos();
 
 </script>
 

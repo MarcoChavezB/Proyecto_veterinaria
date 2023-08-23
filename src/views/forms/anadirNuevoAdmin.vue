@@ -80,6 +80,9 @@
                             <div class="inputForm personal">
                                 <input v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1">
                             </div>
+                            <div class="inputForm personal">
+                                <input v-model="tel2" class="input nombre" type="text" placeholder="Teléfono 2 (opcional)">
+                            </div>
                        
                         </div>
                         <div class="btn">
@@ -119,6 +122,7 @@ const correo = ref('')
 const contrasena = ref('')
 const confirmacion = ref('')
 const tel1 = ref('')
+const tel2 = ref('')
 const users = ref([])
 const useStore = deleteAdmin()
 const recibirModulo = ref()
@@ -157,8 +161,8 @@ const verificar = () => {
             const verificarUsuario = async () => {
                 try {
                     const response = await axios.post('http://backend.vetcachorros.one/verificarUsuario', { correo: correo.value });
-                    const responseData = response.data.data; // Accede al objeto en data
-                    const existeUsuario = responseData.data; // Accede al valor booleano en data.data
+                    const responseData = response.data.data;
+                    const existeUsuario = responseData.data;
 
                     if (existeUsuario) {
                         mandarAdmin();
@@ -199,12 +203,11 @@ const mandarAdmin = async () => {
             correo: correo.value,
             contrasena: contrasena.value,
             tel1: tel1.value,
-            tel2: '8219891829',
+            tel2: tel2.value,
             ts: "Administrador"
         };
         
-        const response = await axios.post('http://backend.vetcachorros.one/registrarAdmin', infoAdmin);
-    
+        const response = await axios.post('http://backend.vetcachorros.one/registrarAdmin', infoAdmin);    
         users.value = response.data.data;
         mostrarmensajeSuccess.value = 'Se registró el usuario';
         mostrarSuccess.value = true;

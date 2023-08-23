@@ -14,7 +14,6 @@
   
   <script setup>
 import { defineProps } from 'vue';
-
 const emits = defineEmits(['ide'])
 const verperfil = (Id) => {
   emits('ide', Id);

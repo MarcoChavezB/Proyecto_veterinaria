@@ -2,7 +2,7 @@
   <div class="first-container">
     <div class="parametros">
       <div class="Titulo">
-        <span class="material-symbols-outlined">shopping_cart</span><h2>Ordenes de Compra</h2>
+        <span class="material-symbols-outlined">shopping_cart</span><h2>Servicios</h2>
       </div>
       <div class="filtro">
         <ComboBox v-model="selectedOption" title="Filtrar por:" :options="[{ text: 'General', value: 'opcion1' },{ text: 'Pagadas', value: 'opcion2' }]"/>

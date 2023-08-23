@@ -82,7 +82,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { mostrarCartaCita, citaID } from '@/stores/counter.js'
+import { mostrarCartaCita, citaID, showModalCardAcept } from '@/stores/counter.js'
 import axios from 'axios'
 import loader from '../loaders/loaderPrincipal.vue'
 import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
@@ -92,6 +92,7 @@ import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
+const mandarVariable = showModalCardAcept()
 const mostrarCarta = mostrarCartaCita()
 const mandarValorCarta = ref()
 const esconder = ref(true)
@@ -207,9 +208,9 @@ onMounted(async () => {
 
 
 const salir = () => {
-  location.reload()
+  const mandarShow = false
+  mandarVariable.setVariable(mandarShow)
 }
-
 </script>
 
 

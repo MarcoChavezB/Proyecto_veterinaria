@@ -8,7 +8,7 @@
         <div class="botones ">
           <btnn id="black" title="Citas proximas" @click="citasProximas"/>
           <btnn title="Agendar Cita" @click="agendar"/>
-          <btnn title="Limpiar" @click="fetchData"/>
+          <btnn title="General" @click="fetchData"/>
         </div>
       </div>
       <div class="table">
@@ -43,10 +43,10 @@ import Btnn from '@/components/ControlesIndividuales/BotonConEstilo.vue';
 import axios from 'axios'
 import {onMounted, ref} from 'vue'
 import {useStore} from '@/stores/counter.js'
-import {StoreProdInternos} from '@/stores/counter.js'
+import {StoreProdInternos, showModalCardAcept} from '@/stores/counter.js'
 import {card, citaID} from '@/stores/counter.js'
 
-
+const showCard = showModalCardAcept()
 const carta = card()
 const cita_id = citaID()
 const msgID = ref()
@@ -69,6 +69,7 @@ const fetchData = async () => {
 const seleccion = (id) => {
   msgID.value = id;
   inicial.value = true;
+  showCard.setVariable(inicial.value)
   cita_id.setVariable(msgID.value);
 };
 
@@ -83,6 +84,16 @@ const citasProximas = () => {
   }
 mostrarCitasProximas()
 }
+
+
+const valorModal = () =>{
+  inicial.value = showCard.state.variable
+}
+
+setInterval(() => {
+  valorModal()
+}, 100);
+
 
 onMounted(fetchData)
 </script>

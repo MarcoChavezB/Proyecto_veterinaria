@@ -60,19 +60,18 @@
     showModal.value = false;
   }
 }
-  const activ = (data) =>{
-   const Id = data;
-   ide.value = Id.value;
+const activ = (Id) => {
+   ide.value = Id;
    activar();
-   
-  }
+}
+
 watch(filter, (newValue) => {
   inputType.value = newValue ? "text" : "number";
 });
 
   const buscar = async () => {
   if(search.value==="") {
-    await fetchUsers();
+    users.value = []
   } else if(filter.value===true) {
     await UsersCorreo();
   }
@@ -99,17 +98,6 @@ const UsersCorreo = async () => {
   }
 };
 
-  const fetchUsers = async () => {
-    users.value = [];
-  try {
-    const response = await axios.get('http://backend.vetcachorros.one/clientes/All');
-    users.value = response.data.data;
-    
-  } catch (error) {
-    console.error('Hubo un error al obtener los usuarios:', error);
-  }
-};
-onMounted(fetchUsers);
 
 
 

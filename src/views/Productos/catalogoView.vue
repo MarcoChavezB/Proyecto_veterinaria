@@ -33,7 +33,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-
+// import foote from '@\components\cliente\menuComponents\footer.vue';
 const productos =ref([]);
 const search = ref([]);
 const obtenerproductos = async () => 
@@ -44,14 +44,14 @@ const obtenerproductos = async () =>
         const response = await axios.get('http://backend.vetcachorros.one/productosPublicos')
          if (Array.isArray(response.data.data)) {
              productos.value = response.data.data;
-            
+            //  console.log(response.data.data);
          } 
          else {
              productos.value = [response.data.data];
          }
       productos.value = response.data.data;
     } catch (error) {
-      
+      //   console.error(error)
     }
 }
 onMounted(obtenerproductos);
@@ -69,9 +69,9 @@ const productocadena = async () => {
         } else {
             productos.value = [response.data.data];
         }
-      
+      //   console.log(productos.value)
     } catch (error) {
-      
+      //   console.error(error)
     }
 }
 </script>
@@ -82,8 +82,11 @@ const productocadena = async () => {
       margin-top: 20px;
       width: 210px;
       height: 210px;
-      border: 2px solid gray;
       overflow: hidden;
+      border: none;
+      box-shadow: 0 0 2em #00000052;
+      display: flex;
+      justify-content: center;
 }
 #imagen img
 {
@@ -94,6 +97,14 @@ const productocadena = async () => {
 {
       padding: 10px;
       font-size: 40px;
+      border: none;
+      box-shadow: 0 0 2em #00000052;
+      border-radius: 20px;
+}
+
+.control input
+{
+      border: none;
 }
 .row
 {
@@ -144,7 +155,8 @@ const productocadena = async () => {
 {
       width: 16rem;
       height: 25rem;
-      border: 1px solid rgb(119, 119, 119);
+      border: none;
+      box-shadow: 0 0 2em #00000052;
       border-radius: 12px;
       font-size: 19px;
       display: flex;
@@ -163,7 +175,7 @@ const productocadena = async () => {
       transform: translateY(-20px);
       transition: all 0.3s;
       box-shadow: 5px 5px 3px black;
-      font-size: 26px;
+      /* font-size: 26px; */
       background-color: rgb(230, 230, 230);
 }
 
