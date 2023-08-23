@@ -228,7 +228,6 @@ const routes = [
                         name: 'reportehistorialmedico',
                         component: historialMedico
                   },
-                  
                   {
                         path: '/consultasHechas',
                         name: 'reportconsultasrealizadas',
@@ -345,8 +344,6 @@ import serviciosclinicos from '../views/Servicios/serviciosclinicos.vue'
 import citasTotales from '../views/citas/citasTotales.vue'
 import citasAceptadas from '../views/citas/citasAceptadas.vue'
 import agregarAdmin from '../views/forms/anadirNuevoAdmin.vue'
-
-
 
 // // to = a donde
 // // from = de donde
