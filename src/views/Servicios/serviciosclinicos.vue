@@ -368,17 +368,25 @@ h4
       transform: translate( -205%, -30%);
       z-index: 30px;
 }
+
+.servicios-enlace
+{
+      text-decoration: none;
+      color: black;
+}
 </style>
 <template>
       
       <div class="row">
             <div class="body" v-for="serviciocli in servicioscli" :key="serviciocli.id">
                   <div id="card-total">
-                        <div id="card-body">
-                              <h5 id="card-title">{{ serviciocli.nombre_TServicio }}</h5>
-                              <p class="card-text">{{ serviciocli.descripcion }}</p>
-                              <p class="card-text">${{ serviciocli.precio }}</p>
-                        </div>
+                        <router-link class="servicios-enlace" to="/register">
+                              <div id="card-body">
+                                    <h5 id="card-title">{{ serviciocli.nombre_TServicio }}</h5>
+                                    <p class="card-text">{{ serviciocli.descripcion }}</p>
+                                    <p class="card-text">${{ serviciocli.precio }}</p>
+                              </div>
+                        </router-link>
                   </div>
             </div>
       </div>
