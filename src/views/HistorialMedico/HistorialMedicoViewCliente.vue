@@ -13,23 +13,23 @@
   <div v-if="ShowWindow" class="overlay">
     <div class="floating-form">
       <form>
-        <span class="material-symbols-outlined" id="Atras" @click="CloseWindow">cancel_presentation</span>
+        <span class="material-symbols-outlined" id="Atras" @click="CloseWindow">close</span>
         <div class="table-container2">
           <div class="responsive-table" v-show="ShowTable1">
             <table class="table table-hover custom-table">
               <thead>
               <tr>
-                <th>Fecha</th>
-                <th>Motivo por el cual se agendo la cita</th>
-                <th>Servicios ofrecidos</th>
-                <th>Peso</th>
-                <th>Altura</th>
-                <th>Edad</th>
-                <th>Observaciones</th>
-                <th>Productos usados</th>
-                <th>Cantidad</th>
-                <th>Costo de los servicios ofrecidos</th>
-                <th>Costo de los productos</th>
+                <th><p>Fecha</p></th>
+                <th><p>Motivo por el cual se agendo la cita</p></th>
+                <th><p>Servicios ofrecidos</p></th>
+                <th><p>Peso</p></th>
+                <th><p>Altura</p></th>
+                <th><p>Edad</p></th>
+                <th><p>Observaciones</p></th>
+                <th><p>Productos usados</p></th>
+                <th><p>Cantidad</p></th>
+                <th><p>Costo de los servicios ofrecidos</p></th>
+                <th><p>Costo de los productos</p></th>
               </tr>
               </thead>
               <tbody>

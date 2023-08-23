@@ -8,7 +8,10 @@
       <input type="radio" v-model="citaSeleccionada" value="rechazadas"  >Citas rechazadas
     </div>
     <br><br>
-    <div class="second-container" v-show="ShowFirstCard" >
+    <div class="second-container" v-show="ShowFirstCard">
+      <div class="carta">
+        <Circulos />
+      </div>
       <div class="carta" v-for="cita in citas">
         <div class="decoracion">
         </div>
@@ -27,13 +30,16 @@
             </span>
           </li>
           <br>
-          <li id="li5"><label class="labels" for="li5">En caso de que quieras cancelar tu cita, contáctanos.</label></li>
+          <li id="li5"><label class="labels" for="li5">En caso de que quieras cancelar tu cita, contáctanos. +52 1 871 103 4602</label></li>
         </ul>
       </div>
 
     </div>
 
     <div class="third-container" v-show="ShowSecondCard" >
+      <div class="carta">
+        <Circulos />
+      </div>
       <div class="carta" v-for="cita in citasR">
         <ul>
           <li id="li1"><label class="labels" for="li1">Mascota:</label> {{cita.Nombre}}</li>
@@ -49,8 +55,11 @@
                   {{ cita.Estatus }}
             </span>
           </li>
+          <div class="motivo">
+            <li id="li6"><label class="labels" for="li6">Motivo Rechazo:</label>{{cita.MotivoRechazo}}</li>
+          </div>
           <br>
-          <li id="li5"><label class="labels" for="li5">Si quieres conocer mas detalles, contactanos.</label></li>
+          <li id="li5"><label class="labels" for="li5">Si quieres conocer mas detalles, contactanos. +52 1 871 103 4602</label></li>
         </ul>
       </div>
 
@@ -62,6 +71,7 @@
 import {ref, onMounted, watch} from 'vue';
 import axios from "axios";
 import {useUsuarioStore} from "@/stores/UsuariosStore";
+import Circulos from "@/components/BolitasCitas/Circulos.vue";
 
 let usuarioStore = useUsuarioStore();
 
@@ -111,6 +121,11 @@ watch(citaSeleccionada, (newValue) => {
   box-sizing: border-box;
 }
 
+
+
+.motivo::-webkit-scrollbar{
+  display: none;
+}
 
 .first-container {
   font-family: 'Comfortaa';

@@ -63,7 +63,7 @@
                             <option value="" disabled selected>Reportes</option>
                             <option value="reportconsultasrealizadas">Consultas realizadas.</option>
                             <option value="reportconsultasrechazadas">Citas rechazadas.</option>
-                            <option value="reportordenescompra">Ordenes de compra.</option>
+                            <option value="reportordenescompra">Servicios.</option>
                         </select>
                     </a>
 
