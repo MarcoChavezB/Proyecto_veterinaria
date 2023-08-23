@@ -2,10 +2,16 @@
       <div class="pantalla">
             <div class="cita">
                   <h4>Agenda una cita</h4>
-                  <form @submit.prevent="agendarCita" class="info">
+                  <form @submit.prevent="ValidacionInfo" class="info">
                         <div>
                               <label for="fechaCita">Fecha de la cita:</label>
-                              <input type="datetime-local" id="fechaCita" v-model="fechaCita" @input="validarFecha" />
+                              <input
+                                  type="datetime-local"
+                                  id="fechaCita"
+                                  v-model="fechaCita"
+                                  @input="validarFecha"
+                                  :min="minDate"
+                              /> <!-- el :min pa establecer el valor minimo -->
                         </div>
                         <div v-show="showFechaOcupada" class="error-message">
                               Ya existe una cita para esta fecha y hora.
@@ -35,11 +41,20 @@
                               <p id="Exit">Volver al inicio</p>
                         </RouterLink>
                   </form>
+              <BarAlertSuccess
+                  :name="SuccesMessage"
+                  v-if="ShowSucces" />
+              <BarAlertError
+                  :name="VoidInputsMessage"
+                  v-if="VoidInputs" />
+              <BarAlertError
+                  :name="WarningMessage"
+                  v-if="ShowWarning" />
             </div>
 
             <div v-if="showRegistrarMascota" class="overlay">
                   <div class="floating-form">
-                        <form @submit.prevent="registrarMascota">
+                        <form @submit.prevent="ValidacionCampos">
                               <label for="nomMascota">Nombre de tu mascota</label>
                               <input type="text" id="nomMascota" v-model="nombre">
 
@@ -60,9 +75,8 @@
                               <br>
                               <span id="Warning" class="material-symbols-outlined">warning</span><label for="Warning"
                                     class="w">No se atienden especies más allá de las establecidas
-                                    en las opciones</label>
-                              <label class="w2" for="Warning">En caso de emergencia, puedes contactarnos a través de nuestros
-                                    medios de contacto</label>
+                                    en las opciones.</label>
+                              <label class="w2" for="Warning">En caso de emergencia, puedes contactarnos llamando al: +52 1 871 103 4602</label>
                               <br>
                               <div class="enviar">
                                     <Btnn type="submit" title="Registrar mascota" />
@@ -77,18 +91,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
-import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
+import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue'
+import BarAlertSuccess from "@/components/Mensajes/BarAlertSuccess.vue"
+import BarAlertError from "@/components/Mensajes/BarAlertError.vue";
 
-const Services = ref([]);
+
+const ShowSucces = ref(false);
+const SuccesMessage = ref("Tu cita se genero correctamente.");
+const ShowWarning = ref(false);
+const WarningMessage = ref("Hubo un error al generar tu cita.");
+
+const VoidInputs = ref(false);
+const VoidInputsMessage = ref("Asegurate de llenar todos los campos.");
+
 const fechaCita = ref('');
 const id_mascota = ref('');
 const estatus = ref('Pendiente');
 const motivo = ref('');
 
-import { useUsuarioStore } from "@/stores/UsuariosStore";
 
+import { useUsuarioStore } from "@/stores/UsuariosStore";
 let usuarioStore = useUsuarioStore();
 
 const servicioSelect = ref('');
@@ -96,6 +120,12 @@ const tipo_servicio = ref('');
 
 const id_cliente = ref(usuarioStore.usuario.usuario.id);
 const showRegistrarMascota = ref(false);
+
+// Para evitar que se puedan seleccionar fechas antiguas a la actual
+const fechaActual = new Date().toISOString().slice(0, 16);
+const minDate = computed(() => fechaActual);
+// ---------------------------------------------------------------- //
+
 const FormFlotante = () => {
       showRegistrarMascota.value = true;
 };
@@ -108,6 +138,24 @@ const raza = ref('');
 const especie = ref('');
 const propietario = ref(id_cliente.value);
 const genero = ref('');
+
+const ValidacionCampos = () => {
+  if (nombre.value === '' ||
+      especie.value === '' ||
+      raza.value === '' ||
+      genero.value === ''
+  ){
+    VoidInputs.value = true;
+    setTimeout(() => {
+      VoidInputs.value = false;
+    }, 3000);
+  }
+  else {
+    registrarMascota();
+  }
+}
+
+
 
 const registrarMascota = async () => {
       const mascota = {
@@ -122,11 +170,27 @@ const registrarMascota = async () => {
                   'http://backend.vetcachorros.one/registrarMascota',
                   mascota
             );
-            location.reload();
+        await FiltroMascotas();
+
       } catch (error) {
             console.error(error);
       }
 };
+const ValidacionInfo = () => {
+  if (fechaCita.value === '' ||
+      id_mascota.value === '' ||
+      motivo.value === ''
+  ){
+      VoidInputs.value = true;
+    setTimeout(() => {
+      VoidInputs.value = false;
+    }, 3000);
+  }
+  else {
+    VoidInputs.value = false;
+     agendarCita();
+  }
+}
 
 const agendarCita = async () => {
       const cita = {
@@ -141,19 +205,35 @@ const agendarCita = async () => {
                   'http://backend.vetcachorros.one/agendarcita',
                   cita
             );
-            cleanForm();
+            console.log(response.data)
+            if (response.data.status === 200){
+              ShowSucces.value = true;
+              setTimeout(()=>{
+                ShowSucces.value = false;
+              }, 3000)
+              cleanForm();
+            }
+            else if(response.data.status === 401 || 400){
+              ShowWarning.value = true;
+              setTimeout(()=>{
+                ShowWarning.value = false;
+              }, 3000)
+              cleanForm();
+            }
       } catch (error) {
             console.error(error);
       }
 };
 
 const cleanForm = () => {
+
       fechaCita.value = '';
       id_mascota.value = '';
       estatus.value = 'Pendiente';
       servicioSelect.value = '';
       tipo_servicio.value = '';
       motivo.value = '';
+
 };
 
 const Mascotas = ref([]);
@@ -164,6 +244,7 @@ const FiltroMascotas = async () => {
                   { id_cliente: id_cliente.value }
             );
             Mascotas.value = response.data.data;
+        BackCitas ();
       } catch (error) {
             console.error(error);
       }
@@ -193,7 +274,7 @@ const validarFecha = async () => {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 </script>
 

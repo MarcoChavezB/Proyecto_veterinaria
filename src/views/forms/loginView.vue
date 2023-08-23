@@ -5,7 +5,6 @@
         </div>
         <div class="login ">
             <div class="header">
-              <BarAlertError v-show="showError" />
                 <h5>Veterinaria cachorros</h5>
                 <div class="logo"></div>
             </div>
@@ -51,8 +50,8 @@
                         </router-link>
 
                     </p>
-                </div>
 
+                </div>
             </div>
             <div class="btnSalir d-flex align-items-center justify-content-end">
                 <btn_salir />
@@ -60,8 +59,8 @@
         </div>
         <!--Mensaje de error-->
 
-        <div v-if="mostrarError" class="err">
-            <error title="El usuario no existe" />
+        <div v-if="ShowWarning" class="err">
+            <error title="Tu correo o contraseña son incorrectos" />
         </div>
     </div>
 </template>
@@ -73,14 +72,13 @@ import { useRouter } from 'vue-router';
 import { dataLog } from '@/stores/counter.js'
 import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
 import axios from 'axios';
-import BarAlertError from "@/components/Mensajes/BarAlertError.vue";
 
 const email = ref('');
 const pass = ref('');
 const router = useRouter();
 var mostrarError = ref();
 
-const showError = ref(false);
+const ShowWarning = ref(false);
 
 const redirectToPage = () => {
     router.push('/cuerpo');
@@ -110,7 +108,10 @@ function login() {
     }).then(response => response.json())
         .then(data => {
             if (data.status != 200) {
-              alert("Tu correo o tu contraseña son incorrectos.")
+              ShowWarning.value = true;
+              setTimeout( () => {
+                ShowWarning.value = false;
+              }, 3000)
                 return
             }
             if (
@@ -118,12 +119,9 @@ function login() {
                 (usuario.value.correo === 'root@utt.com' && usuario.value.contra === 'qwerty-1234')
             ) {
                 redirectToPageAdmin();
-                
                 usuarioStore.setUser(data.data);
             } else {
                 usuarioStore.setUser(data.data);
-                
-                
                 redirectToPage();
             }
         });

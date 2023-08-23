@@ -82,6 +82,7 @@
   <div v-if="showRegistrarMascota" class="overlay">
     <div class="floating-form">
       <form @submit.prevent="RegistroConsulta">
+        <span class="material-symbols-outlined" id="Atras" @click="Atras">close</span>
         <label for="observaciones">Observaciones médicas:</label>
           <textarea id="observaciones" v-model="observaciones"></textarea>
           <label for="peso">Peso (kg):</label>
@@ -98,12 +99,14 @@
             <tr>
               <th></th>
               <th>Servicios</th>
+              <th><Inputs placeholder="Servicios" v-model="search" @input="SearchServices" /></th>
             </tr>
           </thead>
           <tbody> 
             <tr v-for="servicio in servicios">
               <td><input type="checkbox"  v-model="services"  :value="servicio.id" :key="servicio.id"  /></td> 
               <td>{{ servicio.nombre_TServicio }}</td>
+              <td></td>
               </tr>
           </tbody>
         </table>
@@ -116,8 +119,7 @@
           <p>Total:  ${{costos.costo_total}}</p>
         </div>
         <br>
-        <Btnn type="submit" title="Guardar consulta"/><br>
-        <p id="Atras" @click="Atras">Salir</p>
+        <div class="enviar"><Btnn type="submit" title="Guardar consulta"/><br></div>
       </form>
     </div>
   </div>
@@ -132,6 +134,7 @@
   import InputFecha from '../../components/ControlesSencillos/InputFecha.vue';
   import router from "@/router";
   import { useRouter } from 'vue-router';
+  import Inputs from "@/components/ControlesSencillos/Inputs.vue";
   import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
 
 
@@ -146,6 +149,16 @@
   const edad = ref('');
   const id_cita = ref('');
   const services = ref([]);
+  const search = ref('');
+  const filter = ref(true);
+
+  const SearchServices = async () => {
+    if (search.value === ""){
+      await TServicios();
+    }else if(filter.value === true){
+      await Services();
+    }
+  }
 
 
   const servicios = ref([]);
@@ -158,6 +171,22 @@
   } catch (error) {
   console.error(error);
   }
+  };
+
+
+
+  const Services = async () => {
+    const data = {
+      TypedData: search.value
+    };
+
+    try {
+      const response = await axios.post('http://backend.vetcachorros.one/BuscarServicios', data);
+      servicios.value = response.data.data;
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
 
@@ -198,6 +227,8 @@
 
     }
   }
+
+
 
 
 
@@ -264,8 +295,13 @@ try {
     height: 100vh;
     font-family: 'Comfortaa';
   }
-  
- 
+
+  .enviar {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .pantalla {
     display: flex;
@@ -319,7 +355,7 @@ try {
   }
 
   @media (max-width: 767px) {
-    .table-container::-webkit-scrollbar{ /*Oculta la barra deslizadora en navegadores como Chrome, Safari, Internet Explorer y Edge */
+    .table-container::-webkit-scrollbar{
     display: none;
   }
   }
@@ -341,7 +377,7 @@ try {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* Asegúrate de que el índice z sea mayor que el de otros elementos para que aparezca en frente */
+  z-index: 999;
 }
 
 .floating-form {
