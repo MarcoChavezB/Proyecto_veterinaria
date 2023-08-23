@@ -37,7 +37,7 @@
                                   <div class="Products ">
                                     <h3>Productos</h3>
 
-                                    <div class=" "  v-for="tiket in tiketData" :key="tiket.nombre_producto">
+                                    <div v-for="tiket in tiketData" :key="tiket.nombre_producto">
                                       <row_tiket_producto
                                           :nombre="tiket.nombre_producto"
                                           :cantidad="tiket.cantidad_vendida"
