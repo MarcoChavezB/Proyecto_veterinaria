@@ -6,6 +6,13 @@ import load from '../../components/loaders/loaderPrincipal.vue'
 import {useUsuarioStore} from "@/stores/UsuariosStore";
 import axios from 'axios'
 
+
+
+// Para evitar que se puedan seleccionar fechas antiguas a la actual
+const fechaActual = new Date().toISOString().slice(0, 16);
+const minDate = computed(() => fechaActual);
+// ---------------------------------------------------------------- //
+
 const userregis = ref(useUsuarioStore().usuario.usuario.id);
 const nombre = ref('');
 const apellidos = ref('');
@@ -215,10 +222,13 @@ async function citalocal() {
 
   try {
     const response = await axios.post('http://backend.vetcachorros.one/citalocal', dataToSend);
-    if (response.status === 200) {
+    if (response.data.status === 200) {
       limpiar();
       mensaje.value = '¡Cita local registrada correctamente!';
       COL1.value = 'green';
+    }else{
+      mensaje.value = '¡Error al registrar cita!';
+      COL1.value = 'red';
     }
   } catch (error) {
     console.error("Hubo un error enviando la petición:", error);
@@ -229,13 +239,39 @@ async function citalocal() {
 const validatePhoneInput = (event) => {
   event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
   telefono1.value = event.target.value; 
+  validartelefono(telefono1.value);
 }
 
 const validatePhoneInputt = (event) => {
   event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
   telefono2.value = event.target.value; 
+  validartelefono(telefono2.value);
+
 }
 
+const num = ref([])
+
+const validartelefono = async (telef) => {
+  const telefi = {
+            telefono: telef
+      };
+      try {
+            const response = await axios.post('http://backend.vetcachorros.one/validartelefonobd', telefi );
+            num.value=response.data.data[0].Resultado;
+            if (response.data.status !== 200) {
+            throw new Error('Respuesta no exitosa desde el backend');
+            }
+            if (num.value === 0){
+              mensaje.value = '¡Este numero ya esta registrado!';
+              COL1.value = 'red';
+            }else if(num.value === 1) {
+              mensaje.value = '';
+            }
+            console.log(num.value)
+      } catch (error) {
+            console.error(error);
+      }
+};
 
 const registrarMascota = async () => {
       loadingmasco.value = true;
@@ -328,7 +364,7 @@ const citasweb = async () => {
              <h6 class="msg" :style="{ color: COL1 }">{{ mensaje }}</h6>
       <div class="form-cita">
                    <label for="fechaCita">Fecha de la cita:</label>
-                   <input type="datetime-local" v-model="fechaCita" @input="validarFecha" />
+                   <input type="datetime-local" v-model="fechaCita" @input="validarFecha" :min="minDate"/>
                    <br> 
                     <span>Motivo</span>
                     <textarea v-model="motivo"></textarea>
@@ -439,11 +475,11 @@ const citasweb = async () => {
                     </div>
                   <div class="input">
                        <span>Telefono 1:</span>
-                       <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" @input="validatePhoneInput" placeholder="123-456-7890" v-model="telefono1">
+                       <input type="tel" maxlength="10" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" @input="validatePhoneInput" placeholder="123-456-7890" v-model="telefono1">
                    </div>
                 <div class="input">
                        <span>Telefono 2:</span>
-                       <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" @input="validatePhoneInputt" placeholder="123-456-7890" v-model="telefono2">
+                       <input type="tel" maxlength="10" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" @input="validatePhoneInputt" placeholder="123-456-7890" v-model="telefono2">
                 </div>
          </div>
          <br>
