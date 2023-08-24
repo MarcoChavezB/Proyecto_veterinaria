@@ -109,7 +109,7 @@ const totalCitasHoy = async () => {
     const totCitas = response.data.data[0].tot_citas; 
     mostrarMensaje.value = true
     citasMensaje.value = totCitas;
-    citasMensaje.value = `Tiene ${citasMensaje.value} citas por atender Hoy`;
+    citasMensaje.value = `Tiene ${citasMensaje.value} citas por atender hoy`;
   } catch (error) {
     console.log(error);
   }

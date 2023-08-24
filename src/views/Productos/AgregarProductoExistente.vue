@@ -168,6 +168,7 @@ const editarProd = async () => {
     tipo_producto.value = item.tipo_producto
     categoria.value = item.categoria
   }
+  
   } catch (error) {
     console.log(error)
   }

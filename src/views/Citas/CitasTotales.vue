@@ -14,8 +14,8 @@
     <div class="app">
       <div class="controles">
         <div class="botones ">
-          <btnn id="black" title="Citas hoy" @click="citasHoy"/>
-          <btnn title="Agendar Cita" @click="agendar"/>
+          <btnn id="black" title="Agendar Cita" @click="agendar"/>
+          <btnn title="Citas hoy" @click="citasHoy"/>
           <btnn title="General" @click="fetchData"/>
         </div>
       </div>
@@ -116,7 +116,7 @@ const agendar =()=>{
     showModal.value = false;
   }
 }
-onMounted(fetchData)
+onMounted(fetchData, closeModal)
 
 </script>
 

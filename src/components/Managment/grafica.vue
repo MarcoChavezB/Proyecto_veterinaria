@@ -134,11 +134,6 @@ onMounted(() => {
     options: chartOptions,
   });
 
-  setInterval(() => {
-    fetchData();
-    updateChartData();
-    chart.update();
-  }, 300);
 });
 </script>
 
