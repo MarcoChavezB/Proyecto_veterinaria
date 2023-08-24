@@ -6,10 +6,9 @@
     <div class="app">
       <div class="controles">
         <div class="botones ">
-          <btnn id="black" title="Agendar Cita" @click="agendar"/>
+          <btnn id="black" title="General" @click="fetchData"/>
           <btnn title="Citas proximas" @click="citasProximas"/>
           <btnn title="Citas hoy" @click="citasHoy"/>
-          <btnn title="General" @click="fetchData"/>
         </div>
       </div>
       <div class="table">

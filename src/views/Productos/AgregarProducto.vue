@@ -154,6 +154,13 @@ const fetchData = async () => {
                         console.log(responseAgregar.data)
                         productos.value = responseAgregar.data.data;
                         mostrar_success.value = true;
+                        nombre_producto.value = '' 
+                        descripcion_producto.value = '' 
+                        tipo_producto.value = '' 
+                        cantidad_pructos.value = '' 
+                        precio_venta.value = '' 
+                        precio_compra.value = '' 
+                        categoria_producto.value = ''
                         setTimeout(() => {
                               mostrar_success.value = false;
                         }, 2000);
