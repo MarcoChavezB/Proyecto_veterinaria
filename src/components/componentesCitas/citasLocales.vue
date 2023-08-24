@@ -245,7 +245,7 @@ const validatePhoneInput = (event) => {
 const validatePhoneInputt = (event) => {
   event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
   telefono2.value = event.target.value; 
-  validartelefono(telefono2.value);
+  validartelefono2(telefono2.value);
 
 }
 

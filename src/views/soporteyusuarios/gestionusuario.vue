@@ -8,7 +8,7 @@
        <div class="veri">
         <div class="contra">
           <h5 style="color: rgb(0, 46, 11);">¡Inserta tu Contraseña!</h5>
-          <input type="password" v-model="vericontra" class="inputt">
+          <input type="password" v-model="vericontra" class="inputt" @keyup.enter="verificacion">
           <div class="botones">
             <button class="button" @click="activar" >Cancelar</button>
             <button class="button" @click="verificacion" >Verificar</button>
@@ -37,12 +37,12 @@
         </div >
         <div class="contras"> 
           <label>Repetir Contraseña:</label>
-      <input  class="input" type="text" v-model="contr2" />
+      <input  class="input" type="text" v-model="contr2" @keyup.enter="verificacion2"/>
         </div>
 
           <div class="botones">
             <button class="button" @click="activar2" >Cancelar</button>
-            <button class="button" @click="verificacion2" >Cambiar</button>
+            <button class="button" @click="verificacion2">Cambiar</button>
           </div>
 
             <span style="color: red;" v-show="sierto2">La contraseña no coincide</span>
@@ -133,10 +133,12 @@
   const activar= async () => {
   if(showModal.value === false)
   {
+    sierto.value = false;
     showModal.value = true;
   } else if (showModal.value === true)
   {
     showModal.value = false;
+    sierto.value = false;
   }
 }
 const activar2= async () => {
@@ -592,6 +594,10 @@ justify-content: start;
     .veri{
       width: 40%;
     }
+
+    .veri2{
+    width: 40%;
+    }
  }
  @media screen and (max-width: 1250px) {
   .informacion{
@@ -600,6 +606,9 @@ justify-content: start;
     .veri{
       width: 50%;
     }
+    .veri2{
+    width: 50%;
+    }
  }
  @media screen and (max-width: 1050px) {
   .informacion{
@@ -607,6 +616,9 @@ justify-content: start;
     }
     .veri{
       width: 70%;
+    }
+    .veri2{
+    width: 70%;
     }
  }
  @media screen and (max-width: 850px) {
@@ -632,6 +644,10 @@ justify-content: start;
 .veri{
       width: 80%;
     }
+
+    .veri2{
+    width: 80%;
+    }
     
  }
 
@@ -650,6 +666,10 @@ justify-content: start;
       width: 60%;
     }
 
+    .veri2{
+    width: 95%;
+    }
+
  }
 
  @media screen and (max-width: 550px) {
@@ -658,6 +678,9 @@ justify-content: start;
     }
     .botones{
       width: 80%;
+    }
+    .veri2{
+    width: 100%;
     }
 
  }

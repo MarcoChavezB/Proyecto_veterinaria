@@ -57,13 +57,12 @@
                         <h4>Servicios</h4>
                     </router-link>
 
-                    <a href="#">
-                        <span class="material-symbols-outlined">summarize</span>
+                    <a href="#" @click="preventDefault" >
+                        <span class="material-symbols-outlined" >summarize</span>
                         <select v-model="selectedOption" class="sidebar-select" @change="onReportChange">
                             <option value="" disabled selected>Reportes</option>
                             <option value="reportconsultasrealizadas">Consultas realizadas.</option>
                             <option value="reportconsultasrechazadas">Citas rechazadas.</option>
-                            <option value="reportordenescompra">Servicios.</option>
                         </select>
                     </a>
 
@@ -89,6 +88,11 @@ const router = useRouter();
 var varSalir = logout()
 var mandarVariable = ref(false);
 const selectedOption = ref('');
+
+
+const preventDefault = (event) => {
+    event.preventDefault();
+};
 
 const resetSelect = () => {
     selectedOption.value = '';

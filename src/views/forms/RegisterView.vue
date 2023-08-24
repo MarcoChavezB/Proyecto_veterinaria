@@ -77,12 +77,12 @@
                         <div class="flex-column">
                         </div>
                         <div class="inputForm personal">
-                            <input maxlength="10" v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1">
+                            <input maxlength="10" v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1" @keyup.enter="verificarCorreo" @input="validatePhoneInput">
                         </div>
                         <div class="flex-column ">
                         </div>
                         <div class="inputForm personal">
-                            <input maxlength="10" v-model="tel2" class="input password" type="text" placeholder="Teléfono 2 (opcional)">
+                            <input maxlength="10" v-model="tel2" class="input password" type="text" placeholder="Teléfono 2 (opcional)" @keyup.enter="verificarCorreo" @input="validatePhoneInputt">
                         </div>
                     </div>
 
@@ -93,7 +93,7 @@
                         </div>
                         <span class="span">¿Olvidaste tu contraseña?</span>
                     </div>
-                    <button @click="verificarCorreo" class="button-submit">Sign In</button>
+                    <button @click="verificarCorreo" class="button-submit" :disabled="numeroerror" >Sign In</button>
                     <p class="p">¿Ya tienes una cuenta?
                         <router-link :to="{ name: 'login' }" class="custom-link">
                             <span class="span">Iniciar sesión</span>
@@ -123,6 +123,10 @@
                 <success />
             </div>
 
+            <div v-if= "numeroerror" class="err">
+                <error title="El numero ya existe" />
+            </div>
+
     </div>
 </template>
 
@@ -136,7 +140,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
-
+const numeroerror = ref('');
 const nombre =          ref('');
 const last =            ref('');
 const correo =          ref('');
@@ -149,6 +153,42 @@ var mostrarSuccess =    ref();
 var mostrarErrorRegistro = ref()
 const router =          useRouter();
 
+
+
+const validatePhoneInput = (event) => {
+  event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
+  tel1.value = event.target.value; 
+  validartelefono(tel1.value);
+}
+
+const validatePhoneInputt = (event) => {
+  event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
+  tel2.value = event.target.value; 
+  validartelefono(tel2.value);
+
+}
+
+const num = ref([])
+
+const validartelefono = async (telef) => {
+  const telefi = {
+            telefono: telef
+      };
+      try {
+            const response = await axios.post('http://backend.vetcachorros.one/validartelefonobd', telefi );
+            num.value=response.data.data[0].Resultado;
+            if (response.data.status !== 200) {
+            throw new Error('Respuesta no exitosa desde el backend');
+            }
+            if (num.value === 0){
+                numeroerror.value = true;
+            }else if(num.value === 1) {
+                numeroerror.value = false;
+            }
+      } catch (error) {
+            console.error(error);
+      }
+};
 
 
 const registro = () => {

@@ -350,78 +350,13 @@ import agregarAdmin from '../views/forms/anadirNuevoAdmin.vue'
 // // next = lugar destino
 
 
-// // Navigation guard to check if the user is already authenticated (has a token)
-// router.beforeEach((to, from, next) => {
-//   // mandar el token si ya esta authenticado y si es asi no se habre el login
-//   // se va a dashboard
-//   const authToken = useUsuarioStore().usuario._token;
-
-//   // If the user is already authenticated and tries to access the login page,
-//   // redirect them to another page (e.g., dashboard)
-//   if (to.name === 'login' && authToken) {
-//       next('/dashboard');
-//   } else {
-
-//       next();
-//   }
-// });
-
-// // Add navigation guard to check for authentication token
-// router.beforeEach((to, from, next) => {
-//   // Check if the route requires authentication
-//   if (to.matched.some((route) => route.meta.requiresAuth)) {
-//       // Get the token from the Pinia store
-//       const authToken = useUsuarioStore().usuario._token;
-
-//       // If the user is authenticated (has a token), allow access to the route
-//       if (authToken) {
-//           next();
-//       } else {
-//           // If the user is not authenticated, redirect to the login page
-//           next('/login');
-//       }
-//   } else {
-//       // For public routes, allow access without authentication
-//       next();
-//   }
-// });
-
-
-
-
-// // login
-// function login() {
-//   if (!valid.value) {
-//       return
-//   }
-//   overlay.value = true
-//   fetch('http://web.local/usuario/auth', {
-//       method: 'POST',
-//       body: JSON.stringify(usuario.value),
-//   }).then(response => response.json())
-//       .then(data => {
-//           if (data.status != 200) {
-//               alert(data.message)
-//               overlay.value = false
-//               return
-//           }
-//           // mandarlo al store de pinia
-//           usuarioStore.setUser(data.data)
-//           router.push({name: 'dashboard'})
-//           overlay.value = false
-
-//       });
-// }
-
 
 import { useUsuarioStore } from "@/stores/UsuariosStore";
 
-// Navigation guard to check if the user is already authenticated (has a token)
 router.beforeEach((to, from, next) => {
       const authToken = useUsuarioStore().usuario._token;
 
-      // If the user is already authenticated and tries to access the login page,
-      // redirect them to another page (e.g., dashboard)
+
       if (to.name === 'login' && authToken) {
             next('/cuerpo');
       } else {
@@ -429,7 +364,6 @@ router.beforeEach((to, from, next) => {
       }
 });
 
-// Add navigation guard to check for authentication token
 router.beforeEach((to, from, next) => {
       const userStore = useUsuarioStore();
       const authToken = userStore.usuario._token;
