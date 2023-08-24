@@ -77,11 +77,12 @@
       </div>
 
     </div>
+
     </div>
   </div>
   <div v-if="showRegistrarMascota" class="overlay">
     <div class="floating-form">
-      <form @submit.prevent="RegistroConsulta">
+      <form @submit.prevent="ValidarCampos">
         <span class="material-symbols-outlined" id="Atras" @click="Atras">close</span>
         <label for="observaciones">Observaciones médicas:</label>
           <textarea id="observaciones" v-model="observaciones"></textarea>
@@ -122,6 +123,12 @@
         <div class="enviar"><Btnn type="submit" title="Guardar consulta"/><br></div>
       </form>
     </div>
+    <BarAlertError
+        :name="VoidInputsMessage"
+        v-if="VoidInputs" />
+    <BarAlertSuccess
+        :name="SuccesMessage"
+        v-if="ShowSucces" />
   </div>
 
   </template>
@@ -136,12 +143,20 @@
   import { useRouter } from 'vue-router';
   import Inputs from "@/components/ControlesSencillos/Inputs.vue";
   import Btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
+  import BarAlertError from "@/components/Mensajes/BarAlertError.vue";
+  import BarAlertSuccess from "@/components/Mensajes/BarAlertSuccess.vue";
 
 
   const selectedOption = ref('opcion3');
   const status1 = ref(false);
   const status2 = ref(true);
   const status3 = ref(false);
+
+  const VoidInputsMessage = ref("Error. Campos vacíos.")
+  const VoidInputs = ref(false);
+
+  const SuccesMessage = ref("Consulta generada con exito.")
+  const ShowSucces = ref(false);
 
   const observaciones = ref('');
   const peso = ref('');
@@ -191,10 +206,27 @@
 
 
   watch(services, async (newValue) => {
-
     await CalcularCostoDetallado();
   });
 
+
+  const ValidarCampos = () => {
+    if(
+        id_cita.value === '' ||
+        observaciones.value === '' ||
+        peso.value === '' ||
+        altura.value === '' ||
+        edad.value === '' ||
+        services.value.length === 0
+    ){
+      VoidInputs.value = true;
+      setTimeout(() =>{
+        VoidInputs.value = false;
+      }, 2000)
+    }else {
+      RegistroConsulta();
+    }
+  }
 
   const RegistroConsulta = async () => {
   const Consulta = {
@@ -210,10 +242,32 @@
         'http://backend.vetcachorros.one/RegistroConsulta',
         Consulta
       );
-      location.reload();
+      if(response.data.status === 200){
+        ShowSucces.value = true;
+        setTimeout(() => {
+          ShowSucces.value = false;
+        }, 2000)
+        setTimeout(() => {
+          location.reload();
+        }, 2000)
+      }
+      else if (response.data.status !== 200){
+        alert("Ocurrio algo mal")
+        resetForm();
+      }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const resetForm = () => {
+    id_cita.value = '';
+    observaciones.value = '';
+    peso.value = '';
+    altura.value = '';
+    edad.value = '';
+    services.value = [];
+    search.value = '';
   };
 
 
@@ -235,6 +289,7 @@
   };
   const Atras = () => {
     showRegistrarMascota.value = false;
+    resetForm();
   };
   
   watch(selectedOption, (newValue) => {
@@ -345,7 +400,7 @@ try {
   }
 
   .table-container2 {
-    height: 100px;
+    height: 200px;
     width: 100%;
     overflow: auto;
   }

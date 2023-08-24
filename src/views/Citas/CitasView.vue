@@ -11,7 +11,7 @@
                                   v-model="fechaCita"
                                   @input="validarFecha"
                                   :min="minDate"
-                              /> <!-- el :min pa establecer el valor minimo -->
+                              />
                         </div>
                         <div v-show="showFechaOcupada" class="error-message">
                               Ya existe una cita para esta fecha y hora.
@@ -47,9 +47,7 @@
               <BarAlertError
                   :name="VoidInputsMessage"
                   v-if="VoidInputs" />
-              <BarAlertError
-                  :name="WarningMessage"
-                  v-if="ShowWarning" />
+
             </div>
 
             <div v-if="showRegistrarMascota" class="overlay">
@@ -85,6 +83,9 @@
                               <p id="BackCitas" @click="BackCitas">Salir</p>
                         </form>
                   </div>
+              <BarAlertError
+                  :name="WarningMessage"
+                  v-if="ShowWarning" />
             </div>
 
       </div>
@@ -121,16 +122,23 @@ const tipo_servicio = ref('');
 const id_cliente = ref(usuarioStore.usuario.usuario.id);
 const showRegistrarMascota = ref(false);
 
-// Para evitar que se puedan seleccionar fechas antiguas a la actual
 const fechaActual = new Date().toISOString().slice(0, 16);
 const minDate = computed(() => fechaActual);
-// ---------------------------------------------------------------- //
+
+const limpiarFormulario = () => {
+  nombre.value = '';
+  raza.value = '';
+  genero.value = '';
+  especie.value = '';
+};
+
 
 const FormFlotante = () => {
       showRegistrarMascota.value = true;
 };
 const BackCitas = () => {
       showRegistrarMascota.value = false;
+      limpiarFormulario();
 };
 
 const nombre = ref('');
@@ -171,6 +179,7 @@ const registrarMascota = async () => {
                   mascota
             );
         await FiltroMascotas();
+        limpiarFormulario();
 
       } catch (error) {
             console.error(error);

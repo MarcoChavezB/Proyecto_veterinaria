@@ -160,8 +160,12 @@
   const consultasF = ref([]);
 
   const ReporteConsultasFecha = async () => {
+    const data = {
+      Fecha: Fecha.value,
+      Fecha2: Fecha2.value
+    }
     try {
-      const response = await axios.post('http://backend.vetcachorros.one/ReporteConsultasFecha', {Fecha: Fecha.value, Fecha2: Fecha2.value})
+      const response = await axios.post('http://backend.vetcachorros.one/ReporteConsultasFecha', data)
       consultasF.value = response.data.data
     }catch (error){
       console.error(error)
