@@ -12,7 +12,7 @@
       <div class="filtro4" v-show="status1">
         <div class="label">
           <p class="plabel">Fecha</p>
-          <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="Fecha" @input="ReporteConsultasFecha" /><br>
+          <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="Fecha" /><br>
           <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="Fecha2" @input="ReporteConsultasFecha" /><br>
         </div>
       </div>

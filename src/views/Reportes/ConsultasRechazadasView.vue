@@ -15,7 +15,7 @@
       <div class="filtro4" v-show="status3">
         <div class="label">
           <p class="plabel">Fecha</p>
-          <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="FechaCons" @input="ReporteCitasRechazadasFecha" /><br>
+          <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="FechaCons" /><br>
           <InputFecha  placeholder="Formato: aaaa-mm-dd" v-model="FechaCons2" @input="ReporteCitasRechazadasFecha" /><br>
         </div>
       </div>
