@@ -92,7 +92,7 @@ header {
     background: transparent;
     padding: 28px 12%;
     transition: all .50s ease;
-    box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.18);
     border-radius: 0px 0px  30px 30px;
     background-color: white;
 
