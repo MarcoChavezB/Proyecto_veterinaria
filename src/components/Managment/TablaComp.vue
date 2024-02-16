@@ -26,7 +26,7 @@ import { ref, onMounted } from 'vue'
 const info = ref([])
 const infoCitas = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/citas_total');
+    const response = await axios.get('http://18.223.116.149/api/citas_total');
     info.value = response.data.data;
   } catch(error) {
     console.log(error)

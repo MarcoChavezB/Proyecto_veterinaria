@@ -106,7 +106,7 @@ const FechaVenta = ref("");
 const ventaFecha = ref([]);
 const ReporteFechaVentas = async () => {
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/ReporteFechaVentas', { Fecha: FechaVenta.value });
+    const response = await axios.post('http://18.223.116.149/api/ReporteFechaVentas', { Fecha: FechaVenta.value });
     ventaFecha.value = response.data.data;
   } catch (error) {
     console.error("Error al obtener el reporte de inventario", error);
@@ -116,7 +116,7 @@ const ReporteFechaVentas = async () => {
 const gralVenta = ref("");
 const ReporteGralVentas = async () => {
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/ReporteGralVentas');
+    const response = await axios.post('http://18.223.116.149/api/ReporteGralVentas');
     gralVenta.value = response.data.data;
   } catch (error) {
     console.error("Error al obtener el reporte de inventario", error);

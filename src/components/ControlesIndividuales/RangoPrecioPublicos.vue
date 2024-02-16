@@ -40,7 +40,7 @@ const data = async () => {
     }
   
     try {
-      const response = await axios.post('http://backend.vetcachorros.one/preciosPublicos', rango);
+      const response = await axios.post('http://18.223.116.149/api/preciosPublicos', rango);
       filtData.value = response.data;
       updateVariable()
     } catch (error) {

@@ -116,7 +116,7 @@ const ReporteCitasRechazadasFecha = async () => {
     Fecha2: FechaCons2.value
   }
 try {
-  const response = await axios.post('http://backend.vetcachorros.one/ReporteCitasRechazadasFecha', data)
+  const response = await axios.post('http://18.223.116.149/api/ReporteCitasRechazadasFecha', data)
   consFecha.value = response.data.data;
 } catch (error) {
   console.error(error);
@@ -132,7 +132,7 @@ const ReporteCitasRechazadasCliente = async () => {
     Apellido: Apellidos.value
   }
 try {
-  const response = await axios.post('http://backend.vetcachorros.one/ReporteCiasRechazadasCliente', data)
+  const response = await axios.post('http://18.223.116.149/api/ReporteCiasRechazadasCliente', data)
   console.log(response.data)
   constCliente.value = response.data.data;
 } catch (error) {

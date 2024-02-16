@@ -135,7 +135,7 @@ const dataCita = async () => {
   try {
     await pause(1000);
 
-    const response = await axios.post('http://backend.vetcachorros.one/citas_id', cita_id);
+    const response = await axios.post('http://18.223.116.149/api/citas_id', cita_id);
     citasdata.value = response.data.data;
     isLoading.value = false;
   } catch (error) {
@@ -204,7 +204,7 @@ const citaResponse = async () => {
       cita_respuesta: CitaResponse.value,
       motivor: motivo.value,
     }
-    const response = await axios.post('http://backend.vetcachorros.one/citasResponse', data)
+    const response = await axios.post('http://18.223.116.149/api/citasResponse', data)
     getUserEmail(data.cita_id);
     isLoading.value = false
   } catch (error) {
@@ -219,7 +219,7 @@ const citaId = ref("");
 const getUserEmail = async (idcita) => {
   citaId.value = idcita;
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/CorreoUsuario',{cita_id: citaId.value})
+    const response = await axios.post('http://18.223.116.149/api/CorreoUsuario',{cita_id: citaId.value})
     email.value = response.data.data;
     await SendEmail(email.value[0].correo);
   }catch (error){
@@ -231,7 +231,7 @@ const getUserEmail = async (idcita) => {
 
 const SendEmail = async (emailString) => {
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/NotiCorreo', {correo_u: emailString});
+    const response = await axios.post('http://18.223.116.149/api/NotiCorreo', {correo_u: emailString});
     console.log(response.data);
   }catch (error){
     console.error(error);

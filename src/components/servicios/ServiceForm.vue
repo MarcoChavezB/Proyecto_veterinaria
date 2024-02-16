@@ -65,7 +65,7 @@ const sendPostRequest = async () => {
       productos: productosSeleccionados.value,
     };
     console.log(jsonData)
-    const response = await axios.post('http://backend.vetcachorros.one/agregarservicioproduct', jsonData, {
+    const response = await axios.post('http://18.223.116.149/api/agregarservicioproduct', jsonData, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -93,7 +93,7 @@ const productocadena = async () => {
       const data = {
       cadena: search.value,
     };
-        const response = await axios.post('http://backend.vetcachorros.one/productoxcadena', data)
+        const response = await axios.post('http://18.223.116.149/api/productoxcadena', data)
         if (Array.isArray(response.data.data)) {
             productos.value = response.data.data;
         } else {

@@ -175,7 +175,7 @@ const validartelefono = async (telef) => {
             telefono: telef
       };
       try {
-            const response = await axios.post('http://backend.vetcachorros.one/validartelefonobd', telefi );
+            const response = await axios.post('http://18.223.116.149/api/validartelefonobd', telefi );
             num.value=response.data.data[0].Resultado;
             if (response.data.status !== 200) {
             throw new Error('Respuesta no exitosa desde el backend');
@@ -218,7 +218,7 @@ const registro = () => {
 
 const verificarCorreo = async () => {
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/verificarCorreoR', {correo: correo.value});
+    const response = await axios.post('http://18.223.116.149/api/verificarCorreoR', {correo: correo.value});
     
 
     if (response.data.data.data) {
@@ -251,7 +251,7 @@ const data = async () => {
     };
 
     try {
-        const response = await axios.post('http://backend.vetcachorros.one/signin', reg);
+        const response = await axios.post('http://18.223.116.149/api/signin', reg);
         console.log('funcion nueva', reg)
     } catch (error) {
         console.error(error);

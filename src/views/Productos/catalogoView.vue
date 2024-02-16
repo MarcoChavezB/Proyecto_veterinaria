@@ -8,7 +8,7 @@
                                     <h1>Discover we products</h1>
                                     <div class="options">
                                           <div class="inputContainer">
-                                                <input required="required" id="inputField" placeholder="Search products" type="text">
+                                                <input v-model="nombre" required="required" id="inputField" placeholder="Search products" type="text">
                                                 <label class="usernameLabel" for="inputField">For me?</label>
                                                 <img class="userIcon" src="../../assets/img/dog.png" alt="">
                                           </div>
@@ -21,18 +21,29 @@
                         </div>
                   </div>
             </div>
-            <section style="height: 100vh;" id="section">
-                  <CardProduct/>           
+            <section class="bdy" id="section">
+              <div v-for="card in productos" :key="card.id">
+                <CardProduct :img="card.imagen" :name="card.nom_producto" :price="card.precio_venta"/>       
+              </div>
             </section>
+
       </article>
 </template>
   
 <script>
 import CardProduct from '../../components/servicios/CardProduct.vue';
+import axios from 'axios';
+
 export default {
-      components:{
-            CardProduct
-      },
+  components:{
+    CardProduct,
+  },
+  data () {
+    return {
+      nombre: '',
+      productos: [],
+    }
+  },
   methods: {
     scrollToSection() {
       const section = document.getElementById('section');
@@ -41,15 +52,37 @@ export default {
     reverseScroll() {
       const section = document.getElementById('principal');
       section.scrollIntoView({ behavior: 'smooth' });
+    },
+    async getProductos() {
+      const response = await axios.get('http://18.223.116.149/api/productos/venta')
+      this.productos = response.data.productos;
+    },
+    async getProductoByName(nombre){
+      const response = await axios.get('http://18.223.116.149/api/productos/getProductoByName/'+ nombre)
+      this.productos = response.data.producto;
+    }
+  },
+  watch: {
+    nombre: function (val) {
+      this.getProductoByName(val)
     }
   },
   mounted() {
       this.reverseScroll()
+      this.getProductos()
   }
 }
 </script>
   
 <style scoped>
+.bdy{
+
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+}
 .principal-view{
       width: 100%;
       height: 100vh;
@@ -253,7 +286,7 @@ const obtenerproductos = async () =>
       productos.value = [];
     try 
     {
-        const response = await axios.get('http://backend.vetcachorros.one/productosPublicos')
+        const response = await axios.get('http://18.223.116.149/api/productosPublicos')
          if (Array.isArray(response.data.data)) {
              productos.value = response.data.data;
             //  console.log(response.data.data);
@@ -275,7 +308,7 @@ const productocadena = async () => {
       const data = {
       cadena: search.value,
     };
-        const response = await axios.post('http://backend.vetcachorros.one/productopublicoporcadena', data)
+        const response = await axios.post('http://18.223.116.149/api/productopublicoporcadena', data)
         if (Array.isArray(response.data.data)) {
             productos.value = response.data.data;
         } else {

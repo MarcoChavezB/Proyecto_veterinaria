@@ -30,7 +30,7 @@ const userinfo = async () => {
   console.log(user)
 
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/clientes/infoID', user);
+    const response = await axios.post('http://18.223.116.149/api/clientes/infoID', user);
     if (response.data.data) {
       Object.assign(userInfo, response.data.data);
     }    

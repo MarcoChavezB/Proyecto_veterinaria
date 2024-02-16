@@ -58,7 +58,7 @@ const nombre = ref();
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/citas_aceptadas');
+    const response = await axios.get('http://18.223.116.149/api/citas_aceptadas');
     citas.value = response.data.data;
   } catch(error) {
     console.log(error)
@@ -67,7 +67,7 @@ const fetchData = async () => {
 
 const citasHoy = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/citasActualesAcept');
+    const response = await axios.get('http://18.223.116.149/api/citasActualesAcept');
     citas.value = response.data.data;
   } catch(error) {
     console.log(error)
@@ -85,7 +85,7 @@ const seleccion = (id) => {
 const citasProximas = () => {
   const mostrarCitasProximas = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/proximas');
+    const response = await axios.get('http://18.223.116.149/api/proximas');
     citas.value = response.data.data;
   } catch(error) {
     console.log(error)

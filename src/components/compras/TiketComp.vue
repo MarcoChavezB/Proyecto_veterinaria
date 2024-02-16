@@ -67,7 +67,7 @@ const loading = ref(true);
 
 const GenerarTiket = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/GenerarTiket');
+    const response = await axios.get('http://18.223.116.149/api/GenerarTiket');
     tiketData.value = response.data.data;
 
     montoTotal.value = 0;

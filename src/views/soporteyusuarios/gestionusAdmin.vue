@@ -87,7 +87,7 @@ const UsersCorreo = async () => {
     };
     
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/clientes/infoCorreo', userUpdate);
+    const response = await axios.post('http://18.223.116.149/api/clientes/infoCorreo', userUpdate);
     if (Array.isArray(response.data.data)) {
   users.value = response.data.data;
    } else {

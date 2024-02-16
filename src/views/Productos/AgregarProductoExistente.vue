@@ -141,7 +141,7 @@ setTimeout(() => {
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/productosPublicos');
+    const response = await axios.get('http://18.223.116.149/api/productosPublicos');
     productos.value = response.data.data;
   } catch (error) {
     console.log(error)
@@ -157,7 +157,7 @@ const edit = (id) =>{
 
 const editarProd = async () => {
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/mostrarProductoPorID', { id: id_producto.value });
+    const response = await axios.post('http://18.223.116.149/api/mostrarProductoPorID', { id: id_producto.value });
     const respuesta = response.data.data.data
   for (const item of respuesta) {
     nombre_producto.value = item.nom_producto;
@@ -177,7 +177,7 @@ const editarProd = async () => {
 
 const productosPorID = async () => {
   try {
-  const response = await axios.post('http://backend.vetcachorros.one/mostrarProductoPorID', { id: resivirSeñalEditar.value });
+  const response = await axios.post('http://18.223.116.149/api/mostrarProductoPorID', { id: resivirSeñalEditar.value });
   const respuesta = response.data.data.data
   for (const item of respuesta) {
     nombre_producto.value = item.nom_producto;
@@ -205,7 +205,7 @@ const verificacion = () => {
   } else {
     const verificarExistencia = async () => {
       try {
-        const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre_producto.value });
+        const response = await axios.post('http://18.223.116.149/api/revisar_producto', { nombre_producto: nombre_producto.value });
         
         if (response.data.data.data === true) {
           mensaje_error.value = 'El producto no existe'
@@ -238,7 +238,7 @@ const alterCantProduct = async () => {
   })
 
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/alterProduct', producto);
+    const response = await axios.post('http://18.223.116.149/api/alterProduct', producto);
     data.value = response.data.data;
     
 
@@ -252,7 +252,7 @@ const alterCantProduct = async () => {
 
 const categoriasData = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/categorias');
+    const response = await axios.get('http://18.223.116.149/api/categorias');
     categorias.value = response.data.data;
   }
   catch (error) {
@@ -263,7 +263,7 @@ const categoriasData = async () => {
 
 const prodInternos = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/productosInternos');
+    const response = await axios.get('http://18.223.116.149/api/productosInternos');
     productos.value = response.data.data;
   }
   catch (error) {
@@ -291,7 +291,7 @@ const alterProduct = async () => {
   })
   
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/dataProd', Alterproducto);
+    const response = await axios.post('http://18.223.116.149/api/dataProd', Alterproducto);
     info.value = response.data.data;
 
     nombre.value = ''
@@ -332,7 +332,7 @@ const editar = () => {
 
     const verificarExistencia = async () => {
       try {
-        const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre.value });
+        const response = await axios.post('http://18.223.116.149/api/revisar_producto', { nombre_producto: nombre.value });
         
         if (response.data.data.data === true) {
           mensaje_error.value = 'El producto no existe'

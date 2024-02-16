@@ -141,7 +141,7 @@ const mostrarmensajeError = ref('')
 
 const userData = async () => {
     try {
-        const response = await axios.get('http://backend.vetcachorros.one/userData'); 
+        const response = await axios.get('http://18.223.116.149/api/userData'); 
         users.value = response.data.data;
     } catch (error) {
         console.log(error)
@@ -160,7 +160,7 @@ const verificar = () => {
         if (contrasena.value === confirmacion.value) {
             const verificarUsuario = async () => {
                 try {
-                    const response = await axios.post('http://backend.vetcachorros.one/verificarUsuario', { correo: correo.value });
+                    const response = await axios.post('http://18.223.116.149/api/verificarUsuario', { correo: correo.value });
                     const responseData = response.data.data;
                     const existeUsuario = responseData.data;
 
@@ -207,7 +207,7 @@ const mandarAdmin = async () => {
             ts: "Administrador"
         };
         
-        const response = await axios.post('http://backend.vetcachorros.one/registrarAdmin', infoAdmin);    
+        const response = await axios.post('http://18.223.116.149/api/registrarAdmin', infoAdmin);    
         users.value = response.data.data;
         mostrarmensajeSuccess.value = 'Se registró el usuario';
         mostrarSuccess.value = true;

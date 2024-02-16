@@ -241,7 +241,7 @@ const terminar = async () => {
   } else {
     try {
       const response = await axios.post(
-        'http://backend.vetcachorros.one/venta',
+        'http://18.223.116.149/api/venta',
         jsonData
       );
 
@@ -251,7 +251,7 @@ const terminar = async () => {
 
     try {
       const GenerarTiket = await axios.get(
-        'http://backend.vetcachorros.one/GenerarTiket'
+        'http://18.223.116.149/api/GenerarTiket'
       );
       
       tiketData.value = GenerarTiket.data.data;
@@ -295,7 +295,7 @@ const cancelarCompra = async () => {
     }, 2000);
   } else {
     try {
-      const response = await axios.post('http://backend.vetcachorros.one/CancelarCompra');
+      const response = await axios.post('http://18.223.116.149/api/CancelarCompra');
       tiketData.value = [];
       productosEnPantalla.value = [];
       mensaje_success.value = 'Venta cancelada';

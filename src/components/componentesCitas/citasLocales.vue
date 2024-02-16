@@ -137,7 +137,7 @@ const validarFecha = async () => {
       mensaje.value = '';
       const fechaSeleccionada = new Date(fechaCita.value)
       try {
-            const response = await axios.post('http://Backend.vetcachorros.one/ValidacionFechas');
+            const response = await axios.post('http://18.223.116.149/api/ValidacionFechas');
             const fechasValidadas = response.data.data;
             const fechasExistentes = fechasValidadas.some(cita => {
       const fechaCita = new Date(cita.fecha_cita);
@@ -174,7 +174,7 @@ const UsersCorreo = async () => {
      cadena: search.value
     };
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/clientes/infoCorreo', userUpdate);
+    const response = await axios.post('http://18.223.116.149/api/clientes/infoCorreo', userUpdate);
     if (Array.isArray(response.data.data)) {
   usuarios.value = response.data.data;
    } else {
@@ -191,7 +191,7 @@ const mascota = async () => {
      id_cliente: usuarioSeleccionadoId.value
     };
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/MascotasUsuario', userUpdate);
+    const response = await axios.post('http://18.223.116.149/api/MascotasUsuario', userUpdate);
     if (Array.isArray(response.data.data)) {
   mascotas.value = response.data.data;
    } else {
@@ -221,7 +221,7 @@ async function citalocal() {
   };
 
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/citalocal', dataToSend);
+    const response = await axios.post('http://18.223.116.149/api/citalocal', dataToSend);
     if (response.data.status === 200) {
       limpiar();
       mensaje.value = '¡Cita local registrada correctamente!';
@@ -256,7 +256,7 @@ const validartelefono = async (telef) => {
             telefono: telef
       };
       try {
-            const response = await axios.post('http://backend.vetcachorros.one/validartelefonobd', telefi );
+            const response = await axios.post('http://18.223.116.149/api/validartelefonobd', telefi );
             num.value=response.data.data[0].Resultado;
             if (response.data.status !== 200) {
             throw new Error('Respuesta no exitosa desde el backend');
@@ -284,7 +284,7 @@ const registrarMascota = async () => {
       };
       try {
             const response = await axios.post(
-                  'http://backend.vetcachorros.one/registrarMascota',
+                  'http://18.223.116.149/api/registrarMascota',
                   mascotaa
             );
             
@@ -323,7 +323,7 @@ const citasweb = async () => {
       
       try {
             const response = await axios.post(
-                  'http://backend.vetcachorros.one/agendarcita',
+                  'http://18.223.116.149/api/agendarcita',
                   cita
             );
             if(response.data.status === 200){

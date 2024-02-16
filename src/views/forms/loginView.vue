@@ -102,7 +102,7 @@ function login() {
         correo: email.value,
         contra: pass.value
     })
-    fetch('http://backend.vetcachorros.one/auth', {
+    fetch('http://18.223.116.149/api/auth', {
         method: 'POST',
         body: JSON.stringify(usuario.value),
     }).then(response => response.json())

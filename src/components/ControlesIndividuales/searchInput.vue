@@ -31,7 +31,7 @@ const idProd = ref();
 
 const fetchData = async () => {
   try {
-    var response = await axios.post('http://backend.vetcachorros.one/buscarlimit', { nombre: nombre.value });
+    var response = await axios.post('http://18.223.116.149/api/buscarlimit', { nombre: nombre.value });
     productos.value = response.data.data;
     productosBusqueda.value = response.data.data;
     updateVariable();

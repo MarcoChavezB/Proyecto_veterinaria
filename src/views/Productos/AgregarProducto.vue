@@ -145,12 +145,12 @@ const fetchData = async () => {
     };
 
     try {
-        const response = await axios.post('http://backend.vetcachorros.one/revisar_producto', { nombre_producto: nombre_producto.value });
+        const response = await axios.post('http://18.223.116.149/api/revisar_producto', { nombre_producto: nombre_producto.value });
         console.log(response.data.data)
 
             if (response.data.data.data === true) {
                   try {
-                        const responseAgregar = await axios.post('http://backend.vetcachorros.one/agregarProducto', data);
+                        const responseAgregar = await axios.post('http://18.223.116.149/api/agregarProducto', data);
                         console.log(responseAgregar.data)
                         productos.value = responseAgregar.data.data;
                         mostrar_success.value = true;
@@ -196,7 +196,7 @@ const fetchData = async () => {
 
 const categoriasData = async () => {
       try {
-            const response = await axios.get('http://backend.vetcachorros.one/categorias');
+            const response = await axios.get('http://18.223.116.149/api/categorias');
             categorias.value = response.data.data;
       }
       catch (error) {

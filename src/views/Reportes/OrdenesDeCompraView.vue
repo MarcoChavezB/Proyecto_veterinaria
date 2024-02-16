@@ -93,7 +93,7 @@ watch(selectedOption, (newValue) => {
 const General = ref([]);
 const ReporteGeneralOrdenesCompra = async () => {
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/ReporteGeneralOrdenesCompra');
+    const response = await axios.post('http://18.223.116.149/api/ReporteGeneralOrdenesCompra');
     General.value = response.data.data;
     
   } catch (error) {
@@ -105,7 +105,7 @@ onMounted(ReporteGeneralOrdenesCompra);
 const Pagadas = ref([]);
 const ReporteGeneralOrdenesCompraPagadas = async () => {
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/ReporteGeneralOrdenesCompraPagadas');
+    const response = await axios.post('http://18.223.116.149/api/ReporteGeneralOrdenesCompraPagadas');
     Pagadas.value = response.data.data;
     
   } catch (error) {

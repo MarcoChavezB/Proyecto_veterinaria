@@ -71,7 +71,7 @@ const citas = ref([])
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/citas_total');
+    const response = await axios.get('http://18.223.116.149/api/citas_total');
     citas.value = response.data.data;
     
   } catch(error) {
@@ -81,7 +81,7 @@ const fetchData = async () => {
 
 const citasHoy = async () =>{
   try {
-    const response = await axios.get('http://backend.vetcachorros.one/citasActuales');
+    const response = await axios.get('http://18.223.116.149/api/citasActuales');
     citas.value = response.data.data;
 
   } catch(error) {

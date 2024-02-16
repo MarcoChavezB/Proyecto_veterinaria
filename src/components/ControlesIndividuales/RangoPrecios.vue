@@ -41,7 +41,7 @@ const data = async () => {
   };
 
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/rangoFechaCitas', rango);
+    const response = await axios.post('http://18.223.116.149/api/rangoFechaCitas', rango);
     filtData.value = response.data;
   } catch (error) {
     console.error(error);

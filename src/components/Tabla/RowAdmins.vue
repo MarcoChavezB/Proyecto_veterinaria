@@ -27,7 +27,7 @@ const borrar = () =>{
     data.value = useStore.state.variable
     const userData = async () => {
     try {
-        const response = await axios.post('http://backend.vetcachorros.one/eliminarAdmin', {id: data.value}); 
+        const response = await axios.post('http://18.223.116.149/api/eliminarAdmin', {id: data.value}); 
         users.value = response.data.data;
         console.log(users.value)
     } catch (error) {

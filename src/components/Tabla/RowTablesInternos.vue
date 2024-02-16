@@ -51,7 +51,7 @@ setInterval(() => {
 
 const eliminar = async () =>{
     try{
-        const response = await axios.post('http://backend.vetcachorros.one/eliminarProductoInter', {id: mandarVariable.value});
+        const response = await axios.post('http://18.223.116.149/api/eliminarProductoInter', {id: mandarVariable.value});
         console.log(response.data)
     } catch(error){
         console.log(error)

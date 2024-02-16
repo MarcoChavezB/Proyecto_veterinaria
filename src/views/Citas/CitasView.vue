@@ -175,7 +175,7 @@ const registrarMascota = async () => {
       };
       try {
             const response = await axios.post(
-                  'http://backend.vetcachorros.one/registrarMascota',
+                  'http://18.223.116.149/api/registrarMascota',
                   mascota
             );
         await FiltroMascotas();
@@ -211,7 +211,7 @@ const agendarCita = async () => {
       };
       try {
             const response = await axios.post(
-                  'http://backend.vetcachorros.one/agendarcita',
+                  'http://18.223.116.149/api/agendarcita',
                   cita
             );
             console.log(response.data)
@@ -249,7 +249,7 @@ const Mascotas = ref([]);
 const FiltroMascotas = async () => {
       try {
             const response = await axios.post(
-                  'http://backend.vetcachorros.one/MascotasUsuario',
+                  'http://18.223.116.149/api/MascotasUsuario',
                   { id_cliente: id_cliente.value }
             );
             Mascotas.value = response.data.data;
@@ -266,7 +266,7 @@ const showButton = ref(true);
 const validarFecha = async () => {
   const fechaSeleccionada = new Date(fechaCita.value);
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/ValidacionFechas');
+    const response = await axios.post('http://18.223.116.149/api/ValidacionFechas');
     const fechasValidadas = response.data.data;
     const fechasExistentes = fechasValidadas.some(cita => {
       const fechaCita = new Date(cita.fecha_cita);

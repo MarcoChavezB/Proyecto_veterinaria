@@ -86,7 +86,7 @@ const citaRechazadas = async () => {
   ShowSecondCard.value = true;
   ShowFirstCard.value = false;
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/CitasRechazadasCliente', {id_cliente: id_cliente.value} )
+    const response = await axios.post('http://18.223.116.149/api/CitasRechazadasCliente', {id_cliente: id_cliente.value} )
     citasR.value = response.data.data;
   }catch (error) {
     console.error(error);
@@ -97,7 +97,7 @@ const citaPendientes = async () => {
   ShowFirstCard.value = true;
   ShowSecondCard.value = false;
   try {
-    const response = await axios.post('http://backend.vetcachorros.one/CitasPendientesCliente', {id_cliente: id_cliente.value} )
+    const response = await axios.post('http://18.223.116.149/api/CitasPendientesCliente', {id_cliente: id_cliente.value} )
     citas.value = response.data.data;
   }catch (error) {
     console.error(error);

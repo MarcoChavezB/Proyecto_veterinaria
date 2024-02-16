@@ -180,7 +180,7 @@
   const TServicios = async (id) => {
    id_cita.value = id;
   try {
-  const response = await axios.post('http://backend.vetcachorros.one/TServicios')
+  const response = await axios.post('http://18.223.116.149/api/TServicios')
   servicios.value = response.data.data;
   FormFlotante();
   } catch (error) {
@@ -196,7 +196,7 @@
     };
 
     try {
-      const response = await axios.post('http://backend.vetcachorros.one/BuscarServicios', data);
+      const response = await axios.post('http://18.223.116.149/api/BuscarServicios', data);
       servicios.value = response.data.data;
       console.log(response.data);
     } catch (error) {
@@ -239,7 +239,7 @@
   }
     try {
       const response = await axios.post(
-        'http://backend.vetcachorros.one/RegistroConsulta',
+        'http://18.223.116.149/api/RegistroConsulta',
         Consulta
       );
       if(response.data.status === 200){
@@ -274,7 +274,7 @@
   const costosPS = ref("");
   const CalcularCostoDetallado = async () => {
     try{
-      const response = await axios.post('http://backend.vetcachorros.one/CalcularCostoDetallado', {CostosServicios: services.value});
+      const response = await axios.post('http://18.223.116.149/api/CalcularCostoDetallado', {CostosServicios: services.value});
       costosPS.value = response.data.data;
     }catch (error) {
       console.error(error);
@@ -310,7 +310,7 @@
   const General = ref([]);
 const GenerarConsultas = async () => {
  try {
- const response = await axios.post('http://backend.vetcachorros.one/GenerarConsultas')
+ const response = await axios.post('http://18.223.116.149/api/GenerarConsultas')
  General.value = response.data.data;
 } catch (error) {
  console.error(error);
@@ -324,7 +324,7 @@ const Apellidos = ref("");
 const constCliente = ref([]);
 const GenerarConsultasCliente = async () => {
 try {
-  const response = await axios.post('http://backend.vetcachorros.one/GenerarConsultasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
+  const response = await axios.post('http://18.223.116.149/api/GenerarConsultasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
   constCliente.value = response.data.data;
 } catch (error) {
   console.error("Error al obtener el reporte de inventario", error);

@@ -81,7 +81,7 @@
   const FiltroMascotas = async () => {
     try {
       const response = await axios.post(
-        'http://backend.vetcachorros.one/MascotasUsuario',
+        'http://18.223.116.149/api/MascotasUsuario',
         { id_cliente: id_cliente.value }
       );
       Mascotas.value = response.data.data;
@@ -97,7 +97,7 @@
   const HistorialM2 = ref([]);
   const HistorialMedicoIDMascota = async () => {
     try {
-      const response = await axios.post('http://backend.vetcachorros.one/HistorialIDMascota', {id_mascota: id_animal.value} )
+      const response = await axios.post('http://18.223.116.149/api/HistorialIDMascota', {id_mascota: id_animal.value} )
       HistorialM2.value = response.data.data;
     } catch (error) {
       console.error(error);
