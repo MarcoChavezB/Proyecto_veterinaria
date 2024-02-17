@@ -1,19 +1,37 @@
-import {defineStore} from "pinia";
-import {ref} from "vue";
+import { defineStore } from 'pinia';
 
-export const useUsuarioStore = defineStore('UsuarioStore', () => {
-    const usuario = ref({usuario: {correo: null}, _token: null});
-
-    function closeSession() {
-        window.localStorage.clear();
-        usuario.value = {usuario: {correo: null}, _token: null}
-    }
-
-    function setUser(user) {
-        window.localStorage.clear();
-        let u = {...usuario.value, ...user}
-        usuario.value = u;
-    }
-
-    return {usuario, closeSession, setUser}
-}, {persist: true})
+export const useUsuarioStore = defineStore('UsuarioStore', {
+    state: () => ({
+        usuario: null, 
+        token: null, 
+    }),
+    getters: {
+        isLoggedIn: (state) => !!state.token,
+    },
+    actions: {
+        closeSession() {
+            this.usuario = null;
+            this.token = null;
+            localStorage.removeItem('usuario');
+            localStorage.removeItem('token');
+        },
+        setUser(data) {
+            this.usuario = data;
+            localStorage.setItem('usuario', JSON.stringify(data));
+        },
+        setToken(token) {
+            this.token = token;
+            localStorage.setItem('token', token);
+        },
+    },
+    persist: {
+        enabled: true,
+        strategies: [
+            {
+                key: 'usuario',
+                storage: window.localStorage,
+                paths: ['usuario', 'token'], 
+            },
+        ],
+    },
+});

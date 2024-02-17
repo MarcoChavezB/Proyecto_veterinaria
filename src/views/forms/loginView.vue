@@ -120,9 +120,13 @@ export default {
                 console.log(response.data.data)
                 if (tipoUsuario === 'Administrador') {
                     this.usuarioStore.setUser(response.data.data);
+                    this.usuarioStore.setToken(response.data.jwt);
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.jwt}`;
                     this.$router.push('/control');
                 } else {
                     this.usuarioStore.setUser(response.data.data);
+                    this.usuarioStore.setToken(response.data.jwt);
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.jwt}`;
                     this.$router.push('/cuerpo');
                 }
 

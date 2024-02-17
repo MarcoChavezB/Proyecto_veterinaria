@@ -167,11 +167,11 @@ const routes = [
             path: '/panelAdmin',
             name: 'panelAdmin',
             component: panelAdmin,
-            // meta: {
-            //       requiresAuth: true,
-            //       requiredRole: 'Administrador'
+            meta: {
+                   requiresAuth: true,
+                   requiredRole: 'Administrador'
 
-            // },
+            },
             children: [
                   {
                         path: '/control',
@@ -354,40 +354,19 @@ import agregarAdmin from '../views/forms/anadirNuevoAdmin.vue'
 import { useUsuarioStore } from "@/stores/UsuariosStore";
 
 router.beforeEach((to, from, next) => {
-      const authToken = useUsuarioStore().usuario._token;
-
-
-      if (to.name === 'login' && authToken) {
-            next('/cuerpo');
-      } else {
-            next();
-      }
-});
-
-router.beforeEach((to, from, next) => {
       const userStore = useUsuarioStore();
-      const authToken = userStore.usuario._token;
-      const userType = useUsuarioStore().usuario.usuario.tipo_usuario;
-
-      if (to.name === 'login' && authToken) {
-            next('/cuerpo');
+  
+      if (to.name === 'login' && userStore.isLoggedIn) {
+          next('/cuerpo'); 
+      } else if (to.matched.some((route) => route.meta.requiresAuth) && !userStore.isLoggedIn) {
+          next('/login');
+      } else if (userStore.usuario && userStore.usuario.tipo_usuario === 'Administrador' && to.meta.requiredRole === 'Administrador') {
+          next();
+      } else if (to.meta.requiredRole && userStore.usuario && to.meta.requiredRole !== userStore.usuario.tipo_usuario) {
+          next('/login'); 
+      } else {
+          next(); 
       }
-      else if (to.matched.some((route) => route.meta.requiresAuth)) {
-            if (!authToken) {
-                  next('/login');
-            }
-            else if (userType === 'Administrador' && to.name === 'perfil') {
-                  next('/control');
-            }
-            else if (to.matched.some(route => route.meta.requiredRole && route.meta.requiredRole !== userType)) {
-                  next('/login');
-            }
-            else {
-                  next();
-            }
-      }
-      else {
-            next();
-      }
-});
+  });
+  
 
