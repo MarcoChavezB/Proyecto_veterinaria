@@ -26,6 +26,12 @@
                             <input v-model="last" class="input" type="text" placeholder="Apellido">
                         </div>
                     </div>
+                  <div v-if="errors && errors.nombre">
+                    <p class="error">{{ errors.nombre[0] }}</p>
+                  </div>
+                  <div v-if="errors && errors.apellido">
+                    <p class="error">{{ errors.apellido[0] }}</p>
+                  </div>
                     <div class="flex-column">
                         <label>Email </label>
                     </div>
@@ -39,6 +45,9 @@
                         </svg>
                         <input v-model="correo" placeholder="Ingresa tu Email" class="input" type="text">
                     </div>
+                  <div v-if="errors && errors.correo">
+                    <p class="error">{{ errors.correo[0] }}</p>
+                  </div>
 
                     <div class="flex-column">
                         <label>Contraseña </label>
@@ -55,6 +64,9 @@
                         </svg>
                         <input v-model="contrasena" placeholder="Ingresa tu contraseña" class="input" type="password">
                     </div>
+                  <div v-if="errors && errors.contra">
+                    <p class="error">{{ errors.contra[0] }}</p>
+                  </div>
                     <div class="flex-column">
                         <label>Confirmar contraseña </label>
                     </div>
@@ -77,14 +89,17 @@
                         <div class="flex-column">
                         </div>
                         <div class="inputForm personal">
-                            <input maxlength="10" v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1" @keyup.enter="verificarCorreo" @input="validatePhoneInput">
+                            <input maxlength="10" v-model="tel1" class="input nombre" type="text" placeholder="Teléfono 1"><!-- @keyup.enter="verificarCorreo" @input="validatePhoneInput" -->
                         </div>
                         <div class="flex-column ">
                         </div>
                         <div class="inputForm personal">
-                            <input maxlength="10" v-model="tel2" class="input password" type="text" placeholder="Teléfono 2 (opcional)" @keyup.enter="verificarCorreo" @input="validatePhoneInputt">
+                            <input maxlength="10" v-model="tel2" class="input password" type="text" placeholder="Teléfono 2 (opcional)"><!-- @keyup.enter="verificarCorreo" @input="validatePhoneInputt" -->
                         </div>
                     </div>
+                  <div v-if="errors && errors.telefono1">
+                    <p class="error">{{ errors.telefono1[0] }}</p>
+                  </div>
 
                     <div class="flex-row">
                         <div>
@@ -93,7 +108,7 @@
                         </div>
                         <span class="span">¿Olvidaste tu contraseña?</span>
                     </div>
-                    <button @click="verificarCorreo" class="button-submit" :disabled="numeroerror" >Sign In</button>
+                    <button @click="register" class="button-submit">Sign In</button>
                     <p class="p">¿Ya tienes una cuenta?
                         <router-link :to="{ name: 'login' }" class="custom-link">
                             <span class="span">Iniciar sesión</span>
@@ -136,7 +151,7 @@
 <script setup>
 import error from '../../components/Mensajes/Error.vue'
 import success from '../../components/Mensajes/Success.vue'
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import btn_salir from '../../components/ControlesIndividuales/OutBtn.vue'
@@ -154,109 +169,32 @@ var mostrarErrorRegistro = ref()
 const router =          useRouter();
 
 
+const errors = ref([]);
 
-const validatePhoneInput = (event) => {
-  event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
-  tel1.value = event.target.value; 
-  validartelefono(tel1.value);
-}
+const register = async () => {
+  const reg = {
+    nombre: nombre.value,
+    apellido: last.value,
+    contra: contrasena.value,
+    correo: correo.value,
+    telefono1: tel1.value,
+    telefono2: tel2.value,
+    tipo_usuario: "Cliente"
+  };
 
-const validatePhoneInputt = (event) => {
-  event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
-  tel2.value = event.target.value; 
-  validartelefono(tel2.value);
-
-}
-
-const num = ref([])
-
-const validartelefono = async (telef) => {
-  const telefi = {
-            telefono: telef
-      };
-      try {
-            const response = await axios.post('http://18.223.116.149/api/validartelefonobd', telefi );
-            num.value=response.data.data[0].Resultado;
-            if (response.data.status !== 200) {
-            throw new Error('Respuesta no exitosa desde el backend');
-            }
-            if (num.value === 0){
-                numeroerror.value = true;
-            }else if(num.value === 1) {
-                numeroerror.value = false;
-            }
-      } catch (error) {
-            console.error(error);
-      }
-};
-
-
-const registro = () => {
-    if (
-        contrasena.value === confirmacion.value &&
-        nombre.value != '' &&
-        last.value != '' &&
-        correo.value != '' &&
-        tel1.value != ''
-    ) {
-        data();
-        mostrarSuccess.value = true;
-
-        setTimeout(() => {
-            mostrarSuccess.value = false;
-            redirectToPage();
-        }, 5000);
-
-
-    } else {
-      mostrarError.value = true;
-        setTimeout(() => {
-          mostrarError.value = false;
-        }, 5000);
-    }
-};
-
-const verificarCorreo = async () => {
   try {
-    const response = await axios.post('http://18.223.116.149/api/verificarCorreoR', {correo: correo.value});
-    
-
-    if (response.data.data.data) {
-      mostrarErrorRegistro.value = true;
-      setTimeout(() => {
-        mostrarErrorRegistro.value = false;
-      }, 5000);
-
-    } else {
-      registro()
-    }
-
-
+    const response = await axios.post('http://18.223.116.149/api/usuario/registro', reg);
+    redirectToPage();
   } catch (error) {
-    console.error(error);
+    console.error("Error during axios request:", error);
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    }
   }
 };
 
 
 
-const data = async () => {
-    const reg = {
-        nombres: nombre.value,
-        apellidos: last.value,
-        password: contrasena.value,
-        correo: correo.value,
-        tel1: tel1.value,
-        tel2: tel2.value,
-        ts: "Cliente"
-    };
-
-    try {
-        const response = await axios.post('http://18.223.116.149/api/signin', reg);
-        console.log('funcion nueva', reg)
-    } catch (error) {
-        console.error(error);
-    }
-};
 
 const redirectToPage = () => {                                                      // Router
     router.push('/login');
@@ -265,21 +203,17 @@ const redirectToPage = () => {                                                  
 </script>
 
 
-
-<!-- $c->nombre = $dataObject->nombres;
-$c->apellido = $dataObject->apellidos;
-$c->correo = $dataObject->correo;
-$c->telefono1 = $dataObject->tel1;
-$c->telefono2 = $dataObject->tel2;
-$c->contra = $dataObject->password;
-$c->tipo_usuario = $dataObject->ts; -->
-
-
-
 <style scoped>
 * {
     box-sizing: border-box;
 }
+
+.error {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
 
 
 .err {
@@ -455,7 +389,6 @@ $c->tipo_usuario = $dataObject->ts; -->
 
 @media screen and (min-resolution: 70dpi) and (max-resolution: 120dpi) {
 
-    /* Estilos para el rango de zoom entre el 80% y el 120% */
     .app {
         width: 100%;
         right: 1em;
@@ -464,7 +397,6 @@ $c->tipo_usuario = $dataObject->ts; -->
 
     .formulario {
         max-height: 45rem;
-        /* Altura máxima del formulario */
         overflow-y: auto;
     }
 }</style>
