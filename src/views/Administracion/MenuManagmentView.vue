@@ -94,10 +94,13 @@ setInterval(intervalMessage,100)
 
 
 const citas = ref([])
+
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/citasPendientes');
-    citas.value = response.data.data;
+    // retorna las citas proximas en un plazo de dos dias 
+
+    const response = await axios.get('http://18.223.116.149/api/citas/getCitasProximas');
+    citas.value = response.data.citas;
   } catch(error) {                   
     console.log(error)
   }
@@ -105,11 +108,13 @@ const fetchData = async () => {
 
 const totalCitasHoy = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/citasTotHoy');
-    const totCitas = response.data.data[0].tot_citas; 
+    // retorna un mensaje de alerta si se tiene una cita pendiendo de hoy
+
+    //! Falta implementar numero en notificacion
+    const response = await axios.get('http://18.223.116.149/api/citas/citasTotalHoy');
+    const totCitas = response.data.citas; 
     mostrarMensaje.value = true
-    citasMensaje.value = totCitas;
-    citasMensaje.value = `Tiene ${citasMensaje.value} citas por atender hoy`;
+    citasMensaje.value = `Tiene ${totCitas} citas por atender hoy`;
   } catch (error) {
     console.log(error);
   }
@@ -122,8 +127,8 @@ onMounted(totalCitasHoy)
 const productos = ref([])
 const bajaProd = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/bajaProductos');
-    productos.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/citas/getProductos/pocasExistencias');
+    productos.value = response.data.productos;
   } catch(error) {
     console.log(error)
   }
@@ -135,12 +140,18 @@ const citasR = ref([])
 const montoT = ref([])
 const cantidadVentas = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/total_ventas');
-    ventas.value = response.data.data;
-    const citasResponse = await axios.get('http://18.223.116.149/api/total_citas');
-    citasR.value = citasResponse.data.data;
-    const montoTotal = await axios.get('http://18.223.116.149/api/monto_total');
-    montoT.value = montoTotal.data.data
+
+    // cartitas de totales de ventas, citas y monto total
+
+    const response = await axios.get('http://18.223.116.149/api/ventas/graph/getPorcentaje');
+    ventas.value = response.data.porcentaje;
+
+    const citasResponse = await axios.get('http://18.223.116.149/api/citas/graph/getPorcentaje');
+    citasR.value = citasResponse.data.porcentaje;
+    
+    const montoTotal = await axios.get('http://18.223.116.149/api/ventas/graph/getPorcentaje/monto');
+    montoT.value = montoTotal.data.porcentaje
+  
   } catch (error) {
     console.log(error)
   }
