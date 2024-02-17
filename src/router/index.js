@@ -167,11 +167,11 @@ const routes = [
             path: '/panelAdmin',
             name: 'panelAdmin',
             component: panelAdmin,
-            meta: {
-                  requiresAuth: true,
-                  requiredRole: 'Administrador'
+            // meta: {
+            //       requiresAuth: true,
+            //       requiredRole: 'Administrador'
 
-            },
+            // },
             children: [
                   {
                         path: '/control',

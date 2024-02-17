@@ -1,7 +1,9 @@
 <template>
     <div class="cont">
         <header>
-            <div class="vet"> <router-link :to="{path: '/'}" ><span class="logo material-symbols-outlined">sound_detection_dog_barking <p>Veterinaria</p></span></router-link></div>
+            <div class="vet"> <router-link :to="{path: '/'}" >
+                <span class="logo material-symbols-outlined">sound_detection_dog_barking 
+                <p>Veterinaria</p></span></router-link></div>
             <ul class="navbar normal">
                 <li><router-link :to="{name: 'catalogoSin'}" href="#">Productos</router-link></li>
                 <li><router-link :to="{name: 'login'}">Citas</router-link></li>

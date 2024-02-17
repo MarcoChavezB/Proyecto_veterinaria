@@ -60,11 +60,83 @@
         <!--Mensaje de error-->
 
         <div v-if="ShowWarning" class="err">
-            <error title="Tu correo o contraseña son incorrectos" />
+            <Error :title="errMessage" />
+        </div>
+        <div v-if="ShowSuccess" class="err">
+            <Success :title="succMessage" />
         </div>
     </div>
 </template>
 
+
+
+<script>
+import Error from '../../components/Mensajes/Error.vue'
+import Success from '../../components/Mensajes/Success.vue'
+import axios from 'axios'
+import { useUsuarioStore } from "@/stores/UsuariosStore";
+
+export default {
+    components: {
+        Error,
+        Success
+    },
+    data() {
+        return {
+            email: '',
+            pass: '',
+            ShowWarning: false,
+            ShowSuccess: false,
+            errMessage: '',
+            succMessage: '',
+            usuarioStore: useUsuarioStore(),
+        }
+    },
+    methods:{
+        showMessage(type, message){
+            if(type === 'error'){
+                this.ShowWarning = true
+                this.errMessage = message
+                setTimeout(() => {
+                    this.ShowWarning = false
+                }, 3000)
+            }else{
+                this.ShowSuccess = true
+                this.succMessage = message
+                setTimeout(() => {
+                    this.ShowSuccess = false
+                }, 3000)
+            }
+        },
+        async login() {
+            try {
+                const data = {
+                    correo: this.email,
+                    contra: this.pass
+                };
+
+                const response = await axios.post('http://18.223.116.149/api/usuario/login', data);
+                const tipoUsuario = response.data.data.tipo_usuario;
+                console.log(response.data.data)
+                if (tipoUsuario === 'Administrador') {
+                    this.usuarioStore.setUser(response.data.data);
+                    this.$router.push('/control');
+                } else {
+                    this.usuarioStore.setUser(response.data.data);
+                    this.$router.push('/cuerpo');
+                }
+
+                this.showMessage('success', response.data.msg);
+            } catch (error) {
+                console.error(error);
+                this.showMessage('error', 'No se encontro el usuario');
+            }
+        }
+
+    }
+}
+</script>
+<!-- 
 <script setup>
 import error from '../../components/Mensajes/Error.vue'
 import { ref } from 'vue';
@@ -75,6 +147,7 @@ import axios from 'axios';
 
 const email = ref('');
 const pass = ref('');
+
 const router = useRouter();
 var mostrarError = ref();
 
@@ -129,7 +202,7 @@ function login() {
 
 
 
-</script>
+</script> -->
 
 
 
