@@ -33,7 +33,7 @@ const fetchData = async () => {
 
   try {
     // peticion para obtener los datos del mes actual, necesita dos rangos el inicial y e fina 
-    const response = await axios.post('http://18.223.116.149/api/data', rango);
+    const response = await axios.post('http://18.223.116.149/api/ventas/getRangoVentas', rango);
     data.value = response.data;
     // Obtener los datos del mes pasado
     const lastMonthStartDate = new Date(year, mes - 2, 1);
@@ -44,9 +44,10 @@ const fetchData = async () => {
       fechaI: formattedLastMonthStartDate,
       fechaF: formattedLastMonthEndDate
     };
-    const responseLastMonth = await axios.post('http://18.223.116.149/api/data', rangoLastMonth);
+    const responseLastMonth = await axios.post('http://18.223.116.149/api/ventas/getRangoVentas', rangoLastMonth);
     previousMonthData.value = responseLastMonth.data;
     updateChartData();
+    
   } catch (error) {
     console.log(error)
   }
