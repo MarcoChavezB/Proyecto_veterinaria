@@ -45,7 +45,7 @@
           <li id="li1"><label class="labels" for="li1">Mascota:</label> {{cita.Nombre}}</li>
           <li id="li2"><label class="labels" for="li2">Fecha:</label> {{cita.Fecha}}</li>
           <div class="motivo">
-            <li id="li3"><label class="labels" for="li3">Motivo:</label> {{cita.Motivo}}</li>
+            <li id="li3"><label class="labels" for="li3">Motivo Rechazo:</label> {{cita.Motivo}}</li>
           </div>
           <li id="li4"><label class="labels" for="li4">Estatus:</label>
             <span  class="status" :style="{
@@ -54,10 +54,10 @@
                           }">
                   {{ cita.Estatus }}
             </span>
-          </li>
+          </li><!--
           <div class="motivo">
             <li id="li6"><label class="labels" for="li6">Motivo Rechazo:</label>{{cita.MotivoRechazo}}</li>
-          </div>
+          </div>-->
           <br>
           <li id="li5"><label class="labels" for="li5">Si quieres conocer mas detalles, contactanos. +52 1 871 103 4602</label></li>
         </ul>
@@ -86,7 +86,7 @@ const citaRechazadas = async () => {
   ShowSecondCard.value = true;
   ShowFirstCard.value = false;
   try {
-    const response = await axios.post('http://18.223.116.149/api/CitasRechazadasCliente', {id_cliente: id_cliente.value} )
+    const response = await axios.get('http://18.223.116.149/api/citas/citasRechazadas/' + id_cliente.value )
     citasR.value = response.data.data;
   }catch (error) {
     console.error(error);
@@ -97,7 +97,7 @@ const citaPendientes = async () => {
   ShowFirstCard.value = true;
   ShowSecondCard.value = false;
   try {
-    const response = await axios.post('http://18.223.116.149/api/CitasPendientesCliente', {id_cliente: id_cliente.value} )
+    const response = await axios.get('http://18.223.116.149/api/citas/citasPendientes/' + id_cliente.value )
     citas.value = response.data.data;
   }catch (error) {
     console.error(error);

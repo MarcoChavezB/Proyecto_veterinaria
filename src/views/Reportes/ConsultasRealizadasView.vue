@@ -148,7 +148,7 @@
      nomM: nomM.value
    };
    try {
-     const response = await axios.post('http://18.223.116.149/api/ReporteConsultas', data)
+     const response = await axios.post('http://18.223.116.149/api/consultas/reporteConsultas', data)
      consultas.value = response.data.data
    }catch (error){
      console.error(error)
@@ -165,7 +165,7 @@
       Fecha2: Fecha2.value
     }
     try {
-      const response = await axios.post('http://18.223.116.149/api/ReporteConsultasFecha', data)
+      const response = await axios.post('http://18.223.116.149/api/consultas/reporteConsultas/fecha', data)
       consultasF.value = response.data.data
     }catch (error){
       console.error(error)
