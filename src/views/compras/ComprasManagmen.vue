@@ -146,10 +146,6 @@ const quitarProducto = (id) => {
 
 
 
-//const imprimir = () =>{
-//  recibirCantidad.value = cantidad.state.variable
-//}
-//setInterval(imprimir, 1000)
 
 const store = useStore()
 const productosEnPantalla = ref([])
@@ -168,6 +164,11 @@ const declararEfectivo = ()=>{
 const declararMixto = () =>{
   metodo_pago.value = 'mixto'
 }
+
+const imprimir = () =>{
+ recibirCantidad.value = cantidad.state.variable
+}
+setInterval(imprimir, 1000)
 
 const agregar = () => {
   const newProduct = store.state.variable;

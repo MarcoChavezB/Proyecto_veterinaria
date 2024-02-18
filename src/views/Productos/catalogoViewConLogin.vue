@@ -1,35 +1,280 @@
 <template>
-      <div class="container">
-            
-            <h1> <span class="material-symbols-outlined" style="font-size: 60px; padding:15px ;">
-                        sound_detection_dog_barking
-                  </span>Catálogo de productos </h1>
-            <br>
-            <br>
-            <div>
-                  <div class="control">
-                        <input v-model="search" type="text" @input="productocadena">
-                  </div>
-            </div>
-            <br>
-            <div class="row">
-                  <div class="col-lg-4" id="contenedor" v-for="producto in productos" :key="productos.id">
-                        <div id="card-total">
-                              <div id="card-body">
-                                    <h5 class="card-title"> {{ producto.nom_producto }}</h5>
-                                    <div id="imagen">
-                                          <img :src="producto.imagen" alt="imagen">
+      <article>
+            <div class="principal-view" id="principal">
+                  <div class="intra">
+                        <div class="margin">
+                              <div class="bg-img"></div>
+                              <div class="controllers">
+                                    <h1>Discover we products</h1>
+                                    <div class="options">
+                                          <div class="inputContainer">
+                                                <input v-model="nombre" required="required" id="inputField" placeholder="Search products" type="text">
+                                                <label class="usernameLabel" for="inputField">For me?</label>
+                                                <img class="userIcon" src="../../assets/img/dog.png" alt="">
+                                          </div>
+                                          <button class="cta">
+                                                <span
+                                                @click="scrollToSection()">Search products</span>
+                                          </button>
                                     </div>
-                                    <p class="card-text">{{ producto.descripcion }}</p>
-                                    <p class="card-text" id="precio-producto">Precio: ${{ producto.precio_venta }}</p>
                               </div>
                         </div>
                   </div>
             </div>
-      </div>
-      <!-- <footer></footer> -->
+            <section class="bdy" id="section">
+              <div v-for="card in productos" :key="card.id">
+                <CardProduct :img="card.imagen" :name="card.nom_producto" :price="card.precio_venta"/>       
+              </div>
+            </section>
+
+      </article>
 </template>
   
+<script>
+import CardProduct from '../../components/servicios/CardProduct.vue';
+import axios from 'axios';
+
+export default {
+  components:{
+    CardProduct,
+  },
+  data () {
+    return {
+      nombre: '',
+      productos: [],
+    }
+  },
+  methods: {
+    scrollToSection() {
+      const section = document.getElementById('section');
+      section.scrollIntoView({ behavior: 'smooth' });
+    },
+    reverseScroll() {
+      const section = document.getElementById('principal');
+      section.scrollIntoView({ behavior: 'smooth' });
+    },
+    async getProductos() {
+      const response = await axios.get('http://18.223.116.149/api/productos/venta')
+      this.productos = response.data.productos;
+    },
+    async getProductoByName(nombre){
+      const response = await axios.get('http://18.223.116.149/api/productos/getProductoByName/'+ nombre)
+      this.productos = response.data.producto;
+    }
+  },
+  watch: {
+    nombre: function (val) {
+      this.getProductoByName(val)
+    }
+  },
+  mounted() {
+      this.reverseScroll()
+      this.getProductos()
+  }
+}
+</script>
+  
+<style scoped>
+.bdy{
+
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+}
+.principal-view{
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: end;
+}
+
+.intra{
+      width: 100%;
+      height: 95vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: black;
+}
+.margin{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      color: white;
+}
+.options{
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+}
+.bg-img{
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assets/img/bgProducts.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      z-index: -2;
+      
+      
+      opacity: 0.7;
+}
+
+
+
+/* input */
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#inputField {
+  border: 2px solid white;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 12px 15px;
+  color: black;
+  font-weight: 500;
+  outline: none;
+  caret-color: rgb(155, 78, 255);
+  transition-duration: .3s;
+  font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+input::placeholder{
+      color: white;
+}
+
+.userIcon {
+  position: absolute;
+  width: 42px;
+  top: -53px;
+  left: -15px;
+  opacity: 0;
+  transition: .2s linear;
+  
+}
+
+.usernameLabel {
+  position: absolute;
+  top: -55px;
+  left: 40px;
+  color: white;
+  font-size: 24px;
+  font-weight: 400;
+  font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  transition: .2s linear;
+  opacity: 0;
+}
+
+#inputField:focus ~ .usernameLabel,
+#inputField:valid ~ .usernameLabel {
+  transform: translateX(20px);
+  opacity: 1;
+}
+
+#inputField:focus ~ .userIcon,
+#inputField:valid ~ .userIcon {
+  transform: translateX(20px);
+  opacity: 1;
+}
+
+#inputField:focus,
+#inputField:valid {
+  
+  transition-duration: .3s;
+}
+
+.controllers{
+      height: 100%;
+      gap: 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+}
+
+.controllers h1{
+      font-size: 3rem;
+      font-weight: 700;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.cta {
+  position: relative;
+  margin: auto;
+  padding: 12px 18px;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.cta:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 50px;
+  background: #b1dae7;
+  width: 45px;
+  height: 45px;
+  transition: all 0.3s ease;
+}
+
+.cta span {
+  position: relative;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: white;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.cta svg {
+  position: relative;
+  top: 0;
+  margin-left: 10px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #234567;
+  stroke-width: 2;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}
+
+.cta:hover:before {
+  width: 100%;
+  background: #b1dae7;
+}
+
+.cta:hover svg {
+  transform: translateX(0);
+}
+
+.cta:active {
+  transform: scale(0.95);
+}
+
+</style>
+
+<!-- 
+
+
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -74,161 +319,4 @@ const productocadena = async () => {
       //   console.error(error)
     }
 }
-</script>
-  
-<style scoped>
-#imagen
-{
-      margin-top: 20px;
-      width: 210px;
-      height: 210px;
-      overflow: hidden;
-      border: none;
-      box-shadow: 0 0 2em #00000052;
-      display: flex;
-      justify-content: center;
-}
-#imagen img
-{
-      width: 100%;
-      height: 100%;
-}
-.control
-{
-      padding: 10px;
-      font-size: 40px;
-      border: none;
-      box-shadow: 0 0 2em #00000052;
-      border-radius: 20px;
-}
-
-.control input
-{
-      border: none;
-}
-.row
-{
-      width: 100%;
-      display: grid;
-      margin: auto;
-      grid-template-columns: auto auto auto auto;
-}
-
-@media (max-width: 1440px)
-{
-      .row
-      {
-            width: 100%;
-            display: grid;
-            margin: auto;
-            grid-template-columns: auto auto auto;
-      }
-}
-
-@media (max-width: 1050px)
-{
-      .row
-      {
-            width: 100%;
-            display: grid;
-            margin: auto;
-            grid-template-columns: auto auto;
-      }
-}
-
-@media (max-width: 720px)
-{
-      .row
-      {
-            width: 100%;
-            display: grid;
-            margin: auto;
-            justify-content: center;
-            grid-template-columns: auto;
-      }
-}
-#card-total
-{
-      width: 80%;
-}
-#card-body
-{
-      width: 16rem;
-      height: 25rem;
-      border: none;
-      box-shadow: 0 0 2em #00000052;
-      border-radius: 12px;
-      font-size: 19px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 18px;
-      margin-bottom: 30px;
-}
-#card-body img
-{
-      width: 90%;
-}
-
-#card-body:hover
-{
-      transform: translateY(-20px);
-      transition: all 0.3s;
-      box-shadow: 5px 5px 3px black;
-      /* font-size: 26px; */
-      background-color: rgb(230, 230, 230);
-}
-
-
-#card-body #precio-producto:hover
-{
-      color: #008000;
-}
-.card-title
-{
-      font-size: 27px
-}
-
-
-.container
-{
-      width: 90%;
-      height: 100%;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-}
-h1 
-{
-      margin-top: 120px;
-}
-
-.card.card-small 
-{
-      width: 30%;
-      height: 30%;
-}
-
-.custom-image 
-{
-      width: 220px;
-      height: 145px;
-}
-
-.image-container 
-{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 200px;
-      margin: 2px;
-}
-
-.image-container img mx-2 
-{
-      max-width: 100%;
-      max-height: 100%;
-}
-</style>
+</script> -->
