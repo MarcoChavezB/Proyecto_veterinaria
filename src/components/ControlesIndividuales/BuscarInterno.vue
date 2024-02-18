@@ -24,12 +24,11 @@
   const fetchData = async () =>{
     try{
      // productos.value = response.data.data;
-      const response = await axios.post('http://18.223.116.149/api/buscar', {nombre: nombre.value});
-      productos.value = response.data.data
+      const response = await axios.get('http://18.223.116.149/api/productos/productosPublicos/getProductoByName/' + nombre.value);
+      productos.value = response.data.productos
       prodPublico.setVariable(productos.value)
     
     } catch(error){
-      console.log(error)
     }
   }
 
