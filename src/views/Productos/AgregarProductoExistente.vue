@@ -40,7 +40,7 @@
               </div>
               <div class="input">
                 <span>CATEGORÍA DEL PRODUCTO</span>
-                <select @click="mostrar_categorias" name="categorias" id="2" v-model="categoria">
+                <select @click="categoriasData" name="categorias" id="2" v-model="categoria">
                   <option disabled selected value="">{{ categoria }}</option>
                   <option v-for="cat in categorias" :key="cat.id" :value="cat.categoria">
                     {{ cat.categoria }}
@@ -89,7 +89,6 @@
         <barSuccess :name="mensaje_success" v-if="mostrarSuccess" />
         <barError :name="mensaje_error" v-if="mostrarError" />
       </div>
-      
     </div>
   </div>
 </template>
@@ -141,8 +140,8 @@ setTimeout(() => {
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/productosPublicos');
-    productos.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/productos/productosPublicos/index');
+    productos.value = response.data.productos;
   } catch (error) {
     console.log(error)
   }
@@ -155,94 +154,101 @@ const edit = (id) =>{
   editarProd()
 }
 
+
+// ! Editar producto 
+
 const editarProd = async () => {
   try {
-    const response = await axios.post('http://18.223.116.149/api/mostrarProductoPorID', { id: id_producto.value });
-    const respuesta = response.data.data.data
-  for (const item of respuesta) {
-    nombre_producto.value = item.nom_producto;
-    nombre.value = item.nom_producto
-    placeHolderDescripcion.value = item.descripcion
-    placeHolderVenta.value = item.precio_venta
-    placeHolderCompra.value = item.precio_compra
-    tipo_producto.value = item.tipo_producto
-    categoria.value = item.categoria
-  }
+    const response = await axios.get('http://18.223.116.149/api/productos/getProductoById/' + id_producto.value);
+    const producto = response.data.producto
+    const categoria = response.data.categoria
+
+    // inicializar los placeHolders del producto en respuesta
+    nombre.value = producto.nom_producto;
+    nombre_producto.value = producto.nom_producto;
+    placeHolderDescripcion.value = producto.descripcion;
+    placeHolderVenta.value = producto.precio_venta;
+    placeHolderCompra.value = producto.precio_compra;
+    tipo_producto.value = producto.tipo_producto;
+    placeHolderAlterProd.value = producto.nom_producto;  
+    categoria.value = categoria.categoria;
+
   
   } catch (error) {
     console.log(error)
   }
 }
 
+// ejecucion del metodo al seleccionar editar desde la tabla general productos
 
 const productosPorID = async () => {
   try {
-  const response = await axios.post('http://18.223.116.149/api/mostrarProductoPorID', { id: resivirSeñalEditar.value });
-  const respuesta = response.data.data.data
-  for (const item of respuesta) {
-    nombre_producto.value = item.nom_producto;
-    nombre.value = item.nom_producto
-    placeHolderDescripcion.value = item.descripcion
-    placeHolderVenta.value = item.precio_venta
-    placeHolderCompra.value = item.precio_compra
-    tipo_producto.value = item.tipo_producto
-    categoria.value = item.categoria
-  }
+    const response = await axios.get('http://18.223.116.149/api/productos/getProductoById/' + resivirSeñalEditar.value);
+    const producto = response.data.producto
+    const categoria = response.data.categoria
+
+    // inicializar los placeHolders del producto en respuesta
+    nombre.value = producto.nom_producto;
+    nombre_producto.value = producto.nom_producto;
+    placeHolderDescripcion.value = producto.descripcion;
+    placeHolderVenta.value = producto.precio_venta;
+    placeHolderCompra.value = producto.precio_compra;
+    tipo_producto.value = producto.tipo_producto;
+    placeHolderAlterProd.value = producto.nom_producto;  
+    categoria.value = categoria.categoria;
 } catch (error) {
   console.log(error);
 }
   
 };
+
+
+
 // verificar la existencia del producto
-const verificacion = () => {
+const verificacion = async () => {
   if (nombre_producto.value === '' || cantidad_producto.value === '') {
-    mensaje_error.value = 'Campos obligatorios'
+    mensaje_error.value = 'Cantidad minima a agregar: 1'
     mostrarError.value = true
     setTimeout(() => {
       mostrarError.value = false
     }, 2000);
 
   } else {
-    const verificarExistencia = async () => {
       try {
-        const response = await axios.post('http://18.223.116.149/api/revisar_producto', { nombre_producto: nombre_producto.value });
-        
-        if (response.data.data.data === true) {
+        const response = await axios.get('http://18.223.116.149/api/productos/existe/' + nombre.value)
+        console.log(response.data.exist)
+        if (response.data.exist === false) {
+
           mensaje_error.value = 'El producto no existe'
           mostrarError.value = true
           setTimeout(() => {
           mostrarError.value = false
           }, 2000);
         } else{
-          alterCantProduct()
+          alterCantProduct();
         }
       } catch (error) {
+        console.log(error)
       }
     }
-    verificarExistencia()
   }
-}
+
 
 
 
 const alterCantProduct = async () => {
-  mensaje_success.value = `El producto ${nombre_producto.value} se actualizó`;
-  mostrarSuccess.value = true
-  setTimeout(() => {
-    mostrarSuccess.value = false;
-  }, 2000);
   const producto = ({
     nombre_producto: nombre_producto.value,
     cantidad_producto: cantidad_producto.value,
-    tipo_producto: tipo_producto.value,
   })
-
   try {
-    const response = await axios.post('http://18.223.116.149/api/alterProduct', producto);
-    data.value = response.data.data;
-    
-
-
+    const response = await axios.post('http://18.223.116.149/api/productos/update/one', producto);
+    data.value = response.data.message;
+    mensaje_success.value = `El producto ${nombre_producto.value} se actualizó`;
+    mostrarSuccess.value = true
+    setTimeout(() => {
+      mostrarSuccess.value = false;
+    }, 2000);
 
   } catch (error) {
     console.log(error)
@@ -252,8 +258,8 @@ const alterCantProduct = async () => {
 
 const categoriasData = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/categorias');
-    categorias.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/productos/getCategorias');
+    categorias.value = response.data.categorias;
   }
   catch (error) {
     console.log(error)
@@ -261,10 +267,12 @@ const categoriasData = async () => {
 }
 
 
+//////////-------------- Seleccionar el tipo de producto a un costado-------------- ///////////
+
 const prodInternos = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/productosInternos');
-    productos.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/productos/productosInternos/index');
+    productos.value = response.data.productos;
   }
   catch (error) {
     console.log(error)
@@ -278,82 +286,47 @@ const nombre = ref();
 const descripcion = ref();
 const categoria = ref('');
 const precio_venta = ref();
-const info = ref([]);
 const precio_compra = ref();
 
 const alterProduct = async () => {
-  const Alterproducto = ({
+  const infoAlter = ({
     nombre: nombre.value,
     descripcion: descripcion.value,
     categoria: categoria.value,
     precio_venta: precio_venta.value,
-    precio_compra: precio_compra.value
+    precio_compra: precio_compra.value,
+    tipo_producto: tipo_producto.value,
   })
-  
+
   try {
-    const response = await axios.post('http://18.223.116.149/api/dataProd', Alterproducto);
-    info.value = response.data.data;
-
-    nombre.value = ''
-    nombre_producto.value = ''
-    descripcion.value = ''
-    precio_venta.value = ''
-    precio_compra.value = ''
-    tipo_producto.value = ''
-    categoria.value = ''
-    placeHolderDescripcion.value = ''
-    placeHolderVenta.value = ''
-    placeHolderCompra.value = ''
-    
-    mensaje_success.value = 'El producto fue actualizado'
-    mostrarSuccess.value = true;
-    setTimeout(() => {
-    mostrarSuccess.value = false;
-    }, 2000);
-
+    const response = await axios.put('http://18.223.116.149/api/productos/update', infoAlter)
+    showAlert('success', response.data.message)
   } catch (error) {
-    console.log(error)
-        
+    showAlert('error', error.response.data.message)
   }
 }
 
 
 
 onMounted(fetchData)
-const editar = () => {
 
-  if (nombre.value === '' || descripcion.value === '' || categoria.value === '' || precio_venta.value === '' || precio_compra.value === '') {
-    mensaje_error.value = 'Campos obligatorios'
-    mostrarError.value = true
-    setTimeout(() => {
-      mostrarError.value = false;
-    }, 2000);
-  } else {
+const editar = async () => {
+    try {
+        const response = await axios.get('http://18.223.116.149/api/productos/existe/' + nombre.value)
+        // no existe el producto
+        if (response.data.exist === false) {
+          showAlert('error', 'El producto no existe')
 
-    const verificarExistencia = async () => {
-      try {
-        const response = await axios.post('http://18.223.116.149/api/revisar_producto', { nombre_producto: nombre.value });
-        
-        if (response.data.data.data === true) {
-          mensaje_error.value = 'El producto no existe'
-          mostrarError.value = true
-          setTimeout(() => {
-          mostrarError.value = false
-          }, 2000);
-          
-        } else{
-          alterProduct();
-        }
-      } catch (error) {
-        alterCantProduct()
-      }
+          // Existe el producto
+        } else {
+          alterProduct()
+        } 
+    } catch (error) {
+      
     }
-    verificarExistencia()
-  }
 }
-const mostrar_categorias = () => {
-  categoriasData()
-}
+
+
 
 let intervalId;
 
@@ -370,6 +343,25 @@ const mostrar_tipo_producto = () => {
   } else if (tipo_producto.value === 'venta') {
     mostrar_precio.value = true;
     intervalId = setInterval(fetchData, 500);
+  }
+}
+
+
+
+
+const showAlert = (type, message) =>{
+  if (type === 'success') {
+    mensaje_success.value = message
+    mostrarSuccess.value = true
+    setTimeout(() => {
+      mostrarSuccess.value = false
+    }, 2000);
+  } else if (type === 'error'){
+    mensaje_error.value = message
+    mostrarError.value = true
+    setTimeout(() => {
+      mostrarError.value = false
+    }, 2000);
   }
 }
 </script>

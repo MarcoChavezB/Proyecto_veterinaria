@@ -26,8 +26,31 @@
       </div>
     </div>
   </template>
+
+
+
+
+<script>
+export default{
+  props: {
+    name: String,
+    stock: Number,
+    priceV: Number,
+    iva: Number,
+    status: String
+  },
+  methods: {
+    eliminar(){
+      this.$emit('delete')
+    },
+    editarProducto(){
+      this.$emit('editar')
+    }
+  }
+}
+</script>
   
-<script setup>
+<!-- <script setup>
 import {defineProps, ref} from 'vue'
 import axios from 'axios'
 import {deleteProd, idProductoPublico} from '@/stores/counter.js'
@@ -45,15 +68,6 @@ setInterval(() => {
   recibirValor()
 }, 1000);
 
-const eliminar = async () =>{
-    try{
-        const response = await axios.post('http://18.223.116.149/api/eliminarProducto', {id: mandarVariable.value});
-        console.log(response.data.data)
-    } catch(error){
-        console.log(error)
-    }
-}
-
 
 
 const editarProducto = () =>{
@@ -67,7 +81,7 @@ defineProps({
   name:{type:String}, stock:{type:Number}, priceV:{type:Number}, iva:{type:Number}, status:{type:String}
 })
 
-</script>
+</script> -->
 
   <style scoped>
 
