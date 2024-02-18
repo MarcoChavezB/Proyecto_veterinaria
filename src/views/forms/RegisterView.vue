@@ -82,6 +82,9 @@
                         </svg>
                         <input v-model="confirmacion" placeholder="Confirma tu contraseña" class="input" type="password">
                     </div>
+                  <div v-if="errors && errors.confirm_password">
+                    <p class="error">{{ errors.confirm_password[0] }}</p>
+                  </div>
                     <div class="flex-column">
                         <label>Télefono</label>
                     </div>
@@ -176,6 +179,7 @@ const register = async () => {
     nombre: nombre.value,
     apellido: last.value,
     contra: contrasena.value,
+    confirm_password: confirmacion.value,
     correo: correo.value,
     telefono1: tel1.value,
     telefono2: tel2.value,
