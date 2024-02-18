@@ -367,6 +367,6 @@ router.beforeEach((to, from, next) => {
       } else {
           next(); 
       }
-  });
+});
   
 

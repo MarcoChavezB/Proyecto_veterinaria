@@ -129,6 +129,7 @@ export default {
                     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.jwt}`;
                     this.$router.push('/cuerpo');
                 }
+                console.log(response.data.jwt)
 
                 this.showMessage('success', response.data.msg);
             } catch (error) {

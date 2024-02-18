@@ -62,7 +62,7 @@ const chartData = reactive({
   labels: [],
   datasets: [
     {
-      label: 'VENTAS POR DIA',
+      label: 'Ventas del dia',
       borderColor: 'rgb(163, 39, 240)',
       backgroundColor: 'rgba(163, 39, 240, 0.2)',
       data: [],
@@ -70,7 +70,7 @@ const chartData = reactive({
       tension: 0.3, // Ajusta este valor para cambiar la curvatura
     },
     {
-      label: 'Ventas por dia',
+      label: 'Ventas del dia',
       borderColor: 'rgba(255, 99, 132, 0.3)',
       backgroundColor: 'rgba(255, 99, 132, 0.1)',
       data: [],
