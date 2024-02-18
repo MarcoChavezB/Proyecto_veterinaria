@@ -1,7 +1,9 @@
 <template>
     <div class="title">
         <encabezado />
+        
       </div>
+
     <div class="app">
         <div class="controles">
             <div class="botones">
@@ -34,20 +36,20 @@
             </div>
             <div class="cont-table">
                 <div class="row" v-for="productos in productos" :key="productos.id">
-                    <Rows @click="eliminarProd(productos.id)" :name="productos.nom_producto" :stock="productos.existencias" :priceV="productos.precio_venta" 
+                    <Rows 
+                    @editar="sendId(productos.id)"
+                    @delete="deleteProduducto(productos.id)"
+                    :name="productos.nom_producto" :stock="productos.existencias" :priceV="productos.precio_venta" 
                      :iva="productos.iva"
                     :status="productos.estado" />
                 </div>
                 
             </div>
-            
         </div>
-
     </div>
 </template>
 
 <script setup>
-import success from '../../components/Mensajes/BarAlertSuccess.vue'
 import Rows from '../../components/Tabla/RowTablesProducts.vue';
 import search from '../../components/ControlesIndividuales/BuscarInterno.vue'
 import encabezado from '../../components/Tabla/header.vue'
@@ -57,14 +59,12 @@ import precios from '../../components/ControlesIndividuales/RangoPrecioPublicos.
 import axios from 'axios'
 import { ref, onMounted} from 'vue';
 import {productosPublicosR} from '@/stores/counter.js'
-import {StoreProdPublics, deleteProd, idProductoPublico} from '@/stores/counter.js'
+import {StoreProdPublics, idProductoPublico} from '@/stores/counter.js'
 
-const recibirEdit = ref()
-const editarProducto = idProductoPublico()
-const eliminarProducto = ref()
-const recibirProd = deleteProd()
+    
 const prodPublico = StoreProdPublics();
 const productoPublico = productosPublicosR();
+const idProducto = idProductoPublico();
 const productos = ref([])
 const nombre = ref('');
 
@@ -90,11 +90,17 @@ const onInput = () =>{
   productos.value = prodPublico.state.variable;
 }
 
-const eliminarProd = (id) => {
-    const id_producto = id
-    editarProducto.setVariable(id_producto)
-    recibirProd.setVariable(id_producto)
-    console.log(id_producto)
+const deleteProduducto = async (id) => {
+    try {
+        const response = await axios.delete('http://18.223.116.149/api/productos/delete/' + id);
+        console.log(response.data.message);
+    } catch (error) {
+        console.log(error)   
+    }
+};
+
+const sendId = (id) => {
+    idProducto.setVariable(id);
 };
 
 
@@ -110,6 +116,7 @@ const eliminarProd = (id) => {
 
 
 <style scoped>
+
     
 
 .btns{
