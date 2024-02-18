@@ -54,11 +54,11 @@ export default {
       section.scrollIntoView({ behavior: 'smooth' });
     },
     async getProductos() {
-      const response = await axios.get('http://18.223.116.149/api/productos/venta')
+      const response = await axios.get('http://18.223.116.149/api/unauthenticated/productos/venta')
       this.productos = response.data.productos;
     },
     async getProductoByName(nombre){
-      const response = await axios.get('http://18.223.116.149/api/productos/getProductoByName/'+ nombre)
+      const response = await axios.get('http://18.223.116.149/api/unauthenticated/productos/getProductoByName/'+ nombre)
       this.productos = response.data.producto;
     }
   },

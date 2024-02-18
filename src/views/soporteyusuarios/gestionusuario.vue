@@ -128,7 +128,7 @@
   const contr1 = ref('');
   const contr2 = ref('');
 
-  const activar= async () => {
+const activar= async () => {
   if(showModal.value === false)
   {
     sierto.value = false;
@@ -149,7 +149,7 @@ const activar2= async () => {
   }
 }
 
-  let updatedUserInfo = ref(null);
+let updatedUserInfo = ref(null);
 const loading =ref(false);
 
 let userInfo = reactive({
@@ -167,7 +167,9 @@ sierto.value = false
 
 let isEditing = ref(false);
 
-const verificacion= ()=> {
+const verificacion= async ()=> {
+
+
   if(vericontra.value === userInfo.contra){
     isEditing.value = true
     activar()
@@ -217,9 +219,10 @@ const userinfo = async () => {
   resetUserInfo();
   try {
     const response = await axios.get('http://18.223.116.149/api/clientes/infoID');
-    if (response.data.data) {
-      Object.assign(userInfo, response.data.data);
+    if (response.data) {
+      Object.assign(userInfo, response.data);
     }    
+    console.log(response.data)
     contr1.value = userInfo.contra
     contr2.value = userInfo.contra
   } catch (error) {
