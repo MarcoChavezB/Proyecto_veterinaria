@@ -44,7 +44,9 @@ const data = async () => {
     const response = await axios.post('http://18.223.116.149/api/productos/productosPublicos/rango', rango);
     filtData.value = response.data.productos;
     updateVariable();
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 onMounted(() => {

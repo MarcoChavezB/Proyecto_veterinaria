@@ -65,12 +65,12 @@ const sendPostRequest = async () => {
       productos: productosSeleccionados.value,
     };
     console.log(jsonData)
-    const response = await axios.post('http://18.223.116.149/api/agregarservicioproduct', jsonData, {
+    const response = await axios.post('http://18.223.116.149/api/servicios/agregarservicioproduct', jsonData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data)
+    console.log(response.data.status)
     if(response.data.status === 200){
          detallar.value = true;
          productosSeleccionados.value = [];
@@ -93,7 +93,7 @@ const productocadena = async () => {
       const data = {
       cadena: search.value,
     };
-        const response = await axios.post('http://18.223.116.149/api/productoxcadena', data)
+        const response = await axios.post('http://18.223.116.149/api/productos/productoxcadena', data)
         if (Array.isArray(response.data.data)) {
             productos.value = response.data.data;
         } else {

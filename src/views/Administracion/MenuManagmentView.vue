@@ -19,19 +19,19 @@
           <div v-for="ventas in ventas" :key="ventas.ventas_mes_actual">
             <info_card icono="local_shipping" name="Ventas"
                           cardStyle="estilo2" :status="estilo_ventas"
-                          :number="ventas.ventas_mes_actual"
-                          :porcentaje="ventas.porcentaje_crecimiento"
+                          number="30"
+                          porcentaje="20"
                           :arrow="arrow_ventas"/></div>
 
           <div v-for="monto in montoT" :key="monto.monto_mes_actual">
-            <info_card icono="payments" name="Ganancia" :porcentaje="monto.porcentaje_crecimiento"
+            <info_card icono="payments" name="Ganancia" porcentaje="40"
                           cardStyle="estilo3" status="estilo-positivo"
-                          :number="monto.monto_mes_actual"/></div>
+                          number="6000"/></div>
 
           <div v-for="citas in citasR" :key="citas.citas_mes_actual">
-            <info_card icono="pets" name="Citas tot." :porcentaje="citas.porcentaje_crecimiento"
+            <info_card icono="pets" name="Citas tot." porcentaje="5"
                           cardStyle="estilo1" :status="estilo_citas"
-                          :number="citas.citas_mes_actual"
+                          number="30"
                           :arrow="arrow_citas"/></div>
         </div>
       </div>
@@ -95,19 +95,23 @@ setInterval(intervalMessage,100)
 
 const citas = ref([])
 
-axios.interceptors.request.use(request => {
-  console.log('Iniciando Petición:', request);
-  return request; 
-}, error => {
-  return Promise.reject(error);
-});
-
 const fetchData = async () => {
   try {
     // retorna las citas proximas en un plazo de dos dias 
 
     const response = await axios.get('http://18.223.116.149/api/citas/getCitasProximas');
     citas.value = response.data.citas;
+    test()
+  } catch(error) {                   
+    console.log(error)
+  }
+}
+
+
+const test = async () => {
+  try {
+    const response = await axios.get('http://18.223.116.149/api/test/sanctum');
+    console.log(response)
   } catch(error) {                   
     console.log(error)
   }

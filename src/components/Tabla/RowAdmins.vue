@@ -4,11 +4,7 @@
         <div class="descripcion"><p> {{correo}} </p></div>
         <div class="descripcion"><p> {{telefono}} </p></div>
         <div class="btns">
-            <button @click="borrar">
-                    <span class="material-symbols-outlined cambio">
-                        delete
-                    </span>
-            </button>
+
         </div>
     </div>
   </template>
@@ -22,20 +18,7 @@ const useStore = deleteAdmin()
 const data = ref()
 const users = ref()
 
-const borrar = () =>{
 
-    data.value = useStore.state.variable
-    const userData = async () => {
-    try {
-        const response = await axios.post('http://18.223.116.149/api/eliminarAdmin', {id: data.value}); 
-        users.value = response.data.data;
-        console.log(users.value)
-    } catch (error) {
-        console.log(error)
-        }
-    } 
-    userData()  
-}
 
 
 defineProps({

@@ -31,9 +31,9 @@ const idProd = ref();
 
 const fetchData = async () => {
   try {
-    var response = await axios.post('http://18.223.116.149/api/buscarlimit', { nombre: nombre.value });
-    productos.value = response.data.data;
-    productosBusqueda.value = response.data.data;
+    var response = await axios.get('http://18.223.116.149/api/productos/getProductos/existencias/' + nombre.value);
+    productos.value = response.data.productos;
+    productosBusqueda.value = response.data.productos;
     updateVariable();
   } catch (error) {
     console.log(error);

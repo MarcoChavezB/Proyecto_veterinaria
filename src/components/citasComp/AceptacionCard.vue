@@ -1,9 +1,8 @@
 <template>
-  <div v-if="esconder">
     <div id="load" v-if="isLoading">
       <loader/>
     </div>
-    <div v-else>
+    <div v-if="showCard">
       <div class="detalle_cita">
         <div class="header_card">
           <div class="izquierdo_card">
@@ -22,19 +21,19 @@
         <div class="time  d-flex justify-content-center align-items-center">
           <div class="tiempo-1 d-flex justify-content-center align-items-center flex-column">
             <div class="hour d-flex gap-3">
-              <h2>{{formatDate(1,citasdata.data.length > 0 ? citasdata.data[0].fecha_registro : '') }}</h2>
+              <h2>{{formatDate(1,citasdata[0].fecha_registro) }}</h2>
 
             </div>
-            <p>{{formatDate(3,citasdata.data.length > 0 ? citasdata.data[0].fecha_registro : '') }}</p>
+            <p>{{ formatDate(3, citasdata[0].fecha_registro) }}</p>
           </div>
           <div class="icon">
             <span class="material-symbols-outlined">arrow_forward_ios</span>
           </div>
           <div class="tiempo-2 d-flex justify-content-center align-items-center flex-column">
             <div class="hour d-flex gap-5 ">
-              <h2>{{formatDate(1,citasdata.data.length > 0 ? citasdata.data[0].fecha_cita : '') }}</h2>
+              <h2>{{formatDate(1,citasdata[0].fecha_cita) }}</h2>
             </div>
-            <p>{{formatDate(3,citasdata.data.length > 0 ? citasdata.data[0].fecha_cita : '') }}</p>
+            <p>{{formatDate(3,citasdata[0].fecha_cita) }}</p>
           </div>
         </div>
         <div class="body-card">
@@ -45,7 +44,7 @@
               </div>
               <div class="ctn ">
                 <div class="texto overflow-auto">
-                  {{citasdata.data.length > 0 ? citasdata.data[0].motivo : 'No hay datos' }}
+                  {{ citasdata[0].motivo }}
                 </div>
               </div>
             </div>
@@ -85,7 +84,6 @@
         <errorAlert name="Cita rechazada" v-if="mostrarAlertError"/>
         <alert :name="mensajeAlert" v-if="mostrarAlert"/>
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -96,7 +94,7 @@ import loader from '../loaders/loaderPrincipal.vue'
 import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
 import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 import alert from '../../components/Mensajes/BarAlert.vue'
-import {showModalCard } from '@/stores/counter.js';
+
 
 
 const monthNames = [
@@ -105,14 +103,11 @@ const monthNames = [
 
 const mostrarAlert = ref(false)
 const mensajeAlert = ref()
-const recibirEstatus = ref()
-const mandarVariable = showModalCard()
 const recibirShow = card()
 const today = new Date();
 const currentMonth = monthNames[today.getMonth()];
 const currentDay = today.getDate();
 const formattedDate = `${currentMonth}, ${currentDay}`;
-var esconder = ref(true)
 var show = recibirShow.state.variable
 var citaid = citaID()
 var id = citaid.state.variable
@@ -121,23 +116,28 @@ var mostrarAlertError = ref(false);
 const citasdata = ref([])
 const mostrarMotivo = ref(false)
 const motivo = ref('')
+const isLoading = ref(true)
+const showCard = ref(false)
 
 const cita_id = {
   cita_id: id
 }
 
-const isLoading = ref(true)
 const pause = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 
 const dataCita = async () => {
-  try {
-    await pause(1000);
 
-    const response = await axios.post('http://18.223.116.149/api/citas_id', cita_id);
-    citasdata.value = response.data.data;
+  try {
+    const response = await axios.get('http://18.223.116.149/api/citas/index/cita/' + cita_id.cita_id);
+    citasdata.value = response.data.cita;
     isLoading.value = false;
+    setTimeout(() => {
+      showCard.value = true;
+      console.log(showCard.value)
+    }, 1000);
+
   } catch (error) {
     console.log(error);
     isLoading.value = false;
@@ -184,59 +184,27 @@ const mostrarPorque = () => {
 var CitaResponse = ref();
 const respuesta = (seleccion) =>{
   CitaResponse.value = seleccion;
-  CitaResponse.value = CitaResponse.value === 1 ? 'Rechazada' : CitaResponse.value === 2 ? 'Aceptada' : 'otro_valor';
-  if (CitaResponse.value === 'Aceptada'){
-    mostrarAlertSuccess.value = true
-    mostrarAlertError.value = false
-    // MandarCorreo()
-  } else if(CitaResponse.value === 'Rechazada'){
-    // MandarCorreo()
-    mostrarAlertError.value = true
-    mostrarAlertSuccess.value = false
-  }
+  CitaResponse.value = CitaResponse.value === 1 ? '2' : CitaResponse.value === 2 ? '1' : 'otro_valor';
   citaResponse();
 }
 
 const citaResponse = async () => {
-  try {
-    const data = {
+  const data = {
       cita_id: id,
       cita_respuesta: CitaResponse.value,
-      motivor: motivo.value,
+      motivo: motivo.value,
     }
-    const response = await axios.post('http://18.223.116.149/api/citasResponse', data)
-    getUserEmail(data.cita_id);
-    isLoading.value = false
+  try {
+    const response = await axios.put('http://18.223.116.149/api/citas/update/status', data)
+    showAlert('success', response.data.message);
+
   } catch (error) {
     console.log(error)
-    isLoading.value = false
   }
 }
 
 
-const email = ref();
-const citaId = ref("");
-const getUserEmail = async (idcita) => {
-  citaId.value = idcita;
-  try {
-    const response = await axios.post('http://18.223.116.149/api/CorreoUsuario',{cita_id: citaId.value})
-    email.value = response.data.data;
-    await SendEmail(email.value[0].correo);
-  }catch (error){
-    console.error(error)
 
-  }
-}
-
-
-const SendEmail = async (emailString) => {
-  try {
-    const response = await axios.post('http://18.223.116.149/api/NotiCorreo', {correo_u: emailString});
-    console.log(response.data);
-  }catch (error){
-    console.error(error);
-  }
-}
 
 // 1 horas y minutos formato
 // 2 solo año formato
@@ -273,11 +241,18 @@ onMounted(async () => {
 })
 
 
-
-const salir = () => {
-  const mandarShow = false
-  mandarVariable.setVariable(mandarShow)
-  
+const showAlert = (type, message) => {
+  if (type === 'success') {
+    mostrarAlertSuccess.value = true;
+    setTimeout(() => {
+      mostrarAlertSuccess.value = false;
+    }, 2000);
+  } else if (type === 'error') {
+    mostrarAlertError.value = true;
+    setTimeout(() => {
+      mostrarAlertError.value = false;
+    }, 2000);
+  }
 }
 
 </script>

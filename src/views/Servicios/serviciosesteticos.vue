@@ -398,7 +398,7 @@ import axios from 'axios';
 const servicios =ref([]);
 const obtenerservicios = async () => {
     try {
-        const response = await axios.get('http://18.223.116.149/api/serviciospublicosesteticos')
+        const response = await axios.get('http://18.223.116.149/api/unauthenticated/servicios/serviciospublicosesteticos')
       
       
       servicios.value = response.data.data;

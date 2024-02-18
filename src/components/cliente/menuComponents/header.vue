@@ -8,7 +8,6 @@
                 <li><router-link :to="{name: 'cita'}">Citas</router-link></li>
                 <li><router-link :to="{name: 'HistorialMedicoC'}">Historial de atención</router-link></li>
               <li><router-link :to="{name: 'citasPendientesC'}">Tus citas</router-link></li>
-              <li><router-link :to="{name: 'serviciosConLogin'}">Servicios</router-link></li>
               <li><a id="danger" @click="cerrarSession">Cerrar sesión</a></li>
             </ul>
             

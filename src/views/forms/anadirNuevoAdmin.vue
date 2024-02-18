@@ -141,8 +141,8 @@ const mostrarmensajeError = ref('')
 
 const userData = async () => {
     try {
-        const response = await axios.get('http://18.223.116.149/api/userData'); 
-        users.value = response.data.data;
+        const response = await axios.get('http://18.223.116.149/api/usuario/getAdministradores'); 
+        users.value = response.data.administradores;
     } catch (error) {
         console.log(error)
     }
@@ -160,37 +160,27 @@ const verificar = () => {
         if (contrasena.value === confirmacion.value) {
             const verificarUsuario = async () => {
                 try {
-                    const response = await axios.post('http://18.223.116.149/api/verificarUsuario', { correo: correo.value });
-                    const responseData = response.data.data;
-                    const existeUsuario = responseData.data;
+                    const response = await axios.get('http://18.223.116.149/api/usuario/exist/' + correo.value );
+                    const existeUsuario = response.data.exist
 
-                    if (existeUsuario) {
-                        mandarAdmin();
-                    } else {
-                        mostrarmensajeError.value = 'El usuario ya existe';
-                        mostrarError.value = true;
-                        setTimeout(() => {
-                            mostrarError.value = false;
-                        }, 2000);
+                    console.log(response.data.exist)
+
+                    if(existeUsuario){
+                        showAlert('error', 'El usuario ya existe');
+                        return
                     }
+
+                    mandarAdmin()
+
                 } catch (error) {
                     console.log(error);
-                    mostrarmensajeError.value = 'Hubo un error en el servidor';
-                    mostrarError.value = true;
-                    setTimeout(() => {
-                        mostrarError.value = false;
-                    }, 2000);
                 }
 
             }
             verificarUsuario()
 
         } else {
-            mostrarmensajeError.value = 'La contraseña debe ser igual'
-            mostrarError.value = true
-            setTimeout(() => {
-                mostrarError.value = false
-            }, 2000);
+            showAlert('error', 'Las contraseñas no coinciden');
         }
     }
 }
@@ -207,21 +197,35 @@ const mandarAdmin = async () => {
             ts: "Administrador"
         };
         
-        const response = await axios.post('http://18.223.116.149/api/registrarAdmin', infoAdmin);    
-        users.value = response.data.data;
-        mostrarmensajeSuccess.value = 'Se registró el usuario';
-        mostrarSuccess.value = true;
-        setTimeout(() => {
-            mostrarSuccess.value = false;
-        }, 2000);
+        const response = await axios.post('http://18.223.116.149/api/usuario/store/administrador', infoAdmin);    
+        users.value = response.data.msg;
+        console.log(response.data.msg)
+        showAlert('success', 'Administrador agregado');
     } catch (error) {
         console.log(error);
     }
 }
 
+
+const showAlert = (type, message) => {
+    if (type === 'success') {
+        mostrarmensajeSuccess.value = message;
+        mostrarSuccess.value = true;
+        setTimeout(() => {
+            mostrarSuccess.value = false;
+        }, 2000);
+    } else {
+        mostrarmensajeError.value = message;
+        mostrarError.value = true;
+        setTimeout(() => {
+            mostrarError.value = false;
+        }, 2000);
+    }
+
+}
 setInterval(() => {
     userData()
-}, 1000);
+}, 2000);
 onMounted(userData)
 </script>
 

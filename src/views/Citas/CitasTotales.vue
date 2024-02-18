@@ -15,7 +15,7 @@
       <div class="controles">
         <div class="botones ">
           <btnn id="black" title="Agendar Cita" @click="agendar"/>
-          <btnn title="Citas hoy" @click="citasHoy"/>
+          <btnn title="Citas proximas" @click="citasHoy"/>
           <btnn title="General" @click="fetchData"/>
         </div>
       </div>
@@ -36,7 +36,9 @@
                     :raza="citas.raza"/>
             </div>
             <div>
-              <mensaje v-if="inicial" />
+              <div v-if="inicial">
+                <mensaje/>
+              </div>
             </div>
           </div>
         </div>
@@ -71,9 +73,9 @@ const citas = ref([])
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/citas_total');
-    citas.value = response.data.data;
-    
+    const response = await axios.get('http://18.223.116.149/api/citas/index');
+    citas.value = response.data.citas;
+
   } catch(error) {
     console.log(error)
   }
@@ -81,33 +83,22 @@ const fetchData = async () => {
 
 const citasHoy = async () =>{
   try {
-    const response = await axios.get('http://18.223.116.149/api/citasActuales');
-    citas.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/citas/index/getCitasHoy');
+    citas.value = response.data.citas;
 
   } catch(error) {
     console.log(error)
   }
 }
 
-const valorModal = () =>{
-  inicial.value = showCard.state.variable
-}
-
-setInterval(() => {
-  valorModal()
-}, 100);
-
 
 const seleccion = (id) => {
   msgID.value = id;
-  inicial.value = true;
-  showCard.setVariable(inicial.value)
   cita_id.setVariable(msgID.value);
+  
+  inicial.value = true;
 };
 
-const closeModal = () =>{
-  inicial.value = true;
-}
 
 const agendar =()=>{
   if(showModal.value === false){
@@ -116,7 +107,7 @@ const agendar =()=>{
     showModal.value = false;
   }
 }
-onMounted(fetchData, closeModal)
+onMounted(fetchData)
 
 </script>
 

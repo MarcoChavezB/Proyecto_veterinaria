@@ -13,6 +13,20 @@ pinia.use(piniaPluginPersistedstate)
 
 import App from './App.vue'
 import router from './router'
+import axios from 'axios';
+import { useUsuarioStore } from "@/stores/UsuariosStore";
+
+axios.interceptors.response.use(response => {
+    return response; 
+}, error => {
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+      const userStore = useUsuarioStore();
+      userStore.closeSession(); 
+      router.push('/login');
+    }
+    return Promise.reject(error);
+});
+
 
 const app = createApp(App)
 

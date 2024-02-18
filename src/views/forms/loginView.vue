@@ -118,6 +118,7 @@ export default {
                 const response = await axios.post('http://18.223.116.149/api/usuario/login', data);
                 const tipoUsuario = response.data.data.tipo_usuario;
                 console.log(response.data.data)
+                
                 if (tipoUsuario === 'Administrador') {
                     this.usuarioStore.setUser(response.data.data);
                     this.usuarioStore.setToken(response.data.jwt);

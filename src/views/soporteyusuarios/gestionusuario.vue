@@ -117,9 +117,7 @@
 
   import axios from 'axios';
   import { ref, reactive, onMounted, watch } from 'vue'
-  import {useUsuarioStore} from "@/stores/UsuariosStore";
 
-  const id_cliente = ref(useUsuarioStore().usuario.id);
   const correct = ref(false);
   const showModal = ref(false);
   const sierto = ref(false);
@@ -130,7 +128,7 @@
   const contr1 = ref('');
   const contr2 = ref('');
 
-  const activar= async () => {
+const activar= async () => {
   if(showModal.value === false)
   {
     sierto.value = false;
@@ -151,7 +149,7 @@ const activar2= async () => {
   }
 }
 
-  let updatedUserInfo = ref(null);
+let updatedUserInfo = ref(null);
 const loading =ref(false);
 
 let userInfo = reactive({
@@ -169,7 +167,9 @@ sierto.value = false
 
 let isEditing = ref(false);
 
-const verificacion= ()=> {
+const verificacion= async ()=> {
+
+
   if(vericontra.value === userInfo.contra){
     isEditing.value = true
     activar()
@@ -217,14 +217,12 @@ async function updateUser() {
 
 const userinfo = async () => {
   resetUserInfo();
-  const user = {
-    id: id_cliente.value
-  };
   try {
-    const response = await axios.post('http://18.223.116.149/api/clientes/infoID', user);
-    if (response.data.data) {
-      Object.assign(userInfo, response.data.data);
+    const response = await axios.get('http://18.223.116.149/api/clientes/infoID');
+    if (response.data) {
+      Object.assign(userInfo, response.data);
     }    
+    console.log(response.data)
     contr1.value = userInfo.contra
     contr2.value = userInfo.contra
   } catch (error) {
