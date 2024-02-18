@@ -168,7 +168,7 @@ const ValidacionCampos = () => {
 const registrarMascota = async () => {
       const mascota = {
             nombre: nombre.value,
-            propietario: 25,
+            propietario: propietario.value,
             especie: especie.value,
             raza: raza.value,
             genero: genero.value,
@@ -248,9 +248,8 @@ const cleanForm = () => {
 const Mascotas = ref([]);
 const FiltroMascotas = async () => {
       try {
-            const id = 25;
             const response = await axios.get(
-                  'http://18.223.116.149/api/mascotas/index/' + id + ''
+                  'http://18.223.116.149/api/mascotas/index/' + propietario + ''
             );
             Mascotas.value = response.data.data;
         BackCitas ();
