@@ -119,7 +119,7 @@ let usuarioStore = useUsuarioStore();
 const servicioSelect = ref('');
 const tipo_servicio = ref('');
 
-const id_cliente = ref(usuarioStore.usuario.usuario.id);
+const id_cliente = ref(usuarioStore.usuario.id);
 const showRegistrarMascota = ref(false);
 
 const fechaActual = new Date().toISOString().slice(0, 16);

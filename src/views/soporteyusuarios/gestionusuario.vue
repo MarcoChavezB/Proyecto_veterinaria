@@ -119,7 +119,7 @@
   import { ref, reactive, onMounted, watch } from 'vue'
   import {useUsuarioStore} from "@/stores/UsuariosStore";
 
-  const id_cliente = ref(useUsuarioStore().usuario.usuario.id);
+  const id_cliente = ref(useUsuarioStore().usuario.id);
   const correct = ref(false);
   const showModal = ref(false);
   const sierto = ref(false);

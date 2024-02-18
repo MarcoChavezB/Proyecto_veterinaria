@@ -95,6 +95,13 @@ setInterval(intervalMessage,100)
 
 const citas = ref([])
 
+axios.interceptors.request.use(request => {
+  console.log('Iniciando Petición:', request);
+  return request; 
+}, error => {
+  return Promise.reject(error);
+});
+
 const fetchData = async () => {
   try {
     // retorna las citas proximas en un plazo de dos dias 
