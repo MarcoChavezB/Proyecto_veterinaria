@@ -117,7 +117,7 @@ const loading =ref(false);
 
   const serviciospriv = async () => {
     try {
-        const response = await axios.get('http://18.223.116.149/api/serviciosprivados')
+        const response = await axios.get('http://18.223.116.149/api/servicios/privados')
         if (Array.isArray(response.data.data)) {
             services.value = response.data.data;
         } else {
@@ -130,7 +130,7 @@ const loading =ref(false);
 
 const serviciospub = async () => {
     try {
-        const response = await axios.get('http://18.223.116.149/api/serviciospublicos')
+        const response = await axios.get('http://18.223.116.149/api/servicios/publicos')
         if (Array.isArray(response.data.data)) {
             servicesP.value = response.data.data;
         } else {
@@ -165,7 +165,7 @@ const continuar = async () => {
     const jsonData = {
       id_servicio: idd.value
     };
-    const response = await axios.post('http://18.223.116.149/api/publicarono', jsonData);
+    const response = await axios.post('http://18.223.116.149/api/servicios/publicarono', jsonData);
     if(response.status === 200){
       segurar.value = false;
       location.reload();
