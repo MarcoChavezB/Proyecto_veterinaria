@@ -35,7 +35,6 @@ const fetchData = async () => {
     // peticion para obtener los datos del mes actual, necesita dos rangos el inicial y e fina 
     const response = await axios.post('http://18.223.116.149/api/ventas/getRangoVentas', rango);
     data.value = response.data.ventas;
-    console.log(response.data.ventas);
     // Obtener los datos del mes pasado
     const lastMonthStartDate = new Date(year, mes - 2, 1);
     const lastMonthEndDate = new Date(year, mes - 1, 0);

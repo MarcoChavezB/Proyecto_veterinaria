@@ -24,8 +24,9 @@
   const fetchData = async () =>{
     try{
       // productos.value = response.data.data;
-      const response = await axios.post('http://18.223.116.149/api/buscarInterno', {nombre: nombre.value});
-      productos.value = response.data.data
+      const response = await axios.get('http://18.223.116.149/api/productos/productosInternos/getProductoByName/' + nombre.value);
+      productos.value = response.data.productos
+      console.log(productos.value)
       prodPublico.setVariable(productos.value)
   
     } catch(error){
