@@ -137,7 +137,7 @@ const validarFecha = async () => {
       mensaje.value = '';
       const fechaSeleccionada = new Date(fechaCita.value)
       try {
-            const response = await axios.post('http://18.223.116.149/api/ValidacionFechas');
+            const response = await axios.post('http://18.223.116.149/api/citas/ValidacionFechas');
             const fechasValidadas = response.data.data;
             const fechasExistentes = fechasValidadas.some(cita => {
       const fechaCita = new Date(cita.fecha_cita);
@@ -191,7 +191,7 @@ const mascota = async () => {
      id_cliente: usuarioSeleccionadoId.value
     };
   try {
-    const response = await axios.post('http://18.223.116.149/api/MascotasUsuario', userUpdate);
+    const response = await axios.post('http://18.223.116.149/api/mascotas/MascotasUsuario', userUpdate);
     if (Array.isArray(response.data.data)) {
   mascotas.value = response.data.data;
    } else {
@@ -221,7 +221,7 @@ async function citalocal() {
   };
 
   try {
-    const response = await axios.post('http://18.223.116.149/api/citalocal', dataToSend);
+    const response = await axios.post('http://18.223.116.149/api/citas/citalocal', dataToSend);
     if (response.data.status === 200) {
       limpiar();
       mensaje.value = '¡Cita local registrada correctamente!';
@@ -249,22 +249,20 @@ const validatePhoneInputt = (event) => {
 
 }
 
-const num = ref([])
 
 const validartelefono = async (telef) => {
   const telefi = {
             telefono: telef
       };
       try {
-            const response = await axios.post('http://18.223.116.149/api/validartelefonobd', telefi );
-            num.value=response.data.data[0].Resultado;
+            const response = await axios.post('http://18.223.116.149/api/clientes/validartelefonobd', telefi );
             if (response.data.status !== 200) {
             throw new Error('Respuesta no exitosa desde el backend');
             }
-            if (num.value === 0){
+            if (response.data.valido === false){
               mensaje.value = '¡Este numero ya esta registrado!';
               COL1.value = 'red';
-            }else if(num.value === 1) {
+            }else if(response.data.valido === true) {
               mensaje.value = '';
             }
             console.log(num.value)
@@ -284,7 +282,7 @@ const registrarMascota = async () => {
       };
       try {
             const response = await axios.post(
-                  'http://18.223.116.149/api/registrarMascota',
+                  'http://18.223.116.149/api/mascotas/store',
                   mascotaa
             );
             
@@ -315,7 +313,7 @@ const citasweb = async () => {
       loading.value = true;
       const cita = {
             user_regis: userregis.value,
-            fechaCita: fechaCita.value,
+            fecha_cita: fechaCita.value,
             estatus: 'Aceptada',
             motivo: motivo.value,
             id_mascota: mascotaSeleccionada.value
@@ -323,7 +321,7 @@ const citasweb = async () => {
       
       try {
             const response = await axios.post(
-                  'http://18.223.116.149/api/agendarcita',
+                  'http://18.223.116.149/api/citas/store',
                   cita
             );
             if(response.data.status === 200){
