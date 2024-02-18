@@ -75,7 +75,7 @@ import Circulos from "@/components/BolitasCitas/Circulos.vue";
 
 let usuarioStore = useUsuarioStore();
 
-const id_cliente = ref(usuarioStore.usuario.usuario.id);
+const id_cliente = ref(usuarioStore.usuario.id);
 const citas = ref([]);
 const citaSeleccionada = ref("");
 const ShowSecondCard = ref(false);

@@ -101,6 +101,17 @@ const fetchData = async () => {
 
     const response = await axios.get('http://18.223.116.149/api/citas/getCitasProximas');
     citas.value = response.data.citas;
+    test()
+  } catch(error) {                   
+    console.log(error)
+  }
+}
+
+
+const test = async () => {
+  try {
+    const response = await axios.get('http://18.223.116.149/api/test/sanctum');
+    console.log(response)
   } catch(error) {                   
     console.log(error)
   }

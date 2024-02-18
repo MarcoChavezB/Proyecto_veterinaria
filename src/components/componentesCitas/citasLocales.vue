@@ -13,7 +13,7 @@ const fechaActual = new Date().toISOString().slice(0, 16);
 const minDate = computed(() => fechaActual);
 // ---------------------------------------------------------------- //
 
-const userregis = ref(useUsuarioStore().usuario.usuario.id);
+const userregis = ref(useUsuarioStore().usuario.id);
 const nombre = ref('');
 const apellidos = ref('');
 const telefono1 = ref();

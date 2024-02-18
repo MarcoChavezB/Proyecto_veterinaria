@@ -62,7 +62,7 @@
 
   let usuarioStore = useUsuarioStore();
 
-  const id_cliente = ref(usuarioStore.usuario.usuario.id);
+  const id_cliente = ref(usuarioStore.usuario.id);
 
   const ShowTable1 = ref(true);
   const ShowWindow = ref(false);
