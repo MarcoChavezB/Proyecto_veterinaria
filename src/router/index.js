@@ -349,12 +349,21 @@ import agregarAdmin from '../views/forms/anadirNuevoAdmin.vue'
 // // from = de donde
 // // next = lugar destino
 
+import axios from 'axios';
 
 
 import { useUsuarioStore } from "@/stores/UsuariosStore";
 
 router.beforeEach((to, from, next) => {
       const userStore = useUsuarioStore();
+
+      const token = userStore.token; 
+
+      if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      } else {
+      delete axios.defaults.headers.common['Authorization'];
+      }
   
       if (to.name === 'login' && userStore.isLoggedIn) {
           next('/cuerpo'); 

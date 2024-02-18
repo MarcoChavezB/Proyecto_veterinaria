@@ -95,19 +95,23 @@ setInterval(intervalMessage,100)
 
 const citas = ref([])
 
-axios.interceptors.request.use(request => {
-  console.log('Iniciando Petición:', request);
-  return request; 
-}, error => {
-  return Promise.reject(error);
-});
-
 const fetchData = async () => {
   try {
     // retorna las citas proximas en un plazo de dos dias 
 
     const response = await axios.get('http://18.223.116.149/api/citas/getCitasProximas');
     citas.value = response.data.citas;
+    test()
+  } catch(error) {                   
+    console.log(error)
+  }
+}
+
+
+const test = async () => {
+  try {
+    const response = await axios.get('http://18.223.116.149/api/test/sanctum');
+    console.log(response)
   } catch(error) {                   
     console.log(error)
   }
