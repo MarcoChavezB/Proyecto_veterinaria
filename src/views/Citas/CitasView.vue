@@ -167,15 +167,15 @@ const ValidacionCampos = () => {
 
 const registrarMascota = async () => {
       const mascota = {
-            nombre_: nombre.value,
-            propietario_: propietario.value,
-            especie_: especie.value,
-            raza_: raza.value,
-            genero_: genero.value,
+            nombre: nombre.value,
+            propietario: 25,
+            especie: especie.value,
+            raza: raza.value,
+            genero: genero.value,
       };
       try {
             const response = await axios.post(
-                  'http://18.223.116.149/api/registrarMascota',
+                  'http://18.223.116.149/api/mascotas/store',
                   mascota
             );
         await FiltroMascotas();
@@ -248,9 +248,9 @@ const cleanForm = () => {
 const Mascotas = ref([]);
 const FiltroMascotas = async () => {
       try {
-            const response = await axios.post(
-                  'http://18.223.116.149/api/MascotasUsuario',
-                  { id_cliente: id_cliente.value }
+            const id = 25;
+            const response = await axios.get(
+                  'http://18.223.116.149/api/mascotas/index/' + id + ''
             );
             Mascotas.value = response.data.data;
         BackCitas ();
@@ -266,7 +266,7 @@ const showButton = ref(true);
 const validarFecha = async () => {
   const fechaSeleccionada = new Date(fechaCita.value);
   try {
-    const response = await axios.post('http://18.223.116.149/api/ValidacionFechas');
+    const response = await axios.get('http://18.223.116.149/api/citas/validacionFechas');
     const fechasValidadas = response.data.data;
     const fechasExistentes = fechasValidadas.some(cita => {
       const fechaCita = new Date(cita.fecha_cita);
