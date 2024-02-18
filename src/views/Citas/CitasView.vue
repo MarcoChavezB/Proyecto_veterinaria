@@ -29,10 +29,16 @@
                         </div>
                         <p id="Registro" @click="FormFlotante">Registra una nueva mascota aquí.</p>
                         <div>
+                          <div v-if="errors && errors.id_mascota">
+                            <p class="error">{{ errors.id_mascota[0] }}</p>
+                          </div>
                         </div>
                         <div>
                               <label for="motivo">Motivo de la cita:</label>
                               <textarea id="motivo" v-model="motivo"></textarea>
+                        </div>
+                        <div v-if="errors && errors.motivo">
+                          <p class="error">{{ errors.motivo[0] }}</p>
                         </div>
                         <div class="enviar">
                               <Btnn v-show="showButton" type="submit" title="Agendar cita" />
@@ -52,24 +58,36 @@
 
             <div v-if="showRegistrarMascota" class="overlay">
                   <div class="floating-form">
-                        <form @submit.prevent="ValidacionCampos">
+                        <form @submit.prevent="registrarMascota">
                               <label for="nomMascota">Nombre de tu mascota</label>
                               <input type="text" id="nomMascota" v-model="nombre">
+                              <div v-if="errors && errors.nombre">
+                                <p class="error">{{ errors.nombre[0] }}</p>
+                              </div>
 
                               <label for="razaMascota">Raza de tu mascota</label>
                               <input type="text" id="razaMascota" v-model="raza">
+                              <div v-if="errors && errors.raza">
+                                <p class="error">{{ errors.raza[0] }}</p>
+                              </div>
 
                               <label for="generoMascota">Selecciona el género de tu mascota.</label>
                               <select id="generoMascota" v-model="genero">
                                     <option>Macho</option>
                                     <option>Hembra</option>
                               </select>
+                              <div v-if="errors && errors.genero">
+                                <p class="error">{{ errors.genero[0] }}</p>
+                              </div>
 
                               <label for="especieMascota">Selecciona la especie de tu mascota.</label>
                               <select id="especieMascota" v-model="especie">
                                     <option>Perro</option>
                                     <option>Gato</option>
                               </select>
+                              <div v-if="errors && errors.especie">
+                                <p class="error">{{ errors.especie[0] }}</p>
+                              </div>
                               <br>
                               <span id="Warning" class="material-symbols-outlined">warning</span><label for="Warning"
                                     class="w">No se atienden especies más allá de las establecidas
@@ -104,6 +122,8 @@ const SuccesMessage = ref("Tu cita se genero correctamente.");
 const ShowWarning = ref(false);
 const WarningMessage = ref("Hubo un error al generar tu cita.");
 
+const errors = ref([]);
+
 const VoidInputs = ref(false);
 const VoidInputsMessage = ref("Asegurate de llenar todos los campos.");
 
@@ -111,6 +131,8 @@ const fechaCita = ref('');
 const id_mascota = ref('');
 const estatus = ref('Pendiente');
 const motivo = ref('');
+
+const bdisabled = ref(false);
 
 
 import { useUsuarioStore } from "@/stores/UsuariosStore";
@@ -144,31 +166,12 @@ const BackCitas = () => {
 const nombre = ref('');
 const raza = ref('');
 const especie = ref('');
-const propietario = ref(id_cliente.value);
 const genero = ref('');
-
-const ValidacionCampos = () => {
-  if (nombre.value === '' ||
-      especie.value === '' ||
-      raza.value === '' ||
-      genero.value === ''
-  ){
-    VoidInputs.value = true;
-    setTimeout(() => {
-      VoidInputs.value = false;
-    }, 3000);
-  }
-  else {
-    registrarMascota();
-  }
-}
-
-
 
 const registrarMascota = async () => {
       const mascota = {
             nombre: nombre.value,
-            propietario: 25,
+            propietario: id_cliente.value,
             especie: especie.value,
             raza: raza.value,
             genero: genero.value,
@@ -182,10 +185,14 @@ const registrarMascota = async () => {
         limpiarFormulario();
 
       } catch (error) {
-            console.error(error);
+        console.error(error);
+        if (error.response && error.response.data.errors) {
+          errors.value = error.response.data.errors;
+        }
       }
 };
 const ValidacionInfo = () => {
+  bdisabled.value = true;
   if (fechaCita.value === '' ||
       id_mascota.value === '' ||
       motivo.value === ''
@@ -194,43 +201,38 @@ const ValidacionInfo = () => {
     setTimeout(() => {
       VoidInputs.value = false;
     }, 3000);
+    bdisabled.value = false;
   }
   else {
     VoidInputs.value = false;
      agendarCita();
+     bdisabled.value = false;
   }
 }
 
 const agendarCita = async () => {
       const cita = {
             user_regis: id_cliente.value,
-            fechaCita: fechaCita.value,
+            fecha_cita: fechaCita.value,
             estatus: estatus.value,
             motivo: motivo.value,
-            id_mascota: id_mascota.value
+            id_mascota: id_mascota.value,
       };
       try {
             const response = await axios.post(
-                  'http://18.223.116.149/api/agendarcita',
+                  'http://18.223.116.149/api/citas/store',
                   cita
             );
-            console.log(response.data)
-            if (response.data.status === 200){
               ShowSucces.value = true;
               setTimeout(()=>{
                 ShowSucces.value = false;
-              }, 3000)
+              }, 4000)
               cleanForm();
-            }
-            else if(response.data.status === 401 || 400){
-              ShowWarning.value = true;
-              setTimeout(()=>{
-                ShowWarning.value = false;
-              }, 3000)
-              cleanForm();
-            }
       } catch (error) {
-            console.error(error);
+        console.error(error);
+        if (error.response && error.response.data.errors) {
+          errors.value = error.response.data.errors;
+        }
       }
 };
 
@@ -248,9 +250,9 @@ const cleanForm = () => {
 const Mascotas = ref([]);
 const FiltroMascotas = async () => {
       try {
-            const id = 25;
+
             const response = await axios.get(
-                  'http://18.223.116.149/api/mascotas/index/' + id + ''
+                  'http://18.223.116.149/api/mascotas/index/' + id_cliente.value + ''
             );
             Mascotas.value = response.data.data;
         BackCitas ();
@@ -258,6 +260,7 @@ const FiltroMascotas = async () => {
             console.error(error);
       }
 };
+
 onMounted(FiltroMascotas);
 
 const showFechaOcupada = ref(false);
@@ -290,6 +293,12 @@ const validarFecha = async () => {
 <style scoped>
 *{
   box-sizing: border-box;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .enviar {

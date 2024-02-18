@@ -21,7 +21,7 @@
         <thead>
             <tr>
               <th></th>
-              <th>Nombre</th>
+              <th>Mascota</th>
               <th>Especie</th>
               <th>Raza</th>
               <th>Género</th>
@@ -52,7 +52,7 @@
         <thead>
             <tr>
               <th></th>
-              <th>Nombre</th>
+              <th>Mascota</th>
               <th>Especie</th>
               <th>Raza</th>
               <th>Género</th>
@@ -180,7 +180,7 @@
   const TServicios = async (id) => {
    id_cita.value = id;
   try {
-  const response = await axios.post('http://18.223.116.149/api/TServicios')
+  const response = await axios.get('http://18.223.116.149/api/consultas/tServicios')
   servicios.value = response.data.data;
   FormFlotante();
   } catch (error) {
@@ -192,12 +192,12 @@
 
   const Services = async () => {
     const data = {
-      TypedData: search.value
+      nombre: search.value
     };
 
     try {
-      const response = await axios.post('http://18.223.116.149/api/BuscarServicios', data);
-      servicios.value = response.data.data;
+      const response = await axios.post('http://18.223.116.149/api/consultas/buscarServicios', data);
+      servicios.value = response.data.servicios;
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -232,29 +232,25 @@
   const Consulta = {
     id_cita: id_cita.value,
     observaciones: observaciones.value,
-    peso: peso.value,
-    altura: altura.value,
-    edad: edad.value,
+    peso_kg: peso.value,
+    altura_mts: altura.value,
+    edad_meses: edad.value,
     servicios_id: services.value
   }
     try {
       const response = await axios.post(
-        'http://18.223.116.149/api/RegistroConsulta',
+        'http://18.223.116.149/api/consultas/store',
         Consulta
       );
-      if(response.data.status === 200){
+        costosPS.value = [];
         ShowSucces.value = true;
         setTimeout(() => {
           ShowSucces.value = false;
         }, 2000)
         setTimeout(() => {
-          location.reload();
+          Atras();
+          GenerarConsultas();
         }, 2000)
-      }
-      else if (response.data.status !== 200){
-        alert("Ocurrio algo mal")
-        resetForm();
-      }
     } catch (error) {
       console.error(error);
     }
@@ -274,7 +270,7 @@
   const costosPS = ref("");
   const CalcularCostoDetallado = async () => {
     try{
-      const response = await axios.post('http://18.223.116.149/api/CalcularCostoDetallado', {CostosServicios: services.value});
+      const response = await axios.post('http://18.223.116.149/api/consultas/calcularCostoDetallado', {services: services.value});
       costosPS.value = response.data.data;
     }catch (error) {
       console.error(error);
@@ -288,6 +284,7 @@
     
   };
   const Atras = () => {
+    costosPS.value = [];
     showRegistrarMascota.value = false;
     resetForm();
   };
@@ -310,7 +307,7 @@
   const General = ref([]);
 const GenerarConsultas = async () => {
  try {
- const response = await axios.post('http://18.223.116.149/api/GenerarConsultas')
+ const response = await axios.get('http://18.223.116.149/api/consultas/generarConsultas')
  General.value = response.data.data;
 } catch (error) {
  console.error(error);
@@ -323,8 +320,13 @@ const Nombres = ref("");
 const Apellidos = ref("");  
 const constCliente = ref([]);
 const GenerarConsultasCliente = async () => {
+
+  const data = {
+    Nombre: Nombres.value,
+    Apellido: Apellidos.value
+  }
 try {
-  const response = await axios.post('http://18.223.116.149/api/GenerarConsultasCliente', {Nombre: Nombres.value, Apellido: Apellidos.value})
+  const response = await axios.post('http://18.223.116.149/api/consultas/generarConsultasCliente', data)
   constCliente.value = response.data.data;
 } catch (error) {
   console.error("Error al obtener el reporte de inventario", error);

@@ -33,8 +33,8 @@
               <th>Género</th>
               <th>Dueño</th>
               <th>Fecha</th>
-              <th>Motivo</th>
               <th>Motivo Rechazo</th>
+              <!--<th>Motivo Rechazo</th>-->
             </tr>
           </thead>
           <tbody>
@@ -46,7 +46,7 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
-              <td>{{ item.MotivoRechazo }}</td>
+              <!--<td>{{ item.MotivoRechazo }}</td>-->
             </tr>
           </tbody>
         </table>
@@ -62,8 +62,8 @@
               <th>Genero</th>
               <th>Dueño</th>
               <th>Fecha</th>
-              <th>Motivo</th>
-              <th>Motivo del rechazo</th>
+              <th>Motivo Rechazo</th>
+              <!--<th>Motivo del rechazo</th>-->
             </tr>
           </thead>
           <tbody>
@@ -75,7 +75,7 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
-              <td>{{ item.MotivoRechazo }}</td>
+              <!--<td>{{ item.MotivoRechazo }}</td>-->
             </tr>
           </tbody>
         </table>
@@ -116,7 +116,7 @@ const ReporteCitasRechazadasFecha = async () => {
     Fecha2: FechaCons2.value
   }
 try {
-  const response = await axios.post('http://18.223.116.149/api/ReporteCitasRechazadasFecha', data)
+  const response = await axios.post('http://18.223.116.149/api/citas/citasRechazadas/fecha', data)
   consFecha.value = response.data.data;
 } catch (error) {
   console.error(error);
@@ -132,7 +132,7 @@ const ReporteCitasRechazadasCliente = async () => {
     Apellido: Apellidos.value
   }
 try {
-  const response = await axios.post('http://18.223.116.149/api/ReporteCiasRechazadasCliente', data)
+  const response = await axios.post('http://18.223.116.149/api/citas/citasRechazadas', data)
   console.log(response.data)
   constCliente.value = response.data.data;
 } catch (error) {
