@@ -12,11 +12,15 @@
         </RouterLink>
         </div>
             <div class="rango">
-                <precios tittle1="$min" tittle2="$max" principal="Rango de precios" />
+                <precios 
+                tittle1="$min" 
+                tittle2="$max" 
+                principal="Rango de precios" />
             </div>
             <div class="izquierdo">
                 <div class="btns"></div>
-                <btn2 @click="filtrar" title="Aplicar"/><btn2  id="black" @click="fetchData" title="Limpiar"/>
+                <btn2 @click="filtrar" title="Aplicar"/>
+                <btn2  id="black" @click="fetchData" title="Limpiar"/>
             </div>
         </div>
         <div class="table">
@@ -67,8 +71,8 @@ const nombre = ref('');
 
 const fetchData = async () =>{
     try{
-        const response = await axios.get('http://18.223.116.149/api/productosPublicos');
-        productos.value = response.data.data;
+        const response = await axios.get('http://18.223.116.149/api/productos/productosPublicos/index');
+        productos.value = response.data.productos;
         nombre.value =  response.data.data;
 
     } catch(error){

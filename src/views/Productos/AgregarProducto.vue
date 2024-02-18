@@ -26,16 +26,17 @@
                               </div>
                               <div class="detalle-productos">
                                     <div class="input">
-                                          <span>NOMBRE DEL PRODUCTO</span>
-                                          <input type="text" v-model="nombre_producto">
-                                    </div>
+                                    <span>NOMBRE DEL PRODUCTO</span>
+                                    <input type="text" v-model="nombre_producto"/>
                                     <div class="input">
                                           <span>DESCRIPCIÓN DEL PRODUCTO</span>
                                           <input type="text" v-model="descripcion_producto">
                                     </div>
+                              </div>
+
                                     <div class="input">
                                           <span>CATEGORÍA DEL PRODUCTO</span>
-                                          <select @click="mostrar_categorias" name="categorias" id="2"
+                                          <select @click="categoriasData" name="categorias" id="2"
                                                 v-model="categoria_producto">
                                                 <option disabled selected value="">Selecciona una categoria</option>
                                                 <option v-for="cat in categorias" :key="cat.id" :value="cat.categoria">
@@ -51,12 +52,12 @@
 
                                           <div class="input">
                                                 <span>PRECIO COMPRA</span>
-                                                <input type="number" v-model="precio_compra" placeholder="$">
+                                                <input type="number" v-model="precio_compra" placeholder="$">  
                                           </div>
 
                                           <div class="input">
                                                 <span>CANTIDAD DE PRODUCTOS</span>
-                                                <input type="number" v-model="cantidad_pructos" placeholder="0">
+                                                <input type="number" v-model="cantidad_pructos" placeholder="0">    
                                           </div>
 
                                           <div class="input">
@@ -68,7 +69,7 @@
                                                 </select>
                                           </div>
                                     </div>
-                                    <button @click="validar"><span>Agregar producto</span></button>
+                                    <button @click="verify"><span>Agregar producto</span></button>
                               </div>
                         </div>
                   </div>
@@ -99,7 +100,6 @@ const precio_venta = ref('');
 const precio_compra = ref('');
 const categoria_producto = ref('');
 const cantidad_pructos = ref('');
-const productos = ref({});
 const tipo_producto = ref('');
 const mostrar_precio = ref(true);
 const mostrar_preview = ref(true);
@@ -109,105 +109,107 @@ const mostrar_error = ref(false)
 const mostrar_advertencia = ref(false)
 const mensaje_error = ref('')
 var estiloBoton = ref()
+const errorMessages = ref([]);
+const productoExiste = ref(false);  
 
-const validar = () => {
-      if (
-            nombre_producto.value === '' ||
-            descripcion_producto.value === '' ||
-            tipo_producto.value === '' ||
-            cantidad_pructos.value === '' ||
-            precio_venta.value === '' ||
-            precio_compra.value === '' ||
-            categoria_producto.value === ''
-      ) {
-            mensaje_error.value = 'Datos obligatorios';
-            mostrar_error.value = true;
+
+const showAlert = (type, message) =>{
+      if (type === 'error'){
+            mostrar_error.value = true
+            mensaje_error.value = message
+
             setTimeout(() => {
-                  mostrar_error.value = false;
-            }, 2000);
-            
-      } else {
-            fetchData();
-            
-      }
-};
+                  mostrar_error.value = false
+            }, 3000)
+      }else if (type === 'success'){
+            mostrar_success.value = true
+            mensaje_error.value = message
 
-
-const fetchData = async () => {
-    const data = {
-        nombre_producto: nombre_producto.value,
-        descripcion_producto: descripcion_producto.value,
-        tipo_producto: tipo_producto.value,
-        cantidad_pructos: cantidad_pructos.value,
-        precio_venta: precio_venta.value,
-        precio_compra: precio_compra.value,
-        categoria_producto: categoria_producto.value,
-    };
-
-    try {
-        const response = await axios.post('http://18.223.116.149/api/revisar_producto', { nombre_producto: nombre_producto.value });
-        console.log(response.data.data)
-
-            if (response.data.data.data === true) {
-                  try {
-                        const responseAgregar = await axios.post('http://18.223.116.149/api/agregarProducto', data);
-                        console.log(responseAgregar.data)
-                        productos.value = responseAgregar.data.data;
-                        mostrar_success.value = true;
-                        nombre_producto.value = '' 
-                        descripcion_producto.value = '' 
-                        tipo_producto.value = '' 
-                        cantidad_pructos.value = '' 
-                        precio_venta.value = '' 
-                        precio_compra.value = '' 
-                        categoria_producto.value = ''
-                        setTimeout(() => {
-                              mostrar_success.value = false;
-                        }, 2000);
-                  } catch (error) {
-                        console.log(error);
-
-                  }
-            }else {
-                  mensaje_error.value = 'Producto ya existente'
-                  mostrar_error.value = true;
-                  setTimeout(() => {
-                        mostrar_error.value = false;
-                        mostrar_advertencia.value = true
-                        estiloBoton.value = 'boton-normal';
-                        setTimeout(() => {
-                              mostrar_advertencia.value = false
-                              estiloBoton.value = '';
-                        }, 3000);
-                  }, 3000);
-            } 
-            
-    } catch (error) {
-        console.log(error);
-        mensaje_error.value = 'Error en el servidor';
-            mostrar_error.value = true;
             setTimeout(() => {
-                  mostrar_error.value = false;
-            }, 2000);
-    }
-};
-
-
-
-const categoriasData = async () => {
-      try {
-            const response = await axios.get('http://18.223.116.149/api/categorias');
-            categorias.value = response.data.data;
-      }
-      catch (error) {
-            console.log(error)
+                  mostrar_success.value = false
+            }, 3000)
       }
 }
 
+const verify = async () => {
+  await existProduct(); 
 
+  console.log(productoExiste.value);
+  if (productoExiste.value) {
+      showAlert('error', 'El producto ya existe');
+      return 
+  } 
 
-const mostrar_categorias = () => {
-      categoriasData()
+  // Campos vacíos 
+  if (
+    nombre_producto.value === '' ||
+    descripcion_producto.value === '' ||
+    precio_compra.value === '' ||
+    cantidad_pructos.value === '' ||
+    categoria_producto.value === '' ||
+    tipo_producto.value === ''
+  ) {
+      showAlert('error', 'Todos los campos son requeridos');
+      return
+  }
+
+//   Campos numéricos
+  if (
+    isNaN(precio_compra.value) ||
+    isNaN(cantidad_pructos.value) ||
+    isNaN(precio_venta.value)
+  ) {
+      showAlert('error', 'Los campos de precio y cantidad deben ser numéricos');
+      return
+  }
+
+ await fetchData();
+};
+
+const fetchData = async () => {
+      console.log("entro")
+ 
+  if (!mostrar_error.value) {
+
+    const data = {
+      nom_producto: nombre_producto.value,
+      descripcion: descripcion_producto.value,
+      tipo_producto: tipo_producto.value,
+      existencias: cantidad_pructos.value,
+      precio_venta: precio_venta.value,
+      precio_compra: precio_compra.value,
+      categoria_producto: categoria_producto.value,
+    };
+
+    try {
+      const response = await axios.post('http://18.223.116.149/api/productos/store', data);
+      console.log(response.data);
+      showAlert('success', 'Se agrego el producto');
+      resetErrors();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+const existProduct = async () => {
+  try {
+    const response = await axios.get('http://18.223.116.149/api/productos/existe/' + nombre_producto.value);
+    productoExiste.value = response.data.exist;
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const categoriasData = async () => {
+      try {
+            const response = await axios.get('http://18.223.116.149/api/productos/getCategorias');
+            categorias.value = response.data.categorias;
+      }
+      catch (error) {
+            console.log(error.data.errors)
+      }
 }
 
 const seleccionTipoProducto = () => {
@@ -222,7 +224,6 @@ const seleccionTipoProducto = () => {
 </script>
 
 <style scoped>
-
 
 .boton-normal {
     background-color: black;

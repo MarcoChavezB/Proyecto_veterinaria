@@ -63,8 +63,8 @@ const nombre = ref();
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/productosInternos');
-    productos.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/productos/productosInternos/index');
+    productos.value = response.data.productos;
      nombre.value =  response.data.data;
   } catch(error) {
     console.log(error)
@@ -78,7 +78,6 @@ const filtrar = () =>{
 }
 const buscar = () =>{
   productos.value = prodInterno.state.variable;
-  
 }
 
 const onInput = () =>{

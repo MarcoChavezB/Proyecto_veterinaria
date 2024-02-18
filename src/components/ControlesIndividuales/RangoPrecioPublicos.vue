@@ -10,7 +10,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { productosPublicosR } from '@/stores/counter.js';
 import { ref, defineProps, onMounted, onBeforeUnmount } from 'vue';
@@ -30,32 +29,32 @@ const maxPrice = ref('');
 const filtData = ref();
 const productoPublico = productosPublicosR();
 
+let intervalId; // Declara la variable fuera de la función
+
 const data = async () => {
-    const rango = {
-      minPrice: minPrice.value,
-      maxPrice: maxPrice.value
-    }
-    const updateVariable = () =>{
-      productoPublico.setVariable(filtData)
-    }
-  
-    try {
-      const response = await axios.post('http://18.223.116.149/api/preciosPublicos', rango);
-      filtData.value = response.data;
-      updateVariable()
-    } catch (error) {
-      console.error(error)
-    }
-}
+  const rango = {
+    minPrice: minPrice.value,
+    maxPrice: maxPrice.value
+  };
+  const updateVariable = () => {
+    productoPublico.setVariable(filtData);
+  };
 
+  try {
+    const response = await axios.post('http://18.223.116.149/api/productos/productosPublicos/rango', rango);
+    filtData.value = response.data.productos;
+    updateVariable();
+  } catch (error) {}
+};
 
-onMounted(data);
+onMounted(() => {
+  data();
+  intervalId = setInterval(data, 3000);
+});
 
 onBeforeUnmount(() => {
   clearInterval(intervalId);
 });
-
-const intervalId = setInterval(data, 1000);
 </script>
 
 
