@@ -117,9 +117,7 @@
 
   import axios from 'axios';
   import { ref, reactive, onMounted, watch } from 'vue'
-  import {useUsuarioStore} from "@/stores/UsuariosStore";
 
-  const id_cliente = ref(useUsuarioStore().usuario.id);
   const correct = ref(false);
   const showModal = ref(false);
   const sierto = ref(false);
@@ -217,11 +215,8 @@ async function updateUser() {
 
 const userinfo = async () => {
   resetUserInfo();
-  const user = {
-    id: id_cliente.value
-  };
   try {
-    const response = await axios.post('http://18.223.116.149/api/clientes/infoID', user);
+    const response = await axios.get('http://18.223.116.149/api/clientes/infoID');
     if (response.data.data) {
       Object.assign(userInfo, response.data.data);
     }    

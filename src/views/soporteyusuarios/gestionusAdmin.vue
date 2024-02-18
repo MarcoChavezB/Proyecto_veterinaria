@@ -88,10 +88,10 @@ const UsersCorreo = async () => {
     
   try {
     const response = await axios.post('http://18.223.116.149/api/clientes/infoCorreo', userUpdate);
-    if (Array.isArray(response.data.data)) {
-  users.value = response.data.data;
+    if (Array.isArray(response.data)) {
+  users.value = response.data;
    } else {
-    users.value = [response.data.data];
+    users.value = [response.data];
    }  
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
