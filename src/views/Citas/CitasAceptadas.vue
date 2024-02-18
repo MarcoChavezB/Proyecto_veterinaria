@@ -7,8 +7,7 @@
       <div class="controles">
         <div class="botones ">
           <btnn id="black" title="General" @click="fetchData"/>
-          <btnn title="Citas proximas" @click="citasProximas"/>
-          <btnn title="Citas hoy" @click="citasHoy"/>
+          <btnn title="Citas proximas" @click="mostrarCitasProximas"/>
         </div>
       </div>
       <div class="table">
@@ -42,7 +41,7 @@ import Btnn from '@/components/ControlesIndividuales/BotonConEstilo.vue';
 import axios from 'axios'
 import {onMounted, ref} from 'vue'
 import {useStore} from '@/stores/counter.js'
-import {StoreProdInternos, showModalCardAcept} from '@/stores/counter.js'
+import {showModalCardAcept} from '@/stores/counter.js'
 import {card, citaID} from '@/stores/counter.js'
 
 const showCard = showModalCardAcept()
@@ -51,29 +50,18 @@ const cita_id = citaID()
 const msgID = ref()
 const inicial = ref(false)
 const globalShow = true
-const prodInterno = StoreProdInternos();
 const store = useStore()
 const citas = ref([])
 const nombre = ref();
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/citas_aceptadas');
-    citas.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/citas/citasAceptadas');
+    citas.value = response.data.citas;
   } catch(error) {
     console.log(error)
   }
 }
-
-const citasHoy = async () => {
-  try {
-    const response = await axios.get('http://18.223.116.149/api/citasActualesAcept');
-    citas.value = response.data.data;
-  } catch(error) {
-    console.log(error)
-  }
-}
-
 
 const seleccion = (id) => {
   msgID.value = id;
@@ -82,26 +70,24 @@ const seleccion = (id) => {
   cita_id.setVariable(msgID.value);
 };
 
-const citasProximas = () => {
-  const mostrarCitasProximas = async () => {
+const mostrarCitasProximas = async () => {
   try {
-    const response = await axios.get('http://18.223.116.149/api/proximas');
-    citas.value = response.data.data;
+    const response = await axios.get('http://18.223.116.149/api/citas/citasProximas');
+    citas.value = response.data.citas;
   } catch(error) {
     console.log(error)
   }
-  }
-mostrarCitasProximas()
 }
 
 
-const valorModal = () =>{
-  inicial.value = showCard.state.variable
-}
 
-setInterval(() => {
-  valorModal()
-}, 100);
+// const valorModal = () =>{
+//   inicial.value = showCard.state.variable
+// }
+
+// setInterval(() => {
+//   valorModal()
+// }, 1000);
 
 
 onMounted(fetchData)

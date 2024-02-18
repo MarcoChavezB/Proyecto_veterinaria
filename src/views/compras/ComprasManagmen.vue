@@ -29,7 +29,9 @@
                                 </div>
                                 <div class="info_prod">
                                     <div class="id-cita d-flex gap-3">
-                                     <p>Id venta: </p> <h4>{{ tiketData.length > 0 ? tiketData[0].venta_id : '--' }}</h4>
+                                      <p>Id venta: </p>
+                                      <h4>{{ tiketData.length > 0 ? tiketData[0].venta_id : '---' }}</h4>
+
                                     </div>
                                   <div class="tipo-pago d-flex gap-3">
                                     <p>Tipo de pago: </p> <h4>{{ metodo_pago }}</h4>
@@ -45,7 +47,8 @@
                                     </div>
                                   </div>
                                   <div class="precios d-flex gap-5 m-3">
-                                    <p>Monto Total: </p><h4>{{ tiketData.length > 0 ? tiketData[0].monto_total : '$---' }}</h4>
+                                    <p>Monto Total: </p>
+                                    <h4>${{ tiketData.length > 0 ? tiketData[0].monto_total : '---' }}</h4>
                                   </div>
                                 </div>
                             </div>
@@ -67,7 +70,6 @@
                 <div class="status">
                   <div class="btns d-flex justify-content-center">
                     <btn id="black" title="Limpiar" @click="reload" />
-                    <btn id="red" title="Cancelar" @click="cancelarCompra" />
                   </div>
                   <successAlert :name="mensaje_success" v-if="mostrarSuccess"/>
                   <errorAlert :name="mensaje_error" v-if="mostrarAlerta"/>
@@ -220,30 +222,22 @@ const terminar = async () => {
   };
   
   if (jsonData.metodo_pago === '') {
-    mensaje_error.value = 'Seleccione un tipo de pago';
-    mostrarAlerta.value = true;
-    setTimeout(() => {
-      mostrarAlerta.value = false;
-    }, 2000);
+    showAlert('error', 'Seleccione un método de pago');
+
   } else if (productosInfo.length === 0) {
-    mensaje_error.value = 'No hay nada para vender';
-    mostrarAlerta.value = true;
-    
-    setTimeout(() => {
-      mostrarAlerta.value = false;
-    }, 2000);
+    showAlert('error', 'Seleccione un producto para vender');
+
   } else if (funcionEjecutada) {
-    mensaje_error.value = 'Limpiar antes de realizar otra venta';
-    mostrarAlerta.value = true;
-    setTimeout(() => {
-      mostrarAlerta.value = false;
-    }, 2000);
+    
+    showAlert('error', 'Limpiar pantalla antes de realizar otra venta');
+
   } else {
     try {
       const response = await axios.post(
-        'http://18.223.116.149/api/venta',
+        'http://18.223.116.149/api/productos/ventaProductos',
         jsonData
       );
+      console.log(response);
 
     } catch (error) {
       console.log(error);
@@ -251,64 +245,21 @@ const terminar = async () => {
 
     try {
       const GenerarTiket = await axios.get(
-        'http://18.223.116.149/api/GenerarTiket'
+        'http://18.223.116.149/api/productos/GenerarTiket'
       );
+      console.log(GenerarTiket)
       
-      tiketData.value = GenerarTiket.data.data;
+      tiketData.value = GenerarTiket.data.venta;
 
     } catch (error) {
       console.log(error);
     }
-    mensaje_success.value = 'Compra realizada'
-    mostrarSuccess.value = true;
-    setTimeout(() => {
-      mostrarSuccess.value = false;
-    }, 2000);
+    showAlert('success', 'Venta realizada correctamente');
     funcionEjecutada = true;
   }
 };
 
 
-
-let cancelando = false;
-
-const cancelarCompra = async () => {
-  if (cancelando) {
-    mensaje_error.value = 'No se puede cancelar la venta';
-    mostrarAlerta.value = true;
-    setTimeout(() => {
-      mostrarAlerta.value = false;
-    }, 2000);
-    return;
-  }
-
-  cancelando = true;
-
-  const productosInfo = construirArregloProductos().filter(([id, cantidad]) => cantidad !== 0);
-
-  if (productosInfo.length === 0) {
-    mensaje_error.value = 'No se puede cancelar la venta';
-    mostrarAlerta.value = true;
-    setTimeout(() => {
-      mostrarAlerta.value = false;
-      cancelando = false;
-    }, 2000);
-  } else {
-    try {
-      const response = await axios.post('http://18.223.116.149/api/CancelarCompra');
-      tiketData.value = [];
-      productosEnPantalla.value = [];
-      mensaje_success.value = 'Venta cancelada';
-      mostrarSuccess.value = true;
-
-      setTimeout(() => {
-        mostrarSuccess.value = false;
-      }, 2000);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-};
 
 
 
@@ -321,6 +272,23 @@ const fechaActual = new Date();
 const diaActual = fechaActual.getDate();
 const mesActual = monthNames[fechaActual.getMonth()];
 
+
+const showAlert = (type, message) =>{
+  if (type === 'error') {
+    mensaje_error.value = message;
+    mostrarAlerta.value = true;
+    setTimeout(() => {
+      mostrarAlerta.value = false;
+    }, 2000);
+  } else if (type === 'success') {
+    mensaje_success.value = message;
+    mostrarSuccess.value = true;
+    setTimeout(() => {
+      mostrarSuccess.value = false;
+    }, 2000);
+  }
+
+}
 </script>
 
 
