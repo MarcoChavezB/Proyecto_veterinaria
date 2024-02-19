@@ -400,6 +400,7 @@ try {
     height: 100%;
     width: 100%;
     overflow: auto;
+    border-radius: 5px;
   }
 
   .table-container2 {

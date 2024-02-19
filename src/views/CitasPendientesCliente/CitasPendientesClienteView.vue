@@ -151,6 +151,7 @@ watch(citaSeleccionada, (newValue) => {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
+  border-radius: 20px;
 }
 
 
@@ -162,9 +163,13 @@ watch(citaSeleccionada, (newValue) => {
   box-shadow: 0px 0px 2em rgba(0, 0, 0, 0.4);
   overflow: hidden; 
   background: linear-gradient(rgb(255, 253, 234), rgb(255, 255, 255));
+  border-radius: 20px;
+
 }
 .labels{
   font-weight: bold;
+  text-align: center;
+  text-shadow: 0cap;
 }
 
 

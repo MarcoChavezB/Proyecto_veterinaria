@@ -70,8 +70,8 @@ const sendPostRequest = async () => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data.status)
-    if(response.data.status === 200){
+    console.log(response.status)
+    if(response.status === 200){
          detallar.value = true;
          productosSeleccionados.value = [];
          tipo.value = 1;
