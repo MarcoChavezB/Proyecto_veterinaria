@@ -75,6 +75,7 @@
           </tbody>
         </table>
       </div>
+        <p v-else-if="selectedOption === 'opcion1' && constCliente.length <= 0" class="display-7 text-center my-2"><br>Escribe el nombre de un usuario válido.</p>
 
     </div>
 
