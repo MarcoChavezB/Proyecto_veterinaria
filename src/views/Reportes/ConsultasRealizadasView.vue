@@ -65,6 +65,8 @@
           </tbody>
         </table>
       </div>
+        <p v-else-if="selectedOption === 'opcion1' && consultas.length <= 0" class="display-7 text-center my-2"><br>Llena los campos con datos válidos o existentes.</p>
+
         <!-- -->
         <div class="responsive-table"  v-if="selectedOption === 'opcion2' && consultasF.length > 0">
           <table class="table table-hover custom-table">
@@ -106,7 +108,8 @@
             </tbody>
           </table>
         </div>
-    </div>
+        <p v-else-if="selectedOption === 'opcion2' && consultasF.length <= 0" class="display-7 text-center my-2"><br>Llena los campos con datos válidos o existentes.</p>
+      </div>
     </div>
   </div>
   </div>
@@ -148,7 +151,7 @@
      nomM: nomM.value
    };
    try {
-     const response = await axios.post('http://18.223.116.149/api/ReporteConsultas', data)
+     const response = await axios.post('http://18.223.116.149/api/consultas/reporteConsultas', data)
      consultas.value = response.data.data
    }catch (error){
      console.error(error)
@@ -165,7 +168,7 @@
       Fecha2: Fecha2.value
     }
     try {
-      const response = await axios.post('http://18.223.116.149/api/ReporteConsultasFecha', data)
+      const response = await axios.post('http://18.223.116.149/api/consultas/reporteConsultas/fecha', data)
       consultasF.value = response.data.data
     }catch (error){
       console.error(error)

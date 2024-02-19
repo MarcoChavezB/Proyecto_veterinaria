@@ -33,8 +33,8 @@
               <th>Género</th>
               <th>Dueño</th>
               <th>Fecha</th>
-              <th>Motivo</th>
               <th>Motivo Rechazo</th>
+              <!--<th>Motivo Rechazo</th>-->
             </tr>
           </thead>
           <tbody>
@@ -46,11 +46,13 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
-              <td>{{ item.MotivoRechazo }}</td>
+              <!--<td>{{ item.MotivoRechazo }}</td>-->
             </tr>
           </tbody>
         </table>
       </div>
+        <p v-else-if="selectedOption === 'opcion2' && consFecha.length <= 0" class="display-7 text-center my-2"><br>Llena los campos con datos válidos o existentes.</p>
+
 
         <div class="responsive-table" v-if="selectedOption === 'opcion1' && constCliente.length > 0">
         <table class="table table-hover custom-table">
@@ -62,8 +64,8 @@
               <th>Genero</th>
               <th>Dueño</th>
               <th>Fecha</th>
-              <th>Motivo</th>
-              <th>Motivo del rechazo</th>
+              <th>Motivo Rechazo</th>
+              <!--<th>Motivo del rechazo</th>-->
             </tr>
           </thead>
           <tbody>
@@ -75,13 +77,15 @@
               <td>{{ item.Dueño }}</td>
               <td>{{ item.Fecha }}</td>
               <td>{{ item.Motivo }}</td>
-              <td>{{ item.MotivoRechazo }}</td>
+              <!--<td>{{ item.MotivoRechazo }}</td>-->
             </tr>
           </tbody>
         </table>
       </div>
+        <p v-else-if="selectedOption === 'opcion1' && constCliente.length <= 0" class="display-7 text-center my-2"><br>Llena los campos con datos válidos o existentes.</p>
 
-    </div>
+
+      </div>
     </div>
   </div>
   </template>
@@ -116,7 +120,7 @@ const ReporteCitasRechazadasFecha = async () => {
     Fecha2: FechaCons2.value
   }
 try {
-  const response = await axios.post('http://18.223.116.149/api/ReporteCitasRechazadasFecha', data)
+  const response = await axios.post('http://18.223.116.149/api/citas/citasRechazadas/fecha', data)
   consFecha.value = response.data.data;
 } catch (error) {
   console.error(error);
@@ -132,7 +136,7 @@ const ReporteCitasRechazadasCliente = async () => {
     Apellido: Apellidos.value
   }
 try {
-  const response = await axios.post('http://18.223.116.149/api/ReporteCiasRechazadasCliente', data)
+  const response = await axios.post('http://18.223.116.149/api/citas/citasRechazadas', data)
   console.log(response.data)
   constCliente.value = response.data.data;
 } catch (error) {

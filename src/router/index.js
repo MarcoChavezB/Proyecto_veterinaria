@@ -356,26 +356,39 @@ import { useUsuarioStore } from "@/stores/UsuariosStore";
 
 router.beforeEach((to, from, next) => {
       const userStore = useUsuarioStore();
-
-      const token = userStore.token; 
-
+      const token = userStore.token;
+      const userType = userStore.usuario?.tipo_usuario; 
+    
       if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       } else {
-      delete axios.defaults.headers.common['Authorization'];
+        delete axios.defaults.headers.common['Authorization'];
       }
-  
-      if (to.name === 'login' && userStore.isLoggedIn) {
-          next('/cuerpo'); 
-      } else if (to.matched.some((route) => route.meta.requiresAuth) && !userStore.isLoggedIn) {
+    
+      if ((to.name === 'login' || to.name === 'register') && userStore.isLoggedIn) {
+        const redirectTo = userType === 'Administrador' ? '/control' : '/cuerpo';
+        next(redirectTo);
+        return;
+      }
+    
+      if (to.matched.some(route => route.meta.requiresAuth)) {
+        if (!userStore.isLoggedIn) {
           next('/login');
-      } else if (userStore.usuario && userStore.usuario.tipo_usuario === 'Administrador' && to.meta.requiredRole === 'Administrador') {
-          next();
-      } else if (to.meta.requiredRole && userStore.usuario && to.meta.requiredRole !== userStore.usuario.tipo_usuario) {
+          return;
+        }
+    
+        if (!userType) {
           next('/login'); 
-      } else {
-          next(); 
+          return;
+        }
+    
+        if (to.meta.requiredRole && to.meta.requiredRole !== userType) {
+          next('/login'); 
+          return;
+        }
       }
-});
-  
-
+    
+      next();
+    });
+    
+    

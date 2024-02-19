@@ -86,8 +86,8 @@
     <label v-show="puede" >Contraseña:</label>
       </div>
       <div class="inputss">     
-       <input type="text" v-model="userInfo.telefono1" :disabled="!isEditing" />
-      <input type="text" v-model="userInfo.telefono2" :disabled="!isEditing" />
+       <input type="number" v-model="userInfo.telefono1" :disabled="!isEditing" maxlength="10" minlength="10" />
+      <input type="number" v-model="userInfo.telefono2" :disabled="!isEditing"  maxlength="10" minlength="10" />
         <button class="button" v-show="puede" @click="activar2">Cambiar Contraseña </button>
       </div>
     </div>
@@ -128,13 +128,15 @@
   const contr1 = ref('');
   const contr2 = ref('');
 
-  const activar= async () => {
+const activar= async () => {
   if(showModal.value === false)
   {
+    correct.value = false;
     sierto.value = false;
     showModal.value = true;
   } else if (showModal.value === true)
   {
+    correct.value = false;
     showModal.value = false;
     sierto.value = false;
   }
@@ -143,13 +145,14 @@ const activar2= async () => {
   if(repetircontra.value === false)
   {
     repetircontra.value = true;
+
   } else if (repetircontra.value === true)
   {
     repetircontra.value = false;
   }
 }
 
-  let updatedUserInfo = ref(null);
+let updatedUserInfo = ref(null);
 const loading =ref(false);
 
 let userInfo = reactive({
@@ -162,25 +165,41 @@ let userInfo = reactive({
 });
 
 watch(vericontra, () => {
-sierto.value = false
+  sierto.value = false
 });
 
 let isEditing = ref(false);
 
-const verificacion= ()=> {
-  if(vericontra.value === userInfo.contra){
-    isEditing.value = true
-    activar()
-    vericontra.value = ''
-    puede.value = true
-  }else{
-    sierto.value = true;
-  }
+const verificacion= async ()=> {
+  try {
+  const passUpdate = {
+    contra: vericontra.value
+  };
+  const response = await axios.post('http://18.223.116.149/api/clientes/verificarcontraseña', passUpdate);
+  console.log(response.data)
+    if(response.status === 200){
+      if(response.data.status === true) {
+        isEditing.value = true
+        activar()
+        vericontra.value = ''
+        puede.value = true
+        console.log(response)
+      } else {
+        sierto.value = true;
+      }
+    }
+    
+    } catch (error) {
+      console.error('Hubo un error al autenticar la contraseña:', error);
+      vericontra.value = ''
+
+    }
 }
 
 const verificacion2= ()=> {
   if(contr2.value === contr1.value){
     repetircontra.value = false
+    userInfo.contra = contr1.value
   }else{
     sierto2.value = true;
   }
@@ -188,9 +207,9 @@ const verificacion2= ()=> {
 
 
 async function updateUser() {
+  correct.value = false;
   try {
     const userUpdate = {
-  id: id_cliente.value,
   nombre: userInfo.nombre,
   correo: userInfo.correo,
   apellido: userInfo.apellido,
@@ -198,17 +217,21 @@ async function updateUser() {
   telefono2: userInfo.telefono2,
   contra: userInfo.contra
   };
+  console.log(userUpdate)
     loading.value = true;
     const response = await axios.post('http://18.223.116.149/api/clientes/actualizar', userUpdate);
     updatedUserInfo.value = response.data;
     if(response.status === 200) {
         userinfo();
         correct.value = true;
+        puede.value = false;
     } else {
      console.error('error al actualizar');
+     puede.value = false;
     }
   } catch (error) {
     console.error('Hubo un error al actualizar los datos del usuario:', error);
+    puede.value = false;
   }
   loading.value = false;
 }
@@ -217,11 +240,9 @@ const userinfo = async () => {
   resetUserInfo();
   try {
     const response = await axios.get('http://18.223.116.149/api/clientes/infoID');
-    if (response.data.data) {
-      Object.assign(userInfo, response.data.data);
-    }    
-    contr1.value = userInfo.contra
-    contr2.value = userInfo.contra
+    if (response.data) {
+      Object.assign(userInfo, response.data);
+    }
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
   }

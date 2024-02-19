@@ -27,12 +27,11 @@ const userinfo = async () => {
   const user = {
     id: id
   };
-  console.log(user)
 
   try {
-    const response = await axios.post('http://18.223.116.149/api/clientes/infoID', user);
-    if (response.data.data) {
-      Object.assign(userInfo, response.data.data);
+    const response = await axios.get('http://18.223.116.149/api/clientes/infoID', user);
+    if (response.data) {
+      Object.assign(userInfo, response.data);
     }    
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);

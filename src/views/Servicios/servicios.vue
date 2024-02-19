@@ -42,7 +42,7 @@ import CardService from '../../components/servicios/CardService.vue';
 const servicios = ref([]);
 const obtenerservicios = async () => {
       try {
-            const response = await axios.get('http://18.223.116.149/api/serviciosPEsteticos')
+            const response = await axios.get('http://18.223.116.149/api/api/unauthenticated/servicios/serviciospublicosesteticos')
 
             
             servicios.value = response.data.data;
@@ -55,7 +55,7 @@ onMounted(obtenerservicios);
 const servicioscli = ref([]);
 const obtenerservicioscli = async () => {
       try {
-            const response = await axios.get('http://18.223.116.149/api/serviciosPClinicos')
+            const response = await axios.get('http://18.223.116.149/api/unauthenticated/servicios/serviciospublicosclinicos')
 
             
             servicioscli.value = response.data.data;

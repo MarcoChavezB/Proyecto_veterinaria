@@ -69,7 +69,7 @@
                 </div>
 
                 </div>
-                <router-link :to="{ path: 'login' }" id="salir" @click="salir">
+                <router-link :to="{ path: 'login' }" id="salir" @click="cerrarSession">
                   <span class="material-symbols-outlined">logout</span>
                   <h4>Salir</h4>
                 </router-link>
@@ -84,11 +84,18 @@
 import { ref } from 'vue';
 import {logout} from "@/stores/counter.js"
 import { useRouter } from 'vue-router';
+import {useUsuarioStore} from "@/stores/UsuariosStore";
+
 const router = useRouter();
 var varSalir = logout()
 var mandarVariable = ref(false);
 const selectedOption = ref('');
 
+const UsuarioStore = useUsuarioStore();
+const cerrarSession = () => {
+  UsuarioStore.closeSession();
+  router.push('/login');
+};
 
 const preventDefault = (event) => {
     event.preventDefault();

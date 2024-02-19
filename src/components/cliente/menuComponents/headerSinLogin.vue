@@ -29,9 +29,7 @@
             </div>
             
             <div class="profile">
-                <p v-for="persona in nombre" :key="persona.id">{{ persona.nombre }}</p><span class="material-symbols-outlined">
-                    account_circle
-                </span>
+               
             </div>
         
         </header>

@@ -3,7 +3,6 @@ import {ref, onMounted, watch, computed} from 'vue'
 import btnn from '@/components/ControlesIndividuales/BotonAntho.vue';
 import btn from '@/components/ControlesIndividuales/BotonBlanco.vue';
 import load from '../../components/loaders/loaderPrincipal.vue'
-import {useUsuarioStore} from "@/stores/UsuariosStore";
 import axios from 'axios'
 
 
@@ -13,7 +12,6 @@ const fechaActual = new Date().toISOString().slice(0, 16);
 const minDate = computed(() => fechaActual);
 // ---------------------------------------------------------------- //
 
-const userregis = ref(useUsuarioStore().usuario.id);
 const nombre = ref('');
 const apellidos = ref('');
 const telefono1 = ref();
@@ -132,12 +130,11 @@ function regismasco(value) {
   regismascot.value = value;
 }
 
-
 const validarFecha = async () => {
       mensaje.value = '';
       const fechaSeleccionada = new Date(fechaCita.value)
       try {
-            const response = await axios.post('http://18.223.116.149/api/ValidacionFechas');
+            const response = await axios.get('http://18.223.116.149/api/citas/validacionFechas');
             const fechasValidadas = response.data.data;
             const fechasExistentes = fechasValidadas.some(cita => {
       const fechaCita = new Date(cita.fecha_cita);
@@ -175,10 +172,10 @@ const UsersCorreo = async () => {
     };
   try {
     const response = await axios.post('http://18.223.116.149/api/clientes/infoCorreo', userUpdate);
-    if (Array.isArray(response.data.data)) {
-  usuarios.value = response.data.data;
+    if (Array.isArray(response.data)) {
+  usuarios.value = response.data;
    } else {
-    usuarios.value = [response.data.data];
+    usuarios.value = [response.data];
    }  
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
@@ -191,11 +188,11 @@ const mascota = async () => {
      id_cliente: usuarioSeleccionadoId.value
     };
   try {
-    const response = await axios.post('http://18.223.116.149/api/MascotasUsuario', userUpdate);
-    if (Array.isArray(response.data.data)) {
-  mascotas.value = response.data.data;
+    const response = await axios.post('http://18.223.116.149/api/mascotas/MascotasUsuario', userUpdate);
+    if (Array.isArray(response.data)) {
+  mascotas.value = response.data;
    } else {
-    mascotas.value = [response.data.data];
+    mascotas.value = [response.data];
    }  
   } catch (error) {
     console.error('Hubo un error al obtener los usuarios:', error);
@@ -206,7 +203,6 @@ const mascota = async () => {
 async function citalocal() {
       loading.value = true;
   const dataToSend = {
-    userregis: userregis.value,
     nombre: nombre.value,
     apellido: apellidos.value,
     telefono1: telefono1.value,
@@ -221,8 +217,8 @@ async function citalocal() {
   };
 
   try {
-    const response = await axios.post('http://18.223.116.149/api/citalocal', dataToSend);
-    if (response.data.status === 200) {
+    const response = await axios.post('http://18.223.116.149/api/citas/citalocal', dataToSend);
+    if (response.data.success === true) {
       limpiar();
       mensaje.value = '¡Cita local registrada correctamente!';
       COL1.value = 'green';
@@ -245,29 +241,21 @@ const validatePhoneInput = (event) => {
 const validatePhoneInputt = (event) => {
   event.target.value = event.target.value.replace(/[^0-9\-]/g, '');
   telefono2.value = event.target.value; 
-  validartelefono2(telefono2.value);
-
 }
 
-const num = ref([])
 
 const validartelefono = async (telef) => {
   const telefi = {
             telefono: telef
       };
       try {
-            const response = await axios.post('http://18.223.116.149/api/validartelefonobd', telefi );
-            num.value=response.data.data[0].Resultado;
-            if (response.data.status !== 200) {
-            throw new Error('Respuesta no exitosa desde el backend');
-            }
-            if (num.value === 0){
+            const response = await axios.post('http://18.223.116.149/api/clientes/validartelefonobd', telefi );
+            if (response.data.valido === false){
               mensaje.value = '¡Este numero ya esta registrado!';
               COL1.value = 'red';
-            }else if(num.value === 1) {
+            }else if(response.data.valido === true) {
               mensaje.value = '';
             }
-            console.log(num.value)
       } catch (error) {
             console.error(error);
       }
@@ -276,15 +264,15 @@ const validartelefono = async (telef) => {
 const registrarMascota = async () => {
       loadingmasco.value = true;
       const mascotaa = {
-            nombre_: aniinombre.value,
-            propietario_: usuarioSeleccionadoId.value,
-            especie_: aniiespecie.value,
-            raza_: aniiraza.value,
-            genero_: aniigenero.value,
+            nombre: aniinombre.value,
+            propietario: usuarioSeleccionadoId.value,
+            especie: aniiespecie.value,
+            raza: aniiraza.value,
+            genero: aniigenero.value,
       };
       try {
             const response = await axios.post(
-                  'http://18.223.116.149/api/registrarMascota',
+                  'http://18.223.116.149/api/mascotas/store',
                   mascotaa
             );
             
@@ -314,8 +302,7 @@ const agendar = () =>{
 const citasweb = async () => {
       loading.value = true;
       const cita = {
-            user_regis: userregis.value,
-            fechaCita: fechaCita.value,
+            fecha_cita: fechaCita.value,
             estatus: 'Aceptada',
             motivo: motivo.value,
             id_mascota: mascotaSeleccionada.value
@@ -323,14 +310,14 @@ const citasweb = async () => {
       
       try {
             const response = await axios.post(
-                  'http://18.223.116.149/api/agendarcita',
+                  'http://18.223.116.149/api/citas/store',
                   cita
             );
-            if(response.data.status === 200){
+            if(response.status === 201){
               limpiar()
               mensaje.value = '¡Cita local registrada correctamente!';
               COL1.value = 'green';
-            }else if (response.data.status === 400){
+            }else if (response.status === 400){
               limpiar()
               mensaje.value = '¡Error al agendar la cita, esta fecha ya esta ocupada!';
               COL1.value = 'red';
