@@ -122,6 +122,8 @@ const SuccesMessage = ref("Tu cita se genero correctamente.");
 const ShowWarning = ref(false);
 const WarningMessage = ref("Hubo un error al generar tu cita.");
 
+
+
 const errors = ref([]);
 
 const VoidInputs = ref(false);
@@ -137,6 +139,8 @@ const bdisabled = ref(false);
 
 import { useUsuarioStore } from "@/stores/UsuariosStore";
 let usuarioStore = useUsuarioStore();
+
+
 
 const servicioSelect = ref('');
 const tipo_servicio = ref('');
@@ -250,7 +254,6 @@ const cleanForm = () => {
 const Mascotas = ref([]);
 const FiltroMascotas = async () => {
       try {
-
             const response = await axios.get(
                   'http://18.223.116.149/api/mascotas/index/' + id_cliente.value + ''
             );

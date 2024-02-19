@@ -51,6 +51,8 @@
           </tbody>
         </table>
       </div>
+        <p v-else-if="selectedOption === 'opcion2' && consFecha.length <= 0" class="display-7 text-center my-2"><br>Llena los campos con datos válidos o existentes.</p>
+
 
         <div class="responsive-table" v-if="selectedOption === 'opcion1' && constCliente.length > 0">
         <table class="table table-hover custom-table">
@@ -80,8 +82,10 @@
           </tbody>
         </table>
       </div>
+        <p v-else-if="selectedOption === 'opcion1' && constCliente.length <= 0" class="display-7 text-center my-2"><br>Llena los campos con datos válidos o existentes.</p>
 
-    </div>
+
+      </div>
     </div>
   </div>
   </template>
