@@ -1,10 +1,10 @@
 <template id="template">
       <div class="pantalla">
 
-            <div id="imagen-services">
-                  <img src="@\assets\img\imagen-servicios-veterinaria.png" alt="imagen-servicios">
+            <div id="imagen-services" class="imgserv" >
+                  <img class="imgg" src="@\assets\img\imagen-servicios-veterinaria.png" alt="imagen-servicios">
                   <!-- <img src="../src/assets/img/imagen-servicios-veterinaria" alt="imagen-servicios"> -->
-                  <h4>SERVICIOS</h4>
+                  <h4 class="fontt">SERVICIOS</h4>
             </div>
             <div id="tipe-service-select">
                   <router-link class="link-services" to="/serviciosesteticosConLogin"><button>Estéticos</button></router-link>
@@ -65,6 +65,24 @@ const obtenerservicioscli = async () => {
 onMounted(obtenerservicioscli);
 </script>
 <style scoped>
+
+
+.fontt {
+      font:large;
+}
+.imgg{
+      width: 100%; 
+      height: auto; 
+      object-fit: cover;
+}
+.imgserv{
+
+     display: flex;
+     width: 100%;
+     height: 60vh;
+
+}
+
 #template {
       width: 100%;
       display: flex;

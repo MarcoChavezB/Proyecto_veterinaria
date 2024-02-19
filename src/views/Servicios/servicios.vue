@@ -1,12 +1,12 @@
 <template id="template">
       <div class="pantalla">
             
-            <div id="imagen-services">
-                  <img src="@\assets\img\imagen-servicios-veterinaria.png" alt="imagen-servicios">
+            <div id="imagen-services" class="imgserv">
+                  <img class="imgg" src="@\assets\img\imagen-servicios-veterinaria.png" alt="imagen-servicios">
                   <!-- <img src="../src/assets/img/imagen-servicios-veterinaria" alt="imagen-servicios"> -->
-                  <h4>SERVICIOS</h4>
+                  <h4 class="fontt">SERVICIOS</h4>
             </div>
-            <div id="tipe-service-select">
+            <div id="tipe-service-select" class="siii">
                   <router-link class="link-services" to="/serviciosesteticos"><button>Estéticos</button></router-link>
                   <router-link class="link-services" to="/serviciosclinicos"><button>Clínicos</button></router-link>
             </div>
@@ -67,6 +67,28 @@ onMounted(obtenerservicioscli);
 </script>
 
 <style scoped>
+
+
+.siii {
+      box-shadow: 15px 15px 10px rgb(255, 255, 255);
+      display: flex;
+      width: 100%;
+}
+.fontt {
+      font:large;
+}
+.imgg{
+      width: 100%; 
+      height: auto; 
+      object-fit: cover;
+}
+.imgserv{
+
+     display: flex;
+     width: 100%;
+     height: 60vh;
+
+}
 #template {
       width: 100%;
       display: flex;
