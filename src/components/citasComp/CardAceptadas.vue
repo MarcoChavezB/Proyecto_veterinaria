@@ -95,7 +95,12 @@ import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
 import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 import alert from '../../components/Mensajes/BarAlert.vue'
 
+const emitClose = defineEmits(['close'])
 
+const salir = () =>{
+  console.log('cerrar')
+  emitClose('close') 
+}
 
 const monthNames = [
 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
@@ -122,6 +127,9 @@ const showCard = ref(false)
 const cita_id = {
 cita_id: id
 }
+
+
+
 
 const pause = (milliseconds) => {
 return new Promise(resolve => setTimeout(resolve, milliseconds));

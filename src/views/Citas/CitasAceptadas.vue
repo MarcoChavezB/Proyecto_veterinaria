@@ -25,7 +25,9 @@
                   :raza="citas.raza"/>
           </div>
           <div>
-            <mensaje v-if="inicial"/>
+            <mensaje
+            v-if="inicial"
+            @close="closeModal"/>
           </div>
         </div>
       </div>
@@ -79,7 +81,9 @@ const mostrarCitasProximas = async () => {
   }
 }
 
-
+const closeModal = () =>{
+  inicial.value = false;
+}
 
 // const valorModal = () =>{
 //   inicial.value = showCard.state.variable

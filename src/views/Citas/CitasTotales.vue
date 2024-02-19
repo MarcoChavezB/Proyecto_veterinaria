@@ -37,7 +37,8 @@
             </div>
             <div>
               <div v-if="inicial">
-                <mensaje/>
+                <mensaje
+                @close="closeModal"/>
               </div>
             </div>
           </div>
@@ -61,6 +62,9 @@ import axios from 'axios'
 import {ref, onMounted} from 'vue'
 import {citaID} from '@/stores/counter.js'
 
+const closeModal = () =>{
+  inicial.value = false;
+}
 
 
 const showCard = showModalCard()
