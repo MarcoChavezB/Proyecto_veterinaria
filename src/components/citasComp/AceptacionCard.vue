@@ -95,6 +95,12 @@ import successAlert from '../../components/Mensajes/BarAlertSuccess.vue'
 import errorAlert from '../../components/Mensajes/BarAlertError.vue'
 import alert from '../../components/Mensajes/BarAlert.vue'
 
+const emitClose = defineEmits(['close'])
+
+const salir = () =>{
+  console.log('cerrar')
+  emitClose('close') 
+}
 
 
 const monthNames = [
