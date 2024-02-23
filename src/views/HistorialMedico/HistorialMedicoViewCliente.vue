@@ -1,7 +1,7 @@
 <template>
   <div class="first-container">
             <div class="Titulo"> 
-          <span class="material-symbols-outlined">respiratory_rate</span><h2>Hisotorial Médico</h2>
+          <span class="material-symbols-outlined">respiratory_rate</span><h2>Mascotas</h2>
         </div>
         <div class="second-container">
           <div class="carta" v-for="mascota in Mascotas" :key="mascota.id" @click="DisplayWindow(mascota.id)">
@@ -16,20 +16,20 @@
         <span class="material-symbols-outlined" id="Atras" @click="CloseWindow">close</span>
         <div class="table-container2">
           <div class="responsive-table" v-show="ShowTable1">
-            <table class="table table-hover custom-table">
+            <table class="table table-hover custom-table table-sm">
               <thead>
               <tr>
                 <th><p>Fecha</p></th>
-                <th><p>Motivo por el cual se agendo la cita</p></th>
-                <th><p>Servicios ofrecidos</p></th>
+                <th><p>Motivo</p></th>
+                <th><p>Servicios</p></th>
                 <th><p>Peso</p></th>
                 <th><p>Altura</p></th>
                 <th><p>Edad</p></th>
                 <th><p>Observaciones</p></th>
-                <th><p>Productos usados</p></th>
+                <th><p>Productos</p></th>
                 <th><p>Cantidad</p></th>
-                <th><p>Costo de los servicios ofrecidos</p></th>
-                <th><p>Costo de los productos</p></th>
+                <th><p>Costo Servicios</p></th>
+                <th><p>Costo Productos</p></th>
               </tr>
               </thead>
               <tbody>
@@ -37,9 +37,9 @@
                 <td>{{datos.Fecha}}</td>
                 <td>{{datos.Motivo}}</td>
                 <td>{{datos.Servicios}}</td>
-                <td>{{datos.Peso}}</td>
-                <td>{{datos.Altura}}</td>
-                <td>{{datos.Edad}}</td>
+                <td>{{datos.Peso}} kg</td>
+                <td>{{datos.Altura}} mts</td>
+                <td>{{datos.Edad}} meses</td>
                 <td>{{datos.Observaciones}}</td>
                 <td>{{datos.Medicacion}}</td>
                 <td>{{datos.Cantidad}}</td>
@@ -67,13 +67,19 @@
   const ShowTable1 = ref(true);
   const ShowWindow = ref(false);
 
-  const DisplayWindow = (id) => {
+  const DisplayWindow = async (id) => {
     id_animal.value = id;
-    ShowWindow.value = true;
-    HistorialMedicoIDMascota();
+    await HistorialMedicoIDMascota();
+    if (HistorialM2.value.length <= 0){
+      ShowWindow.value = false;
+    }
+    else{
+      ShowWindow.value = true;
+    }
   };
   const CloseWindow = () => {
     ShowWindow.value = false;
+    HistorialM2.value = [];
   };
 
 
@@ -132,17 +138,18 @@
       margin-top: 5px;
     }
 
-    .carta {
-  display: flex;
-  justify-content: center;
-  border: 1px solid #cccccc;
-  padding: 10px;
-  margin: 10px;
-  width: 250px;
-  background-color: #F8FBFE;
-  border-radius: 8px;
-  transition: transform 0.2s;
-}
+  .carta {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #cccccc;
+    padding: 10px;
+    width: 150px;
+    background-color: #F8FBFE;
+    border-radius: 20px;
+    transition: transform 0.2s;
+    margin: 2rem;
+  }
+
 
 .second-container{
   display: flex;
@@ -205,15 +212,37 @@
     height: 300px;
     overflow: auto;
   }
-th{
-  background-color: #f3ae23;
-  color: #ffffff;
-}
+  table {
+    border-collapse: collapse;
+  }
 
-#Atras{
-  cursor: pointer;
-  color: red;
-}
+  thead {
+    border: 1px solid #d1d8e5;
+  }
+
+  th, td {
+    font-size: 0.8em;
+  }
+
+  th {
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+
+  td {
+    background-color: #ffffff;
+  }
+
+
+
+  #Atras {
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #495057;
+    background-color: #f8f9fa;
+    padding: 2px;
+  }
 
   @media (max-width: 767px) {
     .table-container2::-webkit-scrollbar{

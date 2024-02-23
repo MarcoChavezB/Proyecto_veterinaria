@@ -1,7 +1,7 @@
 <template>
     <div class="title">
         <encabezado />
-        
+
       </div>
 
     <div class="app">
@@ -14,9 +14,9 @@
         </RouterLink>
         </div>
             <div class="rango">
-                <precios 
-                tittle1="$min" 
-                tittle2="$max" 
+                <precios
+                tittle1="$min"
+                tittle2="$max"
                 principal="Rango de precios" />
             </div>
             <div class="izquierdo">
@@ -36,14 +36,14 @@
             </div>
             <div class="cont-table">
                 <div class="row" v-for="productos in productos" :key="productos.id">
-                    <Rows 
+                    <Rows
                     @editar="sendId(productos.id)"
                     @delete="deleteProduducto(productos.id)"
-                    :name="productos.nom_producto" :stock="productos.existencias" :priceV="productos.precio_venta" 
+                    :name="productos.nom_producto" :stock="productos.existencias" :priceV="productos.precio_venta"
                      :iva="productos.iva"
                     :status="productos.estado" />
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@ import { ref, onMounted} from 'vue';
 import {productosPublicosR} from '@/stores/counter.js'
 import {StoreProdPublics, idProductoPublico} from '@/stores/counter.js'
 
-    
+
 const prodPublico = StoreProdPublics();
 const productoPublico = productosPublicosR();
 const idProducto = idProductoPublico();
@@ -76,7 +76,7 @@ const fetchData = async () =>{
         nombre.value =  response.data.data;
 
     } catch(error){
-        
+
     }
 }
 
@@ -95,7 +95,7 @@ const deleteProduducto = async (id) => {
         const response = await axios.delete('http://18.223.116.149/api/productos/delete/' + id);
         console.log(response.data.message);
     } catch (error) {
-        console.log(error)   
+        console.log(error)
     }
 };
 
@@ -117,7 +117,7 @@ const sendId = (id) => {
 
 <style scoped>
 
-    
+
 
 .btns{
     display: flex;
@@ -129,10 +129,10 @@ const sendId = (id) => {
   margin-right: 100px;
 }
 .controles{
-    display: grid; 
-  grid-auto-columns: 1fr; 
-  grid-template-columns: 1.1fr 1.6fr 0.8fr; 
-  gap: 0px 0px; 
+    display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1.1fr 1.6fr 0.8fr;
+  gap: 0px 0px;
   height: 100px;
   width: 94%;
   margin-left: 50px;
@@ -171,7 +171,7 @@ span {
     color: #ffd800;
 
 }
-    
+
 
 .app {
     display: grid;

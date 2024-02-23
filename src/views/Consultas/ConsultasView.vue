@@ -5,49 +5,15 @@
         <div class="Titulo">
           <span class="material-symbols-outlined">local_hospital</span><h2>Generar Consultas</h2>
         </div>
+      <br>
       <div class="filtro">
-        <ComboBox v-model="selectedOption" title="Filtrar por:" :options="[{ text: 'Cliente', value: 'opcion1' },{ text: 'General', value: 'opcion3' }]"/>
+        <Inputs placeholder="Buscar dueño" v-model="nombre" @input="buscarCitasCliente" />
       </div>
-      <div class="filtro2" v-show="status1">
-        <InputCliente tittle1="Nombres(S)" tittle2="Apellidos" v-model:modelValue1="Nombres" v-model:modelValue2="Apellidos" @input="GenerarConsultasCliente" />
-      </div>
-
     </div>
-  
+    <br>
     <div class="pantalla">
       <div class="table-container">
-        <div class="responsive-table" v-if="selectedOption === 'opcion3' && General.length > 0">
-        <table class="table table-hover custom-table">
-        <thead>
-            <tr>
-              <th></th>
-              <th>Mascota</th>
-              <th>Especie</th>
-              <th>Raza</th>
-              <th>Género</th>
-              <th>Dueño</th>
-              <th>Fecha</th>
-              <th>Motivo</th>
-            </tr>
-          </thead>
-          <tbody> 
-            <tr v-for="item in General" :key="item.id">
-              <td><span class="material-symbols-outlined" id="Boton" @click="TServicios(item.id)">local_hospital</span></td>
-              <td id="Nombre">{{ item.Nombre }}</td>
-              <td>{{ item.Especie }}</td>
-              <td>{{ item.Raza }}</td>
-              <td>{{ item.Genero }}</td>
-              <td>{{ item.Dueño }}</td>
-              <td>{{ item.Fecha }}</td>
-              <td>{{ item.Motivo }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-      <!-- Tabla de consultas por cliente -->
-      <div class="responsive-table" v-if="selectedOption === 'opcion1' && constCliente.length > 0">
+        <div class="responsive-table" v-if="General.length > 0">
         <table class="table table-hover custom-table">
         <thead>
             <tr>
@@ -62,7 +28,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in constCliente" :key="item.id">
+            <tr v-for="item in General" :key="item.id" @click="TServicios(item.id)">
               <td><span class="material-symbols-outlined" id="Boton" @click="TServicios(item.id)">local_hospital</span></td>
               <td id="Nombre">{{ item.Nombre }}</td>
               <td>{{ item.Especie }}</td>
@@ -75,8 +41,6 @@
           </tbody>
         </table>
       </div>
-        <p v-else-if="selectedOption === 'opcion1' && constCliente.length <= 0" class="display-7 text-center my-2"><br>Escribe el nombre de un usuario válido.</p>
-
     </div>
 
     </div>
@@ -147,12 +111,6 @@
   import BarAlertError from "@/components/Mensajes/BarAlertError.vue";
   import BarAlertSuccess from "@/components/Mensajes/BarAlertSuccess.vue";
 
-
-  const selectedOption = ref('opcion3');
-  const status1 = ref(false);
-  const status2 = ref(true);
-  const status3 = ref(false);
-
   const VoidInputsMessage = ref("Error. Campos vacíos.")
   const VoidInputs = ref(false);
 
@@ -176,7 +134,6 @@
     }
   }
 
-
   const servicios = ref([]);
   const TServicios = async (id) => {
    id_cita.value = id;
@@ -188,8 +145,6 @@
   console.error(error);
   }
   };
-
-
 
   const Services = async () => {
     const data = {
@@ -289,22 +244,6 @@
     showRegistrarMascota.value = false;
     resetForm();
   };
-  
-  watch(selectedOption, (newValue) => {
-    if (newValue === 'opcion1') {
-      status1.value = true;
-      status2.value = false;
-      status3.value = false;
-    } else if (newValue === 'opcion2') {
-      status1.value = false;
-      status2.value = false;
-      status3.value = true;
-    } else {
-      status1.value = false;
-      status2.value = true;
-      status3.value = false;
-    }
-  });
   const General = ref([]);
 const GenerarConsultas = async () => {
  try {
@@ -317,30 +256,29 @@ const GenerarConsultas = async () => {
 onMounted(GenerarConsultas);
 
 
-const Nombres = ref("");
-const Apellidos = ref("");  
-const constCliente = ref([]);
-const GenerarConsultasCliente = async () => {
+const nombre = ref(null);
+  const buscarCitasCliente = async () => {
+    try {
+      const response = await axios.post('http://18.223.116.149/api/consultas/buscarCitasCliente', {nombre: nombre.value });
+      General.value = response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  const data = {
-    Nombre: Nombres.value,
-    Apellido: Apellidos.value
-  }
-try {
-  const response = await axios.post('http://18.223.116.149/api/consultas/generarConsultasCliente', data)
-  constCliente.value = response.data.data;
-} catch (error) {
-  console.error("Error al obtener el reporte de inventario", error);
-}
-};
 
-</script>
+
+  </script>
   
   <style scoped>
   * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+  }
+
+  td{
+    border: none;
   }
 
 

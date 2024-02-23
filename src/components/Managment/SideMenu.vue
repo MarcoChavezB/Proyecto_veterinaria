@@ -57,14 +57,14 @@
                         <h4>Servicios</h4>
                     </router-link>
 
-                    <a href="#" @click="preventDefault" >
+                    <!--<a href="#" @click="preventDefault" >
                         <span class="material-symbols-outlined" >summarize</span>
                         <select v-model="selectedOption" class="sidebar-select" @change="onReportChange">
                             <option value="" disabled selected>Reportes</option>
                             <option value="reportconsultasrealizadas">Consultas realizadas.</option>
                             <option value="reportconsultasrechazadas">Citas rechazadas.</option>
                         </select>
-                    </a>
+                    </a>-->
 
                 </div>
 
