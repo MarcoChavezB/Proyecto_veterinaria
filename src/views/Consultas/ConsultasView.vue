@@ -79,7 +79,7 @@
       </div>
           </div>
         <br>
-        <div v-for="costos in costosPS">
+        <div v-for="costos in costosPS" v-if="costosPS.length >0">
           <p>Costo Servicios:  ${{costos.costo_servicios_total}}</p>
           <p>Costo Articulos:  ${{costos.costo_productos_total}}</p>
           <p>Total:  ${{costos.costo_total}}</p>
@@ -162,7 +162,12 @@
 
 
   watch(services, async (newValue) => {
-    await CalcularCostoDetallado();
+    if (services.value.length <= 0){
+      costosPS.value = [];
+    }
+    else{
+      await CalcularCostoDetallado();
+    }
   });
 
 
